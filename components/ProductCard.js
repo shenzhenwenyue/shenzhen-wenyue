@@ -12,8 +12,10 @@ function ImagePlaceholder() {
   )
 }
 
-export default function ProductCard({ product, cartQty, onAdd, onRemove }) {
+export default function ProductCard({ product, cartQty, onAdd, onRemove, onSetQty }) {
   const [imgError, setImgError] = useState(false)
+  const [editingQty, setEditingQty] = useState(false)
+  const [inputVal, setInputVal] = useState('')
   const qty = cartQty || 0
   const currentPrice = getPrecio(product, qty || 1)
   const hasTiers = product.qty_tier2 || product.qty_tier3
@@ -91,7 +93,33 @@ export default function ProductCard({ product, cartQty, onAdd, onRemove }) {
               >
                 −
               </button>
-              <span className="w-5 text-center font-semibold text-sm">{qty}</span>
+              {editingQty ? (
+                <input
+                  type="number"
+                  min={1}
+                  autoFocus
+                  value={inputVal}
+                  onChange={e => setInputVal(e.target.value)}
+                  onBlur={() => {
+                    const n = parseInt(inputVal)
+                    if (n >= 1) onSetQty(product.id, n)
+                    setEditingQty(false)
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') e.target.blur()
+                    if (e.key === 'Escape') setEditingQty(false)
+                  }}
+                  className="w-10 text-center font-semibold text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                />
+              ) : (
+                <span
+                  onClick={() => { setInputVal(String(qty)); setEditingQty(true) }}
+                  className="w-8 text-center font-semibold text-sm cursor-pointer hover:bg-gray-100 rounded px-1 py-0.5"
+                  title="Toca para editar"
+                >
+                  {qty}
+                </span>
+              )}
               <button
                 onClick={() => onAdd(product)}
                 className="w-7 h-7 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-base leading-none text-white"

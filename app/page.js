@@ -65,6 +65,15 @@ export default function Home() {
     })
   }, [])
 
+  const setQtyInCart = useCallback((productId, qty) => {
+    setCart(prev => {
+      const existing = prev.find(i => i.id === productId)
+      if (qty < 1) return prev.filter(i => i.id !== productId)
+      if (existing) return prev.map(i => i.id === productId ? { ...i, qty } : i)
+      return [...prev, { id: productId, qty }]
+    })
+  }, [])
+
   const cartCount = cart.reduce((sum, i) => sum + i.qty, 0)
 
   return (
@@ -167,6 +176,7 @@ export default function Home() {
                     cartQty={cart.find(i => i.id === product.id)?.qty || 0}
                     onAdd={addToCart}
                     onRemove={removeFromCart}
+                    onSetQty={setQtyInCart}
                   />
                 ))}
               </div>
