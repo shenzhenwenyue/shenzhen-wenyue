@@ -40,15 +40,15 @@ function splitCSVLine(line) {
 }
 
 /**
- * Convierte links de Google Drive al formato de imagen directa.
+ * Convierte links de Google Drive al formato thumbnail (más confiable para embeber).
  * Input:  https://drive.google.com/file/d/{ID}/view
- * Output: https://drive.google.com/uc?export=view&id={ID}
+ * Output: https://drive.google.com/thumbnail?id={ID}&sz=w600
  */
 function normalizeImageUrl(url) {
   if (!url) return null
   const match = url.match(/drive\.google\.com\/file\/d\/([^/?\s]+)/)
   if (match) {
-    return `https://drive.google.com/uc?export=view&id=${match[1]}`
+    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w600`
   }
   return url
 }
