@@ -6,6 +6,7 @@ const WHATSAPP = '16572621801'
 
 export default function OrderModal({ items, products, onClose, onSuccess }) {
   const [name, setName] = useState('')
+  const [countryCode, setCountryCode] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -41,7 +42,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           customer_name: name.trim(),
-          customer_whatsapp: whatsapp.trim(),
+          customer_whatsapp: countryCode + whatsapp.trim().replace(/\D/g, ''),
           items: orderItems,
           total,
         }),
@@ -104,14 +105,28 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
               </div>
               <div>
                 <label className="block text-xs font-semibold text-gray-600 mb-1">Tu número de WhatsApp</label>
-                <input
-                  type="tel"
-                  value={whatsapp}
-                  onChange={e => setWhatsapp(e.target.value)}
-                  placeholder="+1 713 000 0000"
-                  required
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400"
-                />
+                <div className="flex gap-2">
+                  <select
+                    value={countryCode}
+                    onChange={e => setCountryCode(e.target.value)}
+                    required
+                    className={`px-3 py-2.5 border rounded-xl text-sm focus:outline-none focus:border-gray-400 bg-white shrink-0 ${
+                      !countryCode ? 'border-gray-200 text-gray-400' : 'border-gray-200 text-gray-900'
+                    }`}
+                  >
+                    <option value="" disabled>Código</option>
+                    <option value="+1">🇺🇸 +1 USA</option>
+                    <option value="+52">🇲🇽 +52 México</option>
+                  </select>
+                  <input
+                    type="tel"
+                    value={whatsapp}
+                    onChange={e => setWhatsapp(e.target.value)}
+                    placeholder="713 000 0000"
+                    required
+                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400"
+                  />
+                </div>
               </div>
 
               {/* Resumen del pedido */}
@@ -134,7 +149,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
 
               <button
                 type="submit"
-                disabled={loading || !name.trim() || !whatsapp.trim()}
+                disabled={loading || !name.trim() || !whatsapp.trim() || !countryCode}
                 className="w-full py-3.5 bg-black text-white font-bold rounded-2xl hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? 'Enviando...' : 'Enviar Solicitud'}

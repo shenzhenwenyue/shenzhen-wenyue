@@ -18,6 +18,9 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
   const [partialQtys, setPartialQtys] = useState({})
   const [shipping, setShipping] = useState('')
   const [trackingInput, setTrackingInput] = useState(order.tracking_number || '')
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [deletePassword, setDeletePassword] = useState('')
+  const [deleteError, setDeleteError] = useState(false)
 
   const allReviewed = order.items.every(i => i.confirmed !== null)
   const confirmedItems = order.items.filter(i => i.confirmed !== false)
@@ -76,6 +79,22 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
     window.open(`https://wa.me/${order.customer_whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank')
   }
 
+  async function handleDelete() {
+    if (deletePassword !== adminPassword) {
+      setDeleteError(true)
+      return
+    }
+    setSaving(true)
+    const res = await fetch(`/api/orders/${order.id}`, {
+      method: 'DELETE',
+      headers: { 'x-admin-password': adminPassword },
+    })
+    if (res.ok) {
+      setOrder(null) // ocultar la card
+    }
+    setSaving(false)
+  }
+
   function handleOrdenProveedor() {
     const fecha = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })
     let msg = `*ORDEN DE COMPRA — Shenzhen Wenyue*\n`
@@ -102,6 +121,10 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
   const fecha = new Date(order.created_at).toLocaleDateString('es-MX', {
     day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
   })
+
+  if (!order) return null
+
+  const canDelete = ['confirmed', 'shipped', 'completed'].includes(order.status)
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -325,6 +348,45 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
             >
               Archivar
             </button>
+          )}
+
+          {/* Eliminar pedido */}
+          {canDelete && !showDeleteConfirm && (
+            <button
+              onClick={() => { setShowDeleteConfirm(true); setDeleteError(false); setDeletePassword('') }}
+              className="w-full py-2 border border-red-200 text-red-400 text-xs font-semibold rounded-xl hover:bg-red-50 transition-colors"
+            >
+              Eliminar pedido
+            </button>
+          )}
+
+          {showDeleteConfirm && (
+            <div className="border border-red-200 rounded-xl p-3 space-y-2 bg-red-50">
+              <p className="text-xs text-red-600 font-medium">Confirma tu contraseña para eliminar</p>
+              <input
+                type="password"
+                value={deletePassword}
+                onChange={e => { setDeletePassword(e.target.value); setDeleteError(false) }}
+                placeholder="Contraseña"
+                className="w-full px-3 py-2 border border-red-200 rounded-lg text-sm focus:outline-none bg-white"
+              />
+              {deleteError && <p className="text-xs text-red-500">Contraseña incorrecta</p>}
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="flex-1 py-1.5 border border-gray-200 text-gray-500 text-xs font-semibold rounded-lg hover:bg-gray-50"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={handleDelete}
+                  disabled={saving || !deletePassword}
+                  className="flex-1 py-1.5 bg-red-500 text-white text-xs font-semibold rounded-lg hover:bg-red-600 disabled:opacity-50"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
           )}
         </div>
       </div>
