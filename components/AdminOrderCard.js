@@ -15,10 +15,12 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
   const [order, setOrder] = useState(initialOrder)
   const [saving, setSaving] = useState(false)
   const [partialQtys, setPartialQtys] = useState({})
+  const [shipping, setShipping] = useState('')
 
   const allReviewed = order.items.every(i => i.confirmed !== null)
   const confirmedItems = order.items.filter(i => i.confirmed !== false)
-  const confirmedTotal = confirmedItems.reduce((sum, i) => sum + (i.available_qty || i.qty) * i.unit_price, 0)
+  const shippingCost = parseFloat(shipping) || 0
+  const confirmedTotal = confirmedItems.reduce((sum, i) => sum + (i.available_qty || i.qty) * i.unit_price, 0) + shippingCost
 
   async function patch(updates) {
     setSaving(true)
@@ -51,7 +53,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
   }
 
   async function handleGenerarPDF() {
-    const doc = await generarConfirmacionPDF(order)
+    const doc = await generarConfirmacionPDF(order, shippingCost)
     doc.save(`confirmacion-${order.id.substring(0, 8).toUpperCase()}.pdf`)
   }
 
@@ -186,11 +188,28 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
 
       {/* Footer con acciones */}
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 space-y-2">
-        {/* Total */}
+        {/* Envío y total */}
         {allReviewed && (
-          <div className="flex justify-between text-sm font-bold text-gray-900">
-            <span>Total confirmado</span>
-            <span>${confirmedTotal.toFixed(2)}</span>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-3">
+              <label className="text-sm text-gray-600 shrink-0">Costo de envío</label>
+              <div className="flex items-center gap-1">
+                <span className="text-sm text-gray-500">$</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={shipping}
+                  onChange={e => setShipping(e.target.value)}
+                  placeholder="0.00"
+                  className="w-24 px-2 py-1 border border-gray-200 rounded-lg text-sm text-right focus:outline-none focus:border-gray-400"
+                />
+              </div>
+            </div>
+            <div className="flex justify-between text-sm font-bold text-gray-900 border-t border-gray-200 pt-2">
+              <span>Total confirmado</span>
+              <span>${confirmedTotal.toFixed(2)}</span>
+            </div>
           </div>
         )}
 
