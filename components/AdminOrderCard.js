@@ -76,6 +76,21 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
     window.open(`https://wa.me/${order.customer_whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank')
   }
 
+  function handleOrdenProveedor() {
+    const fecha = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })
+    let msg = `*ORDEN DE COMPRA — Shenzhen Wenyue*\n`
+    msg += `Fecha: ${fecha}\n`
+    msg += `Pedido: #${order.id.substring(0, 8).toUpperCase()}\n\n`
+    confirmedItems.forEach(item => {
+      const qty = item.available_qty || item.qty
+      const sku = item.sku ? `[${item.sku}] ` : ''
+      msg += `• ${sku}${item.nombre} — ${qty} u.\n`
+    })
+    msg += `\nTotal unidades: ${confirmedItems.reduce((s, i) => s + (i.available_qty || i.qty), 0)}`
+    navigator.clipboard?.writeText(msg)
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
+  }
+
   function handleEnviarTracking() {
     const msg =
       `Hola *${order.customer_name}*! Tu pedido ha sido enviado.\n\n` +
@@ -271,13 +286,21 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
           )}
 
           {order.status === 'confirmed' && (
-            <button
-              onClick={() => patch({ status: 'paid' })}
-              disabled={saving}
-              className="w-full py-2 bg-emerald-500 text-white text-xs font-semibold rounded-xl hover:bg-emerald-600 disabled:opacity-50 transition-colors"
-            >
-              Marcar Pagado
-            </button>
+            <>
+              <button
+                onClick={handleOrdenProveedor}
+                className="w-full py-2 bg-gray-800 text-white text-xs font-semibold rounded-xl hover:bg-black transition-colors"
+              >
+                Exportar orden para proveedor
+              </button>
+              <button
+                onClick={() => patch({ status: 'paid' })}
+                disabled={saving}
+                className="w-full py-2 bg-emerald-500 text-white text-xs font-semibold rounded-xl hover:bg-emerald-600 disabled:opacity-50 transition-colors"
+              >
+                Marcar Pagado
+              </button>
+            </>
           )}
 
           {order.status === 'paid' && (

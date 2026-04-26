@@ -19,6 +19,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
       product_id: product.id,
       nombre: product.nombre,
       categoria: product.categoria,
+      sku: product.sku || '',
       qty: item.qty,
       unit_price: getPrecio(product, item.qty),
       confirmed: null,

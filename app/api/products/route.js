@@ -90,6 +90,7 @@ export async function GET() {
         qty_tier3: parseInt(row.qty_tier3) || null,
         precio_tier3: parseFloat(row.precio_tier3) || null,
         qty_minima: parseInt(row.qty_minima) || 1,
+        sku: row.sku || '',
       }))
 
     return NextResponse.json(products)

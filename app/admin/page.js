@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import AdminOrderCard from '@/components/AdminOrderCard'
+import AdminProductList from '@/components/AdminProductList'
 
 const STATUS_ORDER = ['pending', 'confirmed', 'paid', 'shipped', 'completed']
 const STATUS_LABELS = {
@@ -70,6 +71,7 @@ export default function AdminPage() {
   }
 
   const filtered = orders.filter(o => o.status === activeTab)
+  const isProductTab = activeTab === 'products'
   const pendingCount = orders.filter(o => o.status === 'pending').length
 
   // ── Login ────────────────────────────────────────────────────
@@ -144,10 +146,27 @@ export default function AdminPage() {
             )}
           </button>
         ))}
+        <button
+          onClick={() => setActiveTab('products')}
+          className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === 'products'
+              ? 'border-black text-black'
+              : 'border-transparent text-gray-400 hover:text-gray-700'
+          }`}
+        >
+          Productos
+        </button>
       </div>
 
+      {/* Products tab */}
+      {isProductTab && (
+        <div className="max-w-2xl mx-auto px-4 py-5">
+          <AdminProductList />
+        </div>
+      )}
+
       {/* Orders */}
-      <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
+      {!isProductTab && <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
         {loading ? (
           <div className="space-y-4">
             {[1, 2].map(i => (
@@ -167,7 +186,7 @@ export default function AdminPage() {
             />
           ))
         )}
-      </div>
+      </div>}
     </main>
   )
 }
