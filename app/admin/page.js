@@ -2,11 +2,12 @@
 import { useState, useEffect } from 'react'
 import AdminOrderCard from '@/components/AdminOrderCard'
 
-const STATUS_ORDER = ['pending', 'confirmed', 'paid', 'completed']
+const STATUS_ORDER = ['pending', 'confirmed', 'paid', 'shipped', 'completed']
 const STATUS_LABELS = {
   pending: 'Pendientes',
   confirmed: 'Confirmados',
   paid: 'Pagados',
+  shipped: 'Enviados',
   completed: 'Archivados',
 }
 

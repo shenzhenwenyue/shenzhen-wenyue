@@ -8,6 +8,7 @@ const STATUS_LABELS = {
   pending: 'Pendiente',
   confirmed: 'Confirmado',
   paid: 'Pagado',
+  shipped: 'Enviado',
   completed: 'Completado',
 }
 
@@ -16,6 +17,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
   const [saving, setSaving] = useState(false)
   const [partialQtys, setPartialQtys] = useState({})
   const [shipping, setShipping] = useState('')
+  const [trackingInput, setTrackingInput] = useState(order.tracking_number || '')
 
   const allReviewed = order.items.every(i => i.confirmed !== null)
   const confirmedItems = order.items.filter(i => i.confirmed !== false)
@@ -68,8 +70,17 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
       msg += `\nNo disponible:\n`
       unavailable.forEach(item => { msg += `✗ ${item.nombre}\n` })
     }
-    msg += `\n*Total confirmado: $${confirmedTotal.toFixed(2)}*`
+    if (shippingCost > 0) msg += `\nEnvío: $${shippingCost.toFixed(2)}`
+    msg += `\n*Total: $${confirmedTotal.toFixed(2)}*`
     msg += `\n\nTe enviamos el PDF con los detalles. Para proceder, favor de realizar el pago.`
+    window.open(`https://wa.me/${order.customer_whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank')
+  }
+
+  function handleEnviarTracking() {
+    const msg =
+      `Hola *${order.customer_name}*! Tu pedido ha sido enviado.\n\n` +
+      `*Número de seguimiento:* ${trackingInput}\n\n` +
+      `Puedes rastrear tu paquete con ese número. Cualquier duda estamos a tus órdenes.`
     window.open(`https://wa.me/${order.customer_whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank')
   }
 
@@ -87,6 +98,9 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
             <StatusBadge status={order.status} />
           </div>
           <p className="text-xs text-gray-400 mt-0.5">{fecha} · #{order.id.substring(0, 8).toUpperCase()}</p>
+          {order.tracking_number && (
+            <p className="text-xs text-blue-600 mt-0.5">Tracking: {order.tracking_number}</p>
+          )}
         </div>
         <a
           href={`https://wa.me/${order.customer_whatsapp.replace(/\D/g, '')}`}
@@ -115,7 +129,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
               </p>
             </div>
 
-            {/* Controles de confirmación */}
             {order.status === 'pending' && (
               <div className="flex flex-wrap gap-2 mt-1">
                 <button
@@ -128,8 +141,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
                 >
                   Hay todo
                 </button>
-
-                {/* Parcial */}
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => {
@@ -154,7 +165,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
                     className="w-12 px-2 py-1 border border-gray-200 rounded-lg text-xs text-center focus:outline-none"
                   />
                 </div>
-
                 <button
                   onClick={() => setItemConfirmed(i, false)}
                   className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
@@ -168,7 +178,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
               </div>
             )}
 
-            {/* Mostrar resultado si ya está confirmado y no está en modo edición */}
             {order.status !== 'pending' && (
               <div className="mt-1">
                 {item.confirmed === false ? (
@@ -186,10 +195,11 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
         ))}
       </div>
 
-      {/* Footer con acciones */}
+      {/* Footer */}
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 space-y-2">
-        {/* Envío y total */}
-        {allReviewed && (
+
+        {/* Envío — visible siempre en pending */}
+        {order.status === 'pending' && (
           <div className="space-y-2">
             <div className="flex items-center justify-between gap-3">
               <label className="text-sm text-gray-600 shrink-0">Costo de envío</label>
@@ -206,14 +216,32 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
                 />
               </div>
             </div>
-            <div className="flex justify-between text-sm font-bold text-gray-900 border-t border-gray-200 pt-2">
-              <span>Total confirmado</span>
-              <span>${confirmedTotal.toFixed(2)}</span>
+            {allReviewed && (
+              <div className="flex justify-between text-sm font-bold text-gray-900 border-t border-gray-200 pt-2">
+                <span>Total confirmado</span>
+                <span>${confirmedTotal.toFixed(2)}</span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Número de seguimiento — visible en paid */}
+        {order.status === 'paid' && (
+          <div className="space-y-2">
+            <label className="block text-sm text-gray-600">Número de seguimiento</label>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={trackingInput}
+                onChange={e => setTrackingInput(e.target.value)}
+                placeholder="Ej: 1Z999AA10123456784"
+                className="flex-1 px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400"
+              />
             </div>
           </div>
         )}
 
-        {/* Acciones principales */}
+        {/* Acciones */}
         <div className="flex gap-2 flex-wrap">
           {allReviewed && order.status === 'pending' && (
             <>
@@ -246,7 +274,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
             <button
               onClick={() => patch({ status: 'paid' })}
               disabled={saving}
-              className="flex-1 py-2 bg-emerald-500 text-white text-xs font-semibold rounded-xl hover:bg-emerald-600 disabled:opacity-50 transition-colors"
+              className="w-full py-2 bg-emerald-500 text-white text-xs font-semibold rounded-xl hover:bg-emerald-600 disabled:opacity-50 transition-colors"
             >
               Marcar Pagado
             </button>
@@ -254,9 +282,23 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword }) {
 
           {order.status === 'paid' && (
             <button
+              onClick={() => {
+                if (!trackingInput.trim()) return
+                patch({ status: 'shipped', tracking_number: trackingInput.trim() })
+                handleEnviarTracking()
+              }}
+              disabled={saving || !trackingInput.trim()}
+              className="w-full py-2 bg-purple-500 text-white text-xs font-semibold rounded-xl hover:bg-purple-600 disabled:opacity-50 transition-colors"
+            >
+              Marcar Enviado y notificar cliente
+            </button>
+          )}
+
+          {order.status === 'shipped' && (
+            <button
               onClick={() => patch({ status: 'completed' })}
               disabled={saving}
-              className="flex-1 py-2 bg-gray-400 text-white text-xs font-semibold rounded-xl hover:bg-gray-500 disabled:opacity-50 transition-colors"
+              className="w-full py-2 bg-gray-400 text-white text-xs font-semibold rounded-xl hover:bg-gray-500 disabled:opacity-50 transition-colors"
             >
               Archivar
             </button>
@@ -272,6 +314,7 @@ function StatusBadge({ status }) {
     pending: 'bg-yellow-100 text-yellow-700',
     confirmed: 'bg-blue-100 text-blue-700',
     paid: 'bg-emerald-100 text-emerald-700',
+    shipped: 'bg-purple-100 text-purple-700',
     completed: 'bg-gray-100 text-gray-500',
   }
   return (
