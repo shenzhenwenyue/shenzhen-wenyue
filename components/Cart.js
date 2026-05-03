@@ -25,6 +25,11 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
   const totalPiezas = cartLines.reduce((sum, l) => sum + l.qty, 0)
   const isEmpty = cartLines.length === 0
 
+  // Categorías con menos de 10 piezas
+  const categoriasIncompletas = Object.entries(totalByCategory)
+    .filter(([, qty]) => qty < 10)
+    .map(([cat, qty]) => ({ cat, faltan: 10 - qty }))
+
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -116,22 +121,26 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
           <div className="border-t p-4 space-y-3">
             <div className="flex justify-between items-center text-xs text-gray-400">
               <span>{totalPiezas} piezas en total</span>
-              {totalPiezas < 10 && (
-                <span className="text-amber-600 font-semibold">Mín. 10 piezas</span>
+              {categoriasIncompletas.length > 0 && (
+                <span className="text-amber-600 font-semibold">Mín. 10 por categoría</span>
               )}
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-600 text-sm">Total estimado</span>
               <span className="text-2xl font-bold">${total.toFixed(2)}</span>
             </div>
-            {totalPiezas < 10 && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 text-xs text-amber-700 text-center">
-                Agrega {10 - totalPiezas} pieza{10 - totalPiezas !== 1 ? 's' : ''} más para continuar
+            {categoriasIncompletas.length > 0 && (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 space-y-0.5">
+                {categoriasIncompletas.map(({ cat, faltan }) => (
+                  <p key={cat} className="text-xs text-amber-700 text-center">
+                    {cat}: agrega {faltan} pieza{faltan !== 1 ? 's' : ''} más
+                  </p>
+                ))}
               </div>
             )}
             <button
               onClick={onRequestQuote}
-              disabled={totalPiezas < 10}
+              disabled={categoriasIncompletas.length > 0}
               className="w-full py-3.5 bg-black hover:bg-gray-800 active:bg-gray-900 text-white font-bold rounded-2xl transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Solicitar Cotización
