@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react'
 import AdminOrderCard from '@/components/AdminOrderCard'
 import AdminProductList from '@/components/AdminProductList'
+import AdminReports from '@/components/AdminReports'
+import AdminCosts from '@/components/AdminCosts'
 
 const STATUS_ORDER = ['pending', 'confirmed', 'paid', 'shipped', 'completed']
 const STATUS_LABELS = {
@@ -72,6 +74,8 @@ export default function AdminPage() {
 
   const filtered = orders.filter(o => o.status === activeTab)
   const isProductTab = activeTab === 'products'
+  const isReportsTab = activeTab === 'reports'
+  const isCostsTab = activeTab === 'costs'
   const pendingCount = orders.filter(o => o.status === 'pending').length
 
   // ── Login ────────────────────────────────────────────────────
@@ -156,6 +160,26 @@ export default function AdminPage() {
         >
           Productos
         </button>
+        <button
+          onClick={() => setActiveTab('reports')}
+          className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === 'reports'
+              ? 'border-black text-black'
+              : 'border-transparent text-gray-400 hover:text-gray-700'
+          }`}
+        >
+          Reportes
+        </button>
+        <button
+          onClick={() => setActiveTab('costs')}
+          className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === 'costs'
+              ? 'border-black text-black'
+              : 'border-transparent text-gray-400 hover:text-gray-700'
+          }`}
+        >
+          Costos
+        </button>
       </div>
 
       {/* Products tab */}
@@ -165,8 +189,22 @@ export default function AdminPage() {
         </div>
       )}
 
+      {/* Reports tab */}
+      {isReportsTab && (
+        <div className="max-w-3xl mx-auto px-4 py-5">
+          <AdminReports orders={orders} adminPassword={adminPassword} />
+        </div>
+      )}
+
+      {/* Costs tab */}
+      {isCostsTab && (
+        <div className="max-w-2xl mx-auto px-4 py-5">
+          <AdminCosts adminPassword={adminPassword} />
+        </div>
+      )}
+
       {/* Orders */}
-      {!isProductTab && <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
+      {!isProductTab && !isReportsTab && !isCostsTab && <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
         {loading ? (
           <div className="space-y-4">
             {[1, 2].map(i => (
@@ -183,6 +221,7 @@ export default function AdminPage() {
               key={order.id}
               order={order}
               adminPassword={adminPassword}
+              onDelete={id => setOrders(prev => prev.filter(o => o.id !== id))}
             />
           ))
         )}

@@ -61,6 +61,7 @@ export async function POST(req) {
           `NUEVO PEDIDO — Shenzhen Wenyue`,
           ``,
           `Cliente: ${data.customer_name}`,
+          `Correo: ${data.customer_email || 'No proporcionado'}`,
           `WhatsApp: ${data.customer_whatsapp}`,
           ``,
           `Productos:`,
