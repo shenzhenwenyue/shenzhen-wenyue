@@ -67,7 +67,7 @@ export default function TrackPage() {
           <p className="text-sm text-gray-500 mb-5">
             Ingresa el correo electrónico con el que realizaste tu pedido.
           </p>
-          <form onSubmit={handleSearch} className="flex gap-2">
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">
             <input
               type="email"
               value={email}
@@ -79,7 +79,7 @@ export default function TrackPage() {
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-xl hover:bg-gray-800 disabled:opacity-50 transition-colors shrink-0"
+              className="w-full sm:w-auto px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-xl hover:bg-gray-800 disabled:opacity-50 transition-colors"
             >
               {loading ? '...' : 'Buscar'}
             </button>
@@ -169,7 +169,7 @@ function OrderCard({ order }) {
         <div className="px-5 py-3 bg-blue-50 border-b border-blue-100 flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold text-blue-600">Número de guía</p>
-            <p className="text-base font-mono font-bold text-blue-900 tracking-wider mt-0.5">
+            <p className="text-sm font-mono font-bold text-blue-900 break-all mt-0.5">
               {order.tracking_number}
             </p>
           </div>
