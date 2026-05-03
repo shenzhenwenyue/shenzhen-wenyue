@@ -124,8 +124,11 @@ export default function Home() {
       {/* Header */}
       <header className="bg-black text-white sticky top-0 z-40 shadow-lg">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold tracking-tight leading-none">Shenzhen Wenyue Ltd. Liability Co.</h1>
+          <div className="min-w-0">
+            <h1 className="font-bold tracking-tight leading-none text-base sm:text-lg truncate">
+              <span>Shenzhen Wenyue</span>
+              <span className="hidden sm:inline"> Ltd. Liability Co.</span>
+            </h1>
             <p className="text-xs text-gray-400 mt-0.5">Catálogo Mayoreo</p>
           </div>
           <a
@@ -144,7 +147,7 @@ export default function Home() {
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
-            <span className="text-sm font-medium">Pedido</span>
+            <span className="text-sm font-medium hidden sm:inline">Pedido</span>
             {cartCount > 0 && (
               <span className="absolute -top-1.5 -right-1.5 bg-green-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
                 {cartCount > 99 ? '99+' : cartCount}

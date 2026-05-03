@@ -145,10 +145,10 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
           {/* Controles SIN tallas */}
           {!hasSizes && (
             qty > 0 ? (
-              <div className="flex items-center gap-1 shrink-0">
+              <div className="flex items-center gap-1.5 shrink-0">
                 <button
                   onClick={() => onRemove(product.id)}
-                  className="w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-base leading-none text-gray-700 shrink-0"
+                  className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-lg leading-none text-gray-700 shrink-0"
                 >−</button>
                 {editingQty ? (
                   <input
@@ -166,23 +166,23 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                       if (e.key === 'Enter') e.target.blur()
                       if (e.key === 'Escape') setEditingQty(false)
                     }}
-                    className="w-8 text-center font-semibold text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                    className="w-9 h-9 text-center font-semibold text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-black"
                   />
                 ) : (
                   <span
                     onClick={() => { setInputVal(String(qty)); setEditingQty(true) }}
-                    className="w-7 text-center font-semibold text-sm cursor-pointer hover:bg-gray-100 rounded px-1 py-0.5"
+                    className="w-9 h-9 text-center font-semibold text-sm cursor-pointer hover:bg-gray-100 rounded-lg flex items-center justify-center"
                   >{qty}</span>
                 )}
                 <button
                   onClick={() => onAdd(product)}
-                  className="w-7 h-7 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-base leading-none text-white shrink-0"
+                  className="w-9 h-9 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-lg leading-none text-white shrink-0"
                 >+</button>
               </div>
             ) : (
               <button
                 onClick={() => onAdd(product)}
-                className="px-3 py-1.5 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors"
+                className="px-4 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors"
               >Agregar</button>
             )
           )}
@@ -216,21 +216,21 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                       <>
                         <button
                           onClick={() => onRemove(cartId)}
-                          className="w-6 h-6 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600"
+                          className="w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-sm font-bold text-gray-600"
                         >−</button>
-                        <div className="flex flex-col items-center">
-                          <span className="text-xs font-bold text-gray-900 leading-none">{sizeQty}</span>
+                        <div className="flex flex-col items-center min-w-[28px]">
+                          <span className="text-sm font-bold text-gray-900 leading-none">{sizeQty}</span>
                           <span className="text-xs text-gray-500 leading-none">{size}</span>
                         </div>
                         <button
                           onClick={() => onAdd(product, size)}
-                          className="w-6 h-6 rounded-lg bg-black hover:bg-gray-800 flex items-center justify-center text-xs font-bold text-white"
+                          className="w-8 h-8 rounded-lg bg-black hover:bg-gray-800 flex items-center justify-center text-sm font-bold text-white"
                         >+</button>
                       </>
                     ) : (
                       <button
                         onClick={() => onAdd(product, size)}
-                        className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-gray-200 text-gray-600 hover:border-black hover:text-black transition-colors"
+                        className="px-3 py-2 rounded-xl text-xs font-semibold border border-gray-200 text-gray-600 hover:border-black hover:text-black transition-colors"
                       >{size}</button>
                     )}
                   </div>
