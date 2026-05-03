@@ -81,7 +81,7 @@ export default function AdminReports({ orders, adminPassword }) {
         const qty = item.available_qty || item.qty
         const revenue = qty * (item.unit_price || 0)
         const categoryTotalQty = item.categoria === 'Perfumes' ? totalPerfumesQty : qty
-        const costo = getCosto(costRules, item, categoryTotalQty)
+        const costo = item.unit_cost ?? getCosto(costRules, item, categoryTotalQty)
         totalItemsRevenue += revenue
         if (costo !== null) {
           totalCosto += costo * qty
@@ -111,7 +111,7 @@ export default function AdminReports({ orders, adminPassword }) {
           const qty = item.available_qty || item.qty
           const revenue = qty * (item.unit_price || 0)
           const categoryTotalQty = item.categoria === 'Perfumes' ? totalPerfumesQty : qty
-          const costo = getCosto(costRules, item, categoryTotalQty)
+          const costo = item.unit_cost ?? getCosto(costRules, item, categoryTotalQty)
           map[cat].qty += qty
           map[cat].revenue += revenue
           if (costo !== null) {

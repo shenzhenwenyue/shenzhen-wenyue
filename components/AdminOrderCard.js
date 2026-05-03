@@ -23,6 +23,10 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [deleteError, setDeleteError] = useState(false)
   const [pdfSelected, setPdfSelected] = useState(null) // null = todos, Set = selección explícita
   const [expanded, setExpanded] = useState(order.status === 'pending')
+  const [costInputs, setCostInputs] = useState(() =>
+    Object.fromEntries(order.items.map((item, i) => [i, item.unit_cost ?? '']))
+  )
+  const [savingCosts, setSavingCosts] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
   const [editingItems, setEditingItems] = useState(false)
   const [editItems, setEditItems] = useState(order.items)
@@ -68,6 +72,16 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     } finally {
       setSaving(false)
     }
+  }
+
+  async function handleSaveCosts() {
+    setSavingCosts(true)
+    const updatedItems = order.items.map((item, i) => {
+      const val = parseFloat(costInputs[i])
+      return { ...item, unit_cost: isNaN(val) ? (item.unit_cost ?? null) : val }
+    })
+    await patch({ items: updatedItems })
+    setSavingCosts(false)
   }
 
   function setItemConfirmed(index, confirmed, available_qty = null) {
@@ -237,6 +251,24 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                 <div className="min-w-0">
                 <p className="text-sm font-medium text-gray-900">{item.nombre}</p>
                 <p className="text-xs text-gray-400">{item.categoria} · {item.qty} u. · ${item.unit_price.toFixed(2)} c/u</p>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <span className="text-xs text-gray-400">Costo proveedor:</span>
+                  <span className="text-xs text-gray-400">$</span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={costInputs[i]}
+                    onChange={e => setCostInputs(prev => ({ ...prev, [i]: e.target.value }))}
+                    placeholder="0.00"
+                    className="w-16 px-1.5 py-0.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-gray-400"
+                  />
+                  {item.unit_cost && (
+                    <span className="text-xs text-green-600 font-medium">
+                      +${((item.unit_price - item.unit_cost) * (item.available_qty || item.qty)).toFixed(2)} gan.
+                    </span>
+                  )}
+                </div>
                 </div>
               </div>
               <p className="text-sm font-semibold text-gray-700 shrink-0 ml-2">
@@ -313,6 +345,14 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       {/* Footer */}
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 space-y-2">
 
+        {/* Guardar costos de proveedor */}
+        <button
+          onClick={handleSaveCosts}
+          disabled={savingCosts}
+          className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-semibold rounded-xl transition-colors"
+        >
+          {savingCosts ? 'Guardando…' : 'Guardar costos de proveedor'}
+        </button>
 
         {/* Envío — visible siempre en pending */}
         {order.status === 'pending' && (
