@@ -12,13 +12,33 @@ function ImagePlaceholder() {
   )
 }
 
-export default function ProductCard({ product, cartQty, onAdd, onRemove, onSetQty }) {
+export default function ProductCard({ product, cartQty, cartSizes, categoryQty, onAdd, onRemove, onSetQty }) {
   const [imgError, setImgError] = useState(false)
   const [editingQty, setEditingQty] = useState(false)
   const [inputVal, setInputVal] = useState('')
+  const [showSizes, setShowSizes] = useState(false)
+
+  const hasSizes = product.tallas?.length > 0
   const qty = cartQty || 0
-  const currentPrice = getPrecio(product, qty || 1)
-  const hasTiers = product.qty_tier2 || product.qty_tier3
+  const totalSizedQty = hasSizes
+    ? Object.values(cartSizes || {}).reduce((s, q) => s + q, 0)
+    : 0
+  const displayQty = hasSizes ? totalSizedQty : qty
+  // Para precio: usa el total de la categoría si es mayor (mayoreo agrupado)
+  const pricingQty = Math.max(displayQty || 1, categoryQty || 0)
+  const currentPrice = getPrecio(product, pricingQty)
+  const hasTiers = product.qty_tier2 || product.qty_tier3 || product.qty_tier4 || product.qty_tier5
+
+  // Siguiente tier al que puede llegar el cliente
+  const allTiers = [
+    product.qty_tier2 && { qty: product.qty_tier2, price: product.precio_tier2 },
+    product.qty_tier3 && { qty: product.qty_tier3, price: product.precio_tier3 },
+    product.qty_tier4 && { qty: product.qty_tier4, price: product.precio_tier4 },
+    product.qty_tier5 && { qty: product.qty_tier5, price: product.precio_tier5 },
+  ].filter(Boolean)
+  const nextTier = displayQty > 0 ? allTiers.find(t => pricingQty < t.qty) : null
+  const isDiscounted = pricingQty >= (product.qty_tier2 || Infinity)
+  const savingsPct = isDiscounted ? Math.round((1 - currentPrice / product.precio_1) * 100) : 0
 
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex flex-col">
@@ -44,6 +64,9 @@ export default function ProductCard({ product, cartQty, onAdd, onRemove, onSetQt
       {/* Info */}
       <div className="p-3 flex flex-col flex-1">
         <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">{product.categoria}</p>
+        {product.subcategoria && (
+          <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-0.5">{product.subcategoria}</p>
+        )}
         <h3 className="font-semibold text-gray-900 text-sm leading-snug mb-1">{product.nombre}</h3>
 
         {product.descripcion && (
@@ -54,91 +77,173 @@ export default function ProductCard({ product, cartQty, onAdd, onRemove, onSetQt
         {hasTiers && (
           <div className="mb-2 rounded-lg bg-gray-50 p-2 space-y-0.5 text-xs">
             <TierRow
-              label={`1${product.qty_tier2 ? `–${product.qty_tier2 - 1}` : '+'} u.`}
+              label={`${product.qty_minima || 1}–${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} u.`}
               price={product.precio_1}
-              active={qty === 0 || qty < (product.qty_tier2 || Infinity)}
+              active={pricingQty === 0 || pricingQty < (product.qty_tier2 || Infinity)}
             />
             {product.qty_tier2 && product.precio_tier2 && (
               <TierRow
-                label={`${product.qty_tier2}${product.qty_tier3 ? `–${product.qty_tier3 - 1}` : '+'} u.`}
+                label={`${product.qty_tier2}–${product.qty_tier3 ? product.qty_tier3 - 1 : '+'} u.`}
                 price={product.precio_tier2}
-                active={qty >= product.qty_tier2 && (!product.qty_tier3 || qty < product.qty_tier3)}
+                active={pricingQty >= product.qty_tier2 && (!product.qty_tier3 || pricingQty < product.qty_tier3)}
                 highlight
               />
             )}
             {product.qty_tier3 && product.precio_tier3 && (
               <TierRow
-                label={`${product.qty_tier3}+ u.`}
+                label={`${product.qty_tier3}–${product.qty_tier4 ? product.qty_tier4 - 1 : '+'} u.`}
                 price={product.precio_tier3}
-                active={qty >= product.qty_tier3}
+                active={pricingQty >= product.qty_tier3 && (!product.qty_tier4 || pricingQty < product.qty_tier4)}
                 highlight
               />
+            )}
+            {product.qty_tier4 && product.precio_tier4 && (
+              <TierRow
+                label={`${product.qty_tier4}–${product.qty_tier5 ? product.qty_tier5 - 1 : '+'} u.`}
+                price={product.precio_tier4}
+                active={pricingQty >= product.qty_tier4 && (!product.qty_tier5 || pricingQty < product.qty_tier5)}
+                highlight
+              />
+            )}
+            {product.qty_tier5 && product.precio_tier5 && (
+              <TierRow
+                label={`${product.qty_tier5}+ u.`}
+                price={product.precio_tier5}
+                active={pricingQty >= product.qty_tier5}
+                highlight
+                best
+              />
+            )}
+            {/* Indicador de mayoreo agrupado por categoría */}
+            {categoryQty > (displayQty || 0) && (
+              <p className="text-green-600 font-medium pt-0.5 border-t border-gray-200 mt-1">
+                ✓ {categoryQty} u. en total en esta categoría
+              </p>
             )}
           </div>
         )}
 
-        {/* Precio actual + controles */}
-        <div className="flex items-center justify-between mt-auto pt-1">
-          <div>
-            <span className="text-base font-bold text-gray-900">${currentPrice.toFixed(2)}</span>
-            <span className="text-xs text-gray-400 ml-1">c/u</span>
-          </div>
-
-          {qty > 0 ? (
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={() => onRemove(product.id)}
-                className="w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-base leading-none text-gray-700"
-                aria-label="Quitar"
-              >
-                −
-              </button>
-              {editingQty ? (
-                <input
-                  type="number"
-                  min={1}
-                  autoFocus
-                  value={inputVal}
-                  onChange={e => setInputVal(e.target.value)}
-                  onBlur={() => {
-                    const n = parseInt(inputVal)
-                    if (n >= 1) onSetQty(product.id, n)
-                    setEditingQty(false)
-                  }}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter') e.target.blur()
-                    if (e.key === 'Escape') setEditingQty(false)
-                  }}
-                  className="w-10 text-center font-semibold text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-black"
-                />
-              ) : (
-                <span
-                  onClick={() => { setInputVal(String(qty)); setEditingQty(true) }}
-                  className="w-8 text-center font-semibold text-sm cursor-pointer hover:bg-gray-100 rounded px-1 py-0.5"
-                  title="Toca para editar"
-                >
-                  {qty}
+        {/* Precio actual */}
+        <div className="flex items-center justify-between mt-auto pt-1 gap-2">
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-base font-bold text-gray-900">${currentPrice.toFixed(2)}</span>
+              <span className="text-xs text-gray-400">c/u</span>
+              {isDiscounted && (
+                <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-semibold">
+                  Descuento −{savingsPct}%
                 </span>
               )}
+            </div>
+            {nextTier && (
+              <p className="text-xs text-blue-600 font-medium mt-0.5">
+                +{nextTier.qty - pricingQty} u. más → ${nextTier.price.toFixed(2)} c/u
+              </p>
+            )}
+          </div>
+
+          {/* Controles SIN tallas */}
+          {!hasSizes && (
+            qty > 0 ? (
+              <div className="flex items-center gap-1 shrink-0">
+                <button
+                  onClick={() => onRemove(product.id)}
+                  className="w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-base leading-none text-gray-700 shrink-0"
+                >−</button>
+                {editingQty ? (
+                  <input
+                    type="number"
+                    min={1}
+                    autoFocus
+                    value={inputVal}
+                    onChange={e => setInputVal(e.target.value)}
+                    onBlur={() => {
+                      const n = parseInt(inputVal)
+                      if (n >= 1) onSetQty(product.id, n)
+                      setEditingQty(false)
+                    }}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter') e.target.blur()
+                      if (e.key === 'Escape') setEditingQty(false)
+                    }}
+                    className="w-8 text-center font-semibold text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                  />
+                ) : (
+                  <span
+                    onClick={() => { setInputVal(String(qty)); setEditingQty(true) }}
+                    className="w-7 text-center font-semibold text-sm cursor-pointer hover:bg-gray-100 rounded px-1 py-0.5"
+                  >{qty}</span>
+                )}
+                <button
+                  onClick={() => onAdd(product)}
+                  className="w-7 h-7 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-base leading-none text-white shrink-0"
+                >+</button>
+              </div>
+            ) : (
               <button
                 onClick={() => onAdd(product)}
-                className="w-7 h-7 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-base leading-none text-white"
-                aria-label="Agregar"
-              >
-                +
-              </button>
-            </div>
-          ) : (
+                className="px-3 py-1.5 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors"
+              >Agregar</button>
+            )
+          )}
+
+          {/* Controles CON tallas */}
+          {hasSizes && (
             <button
-              onClick={() => onAdd(product)}
-              className="px-3 py-1.5 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors"
+              onClick={() => setShowSizes(v => !v)}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-xl transition-colors ${
+                totalSizedQty > 0
+                  ? 'bg-black text-white'
+                  : 'bg-black text-white hover:bg-gray-800'
+              }`}
             >
-              Agregar
+              {totalSizedQty > 0 ? `${totalSizedQty} u. ▾` : 'Agregar'}
             </button>
           )}
         </div>
 
-        {product.qty_minima > 1 && (
+        {/* Selector de tallas (inline) */}
+        {hasSizes && showSizes && (
+          <div className="mt-3 pt-3 border-t border-gray-100">
+            <p className="text-xs font-semibold text-gray-500 mb-2">Selecciona talla:</p>
+            <div className="flex flex-wrap gap-2">
+              {product.tallas.map(size => {
+                const sizeQty = cartSizes?.[size] || 0
+                const cartId = `${product.id}__${size}`
+                return (
+                  <div key={size} className="flex items-center gap-1">
+                    {sizeQty > 0 ? (
+                      <>
+                        <button
+                          onClick={() => onRemove(cartId)}
+                          className="w-6 h-6 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600"
+                        >−</button>
+                        <div className="flex flex-col items-center">
+                          <span className="text-xs font-bold text-gray-900 leading-none">{sizeQty}</span>
+                          <span className="text-xs text-gray-500 leading-none">{size}</span>
+                        </div>
+                        <button
+                          onClick={() => onAdd(product, size)}
+                          className="w-6 h-6 rounded-lg bg-black hover:bg-gray-800 flex items-center justify-center text-xs font-bold text-white"
+                        >+</button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => onAdd(product, size)}
+                        className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-gray-200 text-gray-600 hover:border-black hover:text-black transition-colors"
+                      >{size}</button>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+            {product.qty_minima > 1 && (
+              <p className="text-xs text-gray-400 mt-2">Min. {product.qty_minima} unidades en total</p>
+            )}
+          </div>
+        )}
+
+        {!hasSizes && product.qty_minima > 1 && (
           <p className="text-xs text-gray-400 mt-1">Min. {product.qty_minima} unidades</p>
         )}
       </div>
@@ -146,11 +251,15 @@ export default function ProductCard({ product, cartQty, onAdd, onRemove, onSetQt
   )
 }
 
-function TierRow({ label, price, active, highlight }) {
-  const activeColor = highlight ? 'text-green-600 font-semibold' : 'text-gray-800 font-semibold'
+function TierRow({ label, price, active, highlight, best }) {
+  const activeColor = best
+    ? 'text-amber-600 font-bold'
+    : highlight
+      ? 'text-green-600 font-semibold'
+      : 'text-gray-800 font-semibold'
   return (
-    <div className={`flex justify-between ${active ? activeColor : 'text-gray-400'}`}>
-      <span>{label}</span>
+    <div className={`flex justify-between items-center ${active ? activeColor : 'text-gray-400'}`}>
+      <span>{label}{best && active && <span className="ml-1 text-amber-500 font-bold">★</span>}</span>
       <span>${price.toFixed(2)}</span>
     </div>
   )

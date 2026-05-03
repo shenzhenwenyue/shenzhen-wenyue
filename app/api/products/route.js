@@ -89,8 +89,14 @@ export async function GET() {
         precio_tier2: parseFloat(row.precio_tier2) || null,
         qty_tier3: parseInt(row.qty_tier3) || null,
         precio_tier3: parseFloat(row.precio_tier3) || null,
-        qty_minima: parseInt(row.qty_minima) || 1,
+        qty_tier4: parseInt(row.qty_tier4) || null,
+        precio_tier4: parseFloat(row.precio_tier4) || null,
+        qty_tier5: parseInt(row.qty_tier5) || null,
+        precio_tier5: parseFloat(row.precio_tier5) || null,
+        qty_minima: parseInt(row.qty_minima) || 10,
         sku: row.sku || '',
+        subcategoria: row.subcategoria || '',
+        tallas: row.tallas ? row.tallas.split(',').map(t => t.trim()).filter(Boolean) : [],
       }))
 
     return NextResponse.json(products)

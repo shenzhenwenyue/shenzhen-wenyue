@@ -6,23 +6,36 @@ const WHATSAPP = '16572621801'
 
 export default function OrderModal({ items, products, onClose, onSuccess }) {
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [countryCode, setCountryCode] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [done, setDone] = useState(false)
 
+  // qty total de Perfumes en carrito (mayoreo agrupado solo en esa categoría)
+  const totalPerfumes = items.reduce((sum, item) => {
+    const cat = item.categoria || products.find(p => p.id === item.productId)?.categoria
+    return cat === 'Perfumes' ? sum + item.qty : sum
+  }, 0)
+
   // Enriquecer items con precio calculado
   const orderItems = items.map(item => {
-    const product = products.find(p => p.id === item.id)
+    const product = products.find(p => p.id === item.productId)
     if (!product) return null
+    const cat = item.categoria || product.categoria
+    const pricingQty = cat === 'Perfumes'
+      ? Math.max(item.qty, totalPerfumes)
+      : item.qty
     return {
       product_id: product.id,
       nombre: product.nombre,
       categoria: product.categoria,
       sku: product.sku || '',
+      size: item.size || null,
+      imagen_url: product.imagen_url || null,
       qty: item.qty,
-      unit_price: getPrecio(product, item.qty),
+      unit_price: getPrecio(product, pricingQty),
       confirmed: null,
       available_qty: null,
     }
@@ -32,7 +45,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    if (!name.trim() || !whatsapp.trim()) return
+    if (!name.trim() || !email.trim() || !whatsapp.trim()) return
     setLoading(true)
     setError(null)
 
@@ -42,6 +55,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           customer_name: name.trim(),
+          customer_email: email.trim().toLowerCase(),
           customer_whatsapp: countryCode + whatsapp.trim().replace(/\D/g, ''),
           items: orderItems,
           total,
@@ -104,6 +118,18 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
                 />
               </div>
               <div>
+                <label className="block text-xs font-semibold text-gray-600 mb-1">Tu correo electrónico</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="tucorreo@ejemplo.com"
+                  required
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400"
+                />
+                <p className="text-xs text-gray-400 mt-1">Lo usarás para rastrear tu pedido en línea.</p>
+              </div>
+              <div>
                 <label className="block text-xs font-semibold text-gray-600 mb-1">Tu número de WhatsApp</label>
                 <div className="flex gap-2">
                   <select
@@ -121,19 +147,30 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
                   <input
                     type="tel"
                     value={whatsapp}
-                    onChange={e => setWhatsapp(e.target.value)}
-                    placeholder="713 000 0000"
+                    onChange={e => {
+                      const digits = e.target.value.replace(/\D/g, '').slice(0, 10)
+                      setWhatsapp(digits)
+                    }}
+                    placeholder="7130000000"
                     required
-                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400"
+                    maxLength={10}
+                    className={`flex-1 px-4 py-2.5 border rounded-xl text-sm focus:outline-none transition-colors ${
+                      whatsapp.length > 0 && whatsapp.length < 10
+                        ? 'border-red-300 focus:border-red-400'
+                        : 'border-gray-200 focus:border-gray-400'
+                    }`}
                   />
                 </div>
+                {whatsapp.length > 0 && whatsapp.length < 10 && (
+                  <p className="text-xs text-red-400">{whatsapp.length}/10 dígitos — faltan {10 - whatsapp.length}</p>
+                )}
               </div>
 
               {/* Resumen del pedido */}
               <div className="bg-gray-50 rounded-xl p-3 text-sm space-y-1">
                 {orderItems.map((item, i) => (
                   <div key={i} className="flex justify-between text-gray-600">
-                    <span className="truncate mr-2">{item.qty}× {item.nombre}</span>
+                    <span className="truncate mr-2">{item.qty}× {item.nombre}{item.size ? ` (${item.size})` : ''}</span>
                     <span className="shrink-0">${(item.unit_price * item.qty).toFixed(2)}</span>
                   </div>
                 ))}
@@ -149,7 +186,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
 
               <button
                 type="submit"
-                disabled={loading || !name.trim() || !whatsapp.trim() || !countryCode}
+                disabled={loading || !name.trim() || !email.trim() || whatsapp.length !== 10 || !countryCode}
                 className="w-full py-3.5 bg-black text-white font-bold rounded-2xl hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? 'Enviando...' : 'Enviar Solicitud'}
