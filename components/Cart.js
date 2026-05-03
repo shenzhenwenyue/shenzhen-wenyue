@@ -2,17 +2,27 @@
 import { getPrecio, getSubtotal } from '@/lib/pricing'
 
 export default function Cart({ items, products, onAdd, onRemove, onClose, onRequestQuote }) {
+  // Qty total por categoría para pricing agrupado
+  const totalByCategory = items.reduce((acc, item) => {
+    const cat = item.categoria || products.find(p => p.id === item.productId)?.categoria || ''
+    acc[cat] = (acc[cat] || 0) + item.qty
+    return acc
+  }, {})
+
   const cartLines = items
     .map(item => {
-      const product = products.find(p => p.id === item.id)
+      const product = products.find(p => p.id === item.productId)
       if (!product) return null
-      const price = getPrecio(product, item.qty)
-      const subtotal = getSubtotal(product, item.qty)
+      const cat = item.categoria || product.categoria
+      const pricingQty = totalByCategory[cat] || item.qty
+      const price = getPrecio(product, pricingQty)
+      const subtotal = price * item.qty
       return { ...item, product, price, subtotal }
     })
     .filter(Boolean)
 
   const total = cartLines.reduce((sum, l) => sum + l.subtotal, 0)
+  const totalPiezas = cartLines.reduce((sum, l) => sum + l.qty, 0)
   const isEmpty = cartLines.length === 0
 
 
@@ -48,12 +58,31 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
             <div className="p-4 space-y-4">
               {cartLines.map(line => (
                 <div key={line.id} className="flex gap-3">
+                  {/* Thumbnail */}
+                  <div className="w-12 h-12 rounded-xl overflow-hidden bg-gray-100 shrink-0">
+                    {line.product.imagen_url ? (
+                      <img
+                        src={line.product.imagen_url}
+                        alt={line.product.nombre}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-300">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                        </svg>
+                      </div>
+                    )}
+                  </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs text-gray-400 uppercase tracking-wide">{line.product.categoria}</p>
-                    <p className="text-sm font-medium text-gray-900 leading-snug">{line.product.nombre}</p>
+                    <p className="text-sm font-medium text-gray-900 leading-snug">
+                      {line.product.nombre}
+                      {line.size && <span className="ml-1.5 text-xs bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium">{line.size}</span>}
+                    </p>
                     <p className="text-xs text-gray-500 mt-0.5">
                       ${line.price.toFixed(2)} c/u
-                      {line.product.qty_tier2 && line.qty >= line.product.qty_tier2 && (
+                      {line.price < line.product.precio_1 && (
                         <span className="ml-1 text-green-600 font-medium">precio mayoreo</span>
                       )}
                     </p>
@@ -69,7 +98,7 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
                       </button>
                       <span className="w-4 text-center text-xs font-semibold">{line.qty}</span>
                       <button
-                        onClick={() => onAdd(line.product)}
+                        onClick={() => onAdd(line.product, line.size || null)}
                         className="w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-sm font-bold"
                       >
                         +
@@ -85,13 +114,25 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
         {/* Footer */}
         {!isEmpty && (
           <div className="border-t p-4 space-y-3">
+            <div className="flex justify-between items-center text-xs text-gray-400">
+              <span>{totalPiezas} piezas en total</span>
+              {totalPiezas < 10 && (
+                <span className="text-amber-600 font-semibold">Mín. 10 piezas</span>
+              )}
+            </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-600 text-sm">Total estimado</span>
               <span className="text-2xl font-bold">${total.toFixed(2)}</span>
             </div>
+            {totalPiezas < 10 && (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 text-xs text-amber-700 text-center">
+                Agrega {10 - totalPiezas} pieza{10 - totalPiezas !== 1 ? 's' : ''} más para continuar
+              </div>
+            )}
             <button
               onClick={onRequestQuote}
-              className="w-full py-3.5 bg-black hover:bg-gray-800 active:bg-gray-900 text-white font-bold rounded-2xl transition-colors"
+              disabled={totalPiezas < 10}
+              className="w-full py-3.5 bg-black hover:bg-gray-800 active:bg-gray-900 text-white font-bold rounded-2xl transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Solicitar Cotización
             </button>
