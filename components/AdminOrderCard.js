@@ -23,9 +23,13 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [deleteError, setDeleteError] = useState(false)
   const [pdfSelected, setPdfSelected] = useState(null) // null = todos, Set = selección explícita
   const [expanded, setExpanded] = useState(order.status === 'pending')
-  const [costInputs, setCostInputs] = useState(() =>
-    Object.fromEntries(order.items.map((item, i) => [i, item.unit_cost ?? '']))
-  )
+  const [costInputs, setCostInputs] = useState(() => {
+    const byCat = {}
+    order.items.forEach(item => {
+      if (!(item.categoria in byCat)) byCat[item.categoria] = item.unit_cost ?? ''
+    })
+    return byCat
+  })
   const [savingCosts, setSavingCosts] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
   const [editingItems, setEditingItems] = useState(false)
@@ -76,8 +80,8 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
   async function handleSaveCosts() {
     setSavingCosts(true)
-    const updatedItems = order.items.map((item, i) => {
-      const val = parseFloat(costInputs[i])
+    const updatedItems = order.items.map(item => {
+      const val = parseFloat(costInputs[item.categoria])
       return { ...item, unit_cost: isNaN(val) ? (item.unit_cost ?? null) : val }
     })
     await patch({ items: updatedItems })
@@ -251,24 +255,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                 <div className="min-w-0">
                 <p className="text-sm font-medium text-gray-900">{item.nombre}</p>
                 <p className="text-xs text-gray-400">{item.categoria} · {item.qty} u. · ${item.unit_price.toFixed(2)} c/u</p>
-                <div className="flex items-center gap-1.5 mt-1">
-                  <span className="text-xs text-gray-400">Costo proveedor:</span>
-                  <span className="text-xs text-gray-400">$</span>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value={costInputs[i]}
-                    onChange={e => setCostInputs(prev => ({ ...prev, [i]: e.target.value }))}
-                    placeholder="0.00"
-                    className="w-16 px-1.5 py-0.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-gray-400"
-                  />
-                  {item.unit_cost && (
-                    <span className="text-xs text-green-600 font-medium">
-                      +${((item.unit_price - item.unit_cost) * (item.available_qty || item.qty)).toFixed(2)} gan.
-                    </span>
-                  )}
-                </div>
                 </div>
               </div>
               <p className="text-sm font-semibold text-gray-700 shrink-0 ml-2">
@@ -345,14 +331,54 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       {/* Footer */}
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 space-y-2">
 
-        {/* Guardar costos de proveedor */}
-        <button
-          onClick={handleSaveCosts}
-          disabled={savingCosts}
-          className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-semibold rounded-xl transition-colors"
-        >
-          {savingCosts ? 'Guardando…' : 'Guardar costos de proveedor'}
-        </button>
+        {/* Costos de proveedor por categoría */}
+        {(() => {
+          const cats = [...new Set(confirmedItems.map(i => i.categoria))]
+          return (
+            <div className="bg-white rounded-xl border border-gray-200 p-3 space-y-2">
+              <p className="text-xs font-semibold text-gray-700">Costo proveedor por categoría</p>
+              {cats.map(cat => {
+                const itemsCat = confirmedItems.filter(i => i.categoria === cat)
+                const totalQty = itemsCat.reduce((s, i) => s + (i.available_qty || i.qty), 0)
+                const totalRevenue = itemsCat.reduce((s, i) => s + (i.available_qty || i.qty) * i.unit_price, 0)
+                const costo = parseFloat(costInputs[cat])
+                const ganancia = !isNaN(costo) ? totalRevenue - costo * totalQty : null
+                return (
+                  <div key={cat} className="flex items-center justify-between gap-2">
+                    <div className="min-w-0">
+                      <span className="text-xs font-medium text-gray-800">{cat}</span>
+                      <span className="text-xs text-gray-400 ml-1.5">{totalQty} u.</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className="text-xs text-gray-400">$</span>
+                      <input
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        value={costInputs[cat] ?? ''}
+                        onChange={e => setCostInputs(prev => ({ ...prev, [cat]: e.target.value }))}
+                        placeholder="costo/u"
+                        className="w-20 px-2 py-1 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-gray-400 text-center"
+                      />
+                      {ganancia !== null && (
+                        <span className={`text-xs font-semibold w-16 text-right ${ganancia >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                          +${ganancia.toFixed(2)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+              <button
+                onClick={handleSaveCosts}
+                disabled={savingCosts}
+                className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-semibold rounded-xl transition-colors mt-1"
+              >
+                {savingCosts ? 'Guardando…' : 'Guardar costos'}
+              </button>
+            </div>
+          )
+        })()}
 
         {/* Envío — visible siempre en pending */}
         {order.status === 'pending' && (
