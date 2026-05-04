@@ -30,12 +30,17 @@ const STATUS_LABELS = {
 export default function AdminReports({ orders, adminPassword }) {
   const [period, setPeriod] = useState('month')
   const [costRules, setCostRules] = useState([])
+  const [capitalItems, setCapitalItems] = useState([])
 
   useEffect(() => {
     if (!adminPassword) return
-    fetch('/api/admin/costs', { headers: { 'x-admin-password': adminPassword } })
+    const headers = { 'x-admin-password': adminPassword }
+    fetch('/api/admin/costs', { headers })
       .then(r => r.json())
       .then(data => { if (Array.isArray(data)) setCostRules(data) })
+    fetch('/api/admin/personal-inventory', { headers })
+      .then(r => r.json())
+      .then(data => { if (Array.isArray(data)) setCapitalItems(data) })
   }, [adminPassword])
 
   const filteredOrders = useMemo(() => {
@@ -379,6 +384,14 @@ export default function AdminReports({ orders, adminPassword }) {
             sub="sobre pedidos con costo definido"
           />
         )}
+        {capitalItems.filter(i => !i.pagado).length > 0 && (
+          <KPICard
+            label="Capital de Bodega pendiente"
+            value={`$${capitalItems.filter(i => !i.pagado).reduce((s, i) => s + i.qty * i.costo_unit, 0).toFixed(2)}`}
+            sub="costo personal sin reembolsar"
+            amber
+          />
+        )}
       </div>
 
       {/* Category breakdown */}
@@ -438,6 +451,57 @@ export default function AdminReports({ orders, adminPassword }) {
         </div>
       )}
 
+      {/* Capital de Bodega */}
+      {capitalItems.length > 0 && (
+        <div className="bg-white rounded-2xl border border-amber-200 shadow-sm overflow-hidden">
+          <div className="px-4 py-3 border-b border-amber-100 bg-amber-50 flex items-center justify-between">
+            <div>
+              <h3 className="font-semibold text-amber-900 text-sm">Capital de Bodega</h3>
+              <p className="text-xs text-amber-600 mt-0.5">Costo de inventario financiado con capital personal — la ganancia se reparte aparte</p>
+            </div>
+            <div className="text-right shrink-0">
+              <p className="text-xs text-amber-600">Pendiente</p>
+              <p className="text-base font-bold text-amber-700">
+                ${capitalItems.filter(i => !i.pagado).reduce((s, i) => s + i.qty * i.costo_unit, 0).toFixed(2)}
+              </p>
+            </div>
+          </div>
+          <div className="divide-y divide-gray-50">
+            {capitalItems.map(item => (
+              <div key={item.id} className={`px-4 py-3 flex items-center justify-between gap-3 ${item.pagado ? 'opacity-50' : ''}`}>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className={`text-sm font-medium ${item.pagado ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+                      {item.nombre}
+                    </span>
+                    {item.categoria && (
+                      <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{item.categoria}</span>
+                    )}
+                    {item.pagado && (
+                      <span className="text-xs bg-green-100 text-green-600 px-2 py-0.5 rounded-full">Reembolsado</span>
+                    )}
+                  </div>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    {item.qty} u. × ${parseFloat(item.costo_unit).toFixed(2)}
+                    {item.fecha_compra && ` · ${new Date(item.fecha_compra + 'T12:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' })}`}
+                    {item.notas && ` · ${item.notas}`}
+                  </p>
+                </div>
+                <span className={`text-sm font-bold shrink-0 ${item.pagado ? 'text-gray-400' : 'text-amber-700'}`}>
+                  ${(item.qty * item.costo_unit).toFixed(2)}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 flex justify-between text-xs text-gray-500">
+            <span>Total invertido</span>
+            <span className="font-semibold text-gray-800">
+              ${capitalItems.reduce((s, i) => s + i.qty * i.costo_unit, 0).toFixed(2)}
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Orders detail */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="px-4 py-3 border-b border-gray-100">
@@ -492,12 +556,15 @@ export default function AdminReports({ orders, adminPassword }) {
   )
 }
 
-function KPICard({ label, value, sub, highlight }) {
+function KPICard({ label, value, sub, highlight, amber }) {
+  const bg = highlight ? 'bg-black text-white border-black' : amber ? 'bg-amber-50 border-amber-200' : 'bg-white border-gray-100'
+  const labelColor = highlight ? 'text-gray-400' : amber ? 'text-amber-600' : 'text-gray-400'
+  const valueColor = highlight ? 'text-white' : amber ? 'text-amber-700' : 'text-gray-900'
   return (
-    <div className={`rounded-2xl border shadow-sm px-4 py-3 ${highlight ? 'bg-black text-white border-black' : 'bg-white border-gray-100'}`}>
-      <p className={`text-xs mb-1 ${highlight ? 'text-gray-400' : 'text-gray-400'}`}>{label}</p>
-      <p className={`text-2xl font-bold ${highlight ? 'text-white' : 'text-gray-900'}`}>{value}</p>
-      {sub && <p className={`text-xs mt-0.5 ${highlight ? 'text-gray-400' : 'text-gray-400'}`}>{sub}</p>}
+    <div className={`rounded-2xl border shadow-sm px-4 py-3 ${bg}`}>
+      <p className={`text-xs mb-1 ${labelColor}`}>{label}</p>
+      <p className={`text-2xl font-bold ${valueColor}`}>{value}</p>
+      {sub && <p className={`text-xs mt-0.5 ${labelColor}`}>{sub}</p>}
     </div>
   )
 }

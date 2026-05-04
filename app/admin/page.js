@@ -4,6 +4,7 @@ import AdminOrderCard from '@/components/AdminOrderCard'
 import AdminProductList from '@/components/AdminProductList'
 import AdminReports from '@/components/AdminReports'
 import AdminCosts from '@/components/AdminCosts'
+import AdminPersonalInventory from '@/components/AdminPersonalInventory'
 
 const STATUS_ORDER = ['pending', 'confirmed', 'paid', 'shipped', 'completed']
 const STATUS_LABELS = {
@@ -76,6 +77,7 @@ export default function AdminPage() {
   const isProductTab = activeTab === 'products'
   const isReportsTab = activeTab === 'reports'
   const isCostsTab = activeTab === 'costs'
+  const isCapitalTab = activeTab === 'capital'
   const pendingCount = orders.filter(o => o.status === 'pending').length
 
   // ── Login ────────────────────────────────────────────────────
@@ -180,6 +182,16 @@ export default function AdminPage() {
         >
           Costos
         </button>
+        <button
+          onClick={() => setActiveTab('capital')}
+          className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === 'capital'
+              ? 'border-black text-black'
+              : 'border-transparent text-gray-400 hover:text-gray-700'
+          }`}
+        >
+          Capital de Bodega
+        </button>
       </div>
 
       {/* Products tab */}
@@ -203,8 +215,15 @@ export default function AdminPage() {
         </div>
       )}
 
+      {/* Mi Capital tab */}
+      {isCapitalTab && (
+        <div className="max-w-2xl mx-auto px-4 py-5">
+          <AdminPersonalInventory adminPassword={adminPassword} />
+        </div>
+      )}
+
       {/* Orders */}
-      {!isProductTab && !isReportsTab && !isCostsTab && <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
+      {!isProductTab && !isReportsTab && !isCostsTab && !isCapitalTab && <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
         {loading ? (
           <div className="space-y-4">
             {[1, 2].map(i => (

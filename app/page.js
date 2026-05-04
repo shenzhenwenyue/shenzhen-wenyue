@@ -1,6 +1,7 @@
 'use client'
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import ProductCard from '@/components/ProductCard'
+import GroupedProductCard from '@/components/GroupedProductCard'
 import CategoryFilter from '@/components/CategoryFilter'
 import Cart from '@/components/Cart'
 import OrderModal from '@/components/OrderModal'
@@ -29,6 +30,29 @@ export default function Home() {
       .finally(() => setLoading(false))
   }, [])
 
+  // Agrupar productos con campo `grupo` (variantes por talla con stock individual)
+  const groupedProducts = useMemo(() => {
+    const groupMap = {}
+    const result = []
+    products.forEach(p => {
+      if (p.grupo) {
+        if (!groupMap[p.grupo]) {
+          groupMap[p.grupo] = { ...p, id: `grupo__${p.grupo}`, nombre: p.grupo, isGroup: true, variants: [] }
+          result.push(groupMap[p.grupo])
+        }
+        groupMap[p.grupo].variants.push(p)
+      } else {
+        result.push({ ...p, isGroup: false })
+      }
+    })
+  // Fisher-Yates shuffle — once per product load, stable between re-renders
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]]
+  }
+  return result
+}, [products])
+
   // Categorías únicas, ordenadas
   const categories = [...new Set(products.map(p => p.categoria))].sort()
 
@@ -47,28 +71,30 @@ export default function Home() {
     setSelectedSubcat(null)
   }
 
-  // Productos filtrados
-  const filtered = products.filter(p => {
+  // Productos filtrados (soporta grupos)
+  const filtered = groupedProducts.filter(p => {
     const matchCat = !selectedCat || p.categoria === selectedCat
     const matchSubcat = !selectedSubcat || p.subcategoria === selectedSubcat
-    const matchSearch =
-      !search ||
-      p.nombre.toLowerCase().includes(search.toLowerCase()) ||
-      p.categoria.toLowerCase().includes(search.toLowerCase()) ||
-      p.subcategoria.toLowerCase().includes(search.toLowerCase()) ||
-      p.descripcion.toLowerCase().includes(search.toLowerCase())
+    const term = search.toLowerCase()
+    const matchSearch = !search || (
+      p.isGroup
+        ? p.nombre.toLowerCase().includes(term) || p.variants.some(v => v.nombre.toLowerCase().includes(term))
+        : p.nombre.toLowerCase().includes(term) ||
+          p.categoria.toLowerCase().includes(term) ||
+          (p.subcategoria || '').toLowerCase().includes(term) ||
+          (p.descripcion || '').toLowerCase().includes(term)
+    )
     return matchCat && matchSubcat && matchSearch
   })
 
-  // Ordenamiento
-  const sorted = [...filtered].sort((a, b) => {
-    if (sortOrder === 'az') return a.nombre.localeCompare(b.nombre)
-    if (sortOrder === 'za') return b.nombre.localeCompare(a.nombre)
-    // destacado: destacados primero, luego el resto
-    if (a.destacado && !b.destacado) return -1
-    if (!a.destacado && b.destacado) return 1
-    return 0
-  })
+  // Ordenamiento (destacado preserva el orden aleatorio del shuffle)
+  const sorted = sortOrder === 'destacado'
+    ? [...filtered]
+    : [...filtered].sort((a, b) =>
+        sortOrder === 'az'
+          ? a.nombre.localeCompare(b.nombre)
+          : b.nombre.localeCompare(a.nombre)
+      )
 
   // Acciones del carrito
   // cart item: { id, productId, size (null si no aplica), qty }
@@ -191,20 +217,33 @@ export default function Home() {
           />
         )}
 
-        {/* Filtro por marca — dropdown */}
-        {subcategories.length > 0 && (
-          <BrandDropdown
-            subcategories={subcategories}
-            selected={selectedSubcat}
-            onChange={setSelectedSubcat}
-          />
+        {/* Pills de subcategoría */}
+        {selectedCat && subcategories.length > 0 && (
+          <div className="flex flex-wrap gap-2 pb-2">
+            <button
+              onClick={() => setSelectedSubcat(null)}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                !selectedSubcat ? 'bg-black text-white border-black' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+              }`}
+            >
+              Todas
+            </button>
+            {subcategories.map(sub => (
+              <button
+                key={sub}
+                onClick={() => setSelectedSubcat(sub === selectedSubcat ? null : sub)}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                  selectedSubcat === sub ? 'bg-black text-white border-black' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+                }`}
+              >
+                {sub}
+              </button>
+            ))}
+          </div>
         )}
 
         {/* Sort */}
         <FilterDropdown
-          subcategories={[]}
-          selectedSubcat={selectedSubcat}
-          setSelectedSubcat={setSelectedSubcat}
           sortOrder={sortOrder}
           setSortOrder={setSortOrder}
         />
@@ -243,16 +282,27 @@ export default function Home() {
             {sorted.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {sorted.map(product => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    cartQty={cart.find(i => i.id === product.id)?.qty || 0}
-                    cartSizes={getCartSizes(product.id)}
-                    categoryQty={getCategoryQty(product.categoria)}
-                    onAdd={addToCart}
-                    onRemove={removeFromCart}
-                    onSetQty={setQtyInCart}
-                  />
+                  product.isGroup ? (
+                    <GroupedProductCard
+                      key={product.id}
+                      group={product}
+                      cart={cart}
+                      onAdd={addToCart}
+                      onRemove={removeFromCart}
+                      categoryQty={getCategoryQty(product.categoria)}
+                    />
+                  ) : (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      cartQty={cart.find(i => i.id === product.id)?.qty || 0}
+                      cartSizes={getCartSizes(product.id)}
+                      categoryQty={getCategoryQty(product.categoria)}
+                      onAdd={addToCart}
+                      onRemove={removeFromCart}
+                      onSetQty={setQtyInCart}
+                    />
+                  )
                 ))}
               </div>
             ) : (
@@ -297,7 +347,7 @@ export default function Home() {
   )
 }
 
-function FilterDropdown({ subcategories, selectedSubcat, setSelectedSubcat, sortOrder, setSortOrder }) {
+function FilterDropdown({ sortOrder, setSortOrder }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
 
@@ -351,34 +401,10 @@ function FilterDropdown({ subcategories, selectedSubcat, setSelectedSubcat, sort
             </div>
           </div>
 
-          {/* Subcategorías */}
-          {subcategories.length > 0 && (
-            <div>
-              <p className="text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wide">Subcategoría</p>
-              <div className="flex flex-col gap-1">
-                <button
-                  onClick={() => { setSelectedSubcat(null); }}
-                  className={`text-left px-3 py-1.5 rounded-lg text-sm transition-colors ${
-                    selectedSubcat === null ? 'bg-black text-white font-medium' : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >Todas</button>
-                {subcategories.map(sub => (
-                  <button
-                    key={sub}
-                    onClick={() => { setSelectedSubcat(sub === selectedSubcat ? null : sub); }}
-                    className={`text-left px-3 py-1.5 rounded-lg text-sm transition-colors ${
-                      selectedSubcat === sub ? 'bg-black text-white font-medium' : 'text-gray-700 hover:bg-gray-100'
-                    }`}
-                  >{sub}</button>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Limpiar */}
           {hasFilters && (
             <button
-              onClick={() => { setSelectedSubcat(null); setSortOrder('destacado'); setOpen(false) }}
+              onClick={() => { setSortOrder('destacado'); setOpen(false) }}
               className="w-full text-xs text-red-400 hover:text-red-600 text-center pt-1"
             >Limpiar filtros</button>
           )}
@@ -388,56 +414,3 @@ function FilterDropdown({ subcategories, selectedSubcat, setSelectedSubcat, sort
   )
 }
 
-function BrandDropdown({ subcategories, selected, onChange }) {
-  const [open, setOpen] = useState(false)
-  const ref = useRef(null)
-
-  useEffect(() => {
-    function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
-    }
-    document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
-  }, [])
-
-  return (
-    <div className="relative pb-2" ref={ref}>
-      <button
-        onClick={() => setOpen(v => !v)}
-        className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
-          selected
-            ? 'bg-black text-white border-black'
-            : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
-        }`}
-      >
-        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h10M7 12h6" />
-        </svg>
-        {selected ? selected : 'Marca'}
-        <svg className={`w-3 h-3 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-
-      {open && (
-        <div className="absolute left-0 top-full mt-1 z-30 bg-white border border-gray-200 rounded-2xl shadow-xl p-2 min-w-[160px]">
-          <button
-            onClick={() => { onChange(null); setOpen(false) }}
-            className={`w-full text-left px-3 py-1.5 rounded-lg text-sm transition-colors ${
-              selected === null ? 'bg-black text-white font-medium' : 'text-gray-700 hover:bg-gray-100'
-            }`}
-          >Todas</button>
-          {subcategories.map(sub => (
-            <button
-              key={sub}
-              onClick={() => { onChange(selected === sub ? null : sub); setOpen(false) }}
-              className={`w-full text-left px-3 py-1.5 rounded-lg text-sm transition-colors ${
-                selected === sub ? 'bg-black text-white font-medium' : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >{sub}</button>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}

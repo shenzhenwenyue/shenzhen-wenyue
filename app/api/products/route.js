@@ -76,18 +76,14 @@ export async function GET() {
     const rows = parseCSV(text)
 
     const products = rows
-      .filter(row => {
-        if (!row.nombre) return false
-        if (row.disponible?.toUpperCase() === 'FALSE') return false
-        const stockVal = row.stock?.trim()
-        if (stockVal && /^\d+$/.test(stockVal) && parseInt(stockVal) === 0) return false
-        return true
-      })
+      .filter(row => row.nombre && row.disponible?.toUpperCase() !== 'FALSE')
       .map((row, i) => {
         const stockRaw = row.stock?.trim() ?? ''
-        const disponibleRaw = row.disponible?.trim() ?? ''
         const hasNumericStock = /^\d+$/.test(stockRaw)
-        const hasNumericDisponible = /^\d+$/.test(disponibleRaw)
+        const tallaVal = row.talla?.trim() || row.tallas?.trim() || null
+        // Auto-derive grupo: si tiene talla, el grupo es el nombre sin " - {talla}" al final
+        const grupoVal = row.grupo?.trim() ||
+          (tallaVal ? row.nombre.trim().replace(new RegExp(` - ${tallaVal}$`), '').trim() : null)
         return {
           id: String(i + 1),
           nombre: row.nombre || '',
@@ -108,9 +104,9 @@ export async function GET() {
           sku: row.sku || '',
           subcategoria: row.subcategoria || '',
           tallas: row.tallas ? row.tallas.split(',').map(t => t.trim()).filter(Boolean) : [],
-          grupo: row.grupo?.trim() || null,
-          talla: row.talla?.trim() || null,
-          stock: hasNumericStock ? parseInt(stockRaw) : (hasNumericDisponible ? parseInt(disponibleRaw) : null),
+          grupo: grupoVal,
+          talla: tallaVal,
+          stock: hasNumericStock ? parseInt(stockRaw) : null,
         }
       })
 
