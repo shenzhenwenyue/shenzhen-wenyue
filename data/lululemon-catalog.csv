@@ -1,138 +1,395 @@
-categoria,subcategoria,nombre,sku,descripcion,imagen_url,disponible,destacado,precio_1,qty_tier2,precio_tier2,qty_tier3,precio_tier3,qty_tier4,precio_tier4,qty_tier5,precio_tier5,qty_minima,tallas
-Lululemon,Jackets,Nine-Point Jacket - Gold & Black,YJ-001,Nine-point zip-up jacket - Gold & Black,,TRUE,FALSE,,,,,,,,,,1,"XS,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Gold & White,YJ-007,Nine-point zip-up jacket - Gold & White,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink & Gold,YJ-013,Nine-point zip-up jacket - Cherry Blossom Pink & Gold,,TRUE,TRUE,,,,,,,,,,1,"S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Black,YJ-019,Nine-point zip-up jacket - Black,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - White,YJ-025,Nine-point zip-up jacket - White,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink,YJ-031,Nine-point zip-up jacket - Cherry Blossom Pink,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Powder Blue Gold,YJ-055,Nine-point zip-up jacket - Powder Blue & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M"
-Lululemon,Jackets,Nine-Point Jacket - Powder Blue,YJ-061,Nine-point zip-up jacket - Powder Blue,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Lavender,YJ-067,Nine-point zip-up jacket - Lavender,,TRUE,FALSE,,,,,,,,,,1,"XS,S,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Gold & Midnight Blue,YJ-073,Nine-point zip-up jacket - Gold & Midnight Blue,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Midnight Blue,YJ-079,Nine-point zip-up jacket - Midnight Blue,,TRUE,FALSE,,,,,,,,,,1,"L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Strawberry Milkshake,YJ-085,Nine-point zip-up jacket - Strawberry Milkshake,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Gold & Off-White,YJ-115,Nine-point zip-up jacket - Gold & Off-White,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Light Gray & Gold,YJ-121,Nine-point zip-up jacket - Light Gray & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Jackets,Nine-Point Jacket - Mint Green & Gold,YJ-127,Nine-point zip-up jacket - Mint Green & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Jackets,Nine-Point Jacket - Maillard Brown & Gold,YJ-133,Nine-point zip-up jacket - Maillard Brown & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Jackets,Nine-Point Jacket - Dark Red & Gold,YJ-169,Nine-point zip-up jacket - Dark Red & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Rose & Gold,YJ-175,Nine-point zip-up jacket - Rose & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Chinese Red & Gold,YJ-181,Nine-point zip-up jacket - Chinese Red & Gold,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket - Off-White,YJ-229,Nine-point zip-up jacket - Off-White,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Jackets,Nine-Point Jacket Black & Gold Polka Dot,YJ-301,Nine-point zip-up jacket - Black & Gold Polka Dot,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Jackets,Nine-Point Jacket Black Polka Dot,YJ-319,Nine-point zip-up jacket - Black Polka Dot,,TRUE,FALSE,,,,,,,,,,1,"XS,S"
-Lululemon,Jackets,Nine-Point Jacket Chinese Red Gold Polka Dot,YJ-343,Nine-point zip-up jacket - Chinese Red & Gold Polka Dot,,TRUE,FALSE,,,,,,,,,,1,"XS,S"
-Lululemon,Jackets,Cropped Jacket - Black & Gold,YJ-265,Define Cropped Jacket - Black & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Jackets,Cropped Jacket - White & Gold,YJ-271,Define Cropped Jacket - White & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Jackets,Cropped Jacket - Cherry Blossom Pink & Gold,YJ-277,Define Cropped Jacket - Cherry Blossom Pink & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Jackets,Cropped Jacket Egg White & Gold,YJ-307,Define Cropped Jacket - Egg White & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S"
-Lululemon,Pants,Nine-Point Pants - Black,YJ-037,Nine-point athletic pants - Black,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - White,YJ-043,Nine-point athletic pants - White,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink,YJ-049,Nine-point athletic pants - Cherry Blossom Pink,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Strawberry Milkshake,YJ-091,Nine-point athletic pants - Strawberry Milkshake,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Powder Blue,YJ-097,Nine-point athletic pants - Powder Blue,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Lavender,YJ-103,Nine-point athletic pants - Lavender,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Midnight Blue,YJ-109,Nine-point athletic pants - Midnight Blue,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Off-White,YJ-139,Nine-point athletic pants - Off-White,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Pants,Nine-Point Pants - Mint Green,YJ-151,Nine-point athletic pants - Mint Green,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Pants,Nine-Point Flared Pants - Black,YJ-163,Nine-point flared athletic pants - Black,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Chinese Red & Gold,YJ-199,Nine-point athletic pants - Chinese Red & Gold,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Dark Red & Gold,YJ-187,Nine-point athletic pants - Dark Red & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Rose & Gold,YJ-193,Nine-point athletic pants - Rose & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,L,XL"
-Lululemon,Pants,Nine-Point Pants - Gold & Black,YJ-205,Nine-point athletic pants - Gold & Black,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Gold & White,YJ-211,Nine-point athletic pants - Gold & White,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink & Gold,YJ-217,Nine-point athletic pants - Cherry Blossom Pink & Gold,,TRUE,FALSE,,,,,,,,,,1,"S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Gold & Off-White,YJ-223,Nine-point athletic pants - Gold & Off-White,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants Maillard Brown Gold Logo,YJ-289,Nine-point athletic pants - Maillard Brown (Gold Logo),,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants Light Gray Gold Logo,YJ-295,Nine-point athletic pants - Light Gray (Gold Logo),,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Nine-Point Pants - Powder Blue Gold,YJ-355,Nine-point athletic pants - Powder Blue & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Polka Dot Leggings,YJ-313,Polka Dot Leggings - Black,,TRUE,TRUE,,,,,,,,,,1,"XS,S,M,L,XL"
-Lululemon,Pants,Chinese Red Polka Dot Pants,YJ-349,Nine-point pants - Chinese Red Polka Dot,,TRUE,FALSE,,,,,,,,,,1,"XS,S"
-Lululemon,Hoodies,Full-Zip Hoodie - Heather Gray & Gold,YJ-235,Casual Full-Zip Hoodie - Heather Gray & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Hoodies,Full-Zip Hoodie - Peony Pink & Gold,YJ-241,Casual Full-Zip Hoodie - Peony Pink & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Hoodies,Full-Zip Hoodie - Black & Gold,YJ-247,Casual Full-Zip Hoodie - Black & Gold,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Hoodies,Full-Zip Hoodie - Heather Gray,YJ-253,Casual Full-Zip Hoodie - Heather Gray,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Hoodies,Full-Zip Hoodie - Peony Pink,YJ-259,Casual Full-Zip Hoodie - Peony Pink,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Hoodies,Full-Zip Hoodie - Black,YJ-283,Casual Full-Zip Hoodie - Black,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Shorts,Five-Point Shorts - Black & Silver,YJ-325,Five-point athletic shorts with silver trim - Black,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Shorts,Five-Point Shorts - Chinese Red & Silver,YJ-331,Five-point athletic shorts with silver trim - Chinese Red,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Shorts,Five-Point Shorts - Sakura Pink & Silver,YJ-337,Five-point athletic shorts with silver trim - Sakura Pink,,TRUE,FALSE,,,,,,,,,,1,"XS,S,M,L"
-Lululemon,Waist Bags,Waist Bag 1L - Lake Blue,YB-002,1L Solid Color Fanny Pack - Lake Blue,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - Cherry Blossom Pink,YB-005,1L Solid Color Fanny Pack - Cherry Blossom Pink,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - Washed White,YB-007,1L Solid Color Fanny Pack - Washed White,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - Bright Red,YB-008,1L Solid Color Fanny Pack - Bright Red,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - Lemon Yellow,YB-009,1L Solid Color Fanny Pack - Lemon Yellow,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - Rose Red,YB-014,1L Solid Color Fanny Pack - Rose Red,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - White,YB-015,1L Solid Color Fanny Pack - White,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - Red,YB-017,1L Solid Color Fanny Pack - Red,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - Army Green,YB-022,1L Solid Color Fanny Pack - Army Green,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - Black,YB-024,1L Solid Color Fanny Pack - Black,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - Dark Purple,YB-077,1L Solid Color Fanny Pack - Dark Purple,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L - Camo Red,YB-079,1L Solid Color Fanny Pack - Camo Red,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo White - Dark Pink,YB-032,1L Webbing Logo Fanny Pack (White Strap) - Dark Pink,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo White - Black,YB-033,1L Webbing Logo Fanny Pack (White Strap) - Black,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo White - Silver Gray,YB-034,1L Webbing Logo Fanny Pack (White Strap) - Silver Gray,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo White - Red,YB-036,1L Webbing Logo Fanny Pack (White Strap) - Red,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo Gold - Sapphire Blue,YB-037,1L Webbing Logo Fanny Pack (Gold Strap) - Sapphire Blue,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo Gold - Blue Gold,YB-039,1L Webbing Logo Fanny Pack (Gold Strap) - Blue Gold,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo Gold - Pink Gold,YB-040,1L Webbing Logo Fanny Pack (Gold Strap) - Pink Gold,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo Gold - Black Gold,YB-043,1L Webbing Logo Fanny Pack (Gold Strap) - Black Gold,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo Gold - Black Grey,YB-045,1L Webbing Logo Fanny Pack (Gold Strap) - Black Grey,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo Gold - Purple Gold,YB-046,1L Webbing Logo Fanny Pack (Gold Strap) - Purple Gold,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Logo Gold - Pink Grey,YB-047,1L Webbing Logo Fanny Pack (Gold Strap) - Pink Grey,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Mickey - Red,YB-054,1L Mickey Print Fanny Pack - Red,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Mickey - White Print,YB-056,1L Mickey Print Fanny Pack - White Print,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Mickey - Black Print,YB-057,1L Mickey Print Fanny Pack - Black Print,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 1L Mickey - Mickey Head,YB-058,1L Mickey Print Fanny Pack - Mickey Head,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L - Dark Pink,YB-060,2L Solid Color Fanny Pack - Dark Pink,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L - Pink,YB-061,2L Solid Color Fanny Pack - Pink,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L - Dark Blue,YB-062,2L Solid Color Fanny Pack - Dark Blue,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L - Wine Red,YB-063,2L Solid Color Fanny Pack - Wine Red,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L - Red,YB-064,2L Solid Color Fanny Pack - Red,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L - Olive Drab,YB-066,2L Solid Color Fanny Pack - Olive Drab,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L - Cream,YB-069,2L Solid Color Fanny Pack - Cream,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L - Black,YB-070,2L Solid Color Fanny Pack - Black,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L Logo Gold - White Grey,YB-071,2L Webbing Logo Fanny Pack (Gold Strap) - White Grey,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L Logo Gold - Sapphire Blue,YB-072,2L Webbing Logo Fanny Pack (Gold Strap) - Sapphire Blue,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L Logo Gold - Wine Red,YB-073,2L Webbing Logo Fanny Pack (Gold Strap) - Wine Red,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L Logo Gold - Light Blue,YB-074,2L Webbing Logo Fanny Pack (Gold Strap) - Light Blue,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Waist Bags,Waist Bag 2L Logo Gold - Blue Black,YB-076,2L Webbing Logo Fanny Pack (Gold Strap) - Blue Black,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Pink / Dark Pink,YS-001,Webbing Logo Key Pouch - Pink / Dark Pink,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Vermilion / Beige,YS-002,Webbing Logo Key Pouch - Vermilion / Beige,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Ivory / Nude,YS-003,Webbing Logo Key Pouch - Ivory / Nude,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Gold & Black,YS-005,Webbing Logo Key Pouch - Gold & Black,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Ivory / Royal Blue,YS-006,Webbing Logo Key Pouch - Ivory / Royal Blue,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Ivory / Burgundy,YS-007,Webbing Logo Key Pouch - Ivory / Burgundy,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Gray / Pink,YS-008,Webbing Logo Key Pouch - Gray / Pink,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Blue / Blue,YS-009,Webbing Logo Key Pouch - Blue / Blue,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Green / Dark Green,YS-010,Webbing Logo Key Pouch - Green / Dark Green,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Ivory / Khaki,YS-011,Webbing Logo Key Pouch - Ivory / Khaki,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Logo - Brown / Dark Red,YS-012,Webbing Logo Key Pouch - Brown / Dark Red,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - White / Black,YS-013,Key Pouch - White / Black,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - Black & Gunmetal,YS-014,Key Pouch - Black & Gunmetal,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - Pink / Burgundy,YS-016,Key Pouch - Pink / Burgundy,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - White / Dark Green,YS-017,Key Pouch - White / Dark Green,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - White / Nude,YS-020,Key Pouch - White / Nude,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - Nude / Dark Pink,YS-022,Key Pouch - Nude / Dark Pink,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - Orange / Nude,YS-023,Key Pouch - Orange / Nude,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - Purple / Black,YS-026,Key Pouch - Purple / Black,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - Lake Blue,YS-030,Key Pouch - Lake Blue,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - Light Purple,YS-032,Key Pouch - Light Purple,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - Silver Gray,YS-033,Key Pouch - Silver Gray,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - Blue / Purple,YS-034,Key Pouch - Blue / Purple,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch - Light Green / White,YS-038,Key Pouch - Light Green / White,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch New Gold Logo - Black,YS-041,New Style Webbing Gold Logo Key Pouch - Black,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch New Silver Logo - Gray,YS-042,New Style Webbing Silver Logo Key Pouch - Gray,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch New Gold Logo - Red,YS-043,New Style Webbing Gold Logo Key Pouch - Red,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch New Gold Logo - Off-White,YS-044,New Style Webbing Gold Logo Key Pouch - Off-White,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch New Purple Logo,YS-045,New Style Webbing Printed Logo Key Pouch - Purple,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch New - Pink / Bright Pink,YS-046,New Style Key Pouch - Pink / Bright Pink,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch New - Black / Bright Black,YS-047,New Style Key Pouch - Black / Bright Black,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch New - Silver / Bright Silver,YS-048,New Style Key Pouch - Silver / Bright Silver,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch New - Pink / Iridescent,YS-049,New Style Key Pouch - Pink / Iridescent,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Leather - Army Green,YS-054,Leather Key Pouch - Army Green,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Leather - Pink,YS-055,Leather Key Pouch - Pink,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Leather - Gray,YS-056,Leather Key Pouch - Gray,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Leather - Rose Red,YS-057,Leather Key Pouch - Rose Red,,TRUE,FALSE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Leather - Black,YS-058,Leather Key Pouch - Black,,TRUE,TRUE,,,,,,,,,,1,
-Lululemon,Key Pouches,Key Pouch Leather - White,YS-059,Leather Key Pouch - White,,TRUE,FALSE,,,,,,,,,,1,
+categoria,subcategoria,nombre,sku,descripcion,imagen_url,disponible,destacado,precio_1,qty_tier2,precio_tier2,qty_tier3,precio_tier3,qty_tier4,precio_tier4,qty_tier5,precio_tier5,qty_minima,tallas,stock
+Lululemon,Waist Bags,Waist Bag - Lake Blue,YB-002,,,TRUE,FALSE,,,,,,,,,,,1,,75
+Lululemon,Waist Bags,Waist Bag - Cherry Blossom Pink,YB-005,,,TRUE,FALSE,,,,,,,,,,,1,,97
+Lululemon,Waist Bags,Waist Bag - Washed White,YB-007,,,TRUE,FALSE,,,,,,,,,,,1,,145
+Lululemon,Waist Bags,Waist Bag - Bright Red,YB-008,,,TRUE,FALSE,,,,,,,,,,,1,,76
+Lululemon,Waist Bags,Waist Bag - Lemon Yellow,YB-009,,,TRUE,FALSE,,,,,,,,,,,1,,5
+Lululemon,Waist Bags,Waist Bag - Beige,YB-013,,,TRUE,FALSE,,,,,,,,,,,1,,1
+Lululemon,Waist Bags,Waist Bag - Rose Red,YB-014,,,TRUE,FALSE,,,,,,,,,,,1,,124
+Lululemon,Waist Bags,Waist Bag - White,YB-015,,,TRUE,FALSE,,,,,,,,,,,1,,75
+Lululemon,Waist Bags,Waist Bag - Red,YB-017,,,TRUE,FALSE,,,,,,,,,,,1,,356
+Lululemon,Waist Bags,Waist Bag - Brown,YB-019,,,TRUE,FALSE,,,,,,,,,,,1,,1
+Lululemon,Waist Bags,Waist Bag - Army Green,YB-022,,,TRUE,FALSE,,,,,,,,,,,1,,100
+Lululemon,Waist Bags,Waist Bag - Black,YB-024,,,TRUE,FALSE,,,,,,,,,,,1,,143
+Lululemon,Waist Bags,Waist Bag - Fluorescent Green,YB-029,,,TRUE,FALSE,,,,,,,,,,,1,,8
+Lululemon,Waist Bags,Waist Bag - Dark Pink Logo White,YB-032,,,TRUE,FALSE,,,,,,,,,,,1,,245
+Lululemon,Waist Bags,Waist Bag - Black Logo White,YB-033,,,TRUE,FALSE,,,,,,,,,,,1,,36
+Lululemon,Waist Bags,Waist Bag - Silver Gray Logo White,YB-034,,,TRUE,FALSE,,,,,,,,,,,1,,66
+Lululemon,Waist Bags,Waist Bag - Red Logo White,YB-036,,,TRUE,FALSE,,,,,,,,,,,1,,75
+Lululemon,Waist Bags,Waist Bag - Sapphire Blue Logo Gold,YB-037,,,TRUE,FALSE,,,,,,,,,,,1,,91
+Lululemon,Waist Bags,Waist Bag - Blue Gold Logo Gold,YB-039,,,TRUE,FALSE,,,,,,,,,,,1,,104
+Lululemon,Waist Bags,Waist Bag - Pink Gold Logo Gold,YB-040,,,TRUE,FALSE,,,,,,,,,,,1,,338
+Lululemon,Waist Bags,Waist Bag - Black Gold Logo Gold,YB-043,,,TRUE,FALSE,,,,,,,,,,,1,,235
+Lululemon,Waist Bags,Waist Bag - Black Grey Logo Gold,YB-045,,,TRUE,FALSE,,,,,,,,,,,1,,238
+Lululemon,Waist Bags,Waist Bag - Purple Gold Logo Gold,YB-046,,,TRUE,FALSE,,,,,,,,,,,1,,310
+Lululemon,Waist Bags,Waist Bag - Pink Grey Logo Gold,YB-047,,,TRUE,FALSE,,,,,,,,,,,1,,18
+Lululemon,Waist Bags,Waist Bag - Red Mickey,YB-054,,,TRUE,FALSE,,,,,,,,,,,1,,93
+Lululemon,Waist Bags,Waist Bag - White Picture Mickey,YB-056,,,TRUE,FALSE,,,,,,,,,,,1,,208
+Lululemon,Waist Bags,Waist Bag - Black Picture Mickey,YB-057,,,TRUE,FALSE,,,,,,,,,,,1,,182
+Lululemon,Waist Bags,Waist Bag - Mickey Head,YB-058,,,TRUE,FALSE,,,,,,,,,,,1,,55
+Lululemon,Waist Bags,Waist Bag - Dark Pink 2L,YB-060,,,TRUE,FALSE,,,,,,,,,,,1,,31
+Lululemon,Waist Bags,Waist Bag - Pink 2L,YB-061,,,TRUE,FALSE,,,,,,,,,,,1,,19
+Lululemon,Waist Bags,Waist Bag - Dark Blue 2L,YB-062,,,TRUE,FALSE,,,,,,,,,,,1,,22
+Lululemon,Waist Bags,Waist Bag - Wine Red 2L,YB-063,,,TRUE,FALSE,,,,,,,,,,,1,,36
+Lululemon,Waist Bags,Waist Bag - Red 2L,YB-064,,,TRUE,FALSE,,,,,,,,,,,1,,45
+Lululemon,Waist Bags,Waist Bag - Olive Drab 2L,YB-066,,,TRUE,FALSE,,,,,,,,,,,1,,37
+Lululemon,Waist Bags,Waist Bag - Cream 2L,YB-069,,,TRUE,FALSE,,,,,,,,,,,1,,33
+Lululemon,Waist Bags,Waist Bag - Black 2L,YB-070,,,TRUE,FALSE,,,,,,,,,,,1,,10
+Lululemon,Waist Bags,Waist Bag - White Grey 2L Logo Gold,YB-071,,,TRUE,FALSE,,,,,,,,,,,1,,14
+Lululemon,Waist Bags,Waist Bag - Sapphire Blue 2L Logo Gold,YB-072,,,TRUE,FALSE,,,,,,,,,,,1,,30
+Lululemon,Waist Bags,Waist Bag - Wine Red 2L Logo Gold,YB-073,,,TRUE,FALSE,,,,,,,,,,,1,,24
+Lululemon,Waist Bags,Waist Bag - Light Blue 2L Logo Gold,YB-074,,,TRUE,FALSE,,,,,,,,,,,1,,29
+Lululemon,Waist Bags,Waist Bag - Black Gold 2L Logo Gold,YB-075,,,TRUE,FALSE,,,,,,,,,,,1,,7
+Lululemon,Waist Bags,Waist Bag - Blue Black 2L,YB-076,,,TRUE,FALSE,,,,,,,,,,,1,,36
+Lululemon,Waist Bags,Waist Bag - Dark Purple,YB-077,,,TRUE,FALSE,,,,,,,,,,,1,,106
+Lululemon,Waist Bags,Waist Bag - Camo Red,YB-079,,,TRUE,FALSE,,,,,,,,,,,1,,56
+Lululemon,Key Pouches,Key Pouch - Pink Dark Pink,YS-001,,,TRUE,FALSE,,,,,,,,,,,1,,493
+Lululemon,Key Pouches,Key Pouch - Vermilion Beige,YS-002,,,TRUE,FALSE,,,,,,,,,,,1,,226
+Lululemon,Key Pouches,Key Pouch - Ivory Nude,YS-003,,,TRUE,FALSE,,,,,,,,,,,1,,277
+Lululemon,Key Pouches,Key Pouch - Gold Black,YS-005,,,TRUE,FALSE,,,,,,,,,,,1,,648
+Lululemon,Key Pouches,Key Pouch - Ivory Royal Blue,YS-006,,,TRUE,FALSE,,,,,,,,,,,1,,856
+Lululemon,Key Pouches,Key Pouch - Ivory Burgundy,YS-007,,,TRUE,FALSE,,,,,,,,,,,1,,825
+Lululemon,Key Pouches,Key Pouch - Gray Pink,YS-008,,,TRUE,FALSE,,,,,,,,,,,1,,179
+Lululemon,Key Pouches,Key Pouch - Blue Blue,YS-009,,,TRUE,FALSE,,,,,,,,,,,1,,389
+Lululemon,Key Pouches,Key Pouch - Green Dark Green,YS-010,,,TRUE,FALSE,,,,,,,,,,,1,,141
+Lululemon,Key Pouches,Key Pouch - Ivory Khaki,YS-011,,,TRUE,FALSE,,,,,,,,,,,1,,454
+Lululemon,Key Pouches,Key Pouch - Brown Dark Red,YS-012,,,TRUE,FALSE,,,,,,,,,,,1,,372
+Lululemon,Key Pouches,Key Pouch - White Black,YS-013,,,TRUE,FALSE,,,,,,,,,,,1,,282
+Lululemon,Key Pouches,Key Pouch - Black Gunmetal,YS-014,,,TRUE,FALSE,,,,,,,,,,,1,,191
+Lululemon,Key Pouches,Key Pouch - Pink Burgundy,YS-016,,,TRUE,FALSE,,,,,,,,,,,1,,433
+Lululemon,Key Pouches,Key Pouch - White Dark Green,YS-017,,,TRUE,FALSE,,,,,,,,,,,1,,231
+Lululemon,Key Pouches,Key Pouch - Black Olive Green,YS-018,,,TRUE,FALSE,,,,,,,,,,,1,,3
+Lululemon,Key Pouches,Key Pouch - White Nude,YS-020,,,TRUE,FALSE,,,,,,,,,,,1,,271
+Lululemon,Key Pouches,Key Pouch - Nude Dark Pink,YS-022,,,TRUE,FALSE,,,,,,,,,,,1,,274
+Lululemon,Key Pouches,Key Pouch - Orange Nude,YS-023,,,TRUE,FALSE,,,,,,,,,,,1,,332
+Lululemon,Key Pouches,Key Pouch - Purple Black,YS-026,,,TRUE,FALSE,,,,,,,,,,,1,,229
+Lululemon,Key Pouches,Key Pouch - Lake Blue,YS-030,,,TRUE,FALSE,,,,,,,,,,,1,,170
+Lululemon,Key Pouches,Key Pouch - Light Purple Light Purple,YS-032,,,TRUE,FALSE,,,,,,,,,,,1,,324
+Lululemon,Key Pouches,Key Pouch - Silver Gray Silver Gray,YS-033,,,TRUE,FALSE,,,,,,,,,,,1,,239
+Lululemon,Key Pouches,Key Pouch - Blue Purple A,YS-034,,,TRUE,FALSE,,,,,,,,,,,1,,84
+Lululemon,Key Pouches,Key Pouch - Orange Red Light Pink,YS-035,,,TRUE,FALSE,,,,,,,,,,,1,,26
+Lululemon,Key Pouches,Key Pouch - Green Light Green,YS-036,,,TRUE,FALSE,,,,,,,,,,,1,,37
+Lululemon,Key Pouches,Key Pouch - Blue Purple B,YS-037,,,TRUE,FALSE,,,,,,,,,,,1,,58
+Lululemon,Key Pouches,Key Pouch - Light Green White,YS-038,,,TRUE,FALSE,,,,,,,,,,,1,,226
+Lululemon,Key Pouches,Key Pouch - Leopard Print,YS-039,,,TRUE,FALSE,,,,,,,,,,,1,,12
+Lululemon,Key Pouches,Key Pouch - Black Black Gold Logo,YS-041,,,TRUE,FALSE,,,,,,,,,,,1,,98
+Lululemon,Key Pouches,Key Pouch - Gray Gray Silver Logo,YS-042,,,TRUE,FALSE,,,,,,,,,,,1,,120
+Lululemon,Key Pouches,Key Pouch - Red Red Gold Logo,YS-043,,,TRUE,FALSE,,,,,,,,,,,1,,104
+Lululemon,Key Pouches,Key Pouch - Off-White Off-White Gold Logo,YS-044,,,TRUE,FALSE,,,,,,,,,,,1,,120
+Lululemon,Key Pouches,Key Pouch - Purple Purple Printed Logo,YS-045,,,TRUE,FALSE,,,,,,,,,,,1,,115
+Lululemon,Key Pouches,Key Pouch - Pink Bright Pink,YS-046,,,TRUE,FALSE,,,,,,,,,,,1,,96
+Lululemon,Key Pouches,Key Pouch - Black Bright Black,YS-047,,,TRUE,FALSE,,,,,,,,,,,1,,127
+Lululemon,Key Pouches,Key Pouch - Silver Bright Silver,YS-048,,,TRUE,FALSE,,,,,,,,,,,1,,134
+Lululemon,Key Pouches,Key Pouch - Pink Iridescent,YS-049,,,TRUE,FALSE,,,,,,,,,,,1,,118
+Lululemon,Key Pouches,Key Pouch - Army Green Leather,YS-054,,,TRUE,FALSE,,,,,,,,,,,1,,117
+Lululemon,Key Pouches,Key Pouch - Pink Leather,YS-055,,,TRUE,FALSE,,,,,,,,,,,1,,212
+Lululemon,Key Pouches,Key Pouch - Gray Leather,YS-056,,,TRUE,FALSE,,,,,,,,,,,1,,116
+Lululemon,Key Pouches,Key Pouch - Rose Red Leather,YS-057,,,TRUE,FALSE,,,,,,,,,,,1,,112
+Lululemon,Key Pouches,Key Pouch - Black Leather,YS-058,,,TRUE,FALSE,,,,,,,,,,,1,,287
+Lululemon,Key Pouches,Key Pouch - White Leather,YS-059,,,TRUE,FALSE,,,,,,,,,,,1,,217
+Lululemon,Jackets,Nine-Point Jacket - Gold & Black - XS,YJ-002,,,TRUE,FALSE,,,,,,,,,,,1,XS,31
+Lululemon,Jackets,Nine-Point Jacket - Gold & Black - S,YJ-003,,,TRUE,FALSE,,,,,,,,,,,1,S,1
+Lululemon,Jackets,Nine-Point Jacket - Gold & Black - M,YJ-004,,,TRUE,FALSE,,,,,,,,,,,1,M,71
+Lululemon,Jackets,Nine-Point Jacket - Gold & Black - L,YJ-005,,,TRUE,FALSE,,,,,,,,,,,1,L,84
+Lululemon,Jackets,Nine-Point Jacket - Gold & Black - XL,YJ-006,,,TRUE,FALSE,,,,,,,,,,,1,XL,37
+Lululemon,Jackets,Nine-Point Jacket - Gold & White - XXS,YJ-007,,,TRUE,FALSE,,,,,,,,,,,1,XXS,51
+Lululemon,Jackets,Nine-Point Jacket - Gold & White - XS,YJ-008,,,TRUE,FALSE,,,,,,,,,,,1,XS,61
+Lululemon,Jackets,Nine-Point Jacket - Gold & White - S,YJ-009,,,TRUE,FALSE,,,,,,,,,,,1,S,118
+Lululemon,Jackets,Nine-Point Jacket - Gold & White - M,YJ-010,,,TRUE,FALSE,,,,,,,,,,,1,M,112
+Lululemon,Jackets,Nine-Point Jacket - Gold & White - L,YJ-011,,,TRUE,FALSE,,,,,,,,,,,1,L,135
+Lululemon,Jackets,Nine-Point Jacket - Gold & White - XL,YJ-012,,,TRUE,FALSE,,,,,,,,,,,1,XL,108
+Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink & Gold - S,YJ-015,,,TRUE,FALSE,,,,,,,,,,,1,S,106
+Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink & Gold - M,YJ-016,,,TRUE,FALSE,,,,,,,,,,,1,M,95
+Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink & Gold - L,YJ-017,,,TRUE,FALSE,,,,,,,,,,,1,L,118
+Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink & Gold - XL,YJ-018,,,TRUE,FALSE,,,,,,,,,,,1,XL,103
+Lululemon,Jackets,Nine-Point Jacket - Black - XXS,YJ-019,,,TRUE,FALSE,,,,,,,,,,,1,XXS,55
+Lululemon,Jackets,Nine-Point Jacket - Black - XS,YJ-020,,,TRUE,FALSE,,,,,,,,,,,1,XS,47
+Lululemon,Jackets,Nine-Point Jacket - Black - S,YJ-021,,,TRUE,FALSE,,,,,,,,,,,1,S,96
+Lululemon,Jackets,Nine-Point Jacket - Black - M,YJ-022,,,TRUE,FALSE,,,,,,,,,,,1,M,117
+Lululemon,Jackets,Nine-Point Jacket - Black - L,YJ-023,,,TRUE,FALSE,,,,,,,,,,,1,L,134
+Lululemon,Jackets,Nine-Point Jacket - Black - XL,YJ-024,,,TRUE,FALSE,,,,,,,,,,,1,XL,136
+Lululemon,Jackets,Nine-Point Jacket - White - XXS,YJ-025,,,TRUE,FALSE,,,,,,,,,,,1,XXS,82
+Lululemon,Jackets,Nine-Point Jacket - White - XS,YJ-026,,,TRUE,FALSE,,,,,,,,,,,1,XS,103
+Lululemon,Jackets,Nine-Point Jacket - White - S,YJ-027,,,TRUE,FALSE,,,,,,,,,,,1,S,116
+Lululemon,Jackets,Nine-Point Jacket - White - M,YJ-028,,,TRUE,FALSE,,,,,,,,,,,1,M,131
+Lululemon,Jackets,Nine-Point Jacket - White - L,YJ-029,,,TRUE,FALSE,,,,,,,,,,,1,L,81
+Lululemon,Jackets,Nine-Point Jacket - White - XL,YJ-030,,,TRUE,FALSE,,,,,,,,,,,1,XL,81
+Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink - XXS,YJ-031,,,TRUE,FALSE,,,,,,,,,,,1,XXS,116
+Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink - XS,YJ-032,,,TRUE,FALSE,,,,,,,,,,,1,XS,107
+Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink - S,YJ-033,,,TRUE,FALSE,,,,,,,,,,,1,S,138
+Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink - M,YJ-034,,,TRUE,FALSE,,,,,,,,,,,1,M,154
+Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink - L,YJ-035,,,TRUE,FALSE,,,,,,,,,,,1,L,114
+Lululemon,Jackets,Nine-Point Jacket - Cherry Blossom Pink - XL,YJ-036,,,TRUE,FALSE,,,,,,,,,,,1,XL,119
+Lululemon,Jackets,Nine-Point Jacket - Powder Blue Gold - XXS,YJ-055,,,TRUE,FALSE,,,,,,,,,,,1,XXS,57
+Lululemon,Jackets,Nine-Point Jacket - Powder Blue Gold - XS,YJ-056,,,TRUE,FALSE,,,,,,,,,,,1,XS,59
+Lululemon,Jackets,Nine-Point Jacket - Powder Blue Gold - S,YJ-057,,,TRUE,FALSE,,,,,,,,,,,1,S,74
+Lululemon,Jackets,Nine-Point Jacket - Powder Blue Gold - M,YJ-058,,,TRUE,FALSE,,,,,,,,,,,1,M,67
+Lululemon,Jackets,Nine-Point Jacket - Powder Blue - XXS,YJ-061,,,TRUE,FALSE,,,,,,,,,,,1,XXS,40
+Lululemon,Jackets,Nine-Point Jacket - Powder Blue - XS,YJ-062,,,TRUE,FALSE,,,,,,,,,,,1,XS,36
+Lululemon,Jackets,Nine-Point Jacket - Powder Blue - S,YJ-063,,,TRUE,FALSE,,,,,,,,,,,1,S,38
+Lululemon,Jackets,Nine-Point Jacket - Powder Blue - M,YJ-064,,,TRUE,FALSE,,,,,,,,,,,1,M,34
+Lululemon,Jackets,Nine-Point Jacket - Powder Blue - L,YJ-065,,,TRUE,FALSE,,,,,,,,,,,1,L,47
+Lululemon,Jackets,Nine-Point Jacket - Powder Blue - XL,YJ-066,,,TRUE,FALSE,,,,,,,,,,,1,XL,13
+Lululemon,Jackets,Nine-Point Jacket - Lavender - XXS,YJ-067,,,TRUE,FALSE,,,,,,,,,,,1,XXS,20
+Lululemon,Jackets,Nine-Point Jacket - Lavender - XS,YJ-068,,,TRUE,FALSE,,,,,,,,,,,1,XS,14
+Lululemon,Jackets,Nine-Point Jacket - Lavender - S,YJ-069,,,TRUE,FALSE,,,,,,,,,,,1,S,32
+Lululemon,Jackets,Nine-Point Jacket - Lavender - L,YJ-071,,,TRUE,FALSE,,,,,,,,,,,1,L,10
+Lululemon,Jackets,Nine-Point Jacket - Lavender - XL,YJ-072,,,TRUE,FALSE,,,,,,,,,,,1,XL,13
+Lululemon,Jackets,Nine-Point Jacket - Gold & Midnight Blue - XXS,YJ-073,,,TRUE,FALSE,,,,,,,,,,,1,XXS,102
+Lululemon,Jackets,Nine-Point Jacket - Gold & Midnight Blue - XS,YJ-074,,,TRUE,FALSE,,,,,,,,,,,1,XS,80
+Lululemon,Jackets,Nine-Point Jacket - Gold & Midnight Blue - S,YJ-075,,,TRUE,FALSE,,,,,,,,,,,1,S,79
+Lululemon,Jackets,Nine-Point Jacket - Gold & Midnight Blue - M,YJ-076,,,TRUE,FALSE,,,,,,,,,,,1,M,70
+Lululemon,Jackets,Nine-Point Jacket - Gold & Midnight Blue - L,YJ-077,,,TRUE,FALSE,,,,,,,,,,,1,L,75
+Lululemon,Jackets,Nine-Point Jacket - Gold & Midnight Blue - XL,YJ-078,,,TRUE,FALSE,,,,,,,,,,,1,XL,9
+Lululemon,Jackets,Nine-Point Jacket - Midnight Blue - L,YJ-083,,,TRUE,FALSE,,,,,,,,,,,1,L,6
+Lululemon,Jackets,Nine-Point Jacket - Midnight Blue - XL,YJ-084,,,TRUE,FALSE,,,,,,,,,,,1,XL,13
+Lululemon,Jackets,Nine-Point Jacket - Strawberry Milkshake - XXS,YJ-085,,,TRUE,FALSE,,,,,,,,,,,1,XXS,23
+Lululemon,Jackets,Nine-Point Jacket - Strawberry Milkshake - XS,YJ-086,,,TRUE,FALSE,,,,,,,,,,,1,XS,19
+Lululemon,Jackets,Nine-Point Jacket - Strawberry Milkshake - S,YJ-087,,,TRUE,FALSE,,,,,,,,,,,1,S,39
+Lululemon,Jackets,Nine-Point Jacket - Strawberry Milkshake - M,YJ-088,,,TRUE,FALSE,,,,,,,,,,,1,M,46
+Lululemon,Jackets,Nine-Point Jacket - Strawberry Milkshake - L,YJ-089,,,TRUE,FALSE,,,,,,,,,,,1,L,13
+Lululemon,Jackets,Nine-Point Jacket - Strawberry Milkshake - XL,YJ-090,,,TRUE,FALSE,,,,,,,,,,,1,XL,14
+Lululemon,Jackets,Nine-Point Jacket - Gold & Off-White - XXS,YJ-115,,,TRUE,FALSE,,,,,,,,,,,1,XXS,80
+Lululemon,Jackets,Nine-Point Jacket - Gold & Off-White - XS,YJ-116,,,TRUE,FALSE,,,,,,,,,,,1,XS,80
+Lululemon,Jackets,Nine-Point Jacket - Gold & Off-White - S,YJ-117,,,TRUE,FALSE,,,,,,,,,,,1,S,16
+Lululemon,Jackets,Nine-Point Jacket - Gold & Off-White - M,YJ-118,,,TRUE,FALSE,,,,,,,,,,,1,M,45
+Lululemon,Jackets,Nine-Point Jacket - Gold & Off-White - L,YJ-119,,,TRUE,FALSE,,,,,,,,,,,1,L,49
+Lululemon,Jackets,Nine-Point Jacket - Gold & Off-White - XL,YJ-120,,,TRUE,FALSE,,,,,,,,,,,1,XL,26
+Lululemon,Jackets,Nine-Point Jacket - Light Gray & Gold - XXS,YJ-121,,,TRUE,FALSE,,,,,,,,,,,1,XXS,65
+Lululemon,Jackets,Nine-Point Jacket - Light Gray & Gold - XS,YJ-122,,,TRUE,FALSE,,,,,,,,,,,1,XS,56
+Lululemon,Jackets,Nine-Point Jacket - Light Gray & Gold - S,YJ-123,,,TRUE,FALSE,,,,,,,,,,,1,S,62
+Lululemon,Jackets,Nine-Point Jacket - Light Gray & Gold - M,YJ-124,,,TRUE,FALSE,,,,,,,,,,,1,M,67
+Lululemon,Jackets,Nine-Point Jacket - Light Gray & Gold - L,YJ-125,,,TRUE,FALSE,,,,,,,,,,,1,L,72
+Lululemon,Jackets,Nine-Point Jacket - Mint Green & Gold - XXS,YJ-127,,,TRUE,FALSE,,,,,,,,,,,1,XXS,5
+Lululemon,Jackets,Nine-Point Jacket - Mint Green & Gold - XS,YJ-128,,,TRUE,FALSE,,,,,,,,,,,1,XS,5
+Lululemon,Jackets,Nine-Point Jacket - Mint Green & Gold - S,YJ-129,,,TRUE,FALSE,,,,,,,,,,,1,S,10
+Lululemon,Jackets,Nine-Point Jacket - Mint Green & Gold - M,YJ-130,,,TRUE,FALSE,,,,,,,,,,,1,M,22
+Lululemon,Jackets,Nine-Point Jacket - Mint Green & Gold - L,YJ-131,,,TRUE,FALSE,,,,,,,,,,,1,L,23
+Lululemon,Jackets,Nine-Point Jacket - Maillard Brown & Gold - XXS,YJ-133,,,TRUE,FALSE,,,,,,,,,,,1,XXS,36
+Lululemon,Jackets,Nine-Point Jacket - Maillard Brown & Gold - XS,YJ-134,,,TRUE,FALSE,,,,,,,,,,,1,XS,33
+Lululemon,Jackets,Nine-Point Jacket - Maillard Brown & Gold - S,YJ-135,,,TRUE,FALSE,,,,,,,,,,,1,S,51
+Lululemon,Jackets,Nine-Point Jacket - Maillard Brown & Gold - M,YJ-136,,,TRUE,FALSE,,,,,,,,,,,1,M,68
+Lululemon,Jackets,Nine-Point Jacket - Maillard Brown & Gold - L,YJ-137,,,TRUE,FALSE,,,,,,,,,,,1,L,72
+Lululemon,Jackets,Nine-Point Jacket - Dark Red & Gold - XXS,YJ-169,,,TRUE,FALSE,,,,,,,,,,,1,XXS,73
+Lululemon,Jackets,Nine-Point Jacket - Dark Red & Gold - XS,YJ-170,,,TRUE,FALSE,,,,,,,,,,,1,XS,24
+Lululemon,Jackets,Nine-Point Jacket - Dark Red & Gold - S,YJ-171,,,TRUE,FALSE,,,,,,,,,,,1,S,34
+Lululemon,Jackets,Nine-Point Jacket - Dark Red & Gold - M,YJ-172,,,TRUE,FALSE,,,,,,,,,,,1,M,49
+Lululemon,Jackets,Nine-Point Jacket - Dark Red & Gold - L,YJ-173,,,TRUE,FALSE,,,,,,,,,,,1,L,21
+Lululemon,Jackets,Nine-Point Jacket - Dark Red & Gold - XL,YJ-174,,,TRUE,FALSE,,,,,,,,,,,1,XL,19
+Lululemon,Jackets,Nine-Point Jacket - Rose & Gold - XXS,YJ-175,,,TRUE,FALSE,,,,,,,,,,,1,XXS,67
+Lululemon,Jackets,Nine-Point Jacket - Rose & Gold - XS,YJ-176,,,TRUE,FALSE,,,,,,,,,,,1,XS,68
+Lululemon,Jackets,Nine-Point Jacket - Rose & Gold - S,YJ-177,,,TRUE,FALSE,,,,,,,,,,,1,S,40
+Lululemon,Jackets,Nine-Point Jacket - Rose & Gold - M,YJ-178,,,TRUE,FALSE,,,,,,,,,,,1,M,42
+Lululemon,Jackets,Nine-Point Jacket - Rose & Gold - L,YJ-179,,,TRUE,FALSE,,,,,,,,,,,1,L,16
+Lululemon,Jackets,Nine-Point Jacket - Rose & Gold - XL,YJ-180,,,TRUE,FALSE,,,,,,,,,,,1,XL,23
+Lululemon,Jackets,Nine-Point Jacket - Chinese Red & Gold - XXS,YJ-181,,,TRUE,FALSE,,,,,,,,,,,1,XXS,34
+Lululemon,Jackets,Nine-Point Jacket - Chinese Red & Gold - XS,YJ-182,,,TRUE,FALSE,,,,,,,,,,,1,XS,40
+Lululemon,Jackets,Nine-Point Jacket - Chinese Red & Gold - S,YJ-183,,,TRUE,FALSE,,,,,,,,,,,1,S,65
+Lululemon,Jackets,Nine-Point Jacket - Chinese Red & Gold - M,YJ-184,,,TRUE,FALSE,,,,,,,,,,,1,M,66
+Lululemon,Jackets,Nine-Point Jacket - Chinese Red & Gold - L,YJ-185,,,TRUE,FALSE,,,,,,,,,,,1,L,69
+Lululemon,Jackets,Nine-Point Jacket - Chinese Red & Gold - XL,YJ-186,,,TRUE,FALSE,,,,,,,,,,,1,XL,14
+Lululemon,Jackets,Nine-Point Jacket - Off-White - XXS,YJ-229,,,TRUE,FALSE,,,,,,,,,,,1,XXS,29
+Lululemon,Jackets,Nine-Point Jacket - Off-White - XS,YJ-230,,,TRUE,FALSE,,,,,,,,,,,1,XS,30
+Lululemon,Jackets,Nine-Point Jacket - Off-White - S,YJ-231,,,TRUE,FALSE,,,,,,,,,,,1,S,33
+Lululemon,Jackets,Nine-Point Jacket - Off-White - M,YJ-232,,,TRUE,FALSE,,,,,,,,,,,1,M,32
+Lululemon,Jackets,Nine-Point Jacket - Off-White - L,YJ-233,,,TRUE,FALSE,,,,,,,,,,,1,L,32
+Lululemon,Jackets,Nine-Point Jacket - Off-White - XL,YJ-234,,,TRUE,FALSE,,,,,,,,,,,1,XL,30
+Lululemon,Jackets,Nine-Point Jacket - Black & Gold Polka Dot - XXS,YJ-301,,,TRUE,FALSE,,,,,,,,,,,1,XXS,19
+Lululemon,Jackets,Nine-Point Jacket - Black & Gold Polka Dot - XS,YJ-302,,,TRUE,FALSE,,,,,,,,,,,1,XS,32
+Lululemon,Jackets,Nine-Point Jacket - Black & Gold Polka Dot - S,YJ-303,,,TRUE,FALSE,,,,,,,,,,,1,S,71
+Lululemon,Jackets,Nine-Point Jacket - Black & Gold Polka Dot - M,YJ-304,,,TRUE,FALSE,,,,,,,,,,,1,M,113
+Lululemon,Jackets,Nine-Point Jacket - Black & Gold Polka Dot - L,YJ-305,,,TRUE,FALSE,,,,,,,,,,,1,L,104
+Lululemon,Jackets,Nine-Point Jacket - Black Polka Dot - XXS,YJ-319,,,TRUE,FALSE,,,,,,,,,,,1,XXS,72
+Lululemon,Jackets,Nine-Point Jacket - Black Polka Dot - XS,YJ-320,,,TRUE,FALSE,,,,,,,,,,,1,XS,74
+Lululemon,Jackets,Nine-Point Jacket - Black Polka Dot - S,YJ-321,,,TRUE,FALSE,,,,,,,,,,,1,S,77
+Lululemon,Jackets,Nine-Point Jacket - Chinese Red Gold Polka Dot - XXS,YJ-343,,,TRUE,FALSE,,,,,,,,,,,1,XXS,80
+Lululemon,Jackets,Nine-Point Jacket - Chinese Red Gold Polka Dot - XS,YJ-344,,,TRUE,FALSE,,,,,,,,,,,1,XS,80
+Lululemon,Jackets,Nine-Point Jacket - Chinese Red Gold Polka Dot - S,YJ-345,,,TRUE,FALSE,,,,,,,,,,,1,S,40
+Lululemon,Cropped Jackets,Cropped Jacket - Black & Gold - XXS,YJ-265,,,TRUE,FALSE,,,,,,,,,,,1,XXS,33
+Lululemon,Cropped Jackets,Cropped Jacket - Black & Gold - XS,YJ-266,,,TRUE,FALSE,,,,,,,,,,,1,XS,40
+Lululemon,Cropped Jackets,Cropped Jacket - Black & Gold - S,YJ-267,,,TRUE,FALSE,,,,,,,,,,,1,S,40
+Lululemon,Cropped Jackets,Cropped Jacket - Black & Gold - M,YJ-268,,,TRUE,FALSE,,,,,,,,,,,1,M,56
+Lululemon,Cropped Jackets,Cropped Jacket - Black & Gold - L,YJ-269,,,TRUE,FALSE,,,,,,,,,,,1,L,20
+Lululemon,Cropped Jackets,Cropped Jacket - White & Gold - XXS,YJ-271,,,TRUE,FALSE,,,,,,,,,,,1,XXS,13
+Lululemon,Cropped Jackets,Cropped Jacket - White & Gold - XS,YJ-272,,,TRUE,FALSE,,,,,,,,,,,1,XS,15
+Lululemon,Cropped Jackets,Cropped Jacket - White & Gold - S,YJ-273,,,TRUE,FALSE,,,,,,,,,,,1,S,14
+Lululemon,Cropped Jackets,Cropped Jacket - White & Gold - M,YJ-274,,,TRUE,FALSE,,,,,,,,,,,1,M,28
+Lululemon,Cropped Jackets,Cropped Jacket - White & Gold - L,YJ-275,,,TRUE,FALSE,,,,,,,,,,,1,L,28
+Lululemon,Cropped Jackets,Cropped Jacket - Cherry Blossom Pink & Gold - XXS,YJ-277,,,TRUE,FALSE,,,,,,,,,,,1,XXS,40
+Lululemon,Cropped Jackets,Cropped Jacket - Cherry Blossom Pink & Gold - XS,YJ-278,,,TRUE,FALSE,,,,,,,,,,,1,XS,3
+Lululemon,Cropped Jackets,Cropped Jacket - Cherry Blossom Pink & Gold - S,YJ-279,,,TRUE,FALSE,,,,,,,,,,,1,S,7
+Lululemon,Cropped Jackets,Cropped Jacket - Cherry Blossom Pink & Gold - M,YJ-280,,,TRUE,FALSE,,,,,,,,,,,1,M,19
+Lululemon,Cropped Jackets,Cropped Jacket - Cherry Blossom Pink & Gold - L,YJ-281,,,TRUE,FALSE,,,,,,,,,,,1,L,24
+Lululemon,Cropped Jackets,Cropped Jacket - Egg White Gold - XXS,YJ-307,,,TRUE,FALSE,,,,,,,,,,,1,XXS,40
+Lululemon,Cropped Jackets,Cropped Jacket - Egg White Gold - XS,YJ-308,,,TRUE,FALSE,,,,,,,,,,,1,XS,40
+Lululemon,Cropped Jackets,Cropped Jacket - Egg White Gold - S,YJ-309,,,TRUE,FALSE,,,,,,,,,,,1,S,40
+Lululemon,Pants,Nine-Point Pants - Black - XXS,YJ-037,,,TRUE,FALSE,,,,,,,,,,,1,XXS,72
+Lululemon,Pants,Nine-Point Pants - Black - XS,YJ-038,,,TRUE,FALSE,,,,,,,,,,,1,XS,66
+Lululemon,Pants,Nine-Point Pants - Black - S,YJ-039,,,TRUE,FALSE,,,,,,,,,,,1,S,64
+Lululemon,Pants,Nine-Point Pants - Black - M,YJ-040,,,TRUE,FALSE,,,,,,,,,,,1,M,70
+Lululemon,Pants,Nine-Point Pants - Black - L,YJ-041,,,TRUE,FALSE,,,,,,,,,,,1,L,74
+Lululemon,Pants,Nine-Point Pants - Black - XL,YJ-042,,,TRUE,FALSE,,,,,,,,,,,1,XL,79
+Lululemon,Pants,Nine-Point Pants - White - XXS,YJ-043,,,TRUE,FALSE,,,,,,,,,,,1,XXS,99
+Lululemon,Pants,Nine-Point Pants - White - XS,YJ-044,,,TRUE,FALSE,,,,,,,,,,,1,XS,93
+Lululemon,Pants,Nine-Point Pants - White - S,YJ-045,,,TRUE,FALSE,,,,,,,,,,,1,S,103
+Lululemon,Pants,Nine-Point Pants - White - M,YJ-046,,,TRUE,FALSE,,,,,,,,,,,1,M,107
+Lululemon,Pants,Nine-Point Pants - White - L,YJ-047,,,TRUE,FALSE,,,,,,,,,,,1,L,88
+Lululemon,Pants,Nine-Point Pants - White - XL,YJ-048,,,TRUE,FALSE,,,,,,,,,,,1,XL,106
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink - XXS,YJ-049,,,TRUE,FALSE,,,,,,,,,,,1,XXS,111
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink - XS,YJ-050,,,TRUE,FALSE,,,,,,,,,,,1,XS,97
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink - S,YJ-051,,,TRUE,FALSE,,,,,,,,,,,1,S,109
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink - M,YJ-052,,,TRUE,FALSE,,,,,,,,,,,1,M,122
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink - L,YJ-053,,,TRUE,FALSE,,,,,,,,,,,1,L,102
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink - XL,YJ-054,,,TRUE,FALSE,,,,,,,,,,,1,XL,107
+Lululemon,Pants,Nine-Point Pants - Strawberry Milkshake - XXS,YJ-091,,,TRUE,FALSE,,,,,,,,,,,1,XXS,14
+Lululemon,Pants,Nine-Point Pants - Strawberry Milkshake - XS,YJ-092,,,TRUE,FALSE,,,,,,,,,,,1,XS,7
+Lululemon,Pants,Nine-Point Pants - Strawberry Milkshake - S,YJ-093,,,TRUE,FALSE,,,,,,,,,,,1,S,15
+Lululemon,Pants,Nine-Point Pants - Strawberry Milkshake - M,YJ-094,,,TRUE,FALSE,,,,,,,,,,,1,M,9
+Lululemon,Pants,Nine-Point Pants - Strawberry Milkshake - L,YJ-095,,,TRUE,FALSE,,,,,,,,,,,1,L,14
+Lululemon,Pants,Nine-Point Pants - Strawberry Milkshake - XL,YJ-096,,,TRUE,FALSE,,,,,,,,,,,1,XL,14
+Lululemon,Pants,Nine-Point Pants - Powder Blue - XXS,YJ-097,,,TRUE,FALSE,,,,,,,,,,,1,XXS,58
+Lululemon,Pants,Nine-Point Pants - Powder Blue - XS,YJ-098,,,TRUE,FALSE,,,,,,,,,,,1,XS,47
+Lululemon,Pants,Nine-Point Pants - Powder Blue - S,YJ-099,,,TRUE,FALSE,,,,,,,,,,,1,S,49
+Lululemon,Pants,Nine-Point Pants - Powder Blue - M,YJ-100,,,TRUE,FALSE,,,,,,,,,,,1,M,48
+Lululemon,Pants,Nine-Point Pants - Powder Blue - L,YJ-101,,,TRUE,FALSE,,,,,,,,,,,1,L,61
+Lululemon,Pants,Nine-Point Pants - Powder Blue - XL,YJ-102,,,TRUE,FALSE,,,,,,,,,,,1,XL,68
+Lululemon,Pants,Nine-Point Pants - Lavender - XXS,YJ-103,,,TRUE,FALSE,,,,,,,,,,,1,XXS,51
+Lululemon,Pants,Nine-Point Pants - Lavender - XS,YJ-104,,,TRUE,FALSE,,,,,,,,,,,1,XS,39
+Lululemon,Pants,Nine-Point Pants - Lavender - S,YJ-105,,,TRUE,FALSE,,,,,,,,,,,1,S,44
+Lululemon,Pants,Nine-Point Pants - Lavender - M,YJ-106,,,TRUE,FALSE,,,,,,,,,,,1,M,40
+Lululemon,Pants,Nine-Point Pants - Lavender - L,YJ-107,,,TRUE,FALSE,,,,,,,,,,,1,L,48
+Lululemon,Pants,Nine-Point Pants - Lavender - XL,YJ-108,,,TRUE,FALSE,,,,,,,,,,,1,XL,53
+Lululemon,Pants,Nine-Point Pants - Midnight Blue - XXS,YJ-109,,,TRUE,FALSE,,,,,,,,,,,1,XXS,15
+Lululemon,Pants,Nine-Point Pants - Midnight Blue - XS,YJ-110,,,TRUE,FALSE,,,,,,,,,,,1,XS,13
+Lululemon,Pants,Nine-Point Pants - Midnight Blue - S,YJ-111,,,TRUE,FALSE,,,,,,,,,,,1,S,1
+Lululemon,Pants,Nine-Point Pants - Midnight Blue - M,YJ-112,,,TRUE,FALSE,,,,,,,,,,,1,M,14
+Lululemon,Pants,Nine-Point Pants - Midnight Blue - L,YJ-113,,,TRUE,FALSE,,,,,,,,,,,1,L,21
+Lululemon,Pants,Nine-Point Pants - Midnight Blue - XL,YJ-114,,,TRUE,FALSE,,,,,,,,,,,1,XL,2
+Lululemon,Pants,Nine-Point Pants - Off-White - XXS,YJ-139,,,TRUE,FALSE,,,,,,,,,,,1,XXS,15
+Lululemon,Pants,Nine-Point Pants - Off-White - XS,YJ-140,,,TRUE,FALSE,,,,,,,,,,,1,XS,17
+Lululemon,Pants,Nine-Point Pants - Off-White - S,YJ-141,,,TRUE,FALSE,,,,,,,,,,,1,S,16
+Lululemon,Pants,Nine-Point Pants - Off-White - M,YJ-142,,,TRUE,FALSE,,,,,,,,,,,1,M,17
+Lululemon,Pants,Nine-Point Pants - Off-White - L,YJ-143,,,TRUE,FALSE,,,,,,,,,,,1,L,19
+Lululemon,Pants,Nine-Point Pants - Mint Green - XXS,YJ-151,,,TRUE,FALSE,,,,,,,,,,,1,XXS,14
+Lululemon,Pants,Nine-Point Pants - Mint Green - XS,YJ-152,,,TRUE,FALSE,,,,,,,,,,,1,XS,14
+Lululemon,Pants,Nine-Point Pants - Mint Green - S,YJ-153,,,TRUE,FALSE,,,,,,,,,,,1,S,16
+Lululemon,Pants,Nine-Point Pants - Mint Green - M,YJ-154,,,TRUE,FALSE,,,,,,,,,,,1,M,18
+Lululemon,Pants,Nine-Point Pants - Mint Green - L,YJ-155,,,TRUE,FALSE,,,,,,,,,,,1,L,19
+Lululemon,Pants,Nine-Point Pants - Flared Black - XXS,YJ-163,,,TRUE,FALSE,,,,,,,,,,,1,XXS,40
+Lululemon,Pants,Nine-Point Pants - Flared Black - XS,YJ-164,,,TRUE,FALSE,,,,,,,,,,,1,XS,40
+Lululemon,Pants,Nine-Point Pants - Flared Black - S,YJ-165,,,TRUE,FALSE,,,,,,,,,,,1,S,40
+Lululemon,Pants,Nine-Point Pants - Flared Black - M,YJ-166,,,TRUE,FALSE,,,,,,,,,,,1,M,40
+Lululemon,Pants,Nine-Point Pants - Flared Black - L,YJ-167,,,TRUE,FALSE,,,,,,,,,,,1,L,50
+Lululemon,Pants,Nine-Point Pants - Flared Black - XL,YJ-168,,,TRUE,FALSE,,,,,,,,,,,1,XL,58
+Lululemon,Pants,Nine-Point Pants - Dark Red & Gold - XXS,YJ-187,,,TRUE,FALSE,,,,,,,,,,,1,XXS,13
+Lululemon,Pants,Nine-Point Pants - Dark Red & Gold - XS,YJ-188,,,TRUE,FALSE,,,,,,,,,,,1,XS,13
+Lululemon,Pants,Nine-Point Pants - Dark Red & Gold - S,YJ-189,,,TRUE,FALSE,,,,,,,,,,,1,S,13
+Lululemon,Pants,Nine-Point Pants - Dark Red & Gold - M,YJ-190,,,TRUE,FALSE,,,,,,,,,,,1,M,14
+Lululemon,Pants,Nine-Point Pants - Dark Red & Gold - L,YJ-191,,,TRUE,FALSE,,,,,,,,,,,1,L,16
+Lululemon,Pants,Nine-Point Pants - Dark Red & Gold - XL,YJ-192,,,TRUE,FALSE,,,,,,,,,,,1,XL,19
+Lululemon,Pants,Nine-Point Pants - Rose & Gold - XXS,YJ-193,,,TRUE,FALSE,,,,,,,,,,,1,XXS,9
+Lululemon,Pants,Nine-Point Pants - Rose & Gold - XS,YJ-194,,,TRUE,FALSE,,,,,,,,,,,1,XS,10
+Lululemon,Pants,Nine-Point Pants - Rose & Gold - S,YJ-195,,,TRUE,FALSE,,,,,,,,,,,1,S,7
+Lululemon,Pants,Nine-Point Pants - Rose & Gold - L,YJ-197,,,TRUE,FALSE,,,,,,,,,,,1,L,12
+Lululemon,Pants,Nine-Point Pants - Rose & Gold - XL,YJ-198,,,TRUE,FALSE,,,,,,,,,,,1,XL,23
+Lululemon,Pants,Nine-Point Pants - Chinese Red & Gold - XXS,YJ-199,,,TRUE,FALSE,,,,,,,,,,,1,XXS,41
+Lululemon,Pants,Nine-Point Pants - Chinese Red & Gold - XS,YJ-200,,,TRUE,FALSE,,,,,,,,,,,1,XS,45
+Lululemon,Pants,Nine-Point Pants - Chinese Red & Gold - S,YJ-201,,,TRUE,FALSE,,,,,,,,,,,1,S,81
+Lululemon,Pants,Nine-Point Pants - Chinese Red & Gold - M,YJ-202,,,TRUE,FALSE,,,,,,,,,,,1,M,84
+Lululemon,Pants,Nine-Point Pants - Chinese Red & Gold - L,YJ-203,,,TRUE,FALSE,,,,,,,,,,,1,L,82
+Lululemon,Pants,Nine-Point Pants - Chinese Red & Gold - XL,YJ-204,,,TRUE,FALSE,,,,,,,,,,,1,XL,93
+Lululemon,Pants,Nine-Point Pants - Gold & Black - XXS,YJ-205,,,TRUE,FALSE,,,,,,,,,,,1,XXS,39
+Lululemon,Pants,Nine-Point Pants - Gold & Black - XS,YJ-206,,,TRUE,FALSE,,,,,,,,,,,1,XS,36
+Lululemon,Pants,Nine-Point Pants - Gold & Black - S,YJ-207,,,TRUE,FALSE,,,,,,,,,,,1,S,38
+Lululemon,Pants,Nine-Point Pants - Gold & Black - M,YJ-208,,,TRUE,FALSE,,,,,,,,,,,1,M,38
+Lululemon,Pants,Nine-Point Pants - Gold & Black - L,YJ-209,,,TRUE,FALSE,,,,,,,,,,,1,L,36
+Lululemon,Pants,Nine-Point Pants - Gold & Black - XL,YJ-210,,,TRUE,FALSE,,,,,,,,,,,1,XL,47
+Lululemon,Pants,Nine-Point Pants - Gold & White - XXS,YJ-211,,,TRUE,FALSE,,,,,,,,,,,1,XXS,10
+Lululemon,Pants,Nine-Point Pants - Gold & White - XS,YJ-212,,,TRUE,FALSE,,,,,,,,,,,1,XS,6
+Lululemon,Pants,Nine-Point Pants - Gold & White - S,YJ-213,,,TRUE,FALSE,,,,,,,,,,,1,S,10
+Lululemon,Pants,Nine-Point Pants - Gold & White - M,YJ-214,,,TRUE,FALSE,,,,,,,,,,,1,M,11
+Lululemon,Pants,Nine-Point Pants - Gold & White - L,YJ-215,,,TRUE,FALSE,,,,,,,,,,,1,L,15
+Lululemon,Pants,Nine-Point Pants - Gold & White - XL,YJ-216,,,TRUE,FALSE,,,,,,,,,,,1,XL,23
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink & Gold - XXS,YJ-217,,,TRUE,FALSE,,,,,,,,,,,1,XXS,12
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink & Gold - S,YJ-219,,,TRUE,FALSE,,,,,,,,,,,1,S,2
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink & Gold - M,YJ-220,,,TRUE,FALSE,,,,,,,,,,,1,M,8
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink & Gold - L,YJ-221,,,TRUE,FALSE,,,,,,,,,,,1,L,11
+Lululemon,Pants,Nine-Point Pants - Cherry Blossom Pink & Gold - XL,YJ-222,,,TRUE,FALSE,,,,,,,,,,,1,XL,19
+Lululemon,Pants,Nine-Point Pants - Gold & Off-White - XXS,YJ-223,,,TRUE,FALSE,,,,,,,,,,,1,XXS,26
+Lululemon,Pants,Nine-Point Pants - Gold & Off-White - XS,YJ-224,,,TRUE,FALSE,,,,,,,,,,,1,XS,27
+Lululemon,Pants,Nine-Point Pants - Gold & Off-White - S,YJ-225,,,TRUE,FALSE,,,,,,,,,,,1,S,23
+Lululemon,Pants,Nine-Point Pants - Gold & Off-White - M,YJ-226,,,TRUE,FALSE,,,,,,,,,,,1,M,22
+Lululemon,Pants,Nine-Point Pants - Gold & Off-White - L,YJ-227,,,TRUE,FALSE,,,,,,,,,,,1,L,21
+Lululemon,Pants,Nine-Point Pants - Gold & Off-White - XL,YJ-228,,,TRUE,FALSE,,,,,,,,,,,1,XL,22
+Lululemon,Pants,Nine-Point Pants - Maillard Brown Gold Logo - XXS,YJ-289,,,TRUE,FALSE,,,,,,,,,,,1,XXS,111
+Lululemon,Pants,Nine-Point Pants - Maillard Brown Gold Logo - XS,YJ-290,,,TRUE,FALSE,,,,,,,,,,,1,XS,107
+Lululemon,Pants,Nine-Point Pants - Maillard Brown Gold Logo - S,YJ-291,,,TRUE,FALSE,,,,,,,,,,,1,S,105
+Lululemon,Pants,Nine-Point Pants - Maillard Brown Gold Logo - M,YJ-292,,,TRUE,FALSE,,,,,,,,,,,1,M,110
+Lululemon,Pants,Nine-Point Pants - Maillard Brown Gold Logo - L,YJ-293,,,TRUE,FALSE,,,,,,,,,,,1,L,78
+Lululemon,Pants,Nine-Point Pants - Maillard Brown Gold Logo - XL,YJ-294,,,TRUE,FALSE,,,,,,,,,,,1,XL,80
+Lululemon,Pants,Nine-Point Pants - Light Gray Gold Logo - XXS,YJ-295,,,TRUE,FALSE,,,,,,,,,,,1,XXS,107
+Lululemon,Pants,Nine-Point Pants - Light Gray Gold Logo - XS,YJ-296,,,TRUE,FALSE,,,,,,,,,,,1,XS,105
+Lululemon,Pants,Nine-Point Pants - Light Gray Gold Logo - S,YJ-297,,,TRUE,FALSE,,,,,,,,,,,1,S,104
+Lululemon,Pants,Nine-Point Pants - Light Gray Gold Logo - M,YJ-298,,,TRUE,FALSE,,,,,,,,,,,1,M,109
+Lululemon,Pants,Nine-Point Pants - Light Gray Gold Logo - L,YJ-299,,,TRUE,FALSE,,,,,,,,,,,1,L,75
+Lululemon,Pants,Nine-Point Pants - Light Gray Gold Logo - XL,YJ-300,,,TRUE,FALSE,,,,,,,,,,,1,XL,80
+Lululemon,Pants,Nine-Point Pants - Chinese Red Polka Dot - XXS,YJ-349,,,TRUE,FALSE,,,,,,,,,,,1,XXS,79
+Lululemon,Pants,Nine-Point Pants - Chinese Red Polka Dot - XS,YJ-350,,,TRUE,FALSE,,,,,,,,,,,1,XS,80
+Lululemon,Pants,Nine-Point Pants - Chinese Red Polka Dot - S,YJ-351,,,TRUE,FALSE,,,,,,,,,,,1,S,80
+Lululemon,Pants,Nine-Point Pants - Powder Blue Gold - XXS,YJ-355,,,TRUE,FALSE,,,,,,,,,,,1,XXS,40
+Lululemon,Pants,Nine-Point Pants - Powder Blue Gold - XS,YJ-356,,,TRUE,FALSE,,,,,,,,,,,1,XS,40
+Lululemon,Pants,Nine-Point Pants - Powder Blue Gold - S,YJ-357,,,TRUE,FALSE,,,,,,,,,,,1,S,40
+Lululemon,Pants,Nine-Point Pants - Powder Blue Gold - M,YJ-358,,,TRUE,FALSE,,,,,,,,,,,1,M,39
+Lululemon,Pants,Nine-Point Pants - Powder Blue Gold - L,YJ-359,,,TRUE,FALSE,,,,,,,,,,,1,L,40
+Lululemon,Pants,Nine-Point Pants - Powder Blue Gold - XL,YJ-360,,,TRUE,FALSE,,,,,,,,,,,1,XL,40
+Lululemon,Leggings,Polka Dot Leggings - XXS,YJ-313,,,TRUE,FALSE,,,,,,,,,,,1,XXS,73
+Lululemon,Leggings,Polka Dot Leggings - XS,YJ-314,,,TRUE,FALSE,,,,,,,,,,,1,XS,79
+Lululemon,Leggings,Polka Dot Leggings - S,YJ-315,,,TRUE,FALSE,,,,,,,,,,,1,S,78
+Lululemon,Leggings,Polka Dot Leggings - M,YJ-316,,,TRUE,FALSE,,,,,,,,,,,1,M,105
+Lululemon,Leggings,Polka Dot Leggings - L,YJ-317,,,TRUE,FALSE,,,,,,,,,,,1,L,104
+Lululemon,Leggings,Polka Dot Leggings - XL,YJ-318,,,TRUE,FALSE,,,,,,,,,,,1,XL,71
+Lululemon,Hoodies,Hoodie - Heather Gray & Gold - XXS,YJ-235,,,TRUE,FALSE,,,,,,,,,,,1,XXS,42
+Lululemon,Hoodies,Hoodie - Heather Gray & Gold - XS,YJ-236,,,TRUE,FALSE,,,,,,,,,,,1,XS,41
+Lululemon,Hoodies,Hoodie - Heather Gray & Gold - S,YJ-237,,,TRUE,FALSE,,,,,,,,,,,1,S,44
+Lululemon,Hoodies,Hoodie - Heather Gray & Gold - M,YJ-238,,,TRUE,FALSE,,,,,,,,,,,1,M,20
+Lululemon,Hoodies,Hoodie - Heather Gray & Gold - L,YJ-239,,,TRUE,FALSE,,,,,,,,,,,1,L,23
+Lululemon,Hoodies,Hoodie - Peony Pink & Gold - XXS,YJ-241,,,TRUE,FALSE,,,,,,,,,,,1,XXS,37
+Lululemon,Hoodies,Hoodie - Peony Pink & Gold - XS,YJ-242,,,TRUE,FALSE,,,,,,,,,,,1,XS,38
+Lululemon,Hoodies,Hoodie - Peony Pink & Gold - S,YJ-243,,,TRUE,FALSE,,,,,,,,,,,1,S,39
+Lululemon,Hoodies,Hoodie - Peony Pink & Gold - M,YJ-244,,,TRUE,FALSE,,,,,,,,,,,1,M,21
+Lululemon,Hoodies,Hoodie - Peony Pink & Gold - L,YJ-245,,,TRUE,FALSE,,,,,,,,,,,1,L,24
+Lululemon,Hoodies,Hoodie - Black & Gold - XXS,YJ-247,,,TRUE,FALSE,,,,,,,,,,,1,XXS,35
+Lululemon,Hoodies,Hoodie - Black & Gold - XS,YJ-248,,,TRUE,FALSE,,,,,,,,,,,1,XS,39
+Lululemon,Hoodies,Hoodie - Black & Gold - S,YJ-249,,,TRUE,FALSE,,,,,,,,,,,1,S,41
+Lululemon,Hoodies,Hoodie - Black & Gold - M,YJ-250,,,TRUE,FALSE,,,,,,,,,,,1,M,20
+Lululemon,Hoodies,Hoodie - Black & Gold - L,YJ-251,,,TRUE,FALSE,,,,,,,,,,,1,L,20
+Lululemon,Hoodies,Hoodie - Heather Gray - XXS,YJ-253,,,TRUE,FALSE,,,,,,,,,,,1,XXS,19
+Lululemon,Hoodies,Hoodie - Heather Gray - XS,YJ-254,,,TRUE,FALSE,,,,,,,,,,,1,XS,14
+Lululemon,Hoodies,Hoodie - Heather Gray - S,YJ-255,,,TRUE,FALSE,,,,,,,,,,,1,S,21
+Lululemon,Hoodies,Hoodie - Heather Gray - M,YJ-256,,,TRUE,FALSE,,,,,,,,,,,1,M,24
+Lululemon,Hoodies,Hoodie - Heather Gray - L,YJ-257,,,TRUE,FALSE,,,,,,,,,,,1,L,22
+Lululemon,Hoodies,Hoodie - Peony Pink - XXS,YJ-259,,,TRUE,FALSE,,,,,,,,,,,1,XXS,21
+Lululemon,Hoodies,Hoodie - Peony Pink - XS,YJ-260,,,TRUE,FALSE,,,,,,,,,,,1,XS,22
+Lululemon,Hoodies,Hoodie - Peony Pink - S,YJ-261,,,TRUE,FALSE,,,,,,,,,,,1,S,23
+Lululemon,Hoodies,Hoodie - Peony Pink - M,YJ-262,,,TRUE,FALSE,,,,,,,,,,,1,M,24
+Lululemon,Hoodies,Hoodie - Peony Pink - L,YJ-263,,,TRUE,FALSE,,,,,,,,,,,1,L,23
+Lululemon,Hoodies,Hoodie - Black - XXS,YJ-283,,,TRUE,FALSE,,,,,,,,,,,1,XXS,14
+Lululemon,Hoodies,Hoodie - Black - XS,YJ-284,,,TRUE,FALSE,,,,,,,,,,,1,XS,14
+Lululemon,Hoodies,Hoodie - Black - S,YJ-285,,,TRUE,FALSE,,,,,,,,,,,1,S,20
+Lululemon,Hoodies,Hoodie - Black - M,YJ-286,,,TRUE,FALSE,,,,,,,,,,,1,M,20
+Lululemon,Hoodies,Hoodie - Black - L,YJ-287,,,TRUE,FALSE,,,,,,,,,,,1,L,47
+Lululemon,Shorts,Five-Point Shorts - Black Silver - XXS,YJ-325,,,TRUE,FALSE,,,,,,,,,,,1,XXS,50
+Lululemon,Shorts,Five-Point Shorts - Black Silver - XS,YJ-326,,,TRUE,FALSE,,,,,,,,,,,1,XS,35
+Lululemon,Shorts,Five-Point Shorts - Black Silver - S,YJ-327,,,TRUE,FALSE,,,,,,,,,,,1,S,35
+Lululemon,Shorts,Five-Point Shorts - Black Silver - M,YJ-328,,,TRUE,FALSE,,,,,,,,,,,1,M,41
+Lululemon,Shorts,Five-Point Shorts - Black Silver - L,YJ-329,,,TRUE,FALSE,,,,,,,,,,,1,L,51
+Lululemon,Shorts,Five-Point Shorts - Chinese Red Silver - XXS,YJ-331,,,TRUE,FALSE,,,,,,,,,,,1,XXS,50
+Lululemon,Shorts,Five-Point Shorts - Chinese Red Silver - XS,YJ-332,,,TRUE,FALSE,,,,,,,,,,,1,XS,39
+Lululemon,Shorts,Five-Point Shorts - Chinese Red Silver - S,YJ-333,,,TRUE,FALSE,,,,,,,,,,,1,S,39
+Lululemon,Shorts,Five-Point Shorts - Chinese Red Silver - M,YJ-334,,,TRUE,FALSE,,,,,,,,,,,1,M,43
+Lululemon,Shorts,Five-Point Shorts - Chinese Red Silver - L,YJ-335,,,TRUE,FALSE,,,,,,,,,,,1,L,52
+Lululemon,Shorts,Five-Point Shorts - Sakura Pink Silver - XXS,YJ-337,,,TRUE,FALSE,,,,,,,,,,,1,XXS,52
+Lululemon,Shorts,Five-Point Shorts - Sakura Pink Silver - XS,YJ-338,,,TRUE,FALSE,,,,,,,,,,,1,XS,42
+Lululemon,Shorts,Five-Point Shorts - Sakura Pink Silver - S,YJ-339,,,TRUE,FALSE,,,,,,,,,,,1,S,42
+Lululemon,Shorts,Five-Point Shorts - Sakura Pink Silver - M,YJ-340,,,TRUE,FALSE,,,,,,,,,,,1,M,41
+Lululemon,Shorts,Five-Point Shorts - Sakura Pink Silver - L,YJ-341,,,TRUE,FALSE,,,,,,,,,,,1,L,51

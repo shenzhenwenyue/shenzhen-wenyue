@@ -76,28 +76,43 @@ export async function GET() {
     const rows = parseCSV(text)
 
     const products = rows
-      .filter(row => row.nombre && row.disponible?.toUpperCase() !== 'FALSE')
-      .map((row, i) => ({
-        id: String(i + 1),
-        nombre: row.nombre || '',
-        categoria: row.categoria || 'General',
-        descripcion: row.descripcion || '',
-        imagen_url: normalizeImageUrl(row.imagen_url),
-        destacado: row.destacado?.toUpperCase() === 'TRUE',
-        precio_1: parseFloat(row.precio_1) || 0,
-        qty_tier2: parseInt(row.qty_tier2) || null,
-        precio_tier2: parseFloat(row.precio_tier2) || null,
-        qty_tier3: parseInt(row.qty_tier3) || null,
-        precio_tier3: parseFloat(row.precio_tier3) || null,
-        qty_tier4: parseInt(row.qty_tier4) || null,
-        precio_tier4: parseFloat(row.precio_tier4) || null,
-        qty_tier5: parseInt(row.qty_tier5) || null,
-        precio_tier5: parseFloat(row.precio_tier5) || null,
-        qty_minima: parseInt(row.qty_minima) || 10,
-        sku: row.sku || '',
-        subcategoria: row.subcategoria || '',
-        tallas: row.tallas ? row.tallas.split(',').map(t => t.trim()).filter(Boolean) : [],
-      }))
+      .filter(row => {
+        if (!row.nombre) return false
+        if (row.disponible?.toUpperCase() === 'FALSE') return false
+        const stockVal = row.stock?.trim()
+        if (stockVal && /^\d+$/.test(stockVal) && parseInt(stockVal) === 0) return false
+        return true
+      })
+      .map((row, i) => {
+        const stockRaw = row.stock?.trim() ?? ''
+        const disponibleRaw = row.disponible?.trim() ?? ''
+        const hasNumericStock = /^\d+$/.test(stockRaw)
+        const hasNumericDisponible = /^\d+$/.test(disponibleRaw)
+        return {
+          id: String(i + 1),
+          nombre: row.nombre || '',
+          categoria: row.categoria || 'General',
+          descripcion: row.descripcion || '',
+          imagen_url: normalizeImageUrl(row.imagen_url),
+          destacado: row.destacado?.toUpperCase() === 'TRUE',
+          precio_1: parseFloat(row.precio_1) || 0,
+          qty_tier2: parseInt(row.qty_tier2) || null,
+          precio_tier2: parseFloat(row.precio_tier2) || null,
+          qty_tier3: parseInt(row.qty_tier3) || null,
+          precio_tier3: parseFloat(row.precio_tier3) || null,
+          qty_tier4: parseInt(row.qty_tier4) || null,
+          precio_tier4: parseFloat(row.precio_tier4) || null,
+          qty_tier5: parseInt(row.qty_tier5) || null,
+          precio_tier5: parseFloat(row.precio_tier5) || null,
+          qty_minima: parseInt(row.qty_minima) || 10,
+          sku: row.sku || '',
+          subcategoria: row.subcategoria || '',
+          tallas: row.tallas ? row.tallas.split(',').map(t => t.trim()).filter(Boolean) : [],
+          grupo: row.grupo?.trim() || null,
+          talla: row.talla?.trim() || null,
+          stock: hasNumericStock ? parseInt(stockRaw) : (hasNumericDisponible ? parseInt(disponibleRaw) : null),
+        }
+      })
 
     return NextResponse.json(products)
   } catch (err) {
