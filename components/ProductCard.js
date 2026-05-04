@@ -43,12 +43,12 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex flex-col">
       {/* Imagen */}
-      <div className="relative aspect-square bg-gray-100">
+      <div className="relative aspect-square bg-gray-100 overflow-hidden">
         {product.imagen_url && !imgError ? (
           <img
             src={product.imagen_url}
             alt={product.nombre}
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
             onError={() => setImgError(true)}
           />
         ) : (
