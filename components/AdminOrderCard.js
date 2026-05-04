@@ -155,16 +155,19 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   }
 
   function handleOrdenProveedor() {
+    const itemsParaExportar = pdfSelected === null
+      ? confirmedItems
+      : order.items.filter((_, i) => pdfSelected.has(i))
     const fecha = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })
     let msg = `*ORDEN DE COMPRA — Shenzhen Wenyue*\n`
     msg += `Fecha: ${fecha}\n`
     msg += `Pedido: #${order.id.substring(0, 8).toUpperCase()}\n\n`
-    confirmedItems.forEach(item => {
+    itemsParaExportar.forEach(item => {
       const qty = item.available_qty || item.qty
       const sku = item.sku ? `[${item.sku}] ` : ''
       msg += `• ${sku}${item.nombre} — ${qty} u.\n`
     })
-    msg += `\nTotal unidades: ${confirmedItems.reduce((s, i) => s + (i.available_qty || i.qty), 0)}`
+    msg += `\nTotal unidades: ${itemsParaExportar.reduce((s, i) => s + (i.available_qty || i.qty), 0)}`
     navigator.clipboard?.writeText(msg)
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
   }
