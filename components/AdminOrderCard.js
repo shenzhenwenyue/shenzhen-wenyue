@@ -157,22 +157,38 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     setSaving(false)
   }
 
-  function handleOrdenProveedor() {
-    const itemsParaExportar = pdfSelected === null
-      ? confirmedItems
-      : order.items.filter((_, i) => pdfSelected.has(i))
+  function exportarOrden(items, proveedor = null) {
+    if (items.length === 0) return
     const fecha = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })
     let msg = `*ORDEN DE COMPRA — Shenzhen Wenyue*\n`
+    if (proveedor) msg += `Proveedor: ${proveedor}\n`
     msg += `Fecha: ${fecha}\n`
     msg += `Pedido: #${order.id.substring(0, 8).toUpperCase()}\n\n`
-    itemsParaExportar.forEach(item => {
+    items.forEach(item => {
       const qty = item.available_qty || item.qty
       const sku = item.sku ? `[${item.sku}] ` : ''
       msg += `• ${sku}${item.nombre} — ${qty} u.\n`
     })
-    msg += `\nTotal unidades: ${itemsParaExportar.reduce((s, i) => s + (i.available_qty || i.qty), 0)}`
+    msg += `\nTotal unidades: ${items.reduce((s, i) => s + (i.available_qty || i.qty), 0)}`
     navigator.clipboard?.writeText(msg)
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
+  }
+
+  function handleOrdenProveedor() {
+    const itemsParaExportar = pdfSelected === null
+      ? confirmedItems
+      : order.items.filter((_, i) => pdfSelected.has(i))
+    exportarOrden(itemsParaExportar)
+  }
+
+  function handleOrdenLucy() {
+    const items = confirmedItems.filter(i => i.sku?.toUpperCase().startsWith('XP'))
+    exportarOrden(items, 'Lucy')
+  }
+
+  function handleOrdenJoy() {
+    const items = confirmedItems.filter(i => i.sku?.toUpperCase().startsWith('S'))
+    exportarOrden(items, 'Joy')
   }
 
   function handleEnviarTracking() {
@@ -478,6 +494,22 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
               >
                 Exportar orden para proveedor
               </button>
+              <div className="flex gap-2 w-full">
+                <button
+                  onClick={handleOrdenLucy}
+                  disabled={!confirmedItems.some(i => i.sku?.toUpperCase().startsWith('XP'))}
+                  className="flex-1 py-2 bg-violet-600 text-white text-xs font-semibold rounded-xl hover:bg-violet-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                >
+                  Lucy (XP) — {confirmedItems.filter(i => i.sku?.toUpperCase().startsWith('XP')).length} items
+                </button>
+                <button
+                  onClick={handleOrdenJoy}
+                  disabled={!confirmedItems.some(i => i.sku?.toUpperCase().startsWith('S'))}
+                  className="flex-1 py-2 bg-orange-500 text-white text-xs font-semibold rounded-xl hover:bg-orange-600 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                >
+                  Joy (S) — {confirmedItems.filter(i => i.sku?.toUpperCase().startsWith('S')).length} items
+                </button>
+              </div>
               <button
                 onClick={handleGenerarPDF}
                 className="flex-1 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors"
