@@ -31,6 +31,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   })
   const [costFromRules, setCostFromRules] = useState(new Set())
   const [savingCosts, setSavingCosts] = useState(false)
+  const [generatingPDF, setGeneratingPDF] = useState(false)
 
   useEffect(() => {
     const pwd = sessionStorage.getItem('adminPassword')
@@ -128,11 +129,18 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   }
 
   async function handleGenerarPDF() {
-    const itemsParaPDF = pdfSelected === null
-      ? confirmedItems
-      : order.items.filter((_, i) => pdfSelected.has(i))
-    const doc = await generarConfirmacionPDF(order, shippingCost, itemsParaPDF)
-    doc.save(`confirmacion-${order.id.substring(0, 8).toUpperCase()}.pdf`)
+    setGeneratingPDF(true)
+    try {
+      const itemsParaPDF = pdfSelected === null
+        ? confirmedItems
+        : order.items.filter((_, i) => pdfSelected.has(i))
+      const doc = await generarConfirmacionPDF(order, shippingCost, itemsParaPDF)
+      doc.save(`confirmacion-${order.id.substring(0, 8).toUpperCase()}.pdf`)
+    } catch (err) {
+      alert('Error al generar el PDF: ' + err.message)
+    } finally {
+      setGeneratingPDF(false)
+    }
   }
 
   async function handleEnviarWhatsApp() {
@@ -552,9 +560,10 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
               </div>
               <button
                 onClick={handleGenerarPDF}
-                className="flex-1 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors"
+                disabled={generatingPDF}
+                className="flex-1 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 disabled:opacity-60 transition-colors"
               >
-                PDF para cliente {pdfSelected === null ? '' : pdfSelected.size === 0 ? '(ninguno)' : `(${pdfSelected.size})`}
+                {generatingPDF ? 'Generando…' : `PDF para cliente ${pdfSelected === null ? '' : pdfSelected.size === 0 ? '(ninguno)' : `(${pdfSelected.size})`}`}
               </button>
               <div className="w-full space-y-1.5">
                 <input
