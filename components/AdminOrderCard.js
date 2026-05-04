@@ -1,6 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { generarConfirmacionPDF } from '@/lib/pdf'
+import { getCosto } from '@/lib/pricing'
 
 const WHATSAPP = '16572621801'
 
@@ -28,7 +29,34 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     order.items.forEach((item, i) => { byIdx[i] = item.unit_cost ?? '' })
     return byIdx
   })
+  const [costFromRules, setCostFromRules] = useState(new Set())
   const [savingCosts, setSavingCosts] = useState(false)
+
+  useEffect(() => {
+    const pwd = sessionStorage.getItem('adminPassword')
+    fetch('/api/admin/costs', { headers: { 'x-admin-password': pwd } })
+      .then(r => r.ok ? r.json() : [])
+      .then(rules => {
+        if (!Array.isArray(rules) || rules.length === 0) return
+        const ruleIndices = new Set()
+        setCostInputs(prev => {
+          const updated = { ...prev }
+          order.items.forEach((item, i) => {
+            if (updated[i] !== '' && updated[i] !== null && updated[i] !== undefined) return
+            const totalCategoryQty = order.items
+              .filter(it => it.categoria === item.categoria)
+              .reduce((s, it) => s + it.qty, 0)
+            const costo = getCosto(rules, item, totalCategoryQty)
+            if (costo !== null) {
+              updated[i] = String(costo)
+              ruleIndices.add(i)
+            }
+          })
+          return updated
+        })
+        setCostFromRules(ruleIndices)
+      })
+  }, [])
   const [showHistory, setShowHistory] = useState(false)
   const [editingItems, setEditingItems] = useState(false)
   const [editItems, setEditItems] = useState(order.items)
@@ -293,15 +321,27 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
               return (
                 <div className="flex items-center gap-1.5 mt-1">
                   <span className="text-xs text-gray-400">Costo $</span>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value={costInputs[i] ?? ''}
-                    onChange={e => setCostInputs(prev => ({ ...prev, [i]: e.target.value }))}
-                    placeholder="0.00"
-                    className="w-20 px-2 py-1 border border-gray-200 rounded-lg text-xs text-center focus:outline-none focus:border-gray-400"
-                  />
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      value={costInputs[i] ?? ''}
+                      onChange={e => {
+                        setCostInputs(prev => ({ ...prev, [i]: e.target.value }))
+                        setCostFromRules(prev => { const n = new Set(prev); n.delete(i); return n })
+                      }}
+                      placeholder="0.00"
+                      className={`w-20 px-2 py-1 rounded-lg text-xs text-center focus:outline-none transition-colors ${
+                        costFromRules.has(i)
+                          ? 'border border-blue-300 bg-blue-50 text-blue-700 focus:border-blue-500'
+                          : 'border border-gray-200 focus:border-gray-400'
+                      }`}
+                    />
+                    {costFromRules.has(i) && (
+                      <span className="absolute -top-1.5 -right-1.5 text-[9px] bg-blue-500 text-white rounded-full px-1 leading-tight">R</span>
+                    )}
+                  </div>
                   {ganancia !== null && (
                     <span className={`text-xs font-semibold ${ganancia >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                       {ganancia >= 0 ? '+' : ''}${ganancia.toFixed(2)}
