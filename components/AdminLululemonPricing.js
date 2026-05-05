@@ -212,22 +212,62 @@ function perfumeTiers(p) {
   ].filter(Boolean)
 }
 
-function PerfumeGroupCard({ label, products, tiers }) {
+function PerfumeGroupCard({ label, products, tiers, storageKey }) {
   const [open, setOpen] = useState(false)
+  const [editingCosto, setEditingCosto] = useState(false)
+  const [costoInput, setCostoInput] = useState('')
+  const [costo, setCosto] = useState(() => {
+    try { return parseFloat(localStorage.getItem(storageKey)) || null } catch { return null }
+  })
+
+  function saveCosto() {
+    const v = parseFloat(costoInput)
+    if (!v || v <= 0) return
+    try { localStorage.setItem(storageKey, String(v)) } catch {}
+    setCosto(v)
+    setEditingCosto(false)
+  }
+
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-3">
       <div className="flex items-center justify-between mb-2">
-        <p className="text-sm font-bold text-gray-900">{label}</p>
+        <div>
+          <p className="text-sm font-bold text-gray-900">{label}</p>
+          {editingCosto ? (
+            <div className="flex items-center gap-1 mt-1">
+              <span className="text-xs text-gray-400">Costo $</span>
+              <input
+                type="number" step="0.01" min="0"
+                value={costoInput}
+                onChange={e => setCostoInput(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && saveCosto()}
+                autoFocus
+                className="w-20 px-1.5 py-0.5 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-gray-500"
+              />
+              <button onClick={saveCosto} className="text-xs font-semibold text-black px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200">OK</button>
+              <button onClick={() => setEditingCosto(false)} className="text-xs text-gray-400 hover:text-gray-600">✕</button>
+            </div>
+          ) : (
+            <button
+              onClick={() => { setCostoInput(costo ? String(costo) : ''); setEditingCosto(true) }}
+              className="text-xs text-gray-400 hover:text-gray-700 transition-colors">
+              {costo ? `Costo: $${costo.toFixed(2)} · editar` : '+ Agregar costo'}
+            </button>
+          )}
+        </div>
         <button onClick={() => setOpen(o => !o)}
-          className="text-xs text-gray-400 hover:text-gray-700 transition-colors">
-          {open ? 'Ocultar ▲' : `Ver productos (${products.length}) ▼`}
+          className="text-xs text-gray-400 hover:text-gray-700 transition-colors self-start pt-0.5">
+          {open ? 'Ocultar ▲' : `Ver (${products.length}) ▼`}
         </button>
       </div>
       <div className="flex flex-wrap gap-2">
         {tiers.map(({ qty, price }, idx) => (
-          <div key={idx} className="bg-gray-50 rounded-xl px-3 py-1.5 text-center">
-            <p className="text-xs text-gray-400">{qty === 1 ? '1 pz' : `${qty}+ pz`}</p>
+          <div key={idx} className="bg-gray-50 rounded-xl px-3 py-2 text-center">
+            <p className="text-xs text-gray-400 mb-1">{qty === 1 ? '1 pz' : `${qty}+ pz`}</p>
             <p className="text-sm font-bold text-gray-900">${price.toFixed(2)}</p>
+            {costo && (
+              <div className="mt-1"><MarginBadge precio={price} costo={costo} /></div>
+            )}
           </div>
         ))}
       </div>
@@ -284,6 +324,7 @@ function PerfumesSection({ adminPassword }) {
           label="Perfumes"
           products={rest}
           tiers={perfumeTiers(rest[0])}
+          storageKey="perfume_costo_general"
         />
       )}
       {lv.length > 0 && (
@@ -291,6 +332,7 @@ function PerfumesSection({ adminPassword }) {
           label="Louis Vuitton"
           products={lv}
           tiers={perfumeTiers(lv[0])}
+          storageKey="perfume_costo_lv"
         />
       )}
     </div>
