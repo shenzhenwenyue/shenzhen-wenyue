@@ -247,13 +247,13 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
               })}
             </div>
             {product.qty_minima > 1 && (
-              <p className="text-xs text-gray-400 mt-2">Mín. {product.qty_minima} pz en total en la categoría</p>
+              <p className="text-xs text-gray-400 mt-2">Mín. {product.qty_minima} pz en total en la categoría "{product.categoria}"</p>
             )}
           </div>
         )}
 
         {!hasSizes && product.qty_minima > 1 && (
-          <p className="text-xs text-gray-400 mt-1">Mín. {product.qty_minima} pz en total en la categoría</p>
+          <p className="text-xs text-gray-400 mt-1">Mín. {product.qty_minima} pz en total en la categoría "{product.categoria}"</p>
         )}
       </div>
     </div>
