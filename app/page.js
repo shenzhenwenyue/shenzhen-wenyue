@@ -130,7 +130,7 @@ export default function Home() {
       .reduce((acc, i) => ({ ...acc, [i.size]: i.qty }), {})
   }
 
-  // qty total en carrito por categoría (mayoreo agrupado para todas las categorías)
+  // qty total en carrito por categoría (para mínimo y categorías sin subcategoria pricing)
   function getCategoryQty(categoria) {
     return cart
       .filter(i => {
@@ -140,6 +140,19 @@ export default function Home() {
       })
       .reduce((sum, i) => sum + i.qty, 0)
   }
+
+  // qty total por subcategoría (para pricing de Lululemon/Alo Yoga)
+  function getSubcategoriaQty(categoria, subcategoria) {
+    return cart
+      .filter(i => {
+        const p = products.find(p => p.id === i.productId)
+        const cat = i.categoria || p?.categoria || ''
+        return cat === categoria && (p?.subcategoria || '') === subcategoria
+      })
+      .reduce((sum, i) => sum + i.qty, 0)
+  }
+
+  const SUBCATEGORIA_PRICING = new Set(['Lululemon', 'Alo Yoga'])
 
   const cartCount = cart.reduce((sum, i) => sum + i.qty, 0)
 
@@ -287,7 +300,11 @@ export default function Home() {
                       cart={cart}
                       onAdd={addToCart}
                       onRemove={removeFromCart}
-                      categoryQty={getCategoryQty(product.categoria)}
+                      categoryQty={
+                        SUBCATEGORIA_PRICING.has(product.categoria) && product.subcategoria
+                          ? getSubcategoriaQty(product.categoria, product.subcategoria)
+                          : getCategoryQty(product.categoria)
+                      }
                     />
                   ) : (
                     <ProductCard
@@ -295,7 +312,11 @@ export default function Home() {
                       product={product}
                       cartQty={cart.find(i => i.id === product.id)?.qty || 0}
                       cartSizes={getCartSizes(product.id)}
-                      categoryQty={getCategoryQty(product.categoria)}
+                      categoryQty={
+                        SUBCATEGORIA_PRICING.has(product.categoria) && product.subcategoria
+                          ? getSubcategoriaQty(product.categoria, product.subcategoria)
+                          : getCategoryQty(product.categoria)
+                      }
                       onAdd={addToCart}
                       onRemove={removeFromCart}
                       onSetQty={setQtyInCart}

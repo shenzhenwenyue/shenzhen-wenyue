@@ -4,6 +4,9 @@ import { getPrecio } from '@/lib/pricing'
 
 const WHATSAPP = '16613737977'
 
+// Estas categorías usan precios por subcategoría, no por categoría total
+const SUBCATEGORIA_PRICING = new Set(['Lululemon', 'Alo Yoga'])
+
 export default function OrderModal({ items, products, onClose, onSuccess }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -13,10 +16,20 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
   const [error, setError] = useState(null)
   const [done, setDone] = useState(false)
 
-  // qty total por categoría — igual que Cart.js, aplica a todas las categorías
+  // qty total por categoría — para resumen WhatsApp y notas
   const totalByCategory = items.reduce((acc, item) => {
     const cat = item.categoria || products.find(p => p.id === item.productId)?.categoria || ''
     acc[cat] = (acc[cat] || 0) + item.qty
+    return acc
+  }, {})
+
+  // Para pricing: Lululemon/Alo agrupan por subcategoría; el resto por categoría
+  const totalByPricingGroup = items.reduce((acc, item) => {
+    const product = products.find(p => p.id === item.productId)
+    const cat = item.categoria || product?.categoria || ''
+    const sub = product?.subcategoria || ''
+    const key = SUBCATEGORIA_PRICING.has(cat) && sub ? `${cat}__${sub}` : cat
+    acc[key] = (acc[key] || 0) + item.qty
     return acc
   }, {})
 
@@ -25,7 +38,9 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
     const product = products.find(p => p.id === item.productId)
     if (!product) return null
     const cat = item.categoria || product.categoria
-    const pricingQty = totalByCategory[cat] || item.qty
+    const sub = product.subcategoria || ''
+    const pricingKey = SUBCATEGORIA_PRICING.has(cat) && sub ? `${cat}__${sub}` : cat
+    const pricingQty = totalByPricingGroup[pricingKey] || item.qty
     return {
       product_id: product.id,
       nombre: product.nombre,
