@@ -61,6 +61,8 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [showHistory, setShowHistory] = useState(false)
   const [editingItems, setEditingItems] = useState(false)
   const [editItems, setEditItems] = useState(order.items)
+  const [adminNote, setAdminNote] = useState(order.admin_notes || '')
+  const [savingNote, setSavingNote] = useState(false)
   const [paymentLink, setPaymentLink] = useState('')
   const [replacements, setReplacements] = useState({}) // { itemIndex: 'texto del reemplazo' }
 
@@ -260,7 +262,10 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
               </span>
             )}
           </div>
-          <p className="text-xs text-gray-400 mt-0.5">{fecha} · #{order.id.substring(0, 8).toUpperCase()}</p>
+          <p className="text-xs text-gray-400 mt-0.5">
+            {fecha} · #{order.id.substring(0, 8).toUpperCase()}
+            {order.admin_notes && <span className="ml-2 text-amber-500" title={order.admin_notes}>📝</span>}
+          </p>
           {order.tracking_number && (
             <p className="text-xs text-blue-600 mt-0.5">Tracking: {order.tracking_number}</p>
           )}
@@ -761,6 +766,34 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
               >Guardar cambios</button>
             </div>
           )}
+        </div>
+
+        {/* Nota interna */}
+        <div className="border-t border-gray-100 pt-3 space-y-1.5">
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-semibold text-gray-500">📝 Nota interna</p>
+            {order.admin_notes && adminNote === order.admin_notes && (
+              <span className="text-xs text-gray-400">Guardada</span>
+            )}
+          </div>
+          <textarea
+            value={adminNote}
+            onChange={e => setAdminNote(e.target.value)}
+            placeholder="Solo visible en el panel admin…"
+            rows={2}
+            className="w-full px-3 py-2 text-xs border border-gray-200 rounded-xl focus:outline-none focus:border-gray-400 resize-none"
+          />
+          <button
+            onClick={async () => {
+              setSavingNote(true)
+              await patch({ admin_notes: adminNote })
+              setSavingNote(false)
+            }}
+            disabled={savingNote || adminNote === (order.admin_notes || '')}
+            className="w-full py-1.5 border border-gray-200 text-gray-600 text-xs font-semibold rounded-xl hover:bg-gray-50 disabled:opacity-40 transition-colors"
+          >
+            {savingNote ? 'Guardando…' : 'Guardar nota'}
+          </button>
         </div>
 
         {/* Historial */}
