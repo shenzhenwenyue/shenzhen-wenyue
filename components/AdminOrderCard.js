@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { generarConfirmacionPDF } from '@/lib/pdf'
 import { getCosto } from '@/lib/pricing'
 
-const WHATSAPP = '16572621801'
+const WHATSAPP = '16613737977'
 
 const STATUS_LABELS = {
   pending: 'Pendiente',

@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { getPrecio } from '@/lib/pricing'
 
-const WHATSAPP = '16572621801'
+const WHATSAPP = '16613737977'
 
 export default function OrderModal({ items, products, onClose, onSuccess }) {
   const [name, setName] = useState('')
