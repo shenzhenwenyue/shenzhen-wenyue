@@ -202,11 +202,50 @@ function AddAloForm({ headers, onAdd, onCancel }) {
   )
 }
 
+function perfumeTiers(p) {
+  return [
+    { qty: 1, price: p.precio_1 },
+    p.qty_tier2 && p.precio_tier2 ? { qty: p.qty_tier2, price: p.precio_tier2 } : null,
+    p.qty_tier3 && p.precio_tier3 ? { qty: p.qty_tier3, price: p.precio_tier3 } : null,
+    p.qty_tier4 && p.precio_tier4 ? { qty: p.qty_tier4, price: p.precio_tier4 } : null,
+    p.qty_tier5 && p.precio_tier5 ? { qty: p.qty_tier5, price: p.precio_tier5 } : null,
+  ].filter(Boolean)
+}
+
+function PerfumeGroupCard({ label, products, tiers }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-3">
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-sm font-bold text-gray-900">{label}</p>
+        <button onClick={() => setOpen(o => !o)}
+          className="text-xs text-gray-400 hover:text-gray-700 transition-colors">
+          {open ? 'Ocultar ▲' : `Ver productos (${products.length}) ▼`}
+        </button>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {tiers.map(({ qty, price }, idx) => (
+          <div key={idx} className="bg-gray-50 rounded-xl px-3 py-1.5 text-center">
+            <p className="text-xs text-gray-400">{qty === 1 ? '1 pz' : `${qty}+ pz`}</p>
+            <p className="text-sm font-bold text-gray-900">${price.toFixed(2)}</p>
+          </div>
+        ))}
+      </div>
+      {open && (
+        <ul className="mt-3 space-y-0.5 border-t border-gray-100 pt-2">
+          {products.map(p => (
+            <li key={p.id} className="text-xs text-gray-500">• {p.nombre}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
 // ── Perfumes section ─────────────────────────────────────────────────────────
 function PerfumesSection({ adminPassword }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
 
   useEffect(() => {
     fetch('/api/products', { headers: { 'x-admin-password': adminPassword } })
@@ -220,16 +259,16 @@ function PerfumesSection({ adminPassword }) {
       .catch(() => setLoading(false))
   }, [])
 
-  const filtered = useMemo(() => {
-    if (!search.trim()) return products
-    const q = search.toLowerCase()
-    return products.filter(p => p.nombre.toLowerCase().includes(q))
-  }, [products, search])
+  const { lv, rest } = useMemo(() => {
+    const lv = products.filter(p => p.nombre.toLowerCase().includes('louis vuitton'))
+    const rest = products.filter(p => !p.nombre.toLowerCase().includes('louis vuitton'))
+    return { lv, rest }
+  }, [products])
 
   if (loading) {
     return (
       <div className="space-y-2 mt-3">
-        {[1, 2, 3].map(i => <div key={i} className="h-14 bg-white rounded-2xl animate-pulse border border-gray-100" />)}
+        {[1, 2].map(i => <div key={i} className="h-14 bg-white rounded-2xl animate-pulse border border-gray-100" />)}
       </div>
     )
   }
@@ -240,35 +279,20 @@ function PerfumesSection({ adminPassword }) {
 
   return (
     <div className="mt-3 space-y-2">
-      <input type="text" value={search} onChange={e => setSearch(e.target.value)}
-        placeholder="Buscar perfume…"
-        className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400" />
-      <p className="text-xs text-gray-400">{filtered.length} producto{filtered.length !== 1 ? 's' : ''}</p>
-      <div className="space-y-2">
-        {filtered.map(p => {
-          const tiers = [
-            { qty: 1, price: p.precio_1 },
-            p.qty_tier2 && p.precio_tier2 ? { qty: p.qty_tier2, price: p.precio_tier2 } : null,
-            p.qty_tier3 && p.precio_tier3 ? { qty: p.qty_tier3, price: p.precio_tier3 } : null,
-            p.qty_tier4 && p.precio_tier4 ? { qty: p.qty_tier4, price: p.precio_tier4 } : null,
-            p.qty_tier5 && p.precio_tier5 ? { qty: p.qty_tier5, price: p.precio_tier5 } : null,
-          ].filter(Boolean)
-
-          return (
-            <div key={p.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-3">
-              <p className="text-sm font-semibold text-gray-900 mb-2">{p.nombre}</p>
-              <div className="flex flex-wrap gap-2">
-                {tiers.map(({ qty, price }, idx) => (
-                  <div key={idx} className="bg-gray-50 rounded-xl px-3 py-1.5 text-center">
-                    <p className="text-xs text-gray-400">{qty === 1 ? '1 pz' : `${qty}+ pz`}</p>
-                    <p className="text-sm font-bold text-gray-900">${price.toFixed(2)}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )
-        })}
-      </div>
+      {rest.length > 0 && (
+        <PerfumeGroupCard
+          label="Perfumes"
+          products={rest}
+          tiers={perfumeTiers(rest[0])}
+        />
+      )}
+      {lv.length > 0 && (
+        <PerfumeGroupCard
+          label="Louis Vuitton"
+          products={lv}
+          tiers={perfumeTiers(lv[0])}
+        />
+      )}
     </div>
   )
 }
@@ -318,7 +342,7 @@ export default function AdminLululemonPricing({ adminPassword }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-bold text-gray-900">Tabla de Precios</h2>
+        <h2 className="font-bold text-gray-900">Tabla de Costos</h2>
         <p className="text-xs text-gray-400 mt-0.5">
           Consulta y edita precios por volumen. Los porcentajes son tu margen sobre costo.
         </p>
