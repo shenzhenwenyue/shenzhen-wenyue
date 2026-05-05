@@ -60,6 +60,10 @@ function findPricingRow(pricingByCategoria, categoria, subcategoria, nombre) {
   const rows = pricingByCategoria[categoria] || []
   if (!rows.length) return null
 
+  // Product-level pricing: nombre_match takes priority over subcategoria
+  const byNombre = rows.find(r => r.nombre_match && nombre.toLowerCase().includes(r.nombre_match.toLowerCase()))
+  if (byNombre) return byNombre
+
   if (categoria === 'Perfumes') {
     if (subcategoria === 'Louis Vuitton') return rows.find(r => r.label === 'Louis Vuitton') || null
     return rows.find(r => r.label === 'Perfumes') || null
