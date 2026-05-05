@@ -13,24 +13,24 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
   const [error, setError] = useState(null)
   const [done, setDone] = useState(false)
 
-  // qty total de Perfumes en carrito (mayoreo agrupado solo en esa categoría)
-  const totalPerfumes = items.reduce((sum, item) => {
-    const cat = item.categoria || products.find(p => p.id === item.productId)?.categoria
-    return cat === 'Perfumes' ? sum + item.qty : sum
-  }, 0)
+  // qty total por categoría — igual que Cart.js, aplica a todas las categorías
+  const totalByCategory = items.reduce((acc, item) => {
+    const cat = item.categoria || products.find(p => p.id === item.productId)?.categoria || ''
+    acc[cat] = (acc[cat] || 0) + item.qty
+    return acc
+  }, {})
 
-  // Enriquecer items con precio calculado
+  // Enriquecer items con precio y subcategoria
   const orderItems = items.map(item => {
     const product = products.find(p => p.id === item.productId)
     if (!product) return null
     const cat = item.categoria || product.categoria
-    const pricingQty = cat === 'Perfumes'
-      ? Math.max(item.qty, totalPerfumes)
-      : item.qty
+    const pricingQty = totalByCategory[cat] || item.qty
     return {
       product_id: product.id,
       nombre: product.nombre,
       categoria: product.categoria,
+      subcategoria: product.subcategoria || '',
       sku: product.sku || '',
       size: item.size || null,
       imagen_url: product.imagen_url || null,

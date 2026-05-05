@@ -130,15 +130,14 @@ export default function Home() {
       .reduce((acc, i) => ({ ...acc, [i.size]: i.qty }), {})
   }
 
-  // qty total en carrito para Perfumes (mayoreo agrupado solo en esa categoría)
+  // qty total en carrito por categoría (mayoreo agrupado — igual que Cart.js)
   function getCategoryQty(categoria) {
-    if (categoria !== 'Perfumes') return 0
+    if (!['Perfumes', 'Lululemon', 'Alo Yoga'].includes(categoria)) return 0
     return cart
       .filter(i => {
-        // usar categoria guardada en el item primero, fallback a lookup por id
-        if (i.categoria) return i.categoria === 'Perfumes'
+        if (i.categoria) return i.categoria === categoria
         const p = products.find(p => p.id === i.productId)
-        return p?.categoria === 'Perfumes'
+        return p?.categoria === categoria
       })
       .reduce((sum, i) => sum + i.qty, 0)
   }
