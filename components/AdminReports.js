@@ -28,8 +28,7 @@ const STATUS_LABELS = {
 export default function AdminReports({ orders, adminPassword }) {
   const [period, setPeriod] = useState('month')
   const [capitalItems, setCapitalItems] = useState([])
-  const [brandPricing, setBrandPricing] = useState([])
-  const [costRules, setCostRules] = useState([])
+  const [catalogPricing, setCatalogPricing] = useState([])
 
   useEffect(() => {
     if (!adminPassword) return
@@ -37,12 +36,9 @@ export default function AdminReports({ orders, adminPassword }) {
     fetch('/api/admin/personal-inventory', { headers })
       .then(r => r.json())
       .then(data => { if (Array.isArray(data)) setCapitalItems(data) })
-    fetch('/api/admin/lululemon-pricing', { headers })
+    fetch('/api/admin/catalog-pricing', { headers })
       .then(r => r.json())
-      .then(data => { if (Array.isArray(data)) setBrandPricing(data) })
-    fetch('/api/admin/costs', { headers })
-      .then(r => r.json())
-      .then(data => { if (Array.isArray(data)) setCostRules(data) })
+      .then(data => { if (Array.isArray(data)) setCatalogPricing(data) })
   }, [adminPassword])
 
   const filteredOrders = useMemo(() => {
@@ -63,17 +59,15 @@ export default function AdminReports({ orders, adminPassword }) {
   }, [orders, period])
 
   function getCostoFromBrandPricing(item) {
-    if (brandPricing.length) {
-      const exactMatch = brandPricing.find(r => r.label?.toLowerCase() === item.nombre?.toLowerCase())
-      if (exactMatch) return parseFloat(exactMatch.costo)
-    }
-    if (costRules.length) {
-      const rule =
-        costRules.find(r => r.match_campo === 'subcategoria' && r.match_valor?.toLowerCase() === item.subcategoria?.toLowerCase()) ||
-        costRules.find(r => r.match_campo === 'categoria' && r.match_valor?.toLowerCase() === item.categoria?.toLowerCase())
-      if (rule) return parseFloat(rule.costo_1)
-    }
-    return null
+    if (!catalogPricing.length) return null
+    const exactMatch = catalogPricing.find(r => r.label?.toLowerCase() === item.nombre?.toLowerCase())
+    if (exactMatch?.costo) return parseFloat(exactMatch.costo)
+    const isLV = item.subcategoria?.toLowerCase().includes('louis vuitton') || item.nombre?.toLowerCase().includes('louis vuitton')
+    const groupMatch = catalogPricing.find(r =>
+      r.categoria?.toLowerCase() === item.categoria?.toLowerCase() &&
+      (isLV ? r.label?.toLowerCase() === 'louis vuitton' : r.label?.toLowerCase() !== 'louis vuitton')
+    )
+    return groupMatch?.costo ? parseFloat(groupMatch.costo) : null
   }
 
   const kpis = useMemo(() => {
@@ -108,7 +102,7 @@ export default function AdminReports({ orders, adminPassword }) {
     const margen = totalItemsRevenue > 0 ? (ganancia / totalItemsRevenue) * 100 : null
 
     return { totalRevenue, totalOrders, paidOrders, avgTicket, totalUnits, pendingRevenue, ganancia, margen, tieneCostos: itemsConCosto > 0 }
-  }, [filteredOrders, brandPricing, costRules])
+  }, [filteredOrders, catalogPricing])
 
   const categoryBreakdown = useMemo(() => {
     const map = {}
@@ -133,7 +127,7 @@ export default function AdminReports({ orders, adminPassword }) {
     return Object.entries(map)
       .map(([cat, data]) => [cat, { ...data, ganancia: data.tieneCosto ? data.revenue - data.costo : null }])
       .sort((a, b) => b[1].revenue - a[1].revenue)
-  }, [filteredOrders, brandPricing, costRules])
+  }, [filteredOrders, catalogPricing])
 
   const topProducts = useMemo(() => {
     const map = {}
