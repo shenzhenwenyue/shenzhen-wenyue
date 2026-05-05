@@ -90,15 +90,13 @@ export default function AdminReports({ orders, adminPassword }) {
 
   const kpis = useMemo(() => {
     const revenueOrders = filteredOrders.filter(o => REVENUE_STATUSES.includes(o.status))
-    const totalRevenue = revenueOrders.reduce((sum, o) => sum + (o.total || 0), 0)
     const totalOrders = filteredOrders.length
     const paidOrders = revenueOrders.length
-    const avgTicket = paidOrders > 0 ? totalRevenue / paidOrders : 0
     const totalUnits = revenueOrders.reduce((sum, o) =>
       sum + (o.items || []).filter(i => i.confirmed !== false).reduce((s, i) => s + (i.available_qty || i.qty), 0), 0)
     const pendingRevenue = filteredOrders
       .filter(o => o.status === 'pending' || o.status === 'confirmed')
-      .reduce((sum, o) => sum + (o.total || 0), 0)
+      .reduce((sum, o) => sum + (o.items || []).filter(i => i.confirmed !== false).reduce((s, i) => s + (i.available_qty || i.qty) * (i.unit_price || 0), 0), 0)
 
     // Ganancia bruta usando reglas de costo
     let totalCosto = 0
@@ -120,6 +118,8 @@ export default function AdminReports({ orders, adminPassword }) {
         }
       })
     })
+    const totalRevenue = totalItemsRevenue
+    const avgTicket = paidOrders > 0 ? totalRevenue / paidOrders : 0
     const ganancia = totalItemsRevenue - totalCosto
     const margen = totalItemsRevenue > 0 ? (ganancia / totalItemsRevenue) * 100 : null
 
