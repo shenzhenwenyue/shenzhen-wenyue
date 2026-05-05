@@ -85,6 +85,19 @@ export default function AdminPage() {
   const isSpecialTab = isProductTab || isReportsTab || isCostsTab || isCapitalTab || isPricingTab
   const pendingCount = orders.filter(o => o.status === 'pending').length
 
+  function orderTotal(order) {
+    return (order.items || []).reduce((sum, item) => {
+      if (item.confirmed === false) return sum
+      return sum + (item.available_qty || item.qty || 0) * (item.unit_price || 0)
+    }, 0)
+  }
+
+  const confirmedTotal = orders
+    .filter(o => o.status === 'confirmed')
+    .reduce((sum, o) => sum + orderTotal(o), 0)
+
+  const paidCount = orders.filter(o => o.status === 'paid').length
+
   const searchActive = search.trim().length > 0
   const searchResults = searchActive
     ? orders.filter(o => {
@@ -156,6 +169,32 @@ export default function AdminPage() {
           </button>
         </div>
       </header>
+
+      {/* Summary strip */}
+      {orders.length > 0 && (
+        <div className="bg-gray-900 text-white px-4 py-2 flex items-center gap-4 overflow-x-auto">
+          <div className="flex items-center gap-1.5 shrink-0">
+            <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
+            <span className="text-xs text-gray-300">
+              <span className="font-bold text-white">{pendingCount}</span> pendiente{pendingCount !== 1 ? 's' : ''}
+            </span>
+          </div>
+          <span className="text-gray-700 text-xs shrink-0">·</span>
+          <div className="flex items-center gap-1.5 shrink-0">
+            <span className="w-2 h-2 rounded-full bg-green-400 inline-block" />
+            <span className="text-xs text-gray-300">
+              <span className="font-bold text-white">${confirmedTotal.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span> por cobrar
+            </span>
+          </div>
+          <span className="text-gray-700 text-xs shrink-0">·</span>
+          <div className="flex items-center gap-1.5 shrink-0">
+            <span className="w-2 h-2 rounded-full bg-blue-400 inline-block" />
+            <span className="text-xs text-gray-300">
+              <span className="font-bold text-white">{paidCount}</span> listo{paidCount !== 1 ? 's' : ''} para enviar
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Tabs */}
       <div className="flex overflow-x-auto bg-white border-b border-gray-100 px-4">
