@@ -31,6 +31,7 @@ export default function AdminReports({ orders, adminPassword }) {
   const [period, setPeriod] = useState('month')
   const [costRules, setCostRules] = useState([])
   const [capitalItems, setCapitalItems] = useState([])
+  const [brandPricing, setBrandPricing] = useState([])
 
   useEffect(() => {
     if (!adminPassword) return
@@ -41,6 +42,9 @@ export default function AdminReports({ orders, adminPassword }) {
     fetch('/api/admin/personal-inventory', { headers })
       .then(r => r.json())
       .then(data => { if (Array.isArray(data)) setCapitalItems(data) })
+    fetch('/api/admin/lululemon-pricing', { headers })
+      .then(r => r.json())
+      .then(data => { if (Array.isArray(data)) setBrandPricing(data) })
   }, [adminPassword])
 
   const filteredOrders = useMemo(() => {
@@ -59,6 +63,12 @@ export default function AdminReports({ orders, adminPassword }) {
       return true
     })
   }, [orders, period])
+
+  function getCostoFromBrandPricing(item) {
+    if (!brandPricing.length) return null
+    const match = brandPricing.find(r => r.label?.toLowerCase() === item.nombre?.toLowerCase())
+    return match ? parseFloat(match.costo) : null
+  }
 
   const kpis = useMemo(() => {
     const revenueOrders = filteredOrders.filter(o => REVENUE_STATUSES.includes(o.status))
@@ -86,7 +96,7 @@ export default function AdminReports({ orders, adminPassword }) {
         const qty = item.available_qty || item.qty
         const revenue = qty * (item.unit_price || 0)
         const categoryTotalQty = item.categoria === 'Perfumes' ? totalPerfumesQty : qty
-        const costo = item.unit_cost ?? getCosto(costRules, item, categoryTotalQty)
+        const costo = item.unit_cost ?? getCosto(costRules, item, categoryTotalQty) ?? getCostoFromBrandPricing(item)
         totalItemsRevenue += revenue
         if (costo !== null) {
           totalCosto += costo * qty
@@ -98,7 +108,7 @@ export default function AdminReports({ orders, adminPassword }) {
     const margen = totalItemsRevenue > 0 ? (ganancia / totalItemsRevenue) * 100 : null
 
     return { totalRevenue, totalOrders, paidOrders, avgTicket, totalUnits, pendingRevenue, ganancia, margen, tieneCostos: itemsConCosto > 0 }
-  }, [filteredOrders, costRules])
+  }, [filteredOrders, costRules, brandPricing])
 
   const categoryBreakdown = useMemo(() => {
     const map = {}
@@ -116,7 +126,7 @@ export default function AdminReports({ orders, adminPassword }) {
           const qty = item.available_qty || item.qty
           const revenue = qty * (item.unit_price || 0)
           const categoryTotalQty = item.categoria === 'Perfumes' ? totalPerfumesQty : qty
-          const costo = item.unit_cost ?? getCosto(costRules, item, categoryTotalQty)
+          const costo = item.unit_cost ?? getCosto(costRules, item, categoryTotalQty) ?? getCostoFromBrandPricing(item)
           map[cat].qty += qty
           map[cat].revenue += revenue
           if (costo !== null) {
@@ -128,7 +138,7 @@ export default function AdminReports({ orders, adminPassword }) {
     return Object.entries(map)
       .map(([cat, data]) => [cat, { ...data, ganancia: data.tieneCosto ? data.revenue - data.costo : null }])
       .sort((a, b) => b[1].revenue - a[1].revenue)
-  }, [filteredOrders, costRules])
+  }, [filteredOrders, costRules, brandPricing])
 
   const topProducts = useMemo(() => {
     const map = {}
