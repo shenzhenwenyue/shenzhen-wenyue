@@ -457,7 +457,7 @@ export default function AdminReports({ orders, adminPassword }) {
           <div className="px-4 py-3 border-b border-amber-100 bg-amber-50 flex items-center justify-between">
             <div>
               <h3 className="font-semibold text-amber-900 text-sm">Stock de Bodega</h3>
-              <p className="text-xs text-amber-600 mt-0.5">Costo de inventario financiado con capital personal — la ganancia se reparte aparte</p>
+              <p className="text-xs text-amber-600 mt-0.5">Inventario que ya estaba en la bodega antes de este sistema. El costo será reembolsado al venderse — la ganancia se reparte de forma normal.</p>
             </div>
             <div className="text-right shrink-0">
               <p className="text-xs text-amber-600">Pendiente</p>
