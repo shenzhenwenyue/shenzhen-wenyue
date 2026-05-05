@@ -471,9 +471,8 @@ export default function AdminLululemonPricing({ adminPassword }) {
       <div>
         <div className="flex items-center gap-2 mb-1">
           <h3 className="text-sm font-bold text-gray-700">Perfumes</h3>
-          <span className="text-xs text-gray-400">Desde catálogo</span>
         </div>
-        <p className="text-xs text-gray-400">Solo consulta — edita en el Sheet.</p>
+        <p className="text-xs text-gray-400">Precios de venta desde el catálogo. Agrega tu costo de compra para ver el margen.</p>
         <PerfumesSection
           adminPassword={adminPassword}
           groupCostRows={groupCostRows}
