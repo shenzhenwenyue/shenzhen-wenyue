@@ -18,6 +18,21 @@ export default function Home() {
   const [cartOpen, setCartOpen] = useState(false)
   const [quoteOpen, setQuoteOpen] = useState(false)
 
+  // Restaurar carrito desde localStorage al montar
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('sw_cart')
+      if (saved) setCart(JSON.parse(saved))
+    } catch {}
+  }, [])
+
+  // Persistir carrito en localStorage cuando cambia
+  useEffect(() => {
+    try {
+      localStorage.setItem('sw_cart', JSON.stringify(cart))
+    } catch {}
+  }, [cart])
+
   // Cargar productos al montar
   useEffect(() => {
     fetch('/api/products')
