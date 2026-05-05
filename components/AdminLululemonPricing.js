@@ -284,50 +284,55 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
 
   if (editing) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-4 space-y-3">
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-4 space-y-4">
         <p className="text-sm font-bold text-gray-900">{row.label}</p>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="text-xs text-gray-400 block mb-1">Costo de compra</label>
+
+        {/* Costo */}
+        <div>
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Costo de compra</p>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-400 w-10">$ USD</span>
             <input type="number" step="0.01" min="0" value={form.costo}
+              placeholder="0.00"
               onChange={e => setForm(f => ({ ...f, costo: e.target.value }))}
-              className="w-full px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
+              className="w-36 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
           </div>
-          <div>
-            <label className="text-xs text-gray-400 block mb-1">Precio 1 pz</label>
-            <div className="flex items-center gap-1.5">
+        </div>
+
+        {/* Precios de venta */}
+        <div>
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Precios de venta</p>
+          <div className="space-y-2">
+            {/* 1 pz */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-400 w-16 shrink-0">1 pieza</span>
               <input type="number" step="0.01" min="0" value={form.precio_1}
+                placeholder="0.00"
                 onChange={e => setForm(f => ({ ...f, precio_1: e.target.value }))}
-                className="w-full px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
+                className="w-28 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
               {form.precio_1 && form.costo && (
                 <MarginBadge precio={parseFloat(form.precio_1)} costo={parseFloat(form.costo)} />
               )}
             </div>
-          </div>
-        </div>
-        <div className="space-y-2">
-          {extraTiers.map(({ qtyField, priceField, placeholder }) => (
-            <div key={qtyField} className="flex gap-2 items-end">
-              <div className="w-28 shrink-0">
-                <label className="text-xs text-gray-400 block mb-1">Cant. mín.</label>
+            {/* Tiers */}
+            {extraTiers.map(({ qtyField, priceField, placeholder }) => (
+              <div key={qtyField} className="flex items-center gap-2">
                 <input type="number" min="1" value={form[qtyField]} placeholder={placeholder}
                   onChange={e => setForm(f => ({ ...f, [qtyField]: e.target.value }))}
-                  className="w-full px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
+                  className="w-16 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
+                <span className="text-xs text-gray-400 shrink-0">+ pz</span>
+                <input type="number" step="0.01" min="0" value={form[priceField]}
+                  placeholder="0.00"
+                  onChange={e => setForm(f => ({ ...f, [priceField]: e.target.value }))}
+                  className="w-28 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
+                {form[priceField] && form.costo && (
+                  <MarginBadge precio={parseFloat(form[priceField])} costo={parseFloat(form.costo)} />
+                )}
               </div>
-              <div className="flex-1">
-                <label className="text-xs text-gray-400 block mb-1">Precio</label>
-                <div className="flex items-center gap-1.5">
-                  <input type="number" step="0.01" min="0" value={form[priceField]}
-                    onChange={e => setForm(f => ({ ...f, [priceField]: e.target.value }))}
-                    className="w-full px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
-                  {form[priceField] && form.costo && (
-                    <MarginBadge precio={parseFloat(form[priceField])} costo={parseFloat(form.costo)} />
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
         {saveError && <p className="text-xs text-red-500">{saveError}</p>}
         <div className="flex gap-2">
           <button onClick={save} disabled={saving}
@@ -350,7 +355,7 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
           <p className="text-sm font-bold text-gray-900">{row.label}</p>
           {costo
             ? <p className="text-xs text-gray-400">Costo: ${costo.toFixed(2)}</p>
-            : <p className="text-xs text-orange-400">Sin costo — edita para agregar</p>}
+            : <p className="text-xs text-orange-400">Sin costo registrado</p>}
         </div>
         <div className="flex items-center gap-1 shrink-0 ml-3">
           {productNames?.length > 0 && (
@@ -365,19 +370,28 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
           </button>
         </div>
       </div>
+
       {tiers.length > 0 ? (
-        <div className="flex flex-wrap gap-2">
-          {tiers.map(({ price, label }, idx) => (
-            <div key={idx} className="bg-gray-50 rounded-xl px-3 py-2 text-center min-w-[64px]">
-              <p className="text-xs text-gray-400 mb-1">{label}</p>
-              <p className="text-sm font-bold text-gray-900">${parseFloat(price).toFixed(2)}</p>
-              {costo && <div className="mt-1"><MarginBadge precio={price} costo={costo} /></div>}
-            </div>
-          ))}
-        </div>
+        <>
+          <p className="text-xs text-gray-400 font-medium mb-1.5">Precios de venta</p>
+          <div className="flex flex-wrap gap-2">
+            {tiers.map(({ price, label }, idx) => (
+              <div key={idx} className="bg-gray-50 rounded-xl px-3 py-2 text-center min-w-[64px]">
+                <p className="text-xs text-gray-400 mb-1">{label}</p>
+                <p className="text-sm font-bold text-gray-900">${parseFloat(price).toFixed(2)}</p>
+                {costo && <div className="mt-1"><MarginBadge precio={price} costo={costo} /></div>}
+              </div>
+            ))}
+          </div>
+        </>
       ) : (
-        <p className="text-xs text-gray-400 italic">Sin precios — haz clic en Editar</p>
+        <button
+          onClick={startEdit}
+          className="w-full py-2.5 border-2 border-dashed border-gray-200 rounded-xl text-xs font-semibold text-gray-400 hover:border-gray-400 hover:text-gray-600 transition-colors">
+          + Agregar costo y precios de venta
+        </button>
       )}
+
       {open && productNames?.length > 0 && (
         <ul className="mt-3 space-y-0.5 border-t border-gray-100 pt-2 max-h-48 overflow-y-auto">
           {productNames.map((name, i) => (
