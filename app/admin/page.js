@@ -6,6 +6,7 @@ import AdminReports from '@/components/AdminReports'
 import AdminCosts from '@/components/AdminCosts'
 import AdminPersonalInventory from '@/components/AdminPersonalInventory'
 import AdminLululemonPricing from '@/components/AdminLululemonPricing'
+import AdminClients from '@/components/AdminClients'
 
 const STATUS_ORDER = ['pending', 'confirmed', 'paid', 'shipped', 'completed']
 const STATUS_LABELS = {
@@ -102,7 +103,8 @@ export default function AdminPage() {
   const isCostsTab = activeTab === 'costs'
   const isCapitalTab = activeTab === 'capital'
   const isPricingTab = activeTab === 'pricing'
-  const isSpecialTab = isProductTab || isReportsTab || isCostsTab || isCapitalTab || isPricingTab
+  const isClientsTab = activeTab === 'clients'
+  const isSpecialTab = isProductTab || isReportsTab || isCostsTab || isCapitalTab || isPricingTab || isClientsTab
   const pendingCount = orders.filter(o => o.status === 'pending').length
 
   function orderTotal(order) {
@@ -299,6 +301,16 @@ export default function AdminPage() {
         >
           Precios & Márgenes
         </button>
+        <button
+          onClick={() => setActiveTab('clients')}
+          className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === 'clients'
+              ? 'border-black text-black'
+              : 'border-transparent text-gray-400 hover:text-gray-700'
+          }`}
+        >
+          Clientes
+        </button>
       </div>
 
       {/* Search bar — only on order tabs */}
@@ -355,6 +367,13 @@ export default function AdminPage() {
       {isPricingTab && (
         <div className="max-w-2xl mx-auto px-4 py-5">
           <AdminLululemonPricing adminPassword={adminPassword} />
+        </div>
+      )}
+
+      {/* Clients tab */}
+      {isClientsTab && (
+        <div className="max-w-2xl mx-auto px-4 py-5">
+          <AdminClients orders={orders} />
         </div>
       )}
 
