@@ -126,7 +126,7 @@ export async function GET() {
         const product = {
           id: String(i + 1),
           nombre: row.nombre || '',
-          categoria: row.categoria || 'General',
+          categoria: (row.categoria === 'Gift Set de Pefumes' ? 'Gift Set de Perfumes' : row.categoria) || 'General',
           descripcion: row.descripcion || '',
           imagen_url: normalizeImageUrl(row.imagen_url),
           destacado: row.destacado?.toUpperCase() === 'TRUE',

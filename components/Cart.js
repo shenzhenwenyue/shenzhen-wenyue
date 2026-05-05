@@ -26,7 +26,11 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
 
   // Resumen por categoría: piezas, tier activo, siguiente tier, mínimo
   const categorySummary = Object.entries(totalByCategory).map(([cat, qty]) => {
-    const rep = cartLines.find(l => (l.product.categoria === cat))?.product
+    // Para Perfumes usar un producto no-LV como representante (tiers más comunes)
+    const rep = cat === 'Perfumes'
+      ? (cartLines.find(l => l.product.categoria === cat && l.product.subcategoria !== 'Louis Vuitton')?.product
+          || cartLines.find(l => l.product.categoria === cat)?.product)
+      : cartLines.find(l => l.product.categoria === cat)?.product
     if (!rep) return null
     const minQty = rep.qty_minima || 10
     const isIncomplete = qty < minQty
