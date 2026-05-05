@@ -29,6 +29,7 @@ export default function AdminReports({ orders, adminPassword }) {
   const [period, setPeriod] = useState('month')
   const [capitalItems, setCapitalItems] = useState([])
   const [catalogPricing, setCatalogPricing] = useState([])
+  const [costRules, setCostRules] = useState([])
 
   useEffect(() => {
     if (!adminPassword) return
@@ -39,6 +40,9 @@ export default function AdminReports({ orders, adminPassword }) {
     fetch('/api/admin/catalog-pricing', { headers })
       .then(r => r.json())
       .then(data => { if (Array.isArray(data)) setCatalogPricing(data) })
+    fetch('/api/admin/costs', { headers })
+      .then(r => r.json())
+      .then(data => { if (Array.isArray(data)) setCostRules(data) })
   }, [adminPassword])
 
   const filteredOrders = useMemo(() => {
@@ -58,11 +62,25 @@ export default function AdminReports({ orders, adminPassword }) {
     })
   }, [orders, period])
 
-  function getCostoFromBrandPricing(item) {
+  function getCostoFromBrandPricing(item, totalPerfumesQty = 0) {
+    const isLV = item.subcategoria?.toLowerCase().includes('louis vuitton') || item.nombre?.toLowerCase().includes('louis vuitton')
+
+    if (isLV && costRules.length) {
+      const lvRule = costRules.find(r => r.match_campo === 'subcategoria' && r.match_valor === 'Louis Vuitton')
+      if (lvRule) {
+        const qty = totalPerfumesQty
+        if (!lvRule.fijo) {
+          if (lvRule.qty_tier4 && qty >= lvRule.qty_tier4 && lvRule.costo_tier4) return parseFloat(lvRule.costo_tier4)
+          if (lvRule.qty_tier3 && qty >= lvRule.qty_tier3 && lvRule.costo_tier3) return parseFloat(lvRule.costo_tier3)
+          if (lvRule.qty_tier2 && qty >= lvRule.qty_tier2 && lvRule.costo_tier2) return parseFloat(lvRule.costo_tier2)
+        }
+        return parseFloat(lvRule.costo_1)
+      }
+    }
+
     if (!catalogPricing.length) return null
     const exactMatch = catalogPricing.find(r => r.label?.toLowerCase() === item.nombre?.toLowerCase())
     if (exactMatch?.costo) return parseFloat(exactMatch.costo)
-    const isLV = item.subcategoria?.toLowerCase().includes('louis vuitton') || item.nombre?.toLowerCase().includes('louis vuitton')
     const groupMatch = catalogPricing.find(r =>
       r.categoria?.toLowerCase() === item.categoria?.toLowerCase() &&
       (isLV ? r.label?.toLowerCase() === 'louis vuitton' : r.label?.toLowerCase() !== 'louis vuitton')
@@ -87,10 +105,14 @@ export default function AdminReports({ orders, adminPassword }) {
     let itemsConCosto = 0
     let totalItemsRevenue = 0
     revenueOrders.forEach(o => {
+      const totalPerfumesQty = (o.items || [])
+        .filter(i => i.confirmed !== false && i.categoria?.toLowerCase() === 'perfumes')
+        .reduce((s, i) => s + (i.available_qty || i.qty), 0)
       ;(o.items || []).filter(i => i.confirmed !== false).forEach(item => {
         const qty = item.available_qty || item.qty
         const revenue = qty * (item.unit_price || 0)
-        const costo = item.unit_cost ?? getCostoFromBrandPricing(item)
+        const isPerfume = item.categoria?.toLowerCase() === 'perfumes'
+        const costo = item.unit_cost ?? getCostoFromBrandPricing(item, isPerfume ? totalPerfumesQty : 0)
         totalItemsRevenue += revenue
         if (costo !== null) {
           totalCosto += costo * qty
@@ -102,20 +124,24 @@ export default function AdminReports({ orders, adminPassword }) {
     const margen = totalItemsRevenue > 0 ? (ganancia / totalItemsRevenue) * 100 : null
 
     return { totalRevenue, totalOrders, paidOrders, avgTicket, totalUnits, pendingRevenue, ganancia, margen, tieneCostos: itemsConCosto > 0 }
-  }, [filteredOrders, catalogPricing])
+  }, [filteredOrders, catalogPricing, costRules])
 
   const categoryBreakdown = useMemo(() => {
     const map = {}
     filteredOrders
       .filter(o => REVENUE_STATUSES.includes(o.status))
       .forEach(o => {
+        const totalPerfumesQty = (o.items || [])
+          .filter(i => i.confirmed !== false && i.categoria?.toLowerCase() === 'perfumes')
+          .reduce((s, i) => s + (i.available_qty || i.qty), 0)
         ;(o.items || []).forEach(item => {
           if (item.confirmed === false) return
           const cat = item.categoria || 'Sin categoría'
           if (!map[cat]) map[cat] = { qty: 0, revenue: 0, costo: 0, tieneCosto: false }
           const qty = item.available_qty || item.qty
           const revenue = qty * (item.unit_price || 0)
-          const costo = item.unit_cost ?? getCostoFromBrandPricing(item)
+          const isPerfume = item.categoria?.toLowerCase() === 'perfumes'
+          const costo = item.unit_cost ?? getCostoFromBrandPricing(item, isPerfume ? totalPerfumesQty : 0)
           map[cat].qty += qty
           map[cat].revenue += revenue
           if (costo !== null) {
@@ -127,7 +153,7 @@ export default function AdminReports({ orders, adminPassword }) {
     return Object.entries(map)
       .map(([cat, data]) => [cat, { ...data, ganancia: data.tieneCosto ? data.revenue - data.costo : null }])
       .sort((a, b) => b[1].revenue - a[1].revenue)
-  }, [filteredOrders, catalogPricing])
+  }, [filteredOrders, catalogPricing, costRules])
 
   const topProducts = useMemo(() => {
     const map = {}

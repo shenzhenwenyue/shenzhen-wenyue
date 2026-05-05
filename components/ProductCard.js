@@ -76,6 +76,9 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         {/* Tabla de precios por volumen */}
         {hasTiers && (
           <div className="mb-2 rounded-lg bg-gray-50 p-2 space-y-0.5 text-xs">
+            {(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') && (
+              <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Precio según total de piezas en la categoría</p>
+            )}
             <TierRow
               label={`${product.qty_minima || 1}–${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} u.`}
               price={product.precio_1}
@@ -244,13 +247,13 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
               })}
             </div>
             {product.qty_minima > 1 && (
-              <p className="text-xs text-gray-400 mt-2">Min. {product.qty_minima} unidades en total</p>
+              <p className="text-xs text-gray-400 mt-2">Mín. {product.qty_minima} pz en total en la categoría</p>
             )}
           </div>
         )}
 
         {!hasSizes && product.qty_minima > 1 && (
-          <p className="text-xs text-gray-400 mt-1">Min. {product.qty_minima} unidades</p>
+          <p className="text-xs text-gray-400 mt-1">Mín. {product.qty_minima} pz en total en la categoría</p>
         )}
       </div>
     </div>

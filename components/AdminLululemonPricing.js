@@ -238,15 +238,18 @@ function AddBrandRowForm({ categoria, headers, onAdd, onCancel }) {
 }
 
 // ── GroupPricingCard (Perfumes / Louis Vuitton / Gift Sets) ───────────────────
-function GroupPricingCard({ row, productNames, headers, onSave }) {
+function GroupPricingCard({ row, productNames, headers, onSave, hasCostTiers, costTiers, onCostTiersSave }) {
   const [editing, setEditing] = useState(false)
   const [form, setForm] = useState({})
+  const [costForm, setCostForm] = useState({})
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState(null)
   const [open, setOpen] = useState(false)
 
   const tiers = rowTiers(row)
-  const costo = row.costo ? parseFloat(row.costo) : null
+  const costo = hasCostTiers
+    ? (costTiers?.costo_1 != null ? parseFloat(costTiers.costo_1) : null)
+    : (row.costo ? parseFloat(row.costo) : null)
 
   function startEdit() {
     setForm({
@@ -259,6 +262,17 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
       qty_tier4:    row.qty_tier4    ?? '',
       precio_tier4: row.precio_tier4 ?? '',
     })
+    if (hasCostTiers) {
+      setCostForm({
+        costo_1:     costTiers?.costo_1     ?? '',
+        qty_tier2:   costTiers?.qty_tier2   ?? '',
+        costo_tier2: costTiers?.costo_tier2 ?? '',
+        qty_tier3:   costTiers?.qty_tier3   ?? '',
+        costo_tier3: costTiers?.costo_tier3 ?? '',
+        qty_tier4:   costTiers?.qty_tier4   ?? '',
+        costo_tier4: costTiers?.costo_tier4 ?? '',
+      })
+    }
     setSaveError(null)
     setEditing(true)
   }
@@ -272,8 +286,34 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
       body: JSON.stringify({ id: row.id, ...form }),
     })
     const data = await res.json()
+    if (data.error) { setSaveError(data.error); setSaving(false); return }
+
+    if (hasCostTiers) {
+      const costPayload = {
+        match_campo: 'subcategoria',
+        match_valor: 'Louis Vuitton',
+        fijo: false,
+        costo_1:     costForm.costo_1     ? parseFloat(costForm.costo_1)     : null,
+        qty_tier2:   costForm.qty_tier2   ? parseInt(costForm.qty_tier2)     : null,
+        costo_tier2: costForm.costo_tier2 ? parseFloat(costForm.costo_tier2) : null,
+        qty_tier3:   costForm.qty_tier3   ? parseInt(costForm.qty_tier3)     : null,
+        costo_tier3: costForm.costo_tier3 ? parseFloat(costForm.costo_tier3) : null,
+        qty_tier4:   costForm.qty_tier4   ? parseInt(costForm.qty_tier4)     : null,
+        costo_tier4: costForm.costo_tier4 ? parseFloat(costForm.costo_tier4) : null,
+      }
+      const costRes = await fetch('/api/admin/costs', {
+        method: costTiers?.id ? 'PUT' : 'POST',
+        headers,
+        body: JSON.stringify(costTiers?.id ? { id: costTiers.id, ...costPayload } : costPayload),
+      })
+      const costData = await costRes.json()
+      if (costData.error) { setSaveError(costData.error); setSaving(false); return }
+      onCostTiersSave?.(costData)
+    }
+
     setSaving(false)
-    if (data.error) { setSaveError(data.error) } else { onSave(data); setEditing(false) }
+    onSave(data)
+    setEditing(false)
   }
 
   const extraTiers = [
@@ -283,21 +323,55 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
   ]
 
   if (editing) {
+    const editCosto = hasCostTiers
+      ? (costForm.costo_1 ? parseFloat(costForm.costo_1) : null)
+      : (form.costo ? parseFloat(form.costo) : null)
     return (
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-4 space-y-4">
         <p className="text-sm font-bold text-gray-900">{row.label}</p>
 
         {/* Costo */}
-        <div>
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Costo de compra</p>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-400 w-10">$ USD</span>
-            <input type="number" step="0.01" min="0" value={form.costo}
-              placeholder="0.00"
-              onChange={e => setForm(f => ({ ...f, costo: e.target.value }))}
-              className="w-36 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
+        {hasCostTiers ? (
+          <div>
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Costos de compra (volumen total perfumería)</p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-400 w-16 shrink-0">Base</span>
+                <input type="number" step="0.01" min="0" value={costForm.costo_1}
+                  placeholder="45.00"
+                  onChange={e => setCostForm(f => ({ ...f, costo_1: e.target.value }))}
+                  className="w-28 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
+              </div>
+              {[
+                { qty: 'qty_tier2', cst: 'costo_tier2', ph: '20' },
+                { qty: 'qty_tier3', cst: 'costo_tier3', ph: '30' },
+                { qty: 'qty_tier4', cst: 'costo_tier4', ph: '50' },
+              ].map(({ qty, cst, ph }) => (
+                <div key={qty} className="flex items-center gap-2">
+                  <input type="number" min="1" value={costForm[qty]} placeholder={ph}
+                    onChange={e => setCostForm(f => ({ ...f, [qty]: e.target.value }))}
+                    className="w-16 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
+                  <span className="text-xs text-gray-400 shrink-0">+ pz →</span>
+                  <input type="number" step="0.01" min="0" value={costForm[cst]}
+                    placeholder="0.00"
+                    onChange={e => setCostForm(f => ({ ...f, [cst]: e.target.value }))}
+                    className="w-28 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Costo de compra</p>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-400 w-10">$ USD</span>
+              <input type="number" step="0.01" min="0" value={form.costo}
+                placeholder="0.00"
+                onChange={e => setForm(f => ({ ...f, costo: e.target.value }))}
+                className="w-36 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
+            </div>
+          </div>
+        )}
 
         {/* Precios de venta */}
         <div>
@@ -310,8 +384,8 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
                 placeholder="0.00"
                 onChange={e => setForm(f => ({ ...f, precio_1: e.target.value }))}
                 className="w-28 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
-              {form.precio_1 && form.costo && (
-                <MarginBadge precio={parseFloat(form.precio_1)} costo={parseFloat(form.costo)} />
+              {form.precio_1 && editCosto && (
+                <MarginBadge precio={parseFloat(form.precio_1)} costo={editCosto} />
               )}
             </div>
             {/* Tiers */}
@@ -325,8 +399,8 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
                   placeholder="0.00"
                   onChange={e => setForm(f => ({ ...f, [priceField]: e.target.value }))}
                   className="w-28 px-2 py-1.5 border border-gray-200 rounded-xl text-sm text-center focus:outline-none focus:border-gray-400" />
-                {form[priceField] && form.costo && (
-                  <MarginBadge precio={parseFloat(form[priceField])} costo={parseFloat(form.costo)} />
+                {form[priceField] && editCosto && (
+                  <MarginBadge precio={parseFloat(form[priceField])} costo={editCosto} />
                 )}
               </div>
             ))}
@@ -353,9 +427,24 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
       <div className="flex items-start justify-between mb-2">
         <div>
           <p className="text-sm font-bold text-gray-900">{row.label}</p>
-          {costo
-            ? <p className="text-xs text-gray-400">Costo: ${costo.toFixed(2)}</p>
-            : <p className="text-xs text-orange-400">Sin costo registrado</p>}
+          {hasCostTiers ? (
+            costTiers?.costo_1 != null ? (
+              <p className="text-xs text-gray-400 leading-relaxed">
+                {[
+                  `<${costTiers.qty_tier2 ?? '∞'} pz → $${parseFloat(costTiers.costo_1).toFixed(0)}`,
+                  costTiers.qty_tier2 && costTiers.costo_tier2 != null && `${costTiers.qty_tier2}+ → $${parseFloat(costTiers.costo_tier2).toFixed(0)}`,
+                  costTiers.qty_tier3 && costTiers.costo_tier3 != null && `${costTiers.qty_tier3}+ → $${parseFloat(costTiers.costo_tier3).toFixed(0)}`,
+                  costTiers.qty_tier4 && costTiers.costo_tier4 != null && `${costTiers.qty_tier4}+ → $${parseFloat(costTiers.costo_tier4).toFixed(0)}`,
+                ].filter(Boolean).join(' · ')}
+              </p>
+            ) : (
+              <p className="text-xs text-orange-400">Sin costos escalonados</p>
+            )
+          ) : (
+            costo
+              ? <p className="text-xs text-gray-400">Costo: ${costo.toFixed(2)}</p>
+              : <p className="text-xs text-orange-400">Sin costo registrado</p>
+          )}
         </div>
         <div className="flex items-center gap-1 shrink-0 ml-3">
           {productNames?.length > 0 && (
@@ -404,7 +493,7 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
 }
 
 // ── PerfumesSection ───────────────────────────────────────────────────────────
-function PerfumesSection({ perfumeRows, headers, onSave }) {
+function PerfumesSection({ perfumeRows, headers, onSave, lvCostRule, onCostRuleSave }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -443,7 +532,15 @@ function PerfumesSection({ perfumeRows, headers, onSave }) {
         <GroupPricingCard row={perfumeRow} productNames={restNames} headers={headers} onSave={onSave} />
       )}
       {lvRow && (
-        <GroupPricingCard row={lvRow} productNames={lvNames} headers={headers} onSave={onSave} />
+        <GroupPricingCard
+          row={lvRow}
+          productNames={lvNames}
+          headers={headers}
+          onSave={onSave}
+          hasCostTiers={true}
+          costTiers={lvCostRule}
+          onCostTiersSave={onCostRuleSave}
+        />
       )}
     </div>
   )
@@ -453,6 +550,7 @@ function PerfumesSection({ perfumeRows, headers, onSave }) {
 export default function AdminLululemonPricing({ adminPassword }) {
   const [rows, setRows] = useState([])
   const [activeSubcats, setActiveSubcats] = useState({})
+  const [costRules, setCostRules] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [showAddAlo, setShowAddAlo] = useState(false)
@@ -464,9 +562,12 @@ export default function AdminLululemonPricing({ adminPassword }) {
     Promise.all([
       fetch('/api/admin/catalog-pricing', { headers }).then(r => r.json()),
       fetch('/api/products').then(r => r.json()),
-    ]).then(([pricing, products]) => {
+      fetch('/api/admin/costs', { headers }).then(r => r.json()),
+    ]).then(([pricing, products, rules]) => {
       if (Array.isArray(pricing)) setRows(pricing)
       else setError(pricing.error || 'Error cargando precios')
+
+      if (Array.isArray(rules)) setCostRules(rules)
 
       if (Array.isArray(products)) {
         // Build set of active subcategories per category from the real catalog
@@ -500,6 +601,7 @@ export default function AdminLululemonPricing({ adminPassword }) {
   const aloRows = rows.filter(r => r.categoria === 'Alo Yoga' && isActive(r))
   const perfumeRows = rows.filter(r => r.categoria === 'Perfumes')
   const giftSetRow = rows.find(r => r.categoria === 'Gift Set de Perfumes')
+  const lvCostRule = costRules.find(r => r.match_campo === 'subcategoria' && r.match_valor === 'Louis Vuitton') ?? null
 
   function handleSave(updated) {
     setRows(prev => prev.map(r => r.id === updated.id ? updated : r))
@@ -507,6 +609,13 @@ export default function AdminLululemonPricing({ adminPassword }) {
 
   function handleDelete(id) {
     setRows(prev => prev.filter(r => r.id !== id))
+  }
+
+  function handleCostRuleSave(savedRule) {
+    setCostRules(prev => {
+      const exists = prev.some(r => r.id === savedRule.id)
+      return exists ? prev.map(r => r.id === savedRule.id ? savedRule : r) : [...prev, savedRule]
+    })
   }
 
   function handleAddAlo(newRow) {
@@ -585,6 +694,8 @@ export default function AdminLululemonPricing({ adminPassword }) {
             perfumeRows={perfumeRows}
             headers={headers}
             onSave={handleSave}
+            lvCostRule={lvCostRule}
+            onCostRuleSave={handleCostRuleSave}
           />
         )}
       </div>
