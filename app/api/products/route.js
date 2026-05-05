@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { getSupabase } from '@/lib/supabase'
 
 const SHEET_CSV_URL = process.env.SHEET_CSV_URL
 
@@ -53,6 +54,31 @@ function normalizeImageUrl(url) {
   return url
 }
 
+// Normalize for fuzzy label matching: lowercase, strip trailing 's' per word
+function normalizeLabel(str) {
+  return str.toLowerCase().trim().split(/\s+/).map(w => w.replace(/s$/, '')).join(' ')
+}
+
+function findPricingRow(rows, subcategoria) {
+  const normSub = normalizeLabel(subcategoria)
+  const words = normSub.split(' ').filter(Boolean)
+  // 1. Exact normalized match
+  let match = rows.find(r => normalizeLabel(r.label) === normSub)
+  if (match) return match
+  // 2. All words of subcategoria appear in label (handles "Cropped Jackets" → "Cropped Define Jacket")
+  match = rows.find(r => {
+    const normLabel = normalizeLabel(r.label)
+    return words.every(w => normLabel.includes(w))
+  })
+  if (match) return match
+  // 3. All words of label appear in subcategoria (handles shorter labels)
+  match = rows.find(r => {
+    const labelWords = normalizeLabel(r.label).split(' ').filter(Boolean)
+    return labelWords.every(w => normSub.includes(w))
+  })
+  return match || null
+}
+
 export async function GET() {
   if (!SHEET_CSV_URL) {
     return NextResponse.json(
@@ -62,29 +88,42 @@ export async function GET() {
   }
 
   try {
-    const res = await fetch(SHEET_CSV_URL, {
-      next: { revalidate: 300 }, // cache 5 minutos en el servidor
-    })
+    const [sheetRes, pricingResult] = await Promise.all([
+      fetch(SHEET_CSV_URL, { next: { revalidate: 300 } }),
+      getSupabase().from('lululemon_pricing').select('*'),
+    ])
 
-    if (!res.ok) {
+    if (!sheetRes.ok) {
       throw new Error(
-        `No se pudo leer el catálogo (status ${res.status}). Verifica que el Sheet esté publicado.`
+        `No se pudo leer el catálogo (status ${sheetRes.status}). Verifica que el Sheet esté publicado.`
       )
     }
 
-    const text = await res.text()
+    const text = await sheetRes.text()
     const rows = parseCSV(text)
+
+    // Build lookup: { "Lululemon": [...rows], "Alo": [...rows] }
+    const pricingByMarca = {}
+    for (const row of (pricingResult.data || [])) {
+      if (!pricingByMarca[row.marca]) pricingByMarca[row.marca] = []
+      pricingByMarca[row.marca].push(row)
+    }
 
     const products = rows
       .filter(row => row.nombre && row.disponible?.toUpperCase() !== 'FALSE')
       .map((row, i) => {
         const stockRaw = row.stock?.trim() ?? ''
         const hasNumericStock = /^\d+$/.test(stockRaw)
-        const tallaVal = row.talla?.trim() || row.tallas?.trim() || null
-        // Auto-derive grupo: si tiene talla, el grupo es el nombre sin " - {talla}" al final
+        const nameParts = (row.nombre || '').trim().split(' - ')
+        const lastSegment = nameParts[nameParts.length - 1]?.trim()
+        const autoTalla = nameParts.length > 1 && /^(XS|S|M|L|XL|XXL|2XL|3XL|XXXL|XS\/S|M\/L)$/i.test(lastSegment)
+          ? lastSegment.toUpperCase()
+          : null
+        const tallaVal = row.talla?.trim() || row.tallas?.trim() || autoTalla || null
         const grupoVal = row.grupo?.trim() ||
-          (tallaVal ? row.nombre.trim().replace(new RegExp(` - ${tallaVal}$`), '').trim() : null)
-        return {
+          (tallaVal ? (row.nombre || '').trim().replace(new RegExp(` - ${tallaVal}$`, 'i'), '').trim() : null)
+
+        const product = {
           id: String(i + 1),
           nombre: row.nombre || '',
           categoria: row.categoria || 'General',
@@ -108,6 +147,29 @@ export async function GET() {
           talla: tallaVal,
           stock: hasNumericStock ? parseInt(stockRaw) : null,
         }
+
+        // Inject Supabase prices for Lululemon and Alo Yoga
+        const marca = product.categoria === 'Lululemon' ? 'Lululemon'
+          : product.categoria === 'Alo Yoga' ? 'Alo'
+          : null
+        if (marca && product.subcategoria) {
+          const pricingRows = pricingByMarca[marca] || []
+          const priceMatch = findPricingRow(pricingRows, product.subcategoria)
+          if (priceMatch) {
+            product.precio_1 = priceMatch.precio_10 || 0
+            product.qty_tier2 = 25
+            product.precio_tier2 = priceMatch.precio_25 || null
+            product.qty_tier3 = 50
+            product.precio_tier3 = priceMatch.precio_50 || null
+            product.qty_tier4 = 100
+            product.precio_tier4 = priceMatch.precio_100 || null
+            product.qty_tier5 = null
+            product.precio_tier5 = null
+            product.qty_minima = 10
+          }
+        }
+
+        return product
       })
 
     return NextResponse.json(products)
