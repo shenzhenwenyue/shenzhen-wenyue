@@ -29,6 +29,7 @@ export default function AdminReports({ orders, adminPassword }) {
   const [period, setPeriod] = useState('month')
   const [capitalItems, setCapitalItems] = useState([])
   const [brandPricing, setBrandPricing] = useState([])
+  const [costRules, setCostRules] = useState([])
 
   useEffect(() => {
     if (!adminPassword) return
@@ -39,6 +40,9 @@ export default function AdminReports({ orders, adminPassword }) {
     fetch('/api/admin/lululemon-pricing', { headers })
       .then(r => r.json())
       .then(data => { if (Array.isArray(data)) setBrandPricing(data) })
+    fetch('/api/admin/costs', { headers })
+      .then(r => r.json())
+      .then(data => { if (Array.isArray(data)) setCostRules(data) })
   }, [adminPassword])
 
   const filteredOrders = useMemo(() => {
@@ -59,16 +63,17 @@ export default function AdminReports({ orders, adminPassword }) {
   }, [orders, period])
 
   function getCostoFromBrandPricing(item) {
-    if (!brandPricing.length) return null
-    const exactMatch = brandPricing.find(r => r.label?.toLowerCase() === item.nombre?.toLowerCase())
-    if (exactMatch) return parseFloat(exactMatch.costo)
-    const groupMatch = brandPricing.find(r =>
-      r.marca === 'PerfumeGroup' && (
-        r.label?.toLowerCase() === item.subcategoria?.toLowerCase() ||
-        r.label?.toLowerCase() === item.categoria?.toLowerCase()
-      )
-    )
-    return groupMatch ? parseFloat(groupMatch.costo) : null
+    if (brandPricing.length) {
+      const exactMatch = brandPricing.find(r => r.label?.toLowerCase() === item.nombre?.toLowerCase())
+      if (exactMatch) return parseFloat(exactMatch.costo)
+    }
+    if (costRules.length) {
+      const rule =
+        costRules.find(r => r.match_campo === 'subcategoria' && r.match_valor?.toLowerCase() === item.subcategoria?.toLowerCase()) ||
+        costRules.find(r => r.match_campo === 'categoria' && r.match_valor?.toLowerCase() === item.categoria?.toLowerCase())
+      if (rule) return parseFloat(rule.costo_1)
+    }
+    return null
   }
 
   const kpis = useMemo(() => {
@@ -103,7 +108,7 @@ export default function AdminReports({ orders, adminPassword }) {
     const margen = totalItemsRevenue > 0 ? (ganancia / totalItemsRevenue) * 100 : null
 
     return { totalRevenue, totalOrders, paidOrders, avgTicket, totalUnits, pendingRevenue, ganancia, margen, tieneCostos: itemsConCosto > 0 }
-  }, [filteredOrders, brandPricing])
+  }, [filteredOrders, brandPricing, costRules])
 
   const categoryBreakdown = useMemo(() => {
     const map = {}
@@ -128,7 +133,7 @@ export default function AdminReports({ orders, adminPassword }) {
     return Object.entries(map)
       .map(([cat, data]) => [cat, { ...data, ganancia: data.tieneCosto ? data.revenue - data.costo : null }])
       .sort((a, b) => b[1].revenue - a[1].revenue)
-  }, [filteredOrders, brandPricing])
+  }, [filteredOrders, brandPricing, costRules])
 
   const topProducts = useMemo(() => {
     const map = {}
