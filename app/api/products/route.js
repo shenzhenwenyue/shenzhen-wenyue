@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { getSupabase } from '@/lib/supabase'
 
+export const dynamic = 'force-dynamic'
+
 const SHEET_CSV_URL = process.env.SHEET_CSV_URL
 
 /**
