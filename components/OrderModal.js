@@ -66,11 +66,17 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
 
       setDone(true)
 
-      // Avisar por WhatsApp
+      // Avisar por WhatsApp con resumen por categoría
+      const catSummary = Object.entries(totalByCategory)
+        .map(([cat, qty]) => {
+          const sub = orderItems.filter(i => i.categoria === cat).reduce((s, i) => s + i.unit_price * i.qty, 0)
+          return `• ${cat}: ${qty} pz — $${sub.toFixed(2)}`
+        }).join('\n')
       const msg =
         `Hola! Soy *${name.trim()}*.\n\n` +
-        `Acabo de enviar una solicitud de cotización con ${orderItems.length} producto${orderItems.length !== 1 ? 's' : ''}.\n\n` +
-        `Espero su confirmación de disponibilidad. Gracias!`
+        `📦 Solicitud de cotización:\n${catSummary}\n\n` +
+        `*Total estimado: $${total.toFixed(2)}*\n\n` +
+        `Espero confirmación de disponibilidad. Gracias!`
 
       setTimeout(() => {
         window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank')
@@ -178,6 +184,12 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
                   <span>Total estimado</span>
                   <span>${total.toFixed(2)}</span>
                 </div>
+                {/* Contexto de precio mayoreo por categoría */}
+                {Object.entries(totalByCategory).map(([cat, qty]) => (
+                  <p key={cat} className="text-xs text-green-600 pt-0.5">
+                    Precio {cat} basado en {qty} pz totales de la categoría
+                  </p>
+                ))}
               </div>
 
               {error && (

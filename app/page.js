@@ -130,9 +130,8 @@ export default function Home() {
       .reduce((acc, i) => ({ ...acc, [i.size]: i.qty }), {})
   }
 
-  // qty total en carrito por categoría (mayoreo agrupado — igual que Cart.js)
+  // qty total en carrito por categoría (mayoreo agrupado para todas las categorías)
   function getCategoryQty(categoria) {
-    if (!['Perfumes', 'Lululemon', 'Alo Yoga'].includes(categoria)) return 0
     return cart
       .filter(i => {
         if (i.categoria) return i.categoria === categoria
