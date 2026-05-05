@@ -120,6 +120,12 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                 ✓ {categoryQty} u. en total en esta categoría
               </p>
             )}
+            {/* Nota LV: el precio mejora con cualquier perfume del pedido */}
+            {product.subcategoria === 'Louis Vuitton' && (
+              <p className="text-xs text-purple-600 font-medium pt-0.5 border-t border-gray-200 mt-1">
+                El precio aplica sobre el total de perfumes en tu pedido (LV + otras marcas)
+              </p>
+            )}
           </div>
         )}
 
@@ -137,7 +143,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             </div>
             {nextTier && (
               <p className="text-xs text-blue-600 font-medium mt-0.5">
-                +{nextTier.qty - pricingQty} u. más → ${nextTier.price.toFixed(2)} c/u
+                +{nextTier.qty - pricingQty} {product.subcategoria === 'Louis Vuitton' ? 'pz más (cualquier perfume)' : 'u. más'} → ${nextTier.price.toFixed(2)} c/u
               </p>
             )}
           </div>
