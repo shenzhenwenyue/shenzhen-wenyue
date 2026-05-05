@@ -81,7 +81,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
               <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Precio según total de piezas en la subcategoría</p>
             )}
             <TierRow
-              label={`${product.qty_minima || 1}–${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} u.`}
+              label={`${(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 1 : (product.qty_minima || 1)}–${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} u.`}
               price={product.precio_1}
               active={pricingQty === 0 || pricingQty < (product.qty_tier2 || Infinity)}
             />
