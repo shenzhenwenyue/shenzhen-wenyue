@@ -94,7 +94,7 @@ export default function AdminPersonalInventory({ adminPassword }) {
       {/* Header + resumen */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h2 className="font-bold text-gray-900">Capital de Bodega</h2>
+          <h2 className="font-bold text-gray-900">Stock de Bodega</h2>
           <p className="text-xs text-gray-400 mt-0.5">Artículos financiados con tu capital personal. La ganancia se reparte normal — solo se registra el costo pendiente de reembolso.</p>
         </div>
         {!editing && (

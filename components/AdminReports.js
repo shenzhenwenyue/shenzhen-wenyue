@@ -386,7 +386,7 @@ export default function AdminReports({ orders, adminPassword }) {
         )}
         {capitalItems.filter(i => !i.pagado).length > 0 && (
           <KPICard
-            label="Capital de Bodega pendiente"
+            label="Stock de Bodega pendiente"
             value={`$${capitalItems.filter(i => !i.pagado).reduce((s, i) => s + i.qty * i.costo_unit, 0).toFixed(2)}`}
             sub="costo personal sin reembolsar"
             amber
@@ -451,12 +451,12 @@ export default function AdminReports({ orders, adminPassword }) {
         </div>
       )}
 
-      {/* Capital de Bodega */}
+      {/* Stock de Bodega */}
       {capitalItems.length > 0 && (
         <div className="bg-white rounded-2xl border border-amber-200 shadow-sm overflow-hidden">
           <div className="px-4 py-3 border-b border-amber-100 bg-amber-50 flex items-center justify-between">
             <div>
-              <h3 className="font-semibold text-amber-900 text-sm">Capital de Bodega</h3>
+              <h3 className="font-semibold text-amber-900 text-sm">Stock de Bodega</h3>
               <p className="text-xs text-amber-600 mt-0.5">Costo de inventario financiado con capital personal — la ganancia se reparte aparte</p>
             </div>
             <div className="text-right shrink-0">

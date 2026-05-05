@@ -192,7 +192,7 @@ export default function AdminPage() {
               : 'border-transparent text-gray-400 hover:text-gray-700'
           }`}
         >
-          Capital de Bodega
+          Stock de Bodega
         </button>
         <button
           onClick={() => setActiveTab('pricing')}
@@ -202,7 +202,7 @@ export default function AdminPage() {
               : 'border-transparent text-gray-400 hover:text-gray-700'
           }`}
         >
-          Precios Lululemon
+          Precios
         </button>
       </div>
 
