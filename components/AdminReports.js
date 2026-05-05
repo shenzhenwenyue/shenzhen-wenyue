@@ -60,8 +60,15 @@ export default function AdminReports({ orders, adminPassword }) {
 
   function getCostoFromBrandPricing(item) {
     if (!brandPricing.length) return null
-    const match = brandPricing.find(r => r.label?.toLowerCase() === item.nombre?.toLowerCase())
-    return match ? parseFloat(match.costo) : null
+    const exactMatch = brandPricing.find(r => r.label?.toLowerCase() === item.nombre?.toLowerCase())
+    if (exactMatch) return parseFloat(exactMatch.costo)
+    const groupMatch = brandPricing.find(r =>
+      r.marca === 'PerfumeGroup' && (
+        r.label?.toLowerCase() === item.subcategoria?.toLowerCase() ||
+        r.label?.toLowerCase() === item.categoria?.toLowerCase()
+      )
+    )
+    return groupMatch ? parseFloat(groupMatch.costo) : null
   }
 
   const kpis = useMemo(() => {

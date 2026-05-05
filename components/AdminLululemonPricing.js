@@ -212,20 +212,26 @@ function perfumeTiers(p) {
   ].filter(Boolean)
 }
 
-function PerfumeGroupCard({ label, products, tiers, storageKey }) {
+function PerfumeGroupCard({ label, products, tiers, costRow, headers, onCostoSaved }) {
   const [open, setOpen] = useState(false)
   const [editingCosto, setEditingCosto] = useState(false)
   const [costoInput, setCostoInput] = useState('')
-  const [costo, setCosto] = useState(() => {
-    try { return parseFloat(localStorage.getItem(storageKey)) || null } catch { return null }
-  })
+  const [saving, setSaving] = useState(false)
 
-  function saveCosto() {
+  const costo = costRow ? parseFloat(costRow.costo) : null
+
+  async function saveCosto() {
     const v = parseFloat(costoInput)
     if (!v || v <= 0) return
-    try { localStorage.setItem(storageKey, String(v)) } catch {}
-    setCosto(v)
-    setEditingCosto(false)
+    setSaving(true)
+    const method = costRow ? 'PUT' : 'POST'
+    const body = costRow
+      ? { id: costRow.id, costo: v }
+      : { marca: 'PerfumeGroup', label, costo: v, precio_10: 0, precio_25: 0, precio_50: 0, precio_100: 0 }
+    const res = await fetch('/api/admin/lululemon-pricing', { method, headers, body: JSON.stringify(body) })
+    const data = await res.json()
+    setSaving(false)
+    if (!data.error) { onCostoSaved(data); setEditingCosto(false) }
   }
 
   return (
@@ -244,7 +250,9 @@ function PerfumeGroupCard({ label, products, tiers, storageKey }) {
                 autoFocus
                 className="w-20 px-1.5 py-0.5 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-gray-500"
               />
-              <button onClick={saveCosto} className="text-xs font-semibold text-black px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200">OK</button>
+              <button onClick={saveCosto} disabled={saving} className="text-xs font-semibold text-black px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-50">
+                {saving ? '…' : 'OK'}
+              </button>
               <button onClick={() => setEditingCosto(false)} className="text-xs text-gray-400 hover:text-gray-600">✕</button>
             </div>
           ) : (
@@ -283,7 +291,7 @@ function PerfumeGroupCard({ label, products, tiers, storageKey }) {
 }
 
 // ── Perfumes section ─────────────────────────────────────────────────────────
-function PerfumesSection({ adminPassword }) {
+function PerfumesSection({ adminPassword, groupCostRows, headers, onCostoSaved }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -327,7 +335,9 @@ function PerfumesSection({ adminPassword }) {
           label="Perfumes"
           products={rest}
           tiers={perfumeTiers(rest[0])}
-          storageKey="perfume_costo_general"
+          costRow={groupCostRows.find(r => r.label === 'Perfumes') || null}
+          headers={headers}
+          onCostoSaved={onCostoSaved}
         />
       )}
       {lv.length > 0 && (
@@ -335,7 +345,9 @@ function PerfumesSection({ adminPassword }) {
           label="Louis Vuitton"
           products={lv}
           tiers={perfumeTiers(lv[0])}
-          storageKey="perfume_costo_lv"
+          costRow={groupCostRows.find(r => r.label === 'Louis Vuitton') || null}
+          headers={headers}
+          onCostoSaved={onCostoSaved}
         />
       )}
     </div>
@@ -364,6 +376,7 @@ export default function AdminLululemonPricing({ adminPassword }) {
 
   const lululemonRows = rows.filter(r => r.marca === 'Lululemon')
   const aloRows = rows.filter(r => r.marca === 'Alo')
+  const groupCostRows = rows.filter(r => r.marca === 'PerfumeGroup')
 
   function handleSave(updated) {
     setRows(prev => prev.map(r => r.id === updated.id ? updated : r))
@@ -376,6 +389,13 @@ export default function AdminLululemonPricing({ adminPassword }) {
   function handleAddAlo(newRow) {
     setRows(prev => [...prev, newRow])
     setShowAddAlo(false)
+  }
+
+  function handleGroupCostoSaved(row) {
+    setRows(prev => prev.find(r => r.id === row.id)
+      ? prev.map(r => r.id === row.id ? row : r)
+      : [...prev, row]
+    )
   }
 
   const skeleton = (
@@ -450,7 +470,12 @@ export default function AdminLululemonPricing({ adminPassword }) {
           <span className="text-xs text-gray-400">Desde catálogo</span>
         </div>
         <p className="text-xs text-gray-400">Solo consulta — edita en el Sheet.</p>
-        <PerfumesSection adminPassword={adminPassword} />
+        <PerfumesSection
+          adminPassword={adminPassword}
+          groupCostRows={groupCostRows}
+          headers={headers}
+          onCostoSaved={handleGroupCostoSaved}
+        />
       </div>
 
       {/* Leyenda */}
