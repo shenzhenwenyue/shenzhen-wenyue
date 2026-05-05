@@ -199,12 +199,17 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
                   <span>Total estimado</span>
                   <span>${total.toFixed(2)}</span>
                 </div>
-                {/* Contexto de precio mayoreo por categoría */}
-                {Object.entries(totalByCategory).map(([cat, qty]) => (
-                  <p key={cat} className="text-xs text-green-600 pt-0.5">
-                    Precio {cat} basado en {qty} pz totales de la categoría
-                  </p>
-                ))}
+                {/* Contexto de precio mayoreo — por subcategoría para Lulu/Alo, por categoría para el resto */}
+                {Object.entries(totalByPricingGroup).map(([key, qty]) => {
+                  const isSub = key.includes('__')
+                  const label = isSub ? key.split('__')[1] : key
+                  const scope = isSub ? 'subcategoría' : 'categoría'
+                  return (
+                    <p key={key} className="text-xs text-green-600 pt-0.5">
+                      Precio {label} basado en {qty} pz totales de la {scope}
+                    </p>
+                  )
+                })}
               </div>
 
               {error && (

@@ -77,7 +77,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         {hasTiers && (
           <div className="mb-2 rounded-lg bg-gray-50 p-2 space-y-0.5 text-xs">
             {(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') && (
-              <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Precio según total de piezas en la categoría</p>
+              <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Precio según total de piezas en la subcategoría</p>
             )}
             <TierRow
               label={`${product.qty_minima || 1}–${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} u.`}
@@ -117,10 +117,9 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                 best
               />
             )}
-            {/* Indicador de mayoreo agrupado por categoría */}
             {categoryQty > (displayQty || 0) && (
               <p className="text-green-600 font-medium pt-0.5 border-t border-gray-200 mt-1">
-                ✓ {categoryQty} u. en total en esta categoría
+                ✓ {categoryQty} u. en total en esta {(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 'subcategoría' : 'categoría'}
               </p>
             )}
             {/* Nota LV: el precio mejora con cualquier perfume del pedido */}
