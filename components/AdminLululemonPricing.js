@@ -229,9 +229,10 @@ function PerfumeGroupCard({ label, products, tiers, costRow, headers, onCostoSav
     const method = costRow ? 'PUT' : 'POST'
     const body = costRow
       ? { id: costRow.id, costo: v }
-      : { marca: 'PerfumeGroup', label, costo: v, precio_10: null, precio_25: null, precio_50: null, precio_100: null }
+      : { marca: 'PerfumeGroup', label, costo: v, precio_10: 0, precio_25: 0, precio_50: 0, precio_100: 0 }
     const res = await fetch('/api/admin/lululemon-pricing', { method, headers, body: JSON.stringify(body) })
     const data = await res.json()
+    console.log('[PerfumeGroup] save response:', res.status, data)
     setSaving(false)
     if (data.error) { setSaveError(data.error) } else { onCostoSaved(data); setEditingCosto(false) }
   }
@@ -367,8 +368,8 @@ export default function AdminLululemonPricing({ adminPassword }) {
 
   const headers = { 'Content-Type': 'application/json', 'x-admin-password': adminPassword }
 
-  useEffect(() => {
-    fetch('/api/admin/lululemon-pricing', { headers })
+  function fetchRows() {
+    fetch('/api/admin/lululemon-pricing', { headers, cache: 'no-store' })
       .then(r => r.json())
       .then(data => {
         if (Array.isArray(data)) setRows(data)
@@ -376,7 +377,9 @@ export default function AdminLululemonPricing({ adminPassword }) {
         setLoading(false)
       })
       .catch(() => setLoading(false))
-  }, [])
+  }
+
+  useEffect(() => { fetchRows() }, [])
 
   const lululemonRows = rows.filter(r => r.marca === 'Lululemon')
   const aloRows = rows.filter(r => r.marca === 'Alo')
@@ -395,11 +398,8 @@ export default function AdminLululemonPricing({ adminPassword }) {
     setShowAddAlo(false)
   }
 
-  function handleGroupCostoSaved(row) {
-    setRows(prev => prev.find(r => r.id === row.id)
-      ? prev.map(r => r.id === row.id ? row : r)
-      : [...prev, row]
-    )
+  function handleGroupCostoSaved() {
+    fetchRows()
   }
 
   const skeleton = (
