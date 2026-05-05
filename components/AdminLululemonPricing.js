@@ -121,6 +121,9 @@ function BrandRow({ row, headers, onSave, onDelete, canDelete }) {
         <div className="flex items-center justify-between mb-2">
           <div>
             <p className="text-sm font-bold text-gray-900">{row.label}</p>
+            {row.nombre_match && (
+              <p className="text-xs text-blue-500 mb-0.5">Aplica a: nombres que incluyen "{row.nombre_match}"</p>
+            )}
             {row.costo
               ? <p className="text-xs text-gray-400">Costo: ${parseFloat(row.costo).toFixed(2)}</p>
               : <p className="text-xs text-orange-400">Sin costo — edita para agregar</p>}
@@ -157,7 +160,7 @@ function BrandRow({ row, headers, onSave, onDelete, canDelete }) {
 }
 
 // ── AddBrandRowForm (Alo Yoga) ────────────────────────────────────────────────
-const EMPTY_BRAND_FORM = { label: '', costo: '', precio_1: '', precio_tier2: '', precio_tier3: '', precio_tier4: '' }
+const EMPTY_BRAND_FORM = { label: '', nombre_match: '', costo: '', precio_1: '', precio_tier2: '', precio_tier3: '', precio_tier4: '' }
 
 function AddBrandRowForm({ categoria, headers, onAdd, onCancel }) {
   const [form, setForm] = useState(EMPTY_BRAND_FORM)
@@ -179,6 +182,7 @@ function AddBrandRowForm({ categoria, headers, onAdd, onCancel }) {
       headers,
       body: JSON.stringify({
         ...form,
+        nombre_match: form.nombre_match?.trim() || null,
         categoria,
         qty_minima: 10,
         qty_tier2: 25,
@@ -197,10 +201,17 @@ function AddBrandRowForm({ categoria, headers, onAdd, onCancel }) {
       <p className="text-sm font-bold text-gray-900">Nuevo producto {categoria}</p>
       {error && <p className="text-xs text-red-500">{error}</p>}
       <div>
-        <label className="text-xs text-gray-400 block mb-1">Nombre del producto</label>
+        <label className="text-xs text-gray-400 block mb-1">Nombre interno (etiqueta)</label>
         <input type="text" value={form.label} placeholder="Ej: Alo Jacket"
           onChange={e => setForm(f => ({ ...f, label: e.target.value }))}
           className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400" />
+      </div>
+      <div>
+        <label className="text-xs text-gray-400 block mb-1">Coincidencia en nombre del producto <span className="text-gray-300">(opcional — solo si dos modelos comparten subcategoría)</span></label>
+        <input type="text" value={form.nombre_match} placeholder="Ej: Skirt + Top"
+          onChange={e => setForm(f => ({ ...f, nombre_match: e.target.value }))}
+          className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400" />
+        <p className="text-xs text-gray-300 mt-0.5">El sistema buscará este texto dentro del nombre del producto en el catálogo</p>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         <div>
@@ -598,7 +609,7 @@ export default function AdminLululemonPricing({ adminPassword }) {
   }
 
   const lululemonRows = rows.filter(r => r.categoria === 'Lululemon' && isActive(r))
-  const aloRows = rows.filter(r => r.categoria === 'Alo Yoga' && isActive(r))
+  const aloRows = rows.filter(r => r.categoria === 'Alo Yoga')
   const perfumeRows = rows.filter(r => r.categoria === 'Perfumes')
   const giftSetRow = rows.find(r => r.categoria === 'Gift Set de Perfumes')
   const lvCostRule = costRules.find(r => r.match_campo === 'subcategoria' && r.match_valor === 'Louis Vuitton') ?? null
