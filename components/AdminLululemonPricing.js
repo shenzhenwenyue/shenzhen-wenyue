@@ -217,6 +217,7 @@ function PerfumeGroupCard({ label, products, tiers, costRow, headers, onCostoSav
   const [editingCosto, setEditingCosto] = useState(false)
   const [costoInput, setCostoInput] = useState('')
   const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState(null)
 
   const costo = costRow ? parseFloat(costRow.costo) : null
 
@@ -224,14 +225,15 @@ function PerfumeGroupCard({ label, products, tiers, costRow, headers, onCostoSav
     const v = parseFloat(costoInput)
     if (!v || v <= 0) return
     setSaving(true)
+    setSaveError(null)
     const method = costRow ? 'PUT' : 'POST'
     const body = costRow
       ? { id: costRow.id, costo: v }
-      : { marca: 'PerfumeGroup', label, costo: v, precio_10: 0, precio_25: 0, precio_50: 0, precio_100: 0 }
+      : { marca: 'PerfumeGroup', label, costo: v, precio_10: null, precio_25: null, precio_50: null, precio_100: null }
     const res = await fetch('/api/admin/lululemon-pricing', { method, headers, body: JSON.stringify(body) })
     const data = await res.json()
     setSaving(false)
-    if (!data.error) { onCostoSaved(data); setEditingCosto(false) }
+    if (data.error) { setSaveError(data.error) } else { onCostoSaved(data); setEditingCosto(false) }
   }
 
   return (
@@ -253,9 +255,11 @@ function PerfumeGroupCard({ label, products, tiers, costRow, headers, onCostoSav
               <button onClick={saveCosto} disabled={saving} className="text-xs font-semibold text-black px-2 py-0.5 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-50">
                 {saving ? '…' : 'OK'}
               </button>
-              <button onClick={() => setEditingCosto(false)} className="text-xs text-gray-400 hover:text-gray-600">✕</button>
+              <button onClick={() => { setEditingCosto(false); setSaveError(null) }} className="text-xs text-gray-400 hover:text-gray-600">✕</button>
             </div>
-          ) : (
+          )}
+          {saveError && <p className="text-xs text-red-500 mt-1">{saveError}</p>}
+          {!editingCosto && (
             <button
               onClick={() => { setCostoInput(costo ? String(costo) : ''); setEditingCosto(true) }}
               className="text-xs text-gray-400 hover:text-gray-700 transition-colors">
