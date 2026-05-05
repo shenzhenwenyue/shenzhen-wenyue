@@ -300,8 +300,11 @@ function PerfumesSection({ adminPassword }) {
   }, [])
 
   const { lv, rest } = useMemo(() => {
-    const lv = products.filter(p => p.nombre.toLowerCase().includes('louis vuitton'))
-    const rest = products.filter(p => !p.nombre.toLowerCase().includes('louis vuitton'))
+    const isLV = p =>
+      p.subcategoria?.toLowerCase().includes('louis vuitton') ||
+      p.nombre.toLowerCase().includes('louis vuitton')
+    const lv = products.filter(isLV)
+    const rest = products.filter(p => !isLV(p))
     return { lv, rest }
   }, [products])
 
