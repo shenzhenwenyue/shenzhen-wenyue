@@ -202,7 +202,7 @@ export default function AdminPage() {
               : 'border-transparent text-gray-400 hover:text-gray-700'
           }`}
         >
-          Precios
+          Precios & Márgenes
         </button>
       </div>
 
