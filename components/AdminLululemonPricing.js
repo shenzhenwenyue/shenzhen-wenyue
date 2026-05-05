@@ -474,6 +474,7 @@ function PerfumesSection({ perfumeRows, headers, onSave, onReload }) {
 // ── Main component ────────────────────────────────────────────────────────────
 export default function AdminLululemonPricing({ adminPassword }) {
   const [rows, setRows] = useState([])
+  const [activeSubcats, setActiveSubcats] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [showAddAlo, setShowAddAlo] = useState(false)
@@ -482,20 +483,43 @@ export default function AdminLululemonPricing({ adminPassword }) {
 
   function reload() {
     setLoading(true)
-    fetch('/api/admin/catalog-pricing', { headers })
-      .then(r => r.json())
-      .then(data => {
-        if (Array.isArray(data)) setRows(data)
-        else setError(data.error || 'Error cargando precios')
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
+    Promise.all([
+      fetch('/api/admin/catalog-pricing', { headers }).then(r => r.json()),
+      fetch('/api/products').then(r => r.json()),
+    ]).then(([pricing, products]) => {
+      if (Array.isArray(pricing)) setRows(pricing)
+      else setError(pricing.error || 'Error cargando precios')
+
+      if (Array.isArray(products)) {
+        // Build set of active subcategories per category from the real catalog
+        const map = {}
+        for (const p of products) {
+          const cat = p.categoria
+          if (!map[cat]) map[cat] = new Set()
+          map[cat].add(p.subcategoria)
+          // Flag flare leggings as a special subcategory
+          if (cat === 'Lululemon' && p.subcategoria === 'Leggings' && p.nombre?.toLowerCase().includes('flare')) {
+            map[cat].add('Flare Leggings')
+          }
+        }
+        setActiveSubcats(map)
+      }
+      setLoading(false)
+    }).catch(() => setLoading(false))
   }
 
   useEffect(() => { reload() }, [])
 
-  const lululemonRows = rows.filter(r => r.categoria === 'Lululemon')
-  const aloRows = rows.filter(r => r.categoria === 'Alo Yoga')
+  function isActive(row) {
+    const subcats = activeSubcats[row.categoria]
+    if (!subcats) return false
+    // Flare Leggings: active only if catalog has flare products
+    if (row.label === 'Flare Leggings') return subcats.has('Flare Leggings')
+    return subcats.has(row.label)
+  }
+
+  const lululemonRows = rows.filter(r => r.categoria === 'Lululemon' && isActive(r))
+  const aloRows = rows.filter(r => r.categoria === 'Alo Yoga' && isActive(r))
   const perfumeRows = rows.filter(r => r.categoria === 'Perfumes')
   const giftSetRow = rows.find(r => r.categoria === 'Gift Set de Perfumes')
 
