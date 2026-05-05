@@ -1,7 +1,5 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
-import { getCosto } from '@/lib/pricing'
-
 const PERIOD_OPTIONS = [
   { label: 'Hoy', value: 'today' },
   { label: 'Esta semana', value: 'week' },
@@ -29,16 +27,12 @@ const STATUS_LABELS = {
 
 export default function AdminReports({ orders, adminPassword }) {
   const [period, setPeriod] = useState('month')
-  const [costRules, setCostRules] = useState([])
   const [capitalItems, setCapitalItems] = useState([])
   const [brandPricing, setBrandPricing] = useState([])
 
   useEffect(() => {
     if (!adminPassword) return
     const headers = { 'x-admin-password': adminPassword }
-    fetch('/api/admin/costs', { headers })
-      .then(r => r.json())
-      .then(data => { if (Array.isArray(data)) setCostRules(data) })
     fetch('/api/admin/personal-inventory', { headers })
       .then(r => r.json())
       .then(data => { if (Array.isArray(data)) setCapitalItems(data) })
@@ -87,16 +81,10 @@ export default function AdminReports({ orders, adminPassword }) {
     let itemsConCosto = 0
     let totalItemsRevenue = 0
     revenueOrders.forEach(o => {
-      // Total de perfumes en este pedido para determinar tier de costo
-      const totalPerfumesQty = (o.items || [])
-        .filter(i => i.confirmed !== false && i.categoria === 'Perfumes')
-        .reduce((s, i) => s + (i.available_qty || i.qty), 0)
-
       ;(o.items || []).filter(i => i.confirmed !== false).forEach(item => {
         const qty = item.available_qty || item.qty
         const revenue = qty * (item.unit_price || 0)
-        const categoryTotalQty = item.categoria === 'Perfumes' ? totalPerfumesQty : qty
-        const costo = item.unit_cost ?? getCosto(costRules, item, categoryTotalQty) ?? getCostoFromBrandPricing(item)
+        const costo = item.unit_cost ?? getCostoFromBrandPricing(item)
         totalItemsRevenue += revenue
         if (costo !== null) {
           totalCosto += costo * qty
@@ -108,25 +96,20 @@ export default function AdminReports({ orders, adminPassword }) {
     const margen = totalItemsRevenue > 0 ? (ganancia / totalItemsRevenue) * 100 : null
 
     return { totalRevenue, totalOrders, paidOrders, avgTicket, totalUnits, pendingRevenue, ganancia, margen, tieneCostos: itemsConCosto > 0 }
-  }, [filteredOrders, costRules, brandPricing])
+  }, [filteredOrders, brandPricing])
 
   const categoryBreakdown = useMemo(() => {
     const map = {}
     filteredOrders
       .filter(o => REVENUE_STATUSES.includes(o.status))
       .forEach(o => {
-        const totalPerfumesQty = (o.items || [])
-          .filter(i => i.confirmed !== false && i.categoria === 'Perfumes')
-          .reduce((s, i) => s + (i.available_qty || i.qty), 0)
-
         ;(o.items || []).forEach(item => {
           if (item.confirmed === false) return
           const cat = item.categoria || 'Sin categoría'
           if (!map[cat]) map[cat] = { qty: 0, revenue: 0, costo: 0, tieneCosto: false }
           const qty = item.available_qty || item.qty
           const revenue = qty * (item.unit_price || 0)
-          const categoryTotalQty = item.categoria === 'Perfumes' ? totalPerfumesQty : qty
-          const costo = item.unit_cost ?? getCosto(costRules, item, categoryTotalQty) ?? getCostoFromBrandPricing(item)
+          const costo = item.unit_cost ?? getCostoFromBrandPricing(item)
           map[cat].qty += qty
           map[cat].revenue += revenue
           if (costo !== null) {
@@ -138,7 +121,7 @@ export default function AdminReports({ orders, adminPassword }) {
     return Object.entries(map)
       .map(([cat, data]) => [cat, { ...data, ganancia: data.tieneCosto ? data.revenue - data.costo : null }])
       .sort((a, b) => b[1].revenue - a[1].revenue)
-  }, [filteredOrders, costRules, brandPricing])
+  }, [filteredOrders, brandPricing])
 
   const topProducts = useMemo(() => {
     const map = {}
