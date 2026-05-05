@@ -39,25 +39,53 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
   const total = cartLines.reduce((sum, l) => sum + l.subtotal, 0)
   const isEmpty = cartLines.length === 0
 
-  // Resumen por categoría: piezas, tier activo, siguiente tier, mínimo
-  const categorySummary = Object.entries(totalByCategory).map(([cat, qty]) => {
-    // Para Perfumes usar un producto no-LV como representante (tiers más comunes)
-    const rep = cat === 'Perfumes'
-      ? (cartLines.find(l => l.product.categoria === cat && l.product.subcategoria !== 'Louis Vuitton')?.product
-          || cartLines.find(l => l.product.categoria === cat)?.product)
-      : cartLines.find(l => l.product.categoria === cat)?.product
-    if (!rep) return null
-    const minQty = rep.qty_minima || 10
-    const isIncomplete = qty < minQty
-    const tiers = [
+  // Resumen para el footer del carrito
+  function buildTiers(rep) {
+    return [
       rep.qty_tier2 && rep.precio_tier2 ? { qty: rep.qty_tier2, price: rep.precio_tier2 } : null,
       rep.qty_tier3 && rep.precio_tier3 ? { qty: rep.qty_tier3, price: rep.precio_tier3 } : null,
       rep.qty_tier4 && rep.precio_tier4 ? { qty: rep.qty_tier4, price: rep.precio_tier4 } : null,
     ].filter(Boolean)
-    const nextTier = tiers.find(t => qty < t.qty)
-    const hasTiers = tiers.length > 0
-    return { cat, qty, minQty, isIncomplete, nextTier, hasTiers }
-  }).filter(Boolean)
+  }
+
+  const categorySummary = (() => {
+    const result = []
+    Object.entries(totalByCategory).forEach(([cat, catQty]) => {
+      if (SUBCATEGORIA_PRICING.has(cat)) {
+        const rep = cartLines.find(l => l.product.categoria === cat)?.product
+        if (!rep) return
+        const minQty = rep.qty_minima || 10
+        const isIncomplete = catQty < minQty
+        if (isIncomplete) {
+          // Mínimo no cubierto → advertencia a nivel categoría
+          result.push({ cat, qty: catQty, minQty, isIncomplete: true, nextTier: null, hasTiers: false })
+          return
+        }
+        // Mínimo cubierto → progreso por subcategoría
+        const subcats = [...new Set(
+          cartLines.filter(l => l.product.categoria === cat && l.product.subcategoria).map(l => l.product.subcategoria)
+        )]
+        subcats.forEach(sub => {
+          const subQty = totalByPricingGroup[`${cat}__${sub}`] || 0
+          const subRep = cartLines.find(l => l.product.categoria === cat && l.product.subcategoria === sub)?.product
+          if (!subRep) return
+          const tiers = buildTiers(subRep)
+          result.push({ cat: sub, qty: subQty, minQty: null, isIncomplete: false, nextTier: tiers.find(t => subQty < t.qty), hasTiers: tiers.length > 0 })
+        })
+      } else {
+        const rep = cat === 'Perfumes'
+          ? (cartLines.find(l => l.product.categoria === cat && l.product.subcategoria !== 'Louis Vuitton')?.product
+              || cartLines.find(l => l.product.categoria === cat)?.product)
+          : cartLines.find(l => l.product.categoria === cat)?.product
+        if (!rep) return
+        const minQty = rep.qty_minima || 10
+        const isIncomplete = catQty < minQty
+        const tiers = buildTiers(rep)
+        result.push({ cat, qty: catQty, minQty, isIncomplete, nextTier: tiers.find(t => catQty < t.qty), hasTiers: tiers.length > 0 })
+      }
+    })
+    return result
+  })()
 
   const categoriasIncompletas = categorySummary.filter(s => s.isIncomplete)
 

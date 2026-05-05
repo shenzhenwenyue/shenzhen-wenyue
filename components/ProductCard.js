@@ -36,7 +36,8 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
     product.qty_tier4 && { qty: product.qty_tier4, price: product.precio_tier4 },
     product.qty_tier5 && { qty: product.qty_tier5, price: product.precio_tier5 },
   ].filter(Boolean)
-  const nextTier = displayQty > 0 ? allTiers.find(t => pricingQty < t.qty) : null
+  // Muestra progreso de tier si hay qty de este producto O de la subcategoría/categoría
+  const nextTier = (displayQty > 0 || categoryQty > 0) ? allTiers.find(t => pricingQty < t.qty) : null
   const isDiscounted = pricingQty >= (product.qty_tier2 || Infinity)
   const savingsPct = isDiscounted ? Math.round((1 - currentPrice / product.precio_1) * 100) : 0
 
