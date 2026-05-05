@@ -93,6 +93,38 @@ export async function PATCH(req, { params }) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
+  // Descontar inventario Alo Yoga al confirmar
+  if (body.status === 'confirmed' && current?.status !== 'confirmed') {
+    const aloItems = (current?.items || []).filter(i => i.categoria === 'Alo Yoga' && i.confirmed !== false)
+    for (const item of aloItems) {
+      const qty = item.available_qty || item.qty || 0
+      if (qty <= 0) continue
+      let baseName = item.nombre || ''
+      let talla = item.size || 'única'
+      // Extraer talla del nombre si viene como "Producto - M"
+      if (!item.size && baseName.includes(' - ')) {
+        const parts = baseName.split(' - ')
+        const last = parts[parts.length - 1].trim()
+        if (/^(XS|S|M|L|XL|XXL|2XL|3XL|XS\/S|M\/L)$/i.test(last)) {
+          baseName = parts.slice(0, -1).join(' - ').trim()
+          talla = last.toUpperCase()
+        }
+      }
+      const { data: inv } = await supabase
+        .from('alo_inventory')
+        .select('id, stock')
+        .eq('product_nombre', baseName)
+        .eq('talla', talla)
+        .maybeSingle()
+      if (inv) {
+        await supabase
+          .from('alo_inventory')
+          .update({ stock: Math.max(0, inv.stock - qty), updated_at: new Date().toISOString() })
+          .eq('id', inv.id)
+      }
+    }
+  }
+
   // Enviar email al cliente si cambió el status y tiene correo registrado
   const statusChanged = body.status && body.status !== current?.status
   const customerEmail = current?.customer_email

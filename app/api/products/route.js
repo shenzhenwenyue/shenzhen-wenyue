@@ -92,9 +92,10 @@ export async function GET() {
   }
 
   try {
-    const [sheetRes, pricingResult] = await Promise.all([
+    const [sheetRes, pricingResult, inventoryResult] = await Promise.all([
       fetch(SHEET_CSV_URL, { next: { revalidate: 300 } }),
       getSupabase().from('catalog_pricing').select('*'),
+      getSupabase().from('alo_inventory').select('*'),
     ])
 
     if (!sheetRes.ok) {
@@ -111,6 +112,12 @@ export async function GET() {
     for (const row of (pricingResult.data || [])) {
       if (!pricingByCategoria[row.categoria]) pricingByCategoria[row.categoria] = []
       pricingByCategoria[row.categoria].push(row)
+    }
+
+    // Build stock lookup for Alo Yoga: { "Alo Hat__S": 20, "Alo Hat__M": 30, ... }
+    const aloStockByKey = {}
+    for (const row of (inventoryResult.data || [])) {
+      aloStockByKey[`${row.product_nombre}__${row.talla}`] = row.stock
     }
 
     const products = rows
@@ -165,6 +172,23 @@ export async function GET() {
           product.precio_tier4 = priceRow.precio_tier4 || null
           product.qty_tier5 = null
           product.precio_tier5 = null
+        }
+
+        // Enriquecer productos Alo Yoga con stock por talla
+        if (product.categoria === 'Alo Yoga') {
+          const baseName = product.grupo || product.nombre
+          if (product.tallas?.length > 0) {
+            const tallaStock = {}
+            for (const t of product.tallas) {
+              const key = `${baseName}__${t}`
+              if (key in aloStockByKey) tallaStock[t] = aloStockByKey[key]
+            }
+            if (Object.keys(tallaStock).length > 0) product.talla_stock = tallaStock
+          } else {
+            const t = product.talla || 'única'
+            const key = `${baseName}__${t}`
+            if (key in aloStockByKey) product.stock = aloStockByKey[key]
+          }
         }
 
         return product

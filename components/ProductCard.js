@@ -41,6 +41,11 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
   const isDiscounted = pricingQty >= (product.qty_tier2 || Infinity)
   const savingsPct = isDiscounted ? Math.round((1 - currentPrice / product.precio_1) * 100) : 0
 
+  // Stock para productos sin tallas (Alo Yoga unidad única)
+  const stockTracked = product.stock !== null && product.stock !== undefined
+  const isOut = stockTracked && product.stock === 0
+  const isLow = stockTracked && product.stock > 0 && product.stock <= 5
+
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex flex-col">
       {/* Imagen */}
@@ -185,14 +190,20 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                 )}
                 <button
                   onClick={() => onAdd(product)}
-                  className="w-9 h-9 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-lg leading-none text-white shrink-0"
+                  disabled={stockTracked && qty >= product.stock}
+                  className="w-9 h-9 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-lg leading-none text-white shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
                 >+</button>
               </div>
+            ) : isOut ? (
+              <span className="text-xs text-red-400 font-semibold">No disponible</span>
             ) : (
-              <button
-                onClick={() => onAdd(product)}
-                className="px-4 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors"
-              >Agregar</button>
+              <div className="flex flex-col items-end gap-0.5">
+                <button
+                  onClick={() => onAdd(product)}
+                  className="px-4 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors"
+                >Agregar</button>
+                {isLow && <span className="text-[10px] text-amber-500">Solo {product.stock} disp.</span>}
+              </div>
             )
           )}
 
@@ -219,6 +230,10 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
               {product.tallas.map(size => {
                 const sizeQty = cartSizes?.[size] || 0
                 const cartId = `${product.id}__${size}`
+                const avail = product.talla_stock?.[size]
+                const tracked = avail !== undefined
+                const isOut = tracked && avail === 0
+                const isLow = tracked && avail > 0 && avail <= 5
                 return (
                   <div key={size} className="flex items-center gap-1">
                     {sizeQty > 0 ? (
@@ -233,14 +248,27 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                         </div>
                         <button
                           onClick={() => onAdd(product, size)}
-                          className="w-8 h-8 rounded-lg bg-black hover:bg-gray-800 flex items-center justify-center text-sm font-bold text-white"
+                          disabled={tracked && sizeQty >= avail}
+                          className="w-8 h-8 rounded-lg bg-black hover:bg-gray-800 flex items-center justify-center text-sm font-bold text-white disabled:opacity-40 disabled:cursor-not-allowed"
                         >+</button>
                       </>
                     ) : (
                       <button
-                        onClick={() => onAdd(product, size)}
-                        className="px-3 py-2 rounded-xl text-xs font-semibold border border-gray-200 text-gray-600 hover:border-black hover:text-black transition-colors"
-                      >{size}</button>
+                        onClick={() => !isOut && onAdd(product, size)}
+                        disabled={isOut}
+                        className={`px-3 py-2 rounded-xl text-xs font-semibold border transition-colors ${
+                          isOut
+                            ? 'border-gray-100 text-gray-300 cursor-not-allowed'
+                            : 'border-gray-200 text-gray-600 hover:border-black hover:text-black'
+                        }`}
+                      >
+                        <span>{size}</span>
+                        {tracked && (
+                          <span className={`block text-[10px] leading-none mt-0.5 ${isOut ? 'text-red-400' : isLow ? 'text-amber-500' : 'text-gray-400'}`}>
+                            {isOut ? 'Agotado' : `${avail} disp.`}
+                          </span>
+                        )}
+                      </button>
                     )}
                   </div>
                 )

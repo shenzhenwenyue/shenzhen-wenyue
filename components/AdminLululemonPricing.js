@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useMemo } from 'react'
+import AdminAloInventory from '@/components/AdminAloInventory'
 
 function pct(precio, costo) {
   if (!precio || !costo) return null
@@ -696,6 +697,9 @@ export default function AdminLululemonPricing({ adminPassword }) {
           </div>
         )}
       </div>
+
+      {/* ── Alo Yoga Inventory ── */}
+      <AdminAloInventory adminPassword={adminPassword} />
 
       {/* ── Perfumes ── */}
       <div>
