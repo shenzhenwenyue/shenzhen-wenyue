@@ -54,7 +54,7 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
       if (SUBCATEGORIA_PRICING.has(cat)) {
         const rep = cartLines.find(l => l.product.categoria === cat)?.product
         if (!rep) return
-        const minQty = rep.qty_minima || 10
+        const minQty = 10  // mínimo de categoría fijo para marcas con pricing por subcategoría
         const isIncomplete = catQty < minQty
         if (isIncomplete) {
           // Mínimo no cubierto → advertencia a nivel categoría
