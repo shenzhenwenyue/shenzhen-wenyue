@@ -47,6 +47,7 @@ export default function AdminClients({ orders }) {
           orders: [],
           total: 0,
           lastOrderDate: null,
+          email: null,
         }
       }
       const client = map[key]
@@ -55,6 +56,7 @@ export default function AdminClients({ orders }) {
       if (!client.lastOrderDate || new Date(order.created_at) > new Date(client.lastOrderDate)) {
         client.lastOrderDate = order.created_at
         client.name = order.customer_name
+        if (order.customer_email) client.email = order.customer_email
       }
     }
     return Object.values(map)
@@ -149,6 +151,9 @@ export default function AdminClients({ orders }) {
                   <p className="text-xs text-gray-400 mt-0.5">
                     {client.orders.length} pedido{client.orders.length !== 1 ? 's' : ''} · último {timeAgo(client.lastOrderDate)}
                   </p>
+                  {client.email && (
+                    <p className="text-xs text-gray-400 truncate max-w-[200px]">{client.email}</p>
+                  )}
                 </div>
                 <div className="text-right shrink-0 ml-3">
                   <p className="text-sm font-bold text-gray-900">${client.total.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
@@ -189,7 +194,7 @@ export default function AdminClients({ orders }) {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex gap-2 pt-1">
+                  <div className="flex gap-2 pt-1 flex-wrap">
                     <a
                       href={`https://wa.me/${client.whatsapp?.replace(/\D/g, '')}`}
                       target="_blank"
@@ -201,14 +206,25 @@ export default function AdminClients({ orders }) {
                       </svg>
                       WhatsApp
                     </a>
+                    {client.email && (
+                      <a
+                        href={`mailto:${client.email}`}
+                        className="flex-1 py-2 bg-gray-800 text-white text-xs font-semibold rounded-xl hover:bg-black transition-colors flex items-center justify-center gap-1.5"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        Correo
+                      </a>
+                    )}
                     {isAtRisk && (
                       <a
                         href={`https://wa.me/${client.whatsapp?.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola *${client.name}*! ¿Cómo estás? Tenemos productos nuevos disponibles. ¿Te interesa ver el catálogo?`)}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex-1 py-2 bg-orange-500 text-white text-xs font-semibold rounded-xl hover:bg-orange-600 transition-colors flex items-center justify-center gap-1.5"
+                        className="w-full py-2 bg-orange-500 text-white text-xs font-semibold rounded-xl hover:bg-orange-600 transition-colors flex items-center justify-center gap-1.5"
                       >
-                        Reactivar
+                        Reactivar por WhatsApp
                       </a>
                     )}
                   </div>
