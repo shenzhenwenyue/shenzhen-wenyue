@@ -22,13 +22,25 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
     .filter(Boolean)
 
   const total = cartLines.reduce((sum, l) => sum + l.subtotal, 0)
-  const totalPiezas = cartLines.reduce((sum, l) => sum + l.qty, 0)
   const isEmpty = cartLines.length === 0
 
-  // Categorías con menos de 10 piezas
-  const categoriasIncompletas = Object.entries(totalByCategory)
-    .filter(([, qty]) => qty < 10)
-    .map(([cat, qty]) => ({ cat, faltan: 10 - qty }))
+  // Resumen por categoría: piezas, tier activo, siguiente tier, mínimo
+  const categorySummary = Object.entries(totalByCategory).map(([cat, qty]) => {
+    const rep = cartLines.find(l => (l.product.categoria === cat))?.product
+    if (!rep) return null
+    const minQty = rep.qty_minima || 10
+    const isIncomplete = qty < minQty
+    const tiers = [
+      rep.qty_tier2 && rep.precio_tier2 ? { qty: rep.qty_tier2, price: rep.precio_tier2 } : null,
+      rep.qty_tier3 && rep.precio_tier3 ? { qty: rep.qty_tier3, price: rep.precio_tier3 } : null,
+      rep.qty_tier4 && rep.precio_tier4 ? { qty: rep.qty_tier4, price: rep.precio_tier4 } : null,
+    ].filter(Boolean)
+    const nextTier = tiers.find(t => qty < t.qty)
+    const hasTiers = tiers.length > 0
+    return { cat, qty, minQty, isIncomplete, nextTier, hasTiers }
+  }).filter(Boolean)
+
+  const categoriasIncompletas = categorySummary.filter(s => s.isIncomplete)
 
 
   return (
@@ -119,25 +131,35 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
         {/* Footer */}
         {!isEmpty && (
           <div className="border-t p-4 space-y-3">
-            <div className="flex justify-between items-center text-xs text-gray-400">
-              <span>{totalPiezas} piezas en total</span>
-              {categoriasIncompletas.length > 0 && (
-                <span className="text-amber-600 font-semibold">Mín. 10 por categoría</span>
-              )}
+            {/* Resumen por categoría */}
+            <div className="space-y-1.5">
+              {categorySummary.map(({ cat, qty, minQty, isIncomplete, nextTier, hasTiers }) => (
+                <div key={cat} className={`rounded-xl px-3 py-2 text-xs ${isIncomplete ? 'bg-amber-50 border border-amber-200' : 'bg-gray-50'}`}>
+                  <div className="flex justify-between items-center">
+                    <span className={`font-semibold ${isIncomplete ? 'text-amber-700' : 'text-gray-700'}`}>{cat}</span>
+                    <span className={`font-bold ${isIncomplete ? 'text-amber-600' : 'text-gray-900'}`}>{qty} pz</span>
+                  </div>
+                  {isIncomplete ? (
+                    <p className="text-amber-600 mt-0.5">
+                      Mín. {minQty} pz — agrega {minQty - qty} pieza{minQty - qty !== 1 ? 's' : ''} más
+                    </p>
+                  ) : nextTier ? (
+                    <p className="text-blue-600 mt-0.5">
+                      +{nextTier.qty - qty} pz más → ${nextTier.price.toFixed(2)} c/u
+                    </p>
+                  ) : hasTiers ? (
+                    <p className="text-green-600 mt-0.5">Mejor precio activo ✓</p>
+                  ) : null}
+                </div>
+              ))}
             </div>
-            <div className="flex justify-between items-center">
+
+            {/* Total */}
+            <div className="flex justify-between items-center pt-1">
               <span className="text-gray-600 text-sm">Total estimado</span>
               <span className="text-2xl font-bold">${total.toFixed(2)}</span>
             </div>
-            {categoriasIncompletas.length > 0 && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 space-y-0.5">
-                {categoriasIncompletas.map(({ cat, faltan }) => (
-                  <p key={cat} className="text-xs text-amber-700 text-center">
-                    {cat}: agrega {faltan} pieza{faltan !== 1 ? 's' : ''} más
-                  </p>
-                ))}
-              </div>
-            )}
+
             <button
               onClick={onRequestQuote}
               disabled={categoriasIncompletas.length > 0}
