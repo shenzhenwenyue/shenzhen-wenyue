@@ -54,29 +54,27 @@ function normalizeImageUrl(url) {
   return url
 }
 
-// Normalize for fuzzy label matching: lowercase, strip trailing 's' per word
-function normalizeLabel(str) {
-  return str.toLowerCase().trim().split(/\s+/).map(w => w.replace(/s$/, '')).join(' ')
-}
+function findPricingRow(pricingByCategoria, categoria, subcategoria, nombre) {
+  const rows = pricingByCategoria[categoria] || []
+  if (!rows.length) return null
 
-function findPricingRow(rows, subcategoria) {
-  const normSub = normalizeLabel(subcategoria)
-  const words = normSub.split(' ').filter(Boolean)
-  // 1. Exact normalized match
-  let match = rows.find(r => normalizeLabel(r.label) === normSub)
-  if (match) return match
-  // 2. All words of subcategoria appear in label (handles "Cropped Jackets" → "Cropped Define Jacket")
-  match = rows.find(r => {
-    const normLabel = normalizeLabel(r.label)
-    return words.every(w => normLabel.includes(w))
-  })
-  if (match) return match
-  // 3. All words of label appear in subcategoria (handles shorter labels)
-  match = rows.find(r => {
-    const labelWords = normalizeLabel(r.label).split(' ').filter(Boolean)
-    return labelWords.every(w => normSub.includes(w))
-  })
-  return match || null
+  if (categoria === 'Perfumes') {
+    if (subcategoria === 'Louis Vuitton') return rows.find(r => r.label === 'Louis Vuitton') || null
+    return rows.find(r => r.label === 'Perfumes') || null
+  }
+
+  if (categoria === 'Gift Set de Perfumes') {
+    return rows.find(r => r.label === 'Gift Set de Perfumes') || null
+  }
+
+  if (categoria === 'Lululemon' || categoria === 'Alo Yoga') {
+    if (subcategoria === 'Leggings' && nombre.toLowerCase().includes('flare')) {
+      return rows.find(r => r.label === 'Flare Leggings') || rows.find(r => r.label === subcategoria) || null
+    }
+    return rows.find(r => r.label === subcategoria) || null
+  }
+
+  return null
 }
 
 export async function GET() {
@@ -90,7 +88,7 @@ export async function GET() {
   try {
     const [sheetRes, pricingResult] = await Promise.all([
       fetch(SHEET_CSV_URL, { next: { revalidate: 300 } }),
-      getSupabase().from('lululemon_pricing').select('*'),
+      getSupabase().from('catalog_pricing').select('*'),
     ])
 
     if (!sheetRes.ok) {
@@ -102,11 +100,11 @@ export async function GET() {
     const text = await sheetRes.text()
     const rows = parseCSV(text)
 
-    // Build lookup: { "Lululemon": [...rows], "Alo": [...rows] }
-    const pricingByMarca = {}
+    // Build lookup: { "Lululemon": [...rows], "Alo Yoga": [...rows], "Perfumes": [...rows], ... }
+    const pricingByCategoria = {}
     for (const row of (pricingResult.data || [])) {
-      if (!pricingByMarca[row.marca]) pricingByMarca[row.marca] = []
-      pricingByMarca[row.marca].push(row)
+      if (!pricingByCategoria[row.categoria]) pricingByCategoria[row.categoria] = []
+      pricingByCategoria[row.categoria].push(row)
     }
 
     const products = rows
@@ -139,7 +137,7 @@ export async function GET() {
           precio_tier4: parseFloat(row.precio_tier4) || null,
           qty_tier5: parseInt(row.qty_tier5) || null,
           precio_tier5: parseFloat(row.precio_tier5) || null,
-          qty_minima: parseInt(row.qty_minima) || 10,
+          qty_minima: parseInt(row.qty_minima) || 1,
           sku: row.sku || '',
           subcategoria: row.subcategoria || '',
           tallas: row.tallas ? row.tallas.split(',').map(t => t.trim()).filter(Boolean) : [],
@@ -148,25 +146,19 @@ export async function GET() {
           stock: hasNumericStock ? parseInt(stockRaw) : null,
         }
 
-        // Inject Supabase prices for Lululemon and Alo Yoga
-        const marca = product.categoria === 'Lululemon' ? 'Lululemon'
-          : product.categoria === 'Alo Yoga' ? 'Alo'
-          : null
-        if (marca && product.subcategoria) {
-          const pricingRows = pricingByMarca[marca] || []
-          const priceMatch = findPricingRow(pricingRows, product.subcategoria)
-          if (priceMatch) {
-            product.precio_1 = priceMatch.precio_10 || 0
-            product.qty_tier2 = 25
-            product.precio_tier2 = priceMatch.precio_25 || null
-            product.qty_tier3 = 50
-            product.precio_tier3 = priceMatch.precio_50 || null
-            product.qty_tier4 = 100
-            product.precio_tier4 = priceMatch.precio_100 || null
-            product.qty_tier5 = null
-            product.precio_tier5 = null
-            product.qty_minima = 10
-          }
+        // Inject catalog_pricing for all managed categories (only when precio_1 is set)
+        const priceRow = findPricingRow(pricingByCategoria, product.categoria, product.subcategoria, product.nombre)
+        if (priceRow && priceRow.precio_1 != null) {
+          product.precio_1 = priceRow.precio_1 || 0
+          product.qty_minima = priceRow.qty_minima || 1
+          product.qty_tier2 = priceRow.qty_tier2 || null
+          product.precio_tier2 = priceRow.precio_tier2 || null
+          product.qty_tier3 = priceRow.qty_tier3 || null
+          product.precio_tier3 = priceRow.precio_tier3 || null
+          product.qty_tier4 = priceRow.qty_tier4 || null
+          product.precio_tier4 = priceRow.precio_tier4 || null
+          product.qty_tier5 = null
+          product.precio_tier5 = null
         }
 
         return product
