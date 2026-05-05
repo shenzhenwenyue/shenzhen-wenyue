@@ -76,7 +76,8 @@ export default function AdminPage() {
 
   const [search, setSearch] = useState('')
 
-  const filtered = orders.filter(o => o.status === activeTab)
+  const byNewest = (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  const filtered = orders.filter(o => o.status === activeTab).sort(byNewest)
   const isProductTab = activeTab === 'products'
   const isReportsTab = activeTab === 'reports'
   const isCostsTab = activeTab === 'costs'
@@ -107,7 +108,7 @@ export default function AdminPage() {
           o.customer_whatsapp?.toLowerCase().includes(q) ||
           o.id?.toLowerCase().includes(q)
         )
-      })
+      }).sort(byNewest)
     : []
 
   const STATUS_COLORS = {
