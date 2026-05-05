@@ -24,6 +24,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState('pending')
   const [adminPassword, setAdminPassword] = useState('')
+  const [lastUpdated, setLastUpdated] = useState(null)
 
   // Verificar si ya está autenticado en esta sesión
   useEffect(() => {
@@ -36,6 +37,21 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (authenticated) fetchOrders()
+  }, [authenticated])
+
+  useEffect(() => {
+    if (!authenticated) return
+    const poll = setInterval(() => {
+      if (!document.hidden) fetchOrders(true)
+    }, 60000)
+    function onVisibilityChange() {
+      if (!document.hidden) fetchOrders(true)
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    return () => {
+      clearInterval(poll)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+    }
   }, [authenticated])
 
   async function handleLogin(e) {
@@ -56,15 +72,18 @@ export default function AdminPage() {
     }
   }
 
-  async function fetchOrders() {
-    setLoading(true)
+  async function fetchOrders(silent = false) {
+    if (!silent) setLoading(true)
     const pwd = sessionStorage.getItem('adminPassword')
     const res = await fetch('/api/orders', {
       headers: { 'x-admin-password': pwd },
     })
     const data = await res.json()
-    if (Array.isArray(data)) setOrders(data)
-    setLoading(false)
+    if (Array.isArray(data)) {
+      setOrders(data)
+      setLastUpdated(new Date())
+    }
+    if (!silent) setLoading(false)
   }
 
   function handleLogout() {
@@ -156,8 +175,21 @@ export default function AdminPage() {
           <p className="text-xs text-gray-400">Shenzhen Wenyue</p>
         </div>
         <div className="flex items-center gap-3">
+          {lastUpdated && (
+            <div className="flex items-center gap-1.5">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+              </span>
+              <span className="text-xs text-gray-500">
+                {Math.floor((Date.now() - lastUpdated) / 60000) === 0
+                  ? 'ahora'
+                  : `hace ${Math.floor((Date.now() - lastUpdated) / 60000)} min`}
+              </span>
+            </div>
+          )}
           <button
-            onClick={fetchOrders}
+            onClick={() => fetchOrders()}
             className="text-xs text-gray-300 hover:text-white"
           >
             Actualizar
