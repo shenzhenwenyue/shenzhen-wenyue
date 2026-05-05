@@ -404,11 +404,9 @@ function GroupPricingCard({ row, productNames, headers, onSave }) {
 }
 
 // ── PerfumesSection ───────────────────────────────────────────────────────────
-function PerfumesSection({ perfumeRows, headers, onSave, onReload }) {
+function PerfumesSection({ perfumeRows, headers, onSave }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [syncing, setSyncing] = useState(false)
-  const [syncDone, setSyncDone] = useState(false)
 
   useEffect(() => {
     fetch('/api/products')
@@ -428,14 +426,6 @@ function PerfumesSection({ perfumeRows, headers, onSave, onReload }) {
     }
   }, [products])
 
-  async function syncFromSheet() {
-    setSyncing(true)
-    await fetch('/api/admin/migrate-prices', { method: 'POST', headers })
-    setSyncing(false)
-    setSyncDone(true)
-    onReload()
-  }
-
   if (loading) {
     return (
       <div className="space-y-2 mt-3">
@@ -446,21 +436,9 @@ function PerfumesSection({ perfumeRows, headers, onSave, onReload }) {
 
   const perfumeRow = perfumeRows.find(r => r.label === 'Perfumes')
   const lvRow = perfumeRows.find(r => r.label === 'Louis Vuitton')
-  const noPrices = !perfumeRow?.precio_1 && !lvRow?.precio_1
 
   return (
     <div className="mt-3 space-y-2">
-      {noPrices && !syncDone && (
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3 flex items-center justify-between">
-          <p className="text-xs text-amber-700">Los precios están en el Sheet — impórtalos aquí con un clic.</p>
-          <button
-            onClick={syncFromSheet}
-            disabled={syncing}
-            className="ml-3 shrink-0 px-4 py-1.5 bg-amber-500 text-white text-xs font-semibold rounded-xl hover:bg-amber-600 disabled:opacity-50 transition-colors">
-            {syncing ? 'Importando…' : 'Importar desde Sheet'}
-          </button>
-        </div>
-      )}
       {perfumeRow && (
         <GroupPricingCard row={perfumeRow} productNames={restNames} headers={headers} onSave={onSave} />
       )}
@@ -607,7 +585,6 @@ export default function AdminLululemonPricing({ adminPassword }) {
             perfumeRows={perfumeRows}
             headers={headers}
             onSave={handleSave}
-            onReload={reload}
           />
         )}
       </div>
@@ -618,19 +595,7 @@ export default function AdminLululemonPricing({ adminPassword }) {
         {loading
           ? <div className="h-14 bg-white rounded-2xl animate-pulse border border-gray-100" />
           : giftSetRow
-            ? <>
-                {!giftSetRow.precio_1 && (
-                  <div className="bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3 flex items-center justify-between mb-2">
-                    <p className="text-xs text-amber-700">Sin precios — impórtalos desde el Sheet.</p>
-                    <button
-                      onClick={async () => { await fetch('/api/admin/migrate-prices', { method: 'POST', headers }); reload() }}
-                      className="ml-3 shrink-0 px-4 py-1.5 bg-amber-500 text-white text-xs font-semibold rounded-xl hover:bg-amber-600 transition-colors">
-                      Importar
-                    </button>
-                  </div>
-                )}
-                <GroupPricingCard row={giftSetRow} productNames={null} headers={headers} onSave={handleSave} />
-              </>
+            ? <GroupPricingCard row={giftSetRow} productNames={null} headers={headers} onSave={handleSave} />
             : <p className="text-xs text-gray-400">Sin datos.</p>}
       </div>
 
