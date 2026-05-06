@@ -17,7 +17,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [order, setOrder] = useState(initialOrder)
   const [saving, setSaving] = useState(false)
   const [partialQtys, setPartialQtys] = useState({})
-  const [shipping, setShipping] = useState('')
+  const [shipping, setShipping] = useState(order.shipping_cost != null ? String(order.shipping_cost) : '10')
   const [trackingInput, setTrackingInput] = useState(order.tracking_number || '')
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [deletePassword, setDeletePassword] = useState('')
@@ -589,7 +589,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                 </button>
               </div>
               <button
-                onClick={() => patch({ status: 'confirmed' })}
+                onClick={() => patch({ status: 'confirmed', shipping_cost: shippingCost, total: confirmedTotal })}
                 disabled={saving}
                 className="w-full py-2 bg-blue-500 text-white text-xs font-semibold rounded-xl hover:bg-blue-600 disabled:opacity-50 transition-colors"
               >
