@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { getPrecio, getSubtotal } from '@/lib/pricing'
+import { DEFAULT_SHIPPING } from '@/lib/constants'
 
 // Estas categorías usan precios por subcategoría, no por categoría total
 const SUBCATEGORIA_PRICING = new Set(['Lululemon', 'Alo Yoga'])
@@ -231,11 +232,11 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
               </div>
               <div className="flex justify-between items-center text-sm text-gray-500">
                 <span>Envío estimado</span>
-                <span>$12.00</span>
+                <span>${DEFAULT_SHIPPING.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center pt-1 border-t border-gray-100">
                 <span className="text-gray-600 text-sm font-semibold">Total estimado</span>
-                <span className="text-2xl font-bold">${(total + 12).toFixed(2)}</span>
+                <span className="text-2xl font-bold">${(total + DEFAULT_SHIPPING).toFixed(2)}</span>
               </div>
             </div>
 

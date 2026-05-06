@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { getPrecio } from '@/lib/pricing'
+import { DEFAULT_SHIPPING } from '@/lib/constants'
 
 const WHATSAPP = '16613737977'
 
@@ -57,7 +58,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
   }).filter(Boolean)
 
   const subtotal = orderItems.reduce((sum, i) => sum + i.unit_price * i.qty, 0)
-  const shipping = 12
+  const shipping = DEFAULT_SHIPPING
   const total = subtotal + shipping
 
   async function handleSubmit(e) {

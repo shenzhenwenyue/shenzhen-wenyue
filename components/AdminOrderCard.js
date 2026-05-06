@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { generarConfirmacionPDF } from '@/lib/pdf'
 import { getCosto } from '@/lib/pricing'
+import { DEFAULT_SHIPPING } from '@/lib/constants'
 
 const WHATSAPP = '16613737977'
 
@@ -17,7 +18,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [order, setOrder] = useState(initialOrder)
   const [saving, setSaving] = useState(false)
   const [partialQtys, setPartialQtys] = useState({})
-  const [shipping, setShipping] = useState(order.shipping_cost != null ? String(order.shipping_cost) : '12')
+  const [shipping, setShipping] = useState(order.shipping_cost != null ? String(order.shipping_cost) : String(DEFAULT_SHIPPING))
   const [trackingInput, setTrackingInput] = useState(order.tracking_number || '')
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [deletePassword, setDeletePassword] = useState('')
@@ -35,9 +36,22 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [costoEnvioReal, setCostoEnvioReal] = useState(
     order.costo_envio_real != null ? String(order.costo_envio_real) : ''
   )
+  const [stockMap, setStockMap] = useState({})
+  const [editingStock, setEditingStock] = useState(null)
+  const [stockInputVal, setStockInputVal] = useState('')
+  const [savingStock, setSavingStock] = useState(false)
 
   useEffect(() => {
     const pwd = sessionStorage.getItem('adminPassword')
+    fetch('/api/admin/inventory', { headers: { 'x-admin-password': pwd } })
+      .then(r => r.ok ? r.json() : [])
+      .then(rows => {
+        if (!Array.isArray(rows)) return
+        const names = new Set(order.items.map(i => i.nombre))
+        const map = {}
+        rows.forEach(r => { if (names.has(r.nombre)) map[r.nombre] = r.stock })
+        setStockMap(map)
+      })
     fetch('/api/admin/costs', { headers: { 'x-admin-password': pwd } })
       .then(r => r.ok ? r.json() : [])
       .then(rules => {
@@ -131,6 +145,30 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       }
     })
     patch({ items: updatedItems })
+  }
+
+  async function handleConfirmarTodo() {
+    const updatedItems = order.items.map(item => ({
+      ...item,
+      confirmed: true,
+      available_qty: item.qty,
+    }))
+    await patch({ items: updatedItems })
+  }
+
+  async function handleSaveStock(nombre) {
+    const val = parseInt(stockInputVal)
+    if (isNaN(val)) return
+    setSavingStock(true)
+    const pwd = sessionStorage.getItem('adminPassword')
+    const res = await fetch('/api/admin/inventory', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': pwd },
+      body: JSON.stringify({ nombre, stock: val }),
+    })
+    if (res.ok) setStockMap(prev => ({ ...prev, [nombre]: val }))
+    setSavingStock(false)
+    setEditingStock(null)
   }
 
   async function handleGenerarPDF() {
@@ -296,6 +334,20 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
       {/* Items + Footer — colapsable */}
       {expanded && <><div className="divide-y divide-gray-50">
+        {order.status === 'pending' && (
+          <div className="px-4 py-2 flex justify-end border-b border-gray-100">
+            <button
+              onClick={handleConfirmarTodo}
+              disabled={saving}
+              className="text-xs font-semibold text-green-600 hover:text-green-700 disabled:opacity-40 flex items-center gap-1"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+              </svg>
+              Confirmar todo disponible
+            </button>
+          </div>
+        )}
         {order.items.map((item, i) => (
           <div key={i} className="px-4 py-3">
             <div className="flex justify-between items-start mb-2">
@@ -319,8 +371,33 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                   />
                 )}
                 <div className="min-w-0">
-                <p className="text-sm font-medium text-gray-900">{item.nombre}</p>
-                <p className="text-xs text-gray-400">{item.categoria} · {item.qty} u. · ${item.unit_price.toFixed(2)} c/u</p>
+                  <p className="text-sm font-medium text-gray-900">{item.nombre}</p>
+                  <p className="text-xs text-gray-400">{item.categoria} · {item.qty} u. · ${item.unit_price.toFixed(2)} c/u</p>
+                  {editingStock === item.nombre ? (
+                    <div className="flex items-center gap-1 mt-1">
+                      <input
+                        type="number"
+                        min="0"
+                        autoFocus
+                        value={stockInputVal}
+                        onChange={e => setStockInputVal(e.target.value)}
+                        onKeyDown={e => { if (e.key === 'Enter') handleSaveStock(item.nombre); if (e.key === 'Escape') setEditingStock(null) }}
+                        className="w-14 px-1.5 py-0.5 border border-blue-300 rounded-lg text-xs text-center focus:outline-none"
+                      />
+                      <button onClick={() => handleSaveStock(item.nombre)} disabled={savingStock} className="text-xs text-blue-600 font-semibold">OK</button>
+                      <button onClick={() => setEditingStock(null)} className="text-xs text-gray-400">✕</button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => { setEditingStock(item.nombre); setStockInputVal(String(stockMap[item.nombre] ?? '')) }}
+                      className="mt-1 text-xs text-gray-400 hover:text-gray-700 flex items-center gap-1"
+                    >
+                      Stock: {stockMap[item.nombre] != null ? stockMap[item.nombre] : '—'}
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
               </div>
               <p className="text-sm font-semibold text-gray-700 shrink-0 ml-2">
