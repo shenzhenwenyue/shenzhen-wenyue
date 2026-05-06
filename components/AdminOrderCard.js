@@ -456,8 +456,8 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
           {savingCosts ? 'Guardando…' : 'Guardar costos'}
         </button>
 
-        {/* Envío — visible siempre en pending */}
-        {order.status === 'pending' && (
+        {/* Envío — visible en todos los estados activos */}
+        {order.status !== 'completed' && (
           <div className="space-y-2">
             <div className="flex items-center justify-between gap-3">
               <label className="text-sm text-gray-600 shrink-0">Costo de envío</label>
@@ -475,9 +475,18 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
               </div>
             </div>
             <div className="flex justify-between text-sm font-bold text-gray-900 border-t border-gray-200 pt-2">
-              <span>Total{allReviewed ? ' confirmado' : ' estimado'}</span>
+              <span>Total{order.status === 'pending' ? (allReviewed ? ' confirmado' : ' estimado') : ' real'}</span>
               <span>${confirmedTotal.toFixed(2)}</span>
             </div>
+            {order.status !== 'pending' && (
+              <button
+                onClick={() => patch({ shipping_cost: shippingCost, total: confirmedTotal })}
+                disabled={saving}
+                className="w-full py-1.5 border border-gray-200 text-gray-600 text-xs font-semibold rounded-xl hover:bg-gray-50 disabled:opacity-40 transition-colors"
+              >
+                {saving ? 'Guardando…' : 'Guardar costo de envío'}
+              </button>
+            )}
           </div>
         )}
 
