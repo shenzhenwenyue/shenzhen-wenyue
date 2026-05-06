@@ -107,12 +107,6 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
                 <p className="text-xs text-blue-600 font-medium mt-0.5">+{nextTier.qty - pricingQty} u. más → ${nextTier.price.toFixed(2)} c/u</p>
               )}
             </div>
-            <div className="flex items-center gap-1 text-xs text-gray-400">
-              <span>{availableCount} disponibles</span>
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
           </div>
         </div>
       </div>
