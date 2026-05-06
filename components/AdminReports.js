@@ -120,7 +120,8 @@ export default function AdminReports({ orders, adminPassword }) {
     })
     const totalRevenue = totalItemsRevenue
     const avgTicket = paidOrders > 0 ? totalRevenue / paidOrders : 0
-    const ganancia = totalItemsRevenue - totalCosto
+    const totalCostoEnvioReal = revenueOrders.reduce((sum, o) => sum + (o.costo_envio_real || 0), 0)
+    const ganancia = totalItemsRevenue - totalCosto - totalCostoEnvioReal
     const margen = totalItemsRevenue > 0 ? (ganancia / totalItemsRevenue) * 100 : null
 
     return { totalRevenue, totalOrders, paidOrders, avgTicket, totalUnits, pendingRevenue, ganancia, margen, tieneCostos: itemsConCosto > 0 }
