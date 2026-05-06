@@ -365,6 +365,7 @@ export default function Home() {
           onRemove={removeFromCart}
           onClose={() => setCartOpen(false)}
           onRequestQuote={() => { setCartOpen(false); setQuoteOpen(true) }}
+          onClearAll={() => setCart([])}
         />
       )}
 

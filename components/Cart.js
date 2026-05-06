@@ -1,10 +1,12 @@
 'use client'
+import { useState } from 'react'
 import { getPrecio, getSubtotal } from '@/lib/pricing'
 
 // Estas categorías usan precios por subcategoría, no por categoría total
 const SUBCATEGORIA_PRICING = new Set(['Lululemon', 'Alo Yoga'])
 
-export default function Cart({ items, products, onAdd, onRemove, onClose, onRequestQuote }) {
+export default function Cart({ items, products, onAdd, onRemove, onClose, onRequestQuote, onClearAll }) {
+  const [confirmClear, setConfirmClear] = useState(false)
   // Qty total por categoría — para el mínimo de piezas y resumen de footer
   const totalByCategory = items.reduce((acc, item) => {
     const cat = item.categoria || products.find(p => p.id === item.productId)?.categoria || ''
@@ -102,11 +104,31 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
           <h2 className="text-base font-bold">
             Tu Pedido{!isEmpty && <span className="ml-2 text-gray-400 font-normal text-sm">{cartLines.length} producto{cartLines.length !== 1 ? 's' : ''}</span>}
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-700 transition-colors" aria-label="Cerrar">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-3">
+            {!isEmpty && !confirmClear && (
+              <button onClick={() => setConfirmClear(true)} className="text-xs text-red-400 hover:text-red-600 transition-colors">
+                Vaciar
+              </button>
+            )}
+            {!isEmpty && confirmClear && (
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-500">¿Eliminar todo?</span>
+                <button
+                  onClick={() => { onClearAll(); setConfirmClear(false) }}
+                  className="text-xs font-semibold text-red-500 hover:text-red-700"
+                >Sí</button>
+                <button
+                  onClick={() => setConfirmClear(false)}
+                  className="text-xs text-gray-400 hover:text-gray-600"
+                >No</button>
+              </div>
+            )}
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-700 transition-colors" aria-label="Cerrar">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Items */}
