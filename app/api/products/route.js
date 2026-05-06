@@ -93,9 +93,9 @@ export async function GET() {
 
   try {
     const [sheetRes, pricingResult, inventoryResult] = await Promise.all([
-      fetch(SHEET_CSV_URL, { next: { revalidate: 300 } }),
+      fetch(SHEET_CSV_URL, { cache: 'no-store' }),
       getSupabase().from('catalog_pricing').select('*'),
-      getSupabase().from('alo_inventory').select('*'),
+      getSupabase().from('inventory').select('nombre, stock'),
     ])
 
     if (!sheetRes.ok) {
@@ -114,10 +114,10 @@ export async function GET() {
       pricingByCategoria[row.categoria].push(row)
     }
 
-    // Build stock lookup for Alo Yoga: { "Alo Hat__S": 20, "Alo Hat__M": 30, ... }
-    const aloStockByKey = {}
+    // Build stock lookup: { "nombre del producto": stock }
+    const stockByNombre = {}
     for (const row of (inventoryResult.data || [])) {
-      aloStockByKey[`${row.product_nombre}__${row.talla}`] = row.stock
+      stockByNombre[row.nombre] = row.stock
     }
 
     const products = rows
@@ -174,21 +174,9 @@ export async function GET() {
           product.precio_tier5 = null
         }
 
-        // Enriquecer productos Alo Yoga con stock por talla
-        if (product.categoria === 'Alo Yoga') {
-          const baseName = product.grupo || product.nombre
-          if (product.tallas?.length > 0) {
-            const tallaStock = {}
-            for (const t of product.tallas) {
-              const key = `${baseName}__${t}`
-              if (key in aloStockByKey) tallaStock[t] = aloStockByKey[key]
-            }
-            if (Object.keys(tallaStock).length > 0) product.talla_stock = tallaStock
-          } else {
-            const t = product.talla || 'única'
-            const key = `${baseName}__${t}`
-            if (key in aloStockByKey) product.stock = aloStockByKey[key]
-          }
+        // Enriquecer productos Alo Yoga con stock desde Supabase
+        if (product.categoria === 'Alo Yoga' && product.nombre in stockByNombre) {
+          product.stock = stockByNombre[product.nombre]
         }
 
         return product

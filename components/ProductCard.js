@@ -65,6 +65,16 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             Top
           </span>
         )}
+        {isOut && (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+            <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full tracking-wide">Agotado</span>
+          </div>
+        )}
+        {isLow && (
+          <span className="absolute top-2 right-2 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+            {product.stock} pz
+          </span>
+        )}
       </div>
 
       {/* Info */}
