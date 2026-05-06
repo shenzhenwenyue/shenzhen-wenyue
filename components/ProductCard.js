@@ -65,16 +65,6 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             Top
           </span>
         )}
-        {isOut && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full tracking-wide">Agotado</span>
-          </div>
-        )}
-        {isLow && (
-          <span className="absolute top-2 right-2 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-            {product.stock} pz
-          </span>
-        )}
       </div>
 
       {/* Info */}
@@ -204,16 +194,12 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                   className="w-9 h-9 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-lg leading-none text-white shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
                 >+</button>
               </div>
-            ) : isOut ? (
-              <span className="text-xs text-red-400 font-semibold">No disponible</span>
             ) : (
-              <div className="flex flex-col items-end gap-0.5">
-                <button
-                  onClick={() => onAdd(product)}
-                  className="px-4 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors"
-                >Agregar</button>
-                {isLow && <span className="text-[10px] text-amber-500">Solo {product.stock} disp.</span>}
-              </div>
+              <button
+                onClick={() => onAdd(product)}
+                disabled={isOut}
+                className="px-4 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              >Agregar</button>
             )
           )}
 
