@@ -57,7 +57,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
   }).filter(Boolean)
 
   const subtotal = orderItems.reduce((sum, i) => sum + i.unit_price * i.qty, 0)
-  const shipping = 10
+  const shipping = 12
   const total = subtotal + shipping
 
   async function handleSubmit(e) {
