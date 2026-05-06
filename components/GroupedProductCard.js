@@ -182,9 +182,9 @@ function SizeModal({ group, cart, onAdd, onRemove, onClose, currentPrice, totalI
                   <span className={`text-sm font-bold w-10 ${isOutOfStock ? 'text-gray-300' : 'text-gray-900'}`}>
                     {variant.talla}
                   </span>
-                  <span className={`text-xs ${isOutOfStock ? 'text-gray-300' : 'text-gray-400'}`}>
-                    {isOutOfStock ? 'Agotado' : stockLabel}
-                  </span>
+                  {isOutOfStock && (
+                    <span className="text-xs text-gray-300">Agotado</span>
+                  )}
                 </div>
 
                 {isOutOfStock ? (
