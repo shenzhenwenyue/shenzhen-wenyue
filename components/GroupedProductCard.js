@@ -108,6 +108,9 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
               )}
             </div>
           </div>
+          {(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') && (
+            <p className="text-xs text-gray-400 mt-1">Mín. 10 pz totales de {group.categoria}</p>
+          )}
         </div>
       </div>
 
