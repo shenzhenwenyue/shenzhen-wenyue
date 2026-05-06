@@ -174,8 +174,8 @@ export async function GET() {
           product.precio_tier5 = null
         }
 
-        // Enriquecer productos Alo Yoga con stock desde Supabase
-        if (product.categoria === 'Alo Yoga' && product.nombre in stockByNombre) {
+        // Enriquecer con stock desde Supabase (todas las categorías)
+        if (product.nombre in stockByNombre) {
           product.stock = stockByNombre[product.nombre]
         }
 

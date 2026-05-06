@@ -6,6 +6,7 @@ import AdminReports from '@/components/AdminReports'
 import AdminPersonalInventory from '@/components/AdminPersonalInventory'
 import AdminLululemonPricing from '@/components/AdminLululemonPricing'
 import AdminClients from '@/components/AdminClients'
+import AdminStock from '@/components/AdminStock'
 
 const STATUS_ORDER = ['pending', 'confirmed', 'paid', 'shipped', 'completed']
 const STATUS_LABELS = {
@@ -102,7 +103,8 @@ export default function AdminPage() {
 const isCapitalTab = activeTab === 'capital'
   const isPricingTab = activeTab === 'pricing'
   const isClientsTab = activeTab === 'clients'
-  const isSpecialTab = isProductTab || isReportsTab || isCapitalTab || isPricingTab || isClientsTab
+  const isStockTab = activeTab === 'stock'
+  const isSpecialTab = isProductTab || isReportsTab || isCapitalTab || isPricingTab || isClientsTab || isStockTab
   const pendingCount = orders.filter(o => o.status === 'pending').length
 
   function orderTotal(order) {
@@ -290,6 +292,16 @@ const isCapitalTab = activeTab === 'capital'
           Precios & Márgenes
         </button>
         <button
+          onClick={() => setActiveTab('stock')}
+          className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === 'stock'
+              ? 'border-black text-black'
+              : 'border-transparent text-gray-400 hover:text-gray-700'
+          }`}
+        >
+          Stock
+        </button>
+        <button
           onClick={() => setActiveTab('clients')}
           className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
             activeTab === 'clients'
@@ -348,6 +360,13 @@ const isCapitalTab = activeTab === 'capital'
       {isPricingTab && (
         <div className="max-w-2xl mx-auto px-4 py-5">
           <AdminLululemonPricing adminPassword={adminPassword} />
+        </div>
+      )}
+
+      {/* Stock tab */}
+      {isStockTab && (
+        <div className="max-w-2xl mx-auto px-4 py-5">
+          <AdminStock adminPassword={adminPassword} />
         </div>
       )}
 
