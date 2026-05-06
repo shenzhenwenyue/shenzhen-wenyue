@@ -56,7 +56,9 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
     }
   }).filter(Boolean)
 
-  const total = orderItems.reduce((sum, i) => sum + i.unit_price * i.qty, 0)
+  const subtotal = orderItems.reduce((sum, i) => sum + i.unit_price * i.qty, 0)
+  const shipping = 10
+  const total = subtotal + shipping
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -90,6 +92,8 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
       const msg =
         `Hola! Soy *${name.trim()}*.\n\n` +
         `📦 Solicitud de cotización:\n${catSummary}\n\n` +
+        `Subtotal: $${subtotal.toFixed(2)}\n` +
+        `Envío: $${shipping.toFixed(2)}\n` +
         `*Total estimado: $${total.toFixed(2)}*\n\n` +
         `Espero confirmación de disponibilidad. Gracias!`
 
@@ -195,9 +199,19 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
                     <span className="shrink-0">${(item.unit_price * item.qty).toFixed(2)}</span>
                   </div>
                 ))}
-                <div className="border-t border-gray-200 mt-2 pt-2 flex justify-between font-bold text-gray-900">
-                  <span>Total estimado</span>
-                  <span>${total.toFixed(2)}</span>
+                <div className="border-t border-gray-200 mt-2 pt-2 space-y-1">
+                  <div className="flex justify-between text-gray-500">
+                    <span>Subtotal</span>
+                    <span>${subtotal.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between text-gray-500">
+                    <span>Envío estimado</span>
+                    <span>$10.00</span>
+                  </div>
+                  <div className="flex justify-between font-bold text-gray-900 pt-1 border-t border-gray-100">
+                    <span>Total estimado</span>
+                    <span>${total.toFixed(2)}</span>
+                  </div>
                 </div>
                 {/* Contexto de precio mayoreo — por subcategoría para Lulu/Alo, por categoría para el resto */}
                 {Object.entries(totalByPricingGroup).map(([key, qty]) => {

@@ -224,9 +224,19 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
             </div>
 
             {/* Total */}
-            <div className="flex justify-between items-center pt-1">
-              <span className="text-gray-600 text-sm">Total estimado</span>
-              <span className="text-2xl font-bold">${total.toFixed(2)}</span>
+            <div className="space-y-1 pt-1">
+              <div className="flex justify-between items-center text-sm text-gray-500">
+                <span>Subtotal</span>
+                <span>${total.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm text-gray-500">
+                <span>Envío estimado</span>
+                <span>$10.00</span>
+              </div>
+              <div className="flex justify-between items-center pt-1 border-t border-gray-100">
+                <span className="text-gray-600 text-sm font-semibold">Total estimado</span>
+                <span className="text-2xl font-bold">${(total + 10).toFixed(2)}</span>
+              </div>
             </div>
 
             <button
