@@ -299,7 +299,7 @@ const isCapitalTab = activeTab === 'capital'
               : 'border-transparent text-gray-400 hover:text-gray-700'
           }`}
         >
-          Stock
+          Stock de Productos
         </button>
         <button
           onClick={() => setActiveTab('clients')}
