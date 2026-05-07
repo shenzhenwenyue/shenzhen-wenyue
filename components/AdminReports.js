@@ -22,7 +22,7 @@ const STATUS_LABELS = {
   confirmed: 'Confirmado',
   paid: 'Pagado',
   shipped: 'Enviado',
-  completed: 'Archivado',
+  completed: 'Completado',
 }
 
 export default function AdminReports({ orders, adminPassword }) {

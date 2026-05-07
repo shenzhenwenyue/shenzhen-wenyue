@@ -14,7 +14,7 @@ const STATUS_LABELS = {
   confirmed: 'Confirmados',
   paid: 'Pagados',
   shipped: 'Enviados',
-  completed: 'Archivados',
+  completed: 'Completados',
 }
 
 export default function AdminPage() {

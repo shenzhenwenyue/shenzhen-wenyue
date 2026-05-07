@@ -617,7 +617,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
               disabled={saving}
               className="w-full py-2 bg-gray-400 text-white text-xs font-semibold rounded-xl hover:bg-gray-500 disabled:opacity-50 transition-colors"
             >
-              Archivar
+              Completar
             </button>
           )}
 
