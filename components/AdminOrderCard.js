@@ -321,30 +321,32 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                 <div className="min-w-0">
                   <p className="text-sm font-medium text-gray-900">{item.nombre}</p>
                   <p className="text-xs text-gray-400">{item.categoria} · {item.qty} u. · ${item.unit_price.toFixed(2)} c/u</p>
-                  {editingStock === item.nombre ? (
-                    <div className="flex items-center gap-1 mt-1">
-                      <input
-                        type="number"
-                        min="0"
-                        autoFocus
-                        value={stockInputVal}
-                        onChange={e => setStockInputVal(e.target.value)}
-                        onKeyDown={e => { if (e.key === 'Enter') handleSaveStock(item.nombre); if (e.key === 'Escape') setEditingStock(null) }}
-                        className="w-14 px-1.5 py-0.5 border border-blue-300 rounded-lg text-xs text-center focus:outline-none"
-                      />
-                      <button onClick={() => handleSaveStock(item.nombre)} disabled={savingStock} className="text-xs text-blue-600 font-semibold">OK</button>
-                      <button onClick={() => setEditingStock(null)} className="text-xs text-gray-400">✕</button>
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => { setEditingStock(item.nombre); setStockInputVal(String(stockMap[item.nombre] ?? '')) }}
-                      className="mt-1 text-xs text-gray-400 hover:text-gray-700 flex items-center gap-1"
-                    >
-                      Stock: {stockMap[item.nombre] != null ? stockMap[item.nombre] : '—'}
-                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                      </svg>
-                    </button>
+                  {stockMap[item.nombre] != null && (
+                    editingStock === item.nombre ? (
+                      <div className="flex items-center gap-1 mt-1">
+                        <input
+                          type="number"
+                          min="0"
+                          autoFocus
+                          value={stockInputVal}
+                          onChange={e => setStockInputVal(e.target.value)}
+                          onKeyDown={e => { if (e.key === 'Enter') handleSaveStock(item.nombre); if (e.key === 'Escape') setEditingStock(null) }}
+                          className="w-14 px-1.5 py-0.5 border border-blue-300 rounded-lg text-xs text-center focus:outline-none"
+                        />
+                        <button onClick={() => handleSaveStock(item.nombre)} disabled={savingStock} className="text-xs text-blue-600 font-semibold">OK</button>
+                        <button onClick={() => setEditingStock(null)} className="text-xs text-gray-400">✕</button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => { setEditingStock(item.nombre); setStockInputVal(String(stockMap[item.nombre])) }}
+                        className="mt-1 text-xs text-gray-400 hover:text-gray-700 flex items-center gap-1"
+                      >
+                        Stock: {stockMap[item.nombre]}
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </button>
+                    )
                   )}
                 </div>
               </div>
