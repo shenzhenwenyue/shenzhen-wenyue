@@ -250,7 +250,7 @@ function AddBrandRowForm({ categoria, headers, onAdd, onCancel }) {
 }
 
 // ── GroupPricingCard (Perfumes / Louis Vuitton / Gift Sets) ───────────────────
-function GroupPricingCard({ row, productNames, headers, onSave, hasCostTiers, costTiers, onCostTiersSave }) {
+function GroupPricingCard({ row, productNames, headers, onSave, hasCostTiers, costTiers, onCostTiersSave, costMatchCampo, costMatchValor }) {
   const [editing, setEditing] = useState(false)
   const [form, setForm] = useState({})
   const [costForm, setCostForm] = useState({})
@@ -302,8 +302,9 @@ function GroupPricingCard({ row, productNames, headers, onSave, hasCostTiers, co
 
     if (hasCostTiers) {
       const costPayload = {
-        match_campo: 'subcategoria',
-        match_valor: 'Louis Vuitton',
+        nombre: costMatchValor || 'Louis Vuitton',
+        match_campo: costMatchCampo || 'subcategoria',
+        match_valor: costMatchValor || 'Louis Vuitton',
         fijo: false,
         costo_1:     costForm.costo_1     ? parseFloat(costForm.costo_1)     : null,
         qty_tier2:   costForm.qty_tier2   ? parseInt(costForm.qty_tier2)     : null,
@@ -505,7 +506,7 @@ function GroupPricingCard({ row, productNames, headers, onSave, hasCostTiers, co
 }
 
 // ── PerfumesSection ───────────────────────────────────────────────────────────
-function PerfumesSection({ perfumeRows, headers, onSave, lvCostRule, onCostRuleSave }) {
+function PerfumesSection({ perfumeRows, headers, onSave, lvCostRule, onCostRuleSave, perfumeCostRule, onPerfumeCostRuleSave }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -541,7 +542,17 @@ function PerfumesSection({ perfumeRows, headers, onSave, lvCostRule, onCostRuleS
   return (
     <div className="mt-3 space-y-2">
       {perfumeRow && (
-        <GroupPricingCard row={perfumeRow} productNames={restNames} headers={headers} onSave={onSave} />
+        <GroupPricingCard
+          row={perfumeRow}
+          productNames={restNames}
+          headers={headers}
+          onSave={onSave}
+          hasCostTiers={true}
+          costTiers={perfumeCostRule}
+          onCostTiersSave={onPerfumeCostRuleSave}
+          costMatchCampo="categoria"
+          costMatchValor="Perfumes"
+        />
       )}
       {lvRow && (
         <GroupPricingCard
@@ -614,6 +625,7 @@ export default function AdminLululemonPricing({ adminPassword }) {
   const perfumeRows = rows.filter(r => r.categoria === 'Perfumes')
   const giftSetRow = rows.find(r => r.categoria === 'Gift Set de Perfumes')
   const lvCostRule = costRules.find(r => r.match_campo === 'subcategoria' && r.match_valor === 'Louis Vuitton') ?? null
+  const perfumeCostRule = costRules.find(r => r.match_campo === 'categoria' && r.match_valor === 'Perfumes') ?? null
 
   function handleSave(updated) {
     setRows(prev => prev.map(r => r.id === updated.id ? updated : r))
@@ -711,6 +723,8 @@ export default function AdminLululemonPricing({ adminPassword }) {
             onSave={handleSave}
             lvCostRule={lvCostRule}
             onCostRuleSave={handleCostRuleSave}
+            perfumeCostRule={perfumeCostRule}
+            onPerfumeCostRuleSave={handleCostRuleSave}
           />
         )}
       </div>
