@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { generarConfirmacionPDF } from '@/lib/pdf'
 import { getCosto } from '@/lib/pricing'
 import { DEFAULT_SHIPPING } from '@/lib/constants'
 
@@ -23,7 +22,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [deletePassword, setDeletePassword] = useState('')
   const [deleteError, setDeleteError] = useState(false)
-  const [pdfSelected, setPdfSelected] = useState(null) // null = todos, Set = selección explícita
   const [expanded, setExpanded] = useState(order.status === 'pending')
   const [costInputs, setCostInputs] = useState(() => {
     const byIdx = {}
@@ -32,7 +30,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   })
   const [costFromRules, setCostFromRules] = useState(new Set())
   const [savingCosts, setSavingCosts] = useState(false)
-  const [generatingPDF, setGeneratingPDF] = useState(false)
   const [costoEnvioReal, setCostoEnvioReal] = useState(
     order.costo_envio_real != null ? String(order.costo_envio_real) : ''
   )
@@ -86,21 +83,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const allReviewed = order.items.every(i => i.confirmed !== null)
   const confirmedItems = order.items.filter(i => i.confirmed !== false)
 
-  // Inicializar selección cuando se confirman todos los items
-  const initPdfSelection = () => {
-    if (pdfSelected.size === 0) {
-      setPdfSelected(new Set(confirmedItems.map((_, i) => order.items.indexOf(confirmedItems[i]))))
-    }
-  }
-
-  function togglePdfItem(idx) {
-    setPdfSelected(prev => {
-      const next = new Set(prev)
-      if (next.has(idx)) next.delete(idx)
-      else next.add(idx)
-      return next
-    })
-  }
   const shippingCost = parseFloat(shipping) || 0
   const confirmedTotal = confirmedItems.reduce((sum, i) => sum + (i.available_qty || i.qty) * i.unit_price, 0) + shippingCost
 
@@ -173,21 +155,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     setEditingStock(null)
   }
 
-  async function handleGenerarPDF() {
-    setGeneratingPDF(true)
-    try {
-      const itemsParaPDF = pdfSelected === null
-        ? confirmedItems
-        : order.items.filter((_, i) => pdfSelected.has(i))
-      const doc = await generarConfirmacionPDF(order, shippingCost, itemsParaPDF)
-      doc.save(`confirmacion-${order.id.substring(0, 8).toUpperCase()}.pdf`)
-    } catch (err) {
-      alert('Error al generar el PDF: ' + err.message)
-    } finally {
-      setGeneratingPDF(false)
-    }
-  }
-
   async function handleEnviarWhatsApp() {
     const unavailable = order.items.filter(i => i.confirmed === false)
     const hayReemplazos = unavailable.some((_, idx) => replacements[order.items.indexOf(unavailable[idx])]?.trim())
@@ -256,10 +223,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   }
 
   function handleOrdenProveedor() {
-    const itemsParaExportar = pdfSelected === null
-      ? confirmedItems
-      : order.items.filter((_, i) => pdfSelected.has(i))
-    exportarOrden(itemsParaExportar)
+    exportarOrden(confirmedItems)
   }
 
   function handleOrdenLucy() {
@@ -354,24 +318,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
           <div key={i} className="px-4 py-3">
             <div className="flex justify-between items-start mb-2">
               <div className="flex items-start gap-2 flex-1 min-w-0">
-                {order.status === 'pending' && item.confirmed !== false && (
-                  <input
-                    type="checkbox"
-                    checked={pdfSelected === null ? true : pdfSelected.has(i)}
-                    onChange={() => {
-                      if (pdfSelected === null) {
-                        const todos = new Set(
-                          order.items.map((it, idx) => it.confirmed !== false ? idx : null).filter(x => x !== null)
-                        )
-                        todos.delete(i)
-                        setPdfSelected(todos)
-                      } else {
-                        togglePdfItem(i)
-                      }
-                    }}
-                    className="mt-0.5 w-4 h-4 accent-black shrink-0 cursor-pointer"
-                  />
-                )}
                 <div className="min-w-0">
                   <p className="text-sm font-medium text-gray-900">{item.nombre}</p>
                   <p className="text-xs text-gray-400">{item.categoria} · {item.qty} u. · ${item.unit_price.toFixed(2)} c/u</p>
@@ -618,46 +564,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
           </div>
         )}
 
-        {/* Selección por categoría para PDF */}
-        {order.status === 'pending' && (() => {
-          const cats = [...new Set(confirmedItems.map(i => i.categoria))]
-          if (cats.length < 2) return null
-          return (
-            <div className="space-y-1.5">
-              <p className="text-xs text-gray-400 font-medium">Seleccionar por categoría:</p>
-              <div className="flex flex-wrap gap-1.5">
-                <button
-                  onClick={() => setPdfSelected(null)}
-                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                    pdfSelected === null ? 'bg-black text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                >Todos</button>
-                <button
-                  onClick={() => setPdfSelected(new Set())}
-                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                    pdfSelected !== null && pdfSelected.size === 0 ? 'bg-red-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                >Ninguno</button>
-                {cats.map(cat => {
-                  const idxs = order.items
-                    .map((item, i) => item.categoria === cat && item.confirmed !== false ? i : null)
-                    .filter(x => x !== null)
-                  const isActive = pdfSelected !== null && idxs.length > 0 && idxs.every(i => pdfSelected.has(i))
-                  return (
-                    <button
-                      key={cat}
-                      onClick={() => setPdfSelected(new Set(idxs))}
-                      className={`px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                        isActive ? 'bg-black text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                      }`}
-                    >{cat}</button>
-                  )
-                })}
-              </div>
-            </div>
-          )
-        })()}
-
         {/* Acciones */}
         <div className="flex gap-2 flex-wrap">
           {order.status === 'pending' && (
@@ -684,13 +590,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                   Joy (S) — {confirmedItems.filter(i => i.sku?.toUpperCase().startsWith('S')).length} items
                 </button>
               </div>
-              <button
-                onClick={handleGenerarPDF}
-                disabled={generatingPDF}
-                className="flex-1 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 disabled:opacity-60 transition-colors"
-              >
-                {generatingPDF ? 'Generando…' : `PDF para cliente ${pdfSelected === null ? '' : pdfSelected.size === 0 ? '(ninguno)' : `(${pdfSelected.size})`}`}
-              </button>
               <div className="w-full space-y-1.5">
                 <input
                   type="url"
