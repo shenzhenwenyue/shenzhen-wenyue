@@ -433,6 +433,118 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
         ))}
       </div>
 
+      {/* Desglose financiero — solo en pedidos completados */}
+      {order.status === 'completed' && (() => {
+        const items = confirmedItems.map(item => {
+          const qty = item.available_qty || item.qty
+          const venta = qty * item.unit_price
+          const costo = item.unit_cost != null ? qty * item.unit_cost : null
+          const ganancia = costo != null ? venta - costo : null
+          const margen = ganancia != null && venta > 0 ? (ganancia / venta) * 100 : null
+          return { ...item, qty, venta, costo, ganancia, margen }
+        })
+        const totalVentaProductos = items.reduce((s, i) => s + i.venta, 0)
+        const envioCliente = order.shipping_cost || 0
+        const totalCobrado = totalVentaProductos + envioCliente
+        const totalCostoProductos = items.every(i => i.costo != null)
+          ? items.reduce((s, i) => s + i.costo, 0)
+          : null
+        const envioReal = order.costo_envio_real || 0
+        const totalCostos = totalCostoProductos != null ? totalCostoProductos + envioReal : null
+        const gananciaNet = totalCostos != null ? totalCobrado - totalCostos : null
+        const margenNet = gananciaNet != null && totalCobrado > 0 ? (gananciaNet / totalCobrado) * 100 : null
+        const sinCosto = items.some(i => i.costo == null)
+
+        return (
+          <div className="mx-4 my-3 rounded-2xl border border-gray-200 overflow-hidden text-xs">
+            {/* Header */}
+            <div className="bg-gray-900 text-white px-4 py-2.5 flex items-center justify-between">
+              <span className="font-bold text-sm">Desglose financiero</span>
+              <span className="text-gray-400">#{order.id.substring(0, 8).toUpperCase()}</span>
+            </div>
+
+            {/* Por producto */}
+            <div className="divide-y divide-gray-100">
+              {items.map((item, i) => (
+                <div key={i} className="px-4 py-2.5 flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-gray-900 truncate">{item.nombre}</p>
+                    <p className="text-gray-400 mt-0.5">
+                      {item.qty} pz · ${item.unit_price.toFixed(2)}/u = <span className="text-gray-700 font-semibold">${item.venta.toFixed(2)}</span>
+                      {item.unit_cost != null && (
+                        <> · costo ${item.unit_cost.toFixed(2)}/u = ${item.costo.toFixed(2)}</>
+                      )}
+                    </p>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    {item.ganancia != null ? (
+                      <>
+                        <p className={`font-bold ${item.ganancia >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+                          {item.ganancia >= 0 ? '+' : ''}${item.ganancia.toFixed(2)}
+                        </p>
+                        <p className="text-gray-400">{item.margen.toFixed(0)}%</p>
+                      </>
+                    ) : (
+                      <p className="text-gray-300 italic">sin costo</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Resumen totales */}
+            <div className="bg-gray-50 border-t border-gray-200 px-4 py-3 space-y-1.5">
+              <div className="flex justify-between text-gray-600">
+                <span>Venta de productos</span>
+                <span className="font-medium text-gray-800">${totalVentaProductos.toFixed(2)}</span>
+              </div>
+              {envioCliente > 0 && (
+                <div className="flex justify-between text-gray-600">
+                  <span>+ Envío cobrado</span>
+                  <span className="font-medium text-gray-800">${envioCliente.toFixed(2)}</span>
+                </div>
+              )}
+              <div className="flex justify-between font-bold text-gray-900 border-t border-gray-200 pt-1.5">
+                <span>Total cobrado</span>
+                <span>${totalCobrado.toFixed(2)}</span>
+              </div>
+
+              {totalCostoProductos != null && (
+                <>
+                  <div className="flex justify-between text-gray-600 pt-1">
+                    <span>− Costo productos</span>
+                    <span className="font-medium text-gray-800">${totalCostoProductos.toFixed(2)}</span>
+                  </div>
+                  {envioReal > 0 && (
+                    <div className="flex justify-between text-gray-600">
+                      <span>− Costo envío real</span>
+                      <span className="font-medium text-gray-800">${envioReal.toFixed(2)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between items-center border-t border-gray-300 pt-2 mt-1">
+                    <span className="font-bold text-gray-900">Ganancia neta</span>
+                    <div className="text-right">
+                      <p className={`text-base font-black ${gananciaNet >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+                        {gananciaNet >= 0 ? '+' : ''}${gananciaNet.toFixed(2)}
+                      </p>
+                      <p className={`font-semibold ${gananciaNet >= 0 ? 'text-emerald-500' : 'text-red-400'}`}>
+                        {margenNet.toFixed(1)}% margen
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {sinCosto && (
+                <p className="text-amber-600 bg-amber-50 rounded-lg px-3 py-1.5 mt-1">
+                  Faltan costos en algunos productos — ganancia incompleta.
+                </p>
+              )}
+            </div>
+          </div>
+        )
+      })()}
+
       {/* Footer */}
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 space-y-2">
 
