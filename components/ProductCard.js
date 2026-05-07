@@ -173,7 +173,10 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                     onChange={e => setInputVal(e.target.value)}
                     onBlur={() => {
                       const n = parseInt(inputVal)
-                      if (n >= 1) onSetQty(product.id, n)
+                      if (n >= 1) {
+                        const clamped = stockTracked ? Math.min(n, product.stock) : n
+                        onSetQty(product.id, clamped)
+                      }
                       setEditingQty(false)
                     }}
                     onKeyDown={e => {
