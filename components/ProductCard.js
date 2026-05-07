@@ -138,8 +138,8 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         )}
 
         {/* Precio actual */}
-        <div className="flex items-center justify-between mt-auto pt-1 gap-2">
-          <div className="min-w-0">
+        <div className="mt-auto pt-1">
+          <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5 flex-wrap">
               <span className="text-base font-bold text-gray-900">${currentPrice.toFixed(2)}</span>
               <span className="text-xs text-gray-400">c/u</span>
@@ -149,12 +149,6 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                 </span>
               )}
             </div>
-            {nextTier && (
-              <p className="text-xs text-blue-600 font-medium mt-0.5">
-                +{nextTier.qty - pricingQty} {product.subcategoria === 'Louis Vuitton' ? 'pz más (cualquier perfume)' : 'u. más'} → ${nextTier.price.toFixed(2)} c/u
-              </p>
-            )}
-          </div>
 
           {/* Controles SIN tallas */}
           {!hasSizes && (
@@ -218,6 +212,12 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             >
               {totalSizedQty > 0 ? `${totalSizedQty} u. ▾` : 'Agregar'}
             </button>
+          )}
+          </div>
+          {nextTier && (
+            <p className="text-xs text-blue-600 font-medium mt-1.5 leading-snug">
+              +{nextTier.qty - pricingQty} {product.subcategoria === 'Louis Vuitton' ? 'pz más (cualquier perfume)' : 'u. más'} → ${nextTier.price.toFixed(2)} c/u
+            </p>
           )}
         </div>
 
