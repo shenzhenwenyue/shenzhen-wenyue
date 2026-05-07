@@ -35,7 +35,7 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
       const pricingQty = totalByPricingGroup[pricingKey] || item.qty
       const price = getPrecio(product, pricingQty)
       const subtotal = price * item.qty
-      return { ...item, product, price, subtotal }
+      return { ...item, product, price, subtotal, pricingQty }
     })
     .filter(Boolean)
 
@@ -169,7 +169,8 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
                     </p>
                     <p className="text-xs text-gray-500 mt-0.5">
                       ${line.price.toFixed(2)} c/u
-                      {line.price < line.product.precio_1 && (
+                      {(line.price < line.product.precio_1 ||
+                        (line.product.qty_tier2 && line.pricingQty >= line.product.qty_tier2)) && (
                         <span className="ml-1 text-green-600 font-medium">precio mayoreo</span>
                       )}
                     </p>
