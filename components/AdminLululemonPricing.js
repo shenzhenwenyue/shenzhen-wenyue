@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect, useMemo } from 'react'
-import AdminAloInventory from '@/components/AdminAloInventory'
 
 function pct(precio, costo) {
   if (!precio || !costo) return null
@@ -577,6 +576,8 @@ export default function AdminLululemonPricing({ adminPassword }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [showAddAlo, setShowAddAlo] = useState(false)
+  const [open, setOpen] = useState({ lululemon: true, alo: true, perfumes: true, gifts: true })
+  const toggle = key => setOpen(prev => ({ ...prev, [key]: !prev[key] }))
 
   const headers = { 'Content-Type': 'application/json', 'x-admin-password': adminPassword }
 
@@ -667,14 +668,17 @@ export default function AdminLululemonPricing({ adminPassword }) {
       )}
 
       {/* ── Lululemon ── */}
-      <div>
-        <div className="flex items-center gap-2 mb-3">
-          <h3 className="text-sm font-bold text-gray-700">Lululemon</h3>
-          <span className="text-xs text-gray-400">MOQ 10 pz</span>
-        </div>
-        {loading ? skeleton : (
-          <div className="space-y-2">
-            {lululemonRows.map(row => (
+      <div className="border border-gray-100 rounded-2xl overflow-hidden">
+        <button onClick={() => toggle('lululemon')} className="w-full flex items-center justify-between px-4 py-3 bg-white hover:bg-gray-50 transition-colors">
+          <div className="flex items-center gap-2">
+            <h3 className="text-sm font-bold text-gray-700">Lululemon</h3>
+            <span className="text-xs text-gray-400">MOQ 10 pz</span>
+          </div>
+          <span className="text-gray-400 text-xs">{open.lululemon ? '▲' : '▼'}</span>
+        </button>
+        {open.lululemon && (
+          <div className="px-4 pb-4 pt-2 space-y-2 bg-gray-50">
+            {loading ? skeleton : lululemonRows.map(row => (
               <BrandRow key={row.id} row={row} headers={headers} onSave={handleSave} onDelete={handleDelete} canDelete={false} />
             ))}
           </div>
@@ -682,61 +686,79 @@ export default function AdminLululemonPricing({ adminPassword }) {
       </div>
 
       {/* ── Alo Yoga ── */}
-      <div>
-        <div className="flex items-center justify-between mb-3">
+      <div className="border border-gray-100 rounded-2xl overflow-hidden">
+        <button onClick={() => toggle('alo')} className="w-full flex items-center justify-between px-4 py-3 bg-white hover:bg-gray-50 transition-colors">
           <div className="flex items-center gap-2">
             <h3 className="text-sm font-bold text-gray-700">Alo Yoga</h3>
             <span className="text-xs text-gray-400">MOQ 10 pz</span>
           </div>
-          {!showAddAlo && (
-            <button onClick={() => setShowAddAlo(true)}
-              className="text-xs font-medium text-gray-500 hover:text-gray-900 px-3 py-1.5 rounded-xl hover:bg-gray-100 transition-colors">
-              + Agregar
-            </button>
-          )}
-        </div>
-        {loading ? skeleton : (
-          <div className="space-y-2">
-            {aloRows.map(row => (
-              <BrandRow key={row.id} row={row} headers={headers} onSave={handleSave} onDelete={handleDelete} canDelete={true} />
-            ))}
-            {aloRows.length === 0 && !showAddAlo && (
-              <p className="text-xs text-gray-400">Sin productos Alo todavía.</p>
+          <div className="flex items-center gap-2">
+            {!showAddAlo && open.alo && (
+              <span onClick={e => { e.stopPropagation(); setShowAddAlo(true) }}
+                className="text-xs font-medium text-gray-500 hover:text-gray-900 px-2 py-1 rounded-lg hover:bg-gray-100 transition-colors">
+                + Agregar
+              </span>
             )}
-            {showAddAlo && (
-              <AddBrandRowForm categoria="Alo Yoga" headers={headers} onAdd={handleAddAlo} onCancel={() => setShowAddAlo(false)} />
+            <span className="text-gray-400 text-xs">{open.alo ? '▲' : '▼'}</span>
+          </div>
+        </button>
+        {open.alo && (
+          <div className="px-4 pb-4 pt-2 space-y-2 bg-gray-50">
+            {loading ? skeleton : (
+              <>
+                {aloRows.map(row => (
+                  <BrandRow key={row.id} row={row} headers={headers} onSave={handleSave} onDelete={handleDelete} canDelete={true} />
+                ))}
+                {aloRows.length === 0 && !showAddAlo && (
+                  <p className="text-xs text-gray-400">Sin productos Alo todavía.</p>
+                )}
+                {showAddAlo && (
+                  <AddBrandRowForm categoria="Alo Yoga" headers={headers} onAdd={handleAddAlo} onCancel={() => setShowAddAlo(false)} />
+                )}
+              </>
             )}
           </div>
         )}
       </div>
 
-      {/* ── Alo Yoga Inventory ── */}
-      <AdminAloInventory adminPassword={adminPassword} />
-
       {/* ── Perfumes ── */}
-      <div>
-        <h3 className="text-sm font-bold text-gray-700 mb-1">Perfumes</h3>
-        {loading ? skeleton : (
-          <PerfumesSection
-            perfumeRows={perfumeRows}
-            headers={headers}
-            onSave={handleSave}
-            lvCostRule={lvCostRule}
-            onCostRuleSave={handleCostRuleSave}
-            perfumeCostRule={perfumeCostRule}
-            onPerfumeCostRuleSave={handleCostRuleSave}
-          />
+      <div className="border border-gray-100 rounded-2xl overflow-hidden">
+        <button onClick={() => toggle('perfumes')} className="w-full flex items-center justify-between px-4 py-3 bg-white hover:bg-gray-50 transition-colors">
+          <h3 className="text-sm font-bold text-gray-700">Perfumes</h3>
+          <span className="text-gray-400 text-xs">{open.perfumes ? '▲' : '▼'}</span>
+        </button>
+        {open.perfumes && (
+          <div className="px-4 pb-4 pt-2 bg-gray-50">
+            {loading ? skeleton : (
+              <PerfumesSection
+                perfumeRows={perfumeRows}
+                headers={headers}
+                onSave={handleSave}
+                lvCostRule={lvCostRule}
+                onCostRuleSave={handleCostRuleSave}
+                perfumeCostRule={perfumeCostRule}
+                onPerfumeCostRuleSave={handleCostRuleSave}
+              />
+            )}
+          </div>
         )}
       </div>
 
       {/* ── Gift Sets ── */}
-      <div>
-        <h3 className="text-sm font-bold text-gray-700 mb-1">Gift Sets</h3>
-        {loading
-          ? <div className="h-14 bg-white rounded-2xl animate-pulse border border-gray-100" />
-          : giftSetRow
-            ? <GroupPricingCard row={giftSetRow} productNames={null} headers={headers} onSave={handleSave} />
-            : <p className="text-xs text-gray-400">Sin datos.</p>}
+      <div className="border border-gray-100 rounded-2xl overflow-hidden">
+        <button onClick={() => toggle('gifts')} className="w-full flex items-center justify-between px-4 py-3 bg-white hover:bg-gray-50 transition-colors">
+          <h3 className="text-sm font-bold text-gray-700">Gift Sets</h3>
+          <span className="text-gray-400 text-xs">{open.gifts ? '▲' : '▼'}</span>
+        </button>
+        {open.gifts && (
+          <div className="px-4 pb-4 pt-2 bg-gray-50">
+            {loading
+              ? <div className="h-14 bg-white rounded-2xl animate-pulse border border-gray-100" />
+              : giftSetRow
+                ? <GroupPricingCard row={giftSetRow} productNames={null} headers={headers} onSave={handleSave} />
+                : <p className="text-xs text-gray-400">Sin datos.</p>}
+          </div>
+        )}
       </div>
 
       {/* Leyenda */}
