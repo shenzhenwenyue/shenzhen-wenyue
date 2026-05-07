@@ -1,5 +1,6 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
+import { getCosto } from '@/lib/pricing'
 const PERIOD_OPTIONS = [
   { label: 'Hoy', value: 'today' },
   { label: 'Esta semana', value: 'week' },
@@ -62,32 +63,6 @@ export default function AdminReports({ orders, adminPassword }) {
     })
   }, [orders, period])
 
-  function getCostoFromBrandPricing(item, totalPerfumesQty = 0) {
-    const isLV = item.subcategoria?.toLowerCase().includes('louis vuitton') || item.nombre?.toLowerCase().includes('louis vuitton')
-
-    if (isLV && costRules.length) {
-      const lvRule = costRules.find(r => r.match_campo === 'subcategoria' && r.match_valor === 'Louis Vuitton')
-      if (lvRule) {
-        const qty = totalPerfumesQty
-        if (!lvRule.fijo) {
-          if (lvRule.qty_tier4 && qty >= lvRule.qty_tier4 && lvRule.costo_tier4) return parseFloat(lvRule.costo_tier4)
-          if (lvRule.qty_tier3 && qty >= lvRule.qty_tier3 && lvRule.costo_tier3) return parseFloat(lvRule.costo_tier3)
-          if (lvRule.qty_tier2 && qty >= lvRule.qty_tier2 && lvRule.costo_tier2) return parseFloat(lvRule.costo_tier2)
-        }
-        return parseFloat(lvRule.costo_1)
-      }
-    }
-
-    if (!catalogPricing.length) return null
-    const exactMatch = catalogPricing.find(r => r.label?.toLowerCase() === item.nombre?.toLowerCase())
-    if (exactMatch?.costo) return parseFloat(exactMatch.costo)
-    const groupMatch = catalogPricing.find(r =>
-      r.categoria?.toLowerCase() === item.categoria?.toLowerCase() &&
-      (isLV ? r.label?.toLowerCase() === 'louis vuitton' : r.label?.toLowerCase() !== 'louis vuitton')
-    )
-    return groupMatch?.costo ? parseFloat(groupMatch.costo) : null
-  }
-
   const kpis = useMemo(() => {
     const revenueOrders = filteredOrders.filter(o => REVENUE_STATUSES.includes(o.status))
     const totalOrders = filteredOrders.length
@@ -98,22 +73,24 @@ export default function AdminReports({ orders, adminPassword }) {
       .filter(o => o.status === 'pending' || o.status === 'confirmed')
       .reduce((sum, o) => sum + (o.items || []).filter(i => i.confirmed !== false).reduce((s, i) => s + (i.available_qty || i.qty) * (i.unit_price || 0), 0), 0)
 
-    // Ganancia bruta usando reglas de costo
     let totalCosto = 0
     let itemsConCosto = 0
     let totalItemsRevenue = 0
     revenueOrders.forEach(o => {
-      const totalPerfumesQty = (o.items || [])
-        .filter(i => i.confirmed !== false && i.categoria?.toLowerCase() === 'perfumes')
-        .reduce((s, i) => s + (i.available_qty || i.qty), 0)
-      ;(o.items || []).filter(i => i.confirmed !== false).forEach(item => {
+      const confirmedItems = (o.items || []).filter(i => i.confirmed !== false)
+      const categoryQtyMap = {}
+      confirmedItems.forEach(item => {
+        const cat = item.categoria
+        if (cat) categoryQtyMap[cat] = (categoryQtyMap[cat] || 0) + (item.available_qty || item.qty)
+      })
+      confirmedItems.forEach(item => {
         const qty = item.available_qty || item.qty
         const revenue = qty * (item.unit_price || 0)
-        const isPerfume = item.categoria?.toLowerCase() === 'perfumes'
-        const costo = item.unit_cost ?? getCostoFromBrandPricing(item, isPerfume ? totalPerfumesQty : 0)
+        const totalCategoryQty = item.categoria ? (categoryQtyMap[item.categoria] ?? qty) : qty
+        const costo = item.unit_cost ?? getCosto(costRules, item, totalCategoryQty)
         totalItemsRevenue += revenue
         if (costo !== null) {
-          totalCosto += costo * qty
+          totalCosto += parseFloat(costo) * qty
           itemsConCosto++
         }
       })
@@ -123,31 +100,33 @@ export default function AdminReports({ orders, adminPassword }) {
     const avgTicket = paidOrders > 0 ? totalRevenue / paidOrders : 0
     const totalCostoEnvioReal = revenueOrders.reduce((sum, o) => sum + (o.costo_envio_real || 0), 0)
     const ganancia = totalRevenue - totalCosto - totalCostoEnvioReal
-    const margen = totalItemsRevenue > 0 ? (ganancia / totalItemsRevenue) * 100 : null
+    const margen = totalRevenue > 0 ? (ganancia / totalRevenue) * 100 : null
 
     return { totalRevenue, totalOrders, paidOrders, avgTicket, totalUnits, pendingRevenue, ganancia, margen, tieneCostos: itemsConCosto > 0 }
-  }, [filteredOrders, catalogPricing, costRules])
+  }, [filteredOrders, costRules])
 
   const categoryBreakdown = useMemo(() => {
     const map = {}
     filteredOrders
       .filter(o => REVENUE_STATUSES.includes(o.status))
       .forEach(o => {
-        const totalPerfumesQty = (o.items || [])
-          .filter(i => i.confirmed !== false && i.categoria?.toLowerCase() === 'perfumes')
-          .reduce((s, i) => s + (i.available_qty || i.qty), 0)
-        ;(o.items || []).forEach(item => {
-          if (item.confirmed === false) return
+        const confirmedItems = (o.items || []).filter(i => i.confirmed !== false)
+        const categoryQtyMap = {}
+        confirmedItems.forEach(item => {
+          const cat = item.categoria
+          if (cat) categoryQtyMap[cat] = (categoryQtyMap[cat] || 0) + (item.available_qty || item.qty)
+        })
+        confirmedItems.forEach(item => {
           const cat = item.categoria || 'Sin categoría'
           if (!map[cat]) map[cat] = { qty: 0, revenue: 0, costo: 0, tieneCosto: false }
           const qty = item.available_qty || item.qty
           const revenue = qty * (item.unit_price || 0)
-          const isPerfume = item.categoria?.toLowerCase() === 'perfumes'
-          const costo = item.unit_cost ?? getCostoFromBrandPricing(item, isPerfume ? totalPerfumesQty : 0)
+          const totalCategoryQty = item.categoria ? (categoryQtyMap[item.categoria] ?? qty) : qty
+          const costo = item.unit_cost ?? getCosto(costRules, item, totalCategoryQty)
           map[cat].qty += qty
           map[cat].revenue += revenue
           if (costo !== null) {
-            map[cat].costo += costo * qty
+            map[cat].costo += parseFloat(costo) * qty
             map[cat].tieneCosto = true
           }
         })
@@ -155,7 +134,7 @@ export default function AdminReports({ orders, adminPassword }) {
     return Object.entries(map)
       .map(([cat, data]) => [cat, { ...data, ganancia: data.tieneCosto ? data.revenue - data.costo : null }])
       .sort((a, b) => b[1].revenue - a[1].revenue)
-  }, [filteredOrders, catalogPricing, costRules])
+  }, [filteredOrders, costRules])
 
   const topProducts = useMemo(() => {
     const map = {}
