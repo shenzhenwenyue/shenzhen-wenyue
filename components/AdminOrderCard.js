@@ -319,20 +319,53 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
       {/* Items + Footer — colapsable */}
       {expanded && <><div className="divide-y divide-gray-50">
-        {order.status === 'pending' && (
-          <div className="px-4 py-2 flex justify-end border-b border-gray-100">
-            <button
-              onClick={handleConfirmarTodo}
-              disabled={saving}
-              className="text-xs font-semibold text-green-600 hover:text-green-700 disabled:opacity-40 flex items-center gap-1"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-              </svg>
-              Confirmar todo disponible
-            </button>
-          </div>
-        )}
+        {order.status === 'pending' && (() => {
+          const cats = [...new Set(order.items.map(i => i.categoria).filter(Boolean))]
+          return (
+            <div className="px-4 py-2 border-b border-gray-100 space-y-2">
+              {cats.length > 1 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {cats.map(cat => {
+                    const catIndices = order.items.map((it, idx) => ({ it, idx })).filter(({ it }) => it.categoria === cat).map(({ idx }) => idx)
+                    const allSelected = catIndices.every(i =>
+                      exportSelected === null ? order.items[i].confirmed !== false : exportSelected.has(i)
+                    )
+                    return (
+                      <button
+                        key={cat}
+                        onClick={() => setExportSelected(prev => {
+                          const confirmedIndices = new Set(order.items.map((_, i) => i).filter(i => order.items[i].confirmed !== false))
+                          const base = new Set(prev ?? confirmedIndices)
+                          if (allSelected) catIndices.forEach(i => base.delete(i))
+                          else catIndices.forEach(i => base.add(i))
+                          if (base.size === confirmedIndices.size && [...base].every(i => confirmedIndices.has(i))) return null
+                          return base
+                        })}
+                        className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
+                          allSelected ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                        }`}
+                      >
+                        {cat} <span className="opacity-60">({catIndices.length})</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+              <div className="flex justify-end">
+                <button
+                  onClick={handleConfirmarTodo}
+                  disabled={saving}
+                  className="text-xs font-semibold text-green-600 hover:text-green-700 disabled:opacity-40 flex items-center gap-1"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Confirmar todo disponible
+                </button>
+              </div>
+            </div>
+          )
+        })()}
         {order.items.map((item, i) => (
           <div key={i} className="px-4 py-3">
             <div className="flex justify-between items-start mb-2">
