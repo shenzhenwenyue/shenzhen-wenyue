@@ -140,7 +140,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         {/* Precio actual */}
         <div className="mt-auto pt-1">
           <div className="flex items-center justify-between gap-2">
-            <div className="min-w-0">
+            <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-base font-bold text-gray-900">${currentPrice.toFixed(2)}</span>
                 <span className="text-xs text-gray-400">c/u</span>
