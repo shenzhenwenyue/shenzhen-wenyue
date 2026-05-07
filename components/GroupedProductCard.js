@@ -81,7 +81,7 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
           {hasTiers && (
             <div className="mb-2 rounded-lg bg-gray-50 p-2 space-y-0.5 text-xs">
               {(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') && (
-                <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Precio según total de piezas en la categoría</p>
+                <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Precio según total de piezas en la subcategoría</p>
               )}
               <TierRow label={`${base.qty_minima || 1}–${base.qty_tier2 ? base.qty_tier2 - 1 : '+'} u.`} price={base.precio_1} active={pricingQty < (base.qty_tier2 || Infinity)} />
               {base.qty_tier2 && base.precio_tier2 && <TierRow label={`${base.qty_tier2}–${base.qty_tier3 ? base.qty_tier3 - 1 : '+'} u.`} price={base.precio_tier2} active={pricingQty >= base.qty_tier2 && (!base.qty_tier3 || pricingQty < base.qty_tier3)} highlight />}

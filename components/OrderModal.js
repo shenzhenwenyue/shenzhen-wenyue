@@ -207,7 +207,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
                   </div>
                   <div className="flex justify-between text-gray-500">
                     <span>Envío estimado</span>
-                    <span>$10.00</span>
+                    <span>${shipping.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between font-bold text-gray-900 pt-1 border-t border-gray-100">
                     <span>Total estimado</span>

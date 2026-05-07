@@ -128,9 +128,11 @@ export default function AdminStock({ adminPassword }) {
   const headers = { 'Content-Type': 'application/json', 'x-admin-password': adminPassword }
 
   useEffect(() => {
+    if (!adminPassword) return
+    const hdrs = { 'Content-Type': 'application/json', 'x-admin-password': adminPassword }
     Promise.all([
       fetch('/api/products').then(r => r.json()),
-      fetch('/api/admin/inventory', { headers }).then(r => r.json()),
+      fetch('/api/admin/inventory', { headers: hdrs }).then(r => r.ok ? r.json() : []),
     ]).then(([prods, inv]) => {
       if (Array.isArray(prods)) setProducts(prods)
       else setError('Error cargando productos')
@@ -141,7 +143,7 @@ export default function AdminStock({ adminPassword }) {
       }
       setLoading(false)
     }).catch(() => { setError('Error de conexión'); setLoading(false) })
-  }, [])
+  }, [adminPassword])
 
   async function handleSave(nombre, stock) {
     const res = await fetch('/api/admin/inventory', {

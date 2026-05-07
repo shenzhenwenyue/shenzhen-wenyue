@@ -119,6 +119,8 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       if (res.ok) {
         setOrder(data)
         if (updates.status && updates.status !== 'pending') setExpanded(false)
+      } else {
+        alert(`Error al guardar: ${data.error || 'Error desconocido'}`)
       }
     } finally {
       setSaving(false)
@@ -150,8 +152,8 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   async function handleConfirmarTodo() {
     const updatedItems = order.items.map(item => ({
       ...item,
-      confirmed: true,
-      available_qty: item.qty,
+      confirmed: item.confirmed === false ? false : true,
+      available_qty: item.confirmed === false ? item.available_qty : item.qty,
     }))
     await patch({ items: updatedItems })
   }

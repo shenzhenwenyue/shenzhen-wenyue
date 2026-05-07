@@ -49,11 +49,15 @@ export async function PATCH(req, { params }) {
   const supabase = getSupabase()
 
   // Obtener pedido actual para mantener historial y datos del cliente
-  const { data: current } = await supabase
+  const { data: current, error: fetchError } = await supabase
     .from('orders')
     .select('history, status, tracking_number, customer_email, customer_name, items, total')
     .eq('id', id)
     .single()
+
+  if (fetchError || !current) {
+    return NextResponse.json({ error: 'Pedido no encontrado' }, { status: 404 })
+  }
 
   const history = Array.isArray(current?.history) ? current.history : []
 

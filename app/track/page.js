@@ -250,7 +250,7 @@ function OrderCard({ order }) {
                   <p className="text-xs text-gray-400">{item.qty} u. × ${item.unit_price?.toFixed(2)}</p>
                 </div>
                 <p className="text-xs font-bold text-gray-900 shrink-0">
-                  ${(item.qty * item.unit_price).toFixed(2)}
+                  ${(item.qty * (item.unit_price || 0)).toFixed(2)}
                 </p>
               </div>
             ))}
