@@ -34,9 +34,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     order.costo_envio_real != null ? String(order.costo_envio_real) : ''
   )
   const [stockMap, setStockMap] = useState({})
-  const [editingStock, setEditingStock] = useState(null)
-  const [stockInputVal, setStockInputVal] = useState('')
-  const [savingStock, setSavingStock] = useState(false)
 
   useEffect(() => {
     const pwd = sessionStorage.getItem('adminPassword')
@@ -138,21 +135,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       available_qty: item.confirmed === false ? item.available_qty : item.qty,
     }))
     await patch({ items: updatedItems })
-  }
-
-  async function handleSaveStock(nombre) {
-    const val = parseInt(stockInputVal)
-    if (isNaN(val)) return
-    setSavingStock(true)
-    const pwd = sessionStorage.getItem('adminPassword')
-    const res = await fetch('/api/admin/inventory', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json', 'x-admin-password': pwd },
-      body: JSON.stringify({ nombre, stock: val }),
-    })
-    if (res.ok) setStockMap(prev => ({ ...prev, [nombre]: val }))
-    setSavingStock(false)
-    setEditingStock(null)
   }
 
   async function handleEnviarWhatsApp() {
@@ -322,31 +304,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                   <p className="text-sm font-medium text-gray-900">{item.nombre}</p>
                   <p className="text-xs text-gray-400">{item.categoria} · {item.qty} u. · ${item.unit_price.toFixed(2)} c/u</p>
                   {stockMap[item.nombre] != null && (
-                    editingStock === item.nombre ? (
-                      <div className="flex items-center gap-1 mt-1">
-                        <input
-                          type="number"
-                          min="0"
-                          autoFocus
-                          value={stockInputVal}
-                          onChange={e => setStockInputVal(e.target.value)}
-                          onKeyDown={e => { if (e.key === 'Enter') handleSaveStock(item.nombre); if (e.key === 'Escape') setEditingStock(null) }}
-                          className="w-14 px-1.5 py-0.5 border border-blue-300 rounded-lg text-xs text-center focus:outline-none"
-                        />
-                        <button onClick={() => handleSaveStock(item.nombre)} disabled={savingStock} className="text-xs text-blue-600 font-semibold">OK</button>
-                        <button onClick={() => setEditingStock(null)} className="text-xs text-gray-400">✕</button>
-                      </div>
-                    ) : (
-                      <button
-                        onClick={() => { setEditingStock(item.nombre); setStockInputVal(String(stockMap[item.nombre])) }}
-                        className="mt-1 text-xs text-gray-400 hover:text-gray-700 flex items-center gap-1"
-                      >
-                        Stock: {stockMap[item.nombre]}
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </svg>
-                      </button>
-                    )
+                    <p className="mt-1 text-xs text-gray-400">Stock: {stockMap[item.nombre]}</p>
                   )}
                 </div>
               </div>
