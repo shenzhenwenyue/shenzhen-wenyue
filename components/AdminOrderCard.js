@@ -314,45 +314,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
               </p>
             </div>
 
-            {/* Costo por producto */}
-            {editingCosts && (() => {
-              const qty = item.available_qty || item.qty
-              const revenue = qty * item.unit_price
-              const costo = parseFloat(costInputs[i])
-              const ganancia = !isNaN(costo) ? revenue - costo * qty : null
-              return (
-                <div className="flex items-center gap-1.5 mt-1">
-                  <span className="text-xs text-gray-400">Costo $</span>
-                  <div className="relative">
-                    <input
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      value={costInputs[i] ?? ''}
-                      onChange={e => {
-                        setCostInputs(prev => ({ ...prev, [i]: e.target.value }))
-                        setCostFromRules(prev => { const n = new Set(prev); n.delete(i); return n })
-                      }}
-                      placeholder="0.00"
-                      className={`w-20 px-2 py-1 rounded-lg text-xs text-center focus:outline-none transition-colors ${
-                        costFromRules.has(i)
-                          ? 'border border-blue-300 bg-blue-50 text-blue-700 focus:border-blue-500'
-                          : 'border border-gray-200 focus:border-gray-400'
-                      }`}
-                    />
-                    {costFromRules.has(i) && (
-                      <span className="absolute -top-1.5 -right-1.5 text-[9px] bg-blue-500 text-white rounded-full px-1 leading-tight">R</span>
-                    )}
-                  </div>
-                  {ganancia !== null && (
-                    <span className={`text-xs font-semibold ${ganancia >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                      {ganancia >= 0 ? '+' : ''}${ganancia.toFixed(2)}
-                    </span>
-                  )}
-                </div>
-              )
-            })()}
-
             {order.status === 'pending' && (
               <div className="flex flex-wrap gap-2 mt-1">
                 <button
@@ -548,21 +509,67 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       {/* Footer */}
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 space-y-2">
 
-        {/* Toggle + guardar costos */}
+        {/* Costos — colapsable */}
         <button
           onClick={() => setEditingCosts(v => !v)}
-          className="w-full py-1.5 border border-gray-200 text-gray-600 text-xs font-semibold rounded-xl hover:bg-gray-50 transition-colors"
+          className="w-full py-1.5 border border-gray-200 text-gray-600 text-xs font-semibold rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5"
         >
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
           {editingCosts ? 'Cerrar costos' : 'Editar costos'}
         </button>
         {editingCosts && (
-          <button
-            onClick={handleSaveCosts}
-            disabled={savingCosts}
-            className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-semibold rounded-xl transition-colors"
-          >
-            {savingCosts ? 'Guardando…' : 'Guardar costos'}
-          </button>
+          <div className="border border-gray-200 rounded-xl overflow-hidden">
+            {order.items.map((item, i) => {
+              const qty = item.available_qty || item.qty
+              const revenue = qty * item.unit_price
+              const costo = parseFloat(costInputs[i])
+              const ganancia = !isNaN(costo) ? revenue - costo * qty : null
+              return (
+                <div key={i} className="flex items-center gap-2 px-3 py-2 border-b border-gray-100 last:border-0">
+                  <p className="flex-1 text-xs text-gray-700 truncate min-w-0">{item.nombre}</p>
+                  <div className="relative shrink-0">
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      value={costInputs[i] ?? ''}
+                      onChange={e => {
+                        setCostInputs(prev => ({ ...prev, [i]: e.target.value }))
+                        setCostFromRules(prev => { const n = new Set(prev); n.delete(i); return n })
+                      }}
+                      placeholder="$0.00"
+                      className={`w-20 px-2 py-1 rounded-lg text-xs text-center focus:outline-none transition-colors ${
+                        costFromRules.has(i)
+                          ? 'border border-blue-300 bg-blue-50 text-blue-700 focus:border-blue-500'
+                          : 'border border-gray-200 focus:border-gray-400'
+                      }`}
+                    />
+                    {costFromRules.has(i) && (
+                      <span className="absolute -top-1.5 -right-1.5 text-[9px] bg-blue-500 text-white rounded-full px-1 leading-tight">R</span>
+                    )}
+                  </div>
+                  <span className={`text-xs font-semibold w-14 text-right shrink-0 ${ganancia == null ? 'text-gray-300' : ganancia >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+                    {ganancia != null ? `${ganancia >= 0 ? '+' : ''}$${ganancia.toFixed(0)}` : '—'}
+                  </span>
+                </div>
+              )
+            })}
+            <div className="px-3 py-2 bg-gray-50 flex gap-2">
+              <button
+                onClick={handleSaveCosts}
+                disabled={savingCosts}
+                className="flex-1 py-1.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-semibold rounded-lg transition-colors"
+              >
+                {savingCosts ? 'Guardando…' : 'Guardar'}
+              </button>
+              <button
+                onClick={() => setEditingCosts(false)}
+                className="px-3 py-1.5 border border-gray-200 text-gray-500 text-xs font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
         )}
 
         {/* Envío — visible en todos los estados activos */}
