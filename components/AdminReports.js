@@ -415,8 +415,8 @@ export default function AdminReports({ orders, adminPassword }) {
                     <span className="text-gray-400">{data.qty} u.</span>
                     <span className="font-bold text-gray-900 w-20 text-right">${data.revenue.toFixed(2)}</span>
                     {data.ganancia !== null && (
-                      <span className="text-green-600 font-semibold w-20 text-right text-xs">
-                        +${data.ganancia.toFixed(2)}
+                      <span className={`font-semibold w-20 text-right text-xs ${data.ganancia >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                        {data.ganancia >= 0 ? '+' : ''}${data.ganancia.toFixed(2)}
                       </span>
                     )}
                   </div>

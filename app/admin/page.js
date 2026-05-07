@@ -7,6 +7,7 @@ import AdminPersonalInventory from '@/components/AdminPersonalInventory'
 import AdminLululemonPricing from '@/components/AdminLululemonPricing'
 import AdminClients from '@/components/AdminClients'
 import AdminStock from '@/components/AdminStock'
+import AdminCosts from '@/components/AdminCosts'
 
 const STATUS_ORDER = ['pending', 'confirmed', 'paid', 'shipped', 'completed']
 const STATUS_LABELS = {
@@ -101,11 +102,12 @@ export default function AdminPage() {
   const filtered = orders.filter(o => o.status === activeTab).sort(byNewest)
   const isProductTab = activeTab === 'products'
   const isReportsTab = activeTab === 'reports'
-const isCapitalTab = activeTab === 'capital'
+  const isCapitalTab = activeTab === 'capital'
   const isPricingTab = activeTab === 'pricing'
   const isClientsTab = activeTab === 'clients'
   const isStockTab = activeTab === 'stock'
-  const isSpecialTab = isProductTab || isReportsTab || isCapitalTab || isPricingTab || isClientsTab || isStockTab
+  const isCostsTab = activeTab === 'costs'
+  const isSpecialTab = isProductTab || isReportsTab || isCapitalTab || isPricingTab || isClientsTab || isStockTab || isCostsTab
   const pendingCount = orders.filter(o => o.status === 'pending').length
 
   function orderTotal(order) {
@@ -303,6 +305,16 @@ const isCapitalTab = activeTab === 'capital'
           Stock de Productos
         </button>
         <button
+          onClick={() => setActiveTab('costs')}
+          className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === 'costs'
+              ? 'border-black text-black'
+              : 'border-transparent text-gray-400 hover:text-gray-700'
+          }`}
+        >
+          Costos
+        </button>
+        <button
           onClick={() => setActiveTab('clients')}
           className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
             activeTab === 'clients'
@@ -384,6 +396,13 @@ const isCapitalTab = activeTab === 'capital'
       {isStockTab && (
         <div className="max-w-2xl mx-auto px-4 py-5">
           <AdminStock adminPassword={adminPassword} />
+        </div>
+      )}
+
+      {/* Costs tab */}
+      {isCostsTab && (
+        <div className="max-w-2xl mx-auto px-4 py-5">
+          <AdminCosts adminPassword={adminPassword} />
         </div>
       )}
 
