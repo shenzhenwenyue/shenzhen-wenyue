@@ -148,6 +148,7 @@ function BrandRow({ row, headers, onSave, onDelete, canDelete }) {
                 <p className="text-xs text-gray-400 mb-1">{label}</p>
                 <p className="text-base font-bold text-gray-900">${parseFloat(price).toFixed(0)}</p>
                 <div className="mt-1"><MarginBadge precio={price} costo={row.costo} /></div>
+                {row.costo && <p className="text-xs text-emerald-600 font-semibold mt-0.5">+${(parseFloat(price) - parseFloat(row.costo)).toFixed(2)}</p>}
               </div>
             ))}
           </div>
@@ -481,6 +482,7 @@ function GroupPricingCard({ row, productNames, headers, onSave, hasCostTiers, co
                 <p className="text-xs text-gray-400 mb-1">{label}</p>
                 <p className="text-sm font-bold text-gray-900">${parseFloat(price).toFixed(2)}</p>
                 {costo && <div className="mt-1"><MarginBadge precio={price} costo={costo} /></div>}
+                {costo && <p className="text-xs text-emerald-600 font-semibold mt-0.5">+${(parseFloat(price) - parseFloat(costo)).toFixed(2)}</p>}
               </div>
             ))}
           </div>
