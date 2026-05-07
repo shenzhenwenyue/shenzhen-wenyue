@@ -93,6 +93,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [savingNote, setSavingNote] = useState(false)
   const [paymentLink, setPaymentLink] = useState('')
   const [replacements, setReplacements] = useState({}) // { itemIndex: 'texto del reemplazo' }
+  const [exportSelected, setExportSelected] = useState(null) // null = todos los confirmados; Set<idx> = selección manual
 
   const allReviewed = order.items.every(i => i.confirmed !== null)
   const confirmedItems = order.items.filter(i => i.confirmed !== false)
@@ -221,18 +222,37 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
   }
 
+  function getExportItems(skuFilter = null) {
+    const base = exportSelected === null
+      ? confirmedItems
+      : order.items.filter((_, i) => exportSelected.has(i))
+    return skuFilter ? base.filter(skuFilter) : base
+  }
+
+  function toggleExportItem(idx) {
+    setExportSelected(prev => {
+      const confirmedIndices = new Set(
+        order.items.map((_, i) => i).filter(i => order.items[i].confirmed !== false)
+      )
+      const base = prev ?? confirmedIndices
+      const next = new Set(base)
+      if (next.has(idx)) next.delete(idx)
+      else next.add(idx)
+      if (next.size === confirmedIndices.size && [...next].every(i => confirmedIndices.has(i))) return null
+      return next
+    })
+  }
+
   function handleOrdenProveedor() {
-    exportarOrden(confirmedItems)
+    exportarOrden(getExportItems())
   }
 
   function handleOrdenLucy() {
-    const items = confirmedItems.filter(i => i.sku?.toUpperCase().startsWith('XP'))
-    exportarOrden(items, 'Lucy')
+    exportarOrden(getExportItems(i => i.sku?.toUpperCase().startsWith('XP')), 'Lucy')
   }
 
   function handleOrdenJoy() {
-    const items = confirmedItems.filter(i => i.sku?.toUpperCase().startsWith('S'))
-    exportarOrden(items, 'Joy')
+    exportarOrden(getExportItems(i => i.sku?.toUpperCase().startsWith('S')), 'Joy')
   }
 
   function handleEnviarTracking() {
@@ -317,6 +337,15 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
           <div key={i} className="px-4 py-3">
             <div className="flex justify-between items-start mb-2">
               <div className="flex items-start gap-2 flex-1 min-w-0">
+                {order.status === 'pending' && (
+                  <input
+                    type="checkbox"
+                    checked={exportSelected === null ? item.confirmed !== false : exportSelected.has(i)}
+                    onChange={() => toggleExportItem(i)}
+                    className="mt-1 shrink-0 accent-gray-800"
+                    title="Incluir en exportación al proveedor"
+                  />
+                )}
                 <div className="min-w-0">
                   <p className="text-sm font-medium text-gray-900">{item.nombre}</p>
                   <p className="text-xs text-gray-400">{item.categoria} · {item.qty} u. · ${item.unit_price.toFixed(2)} c/u</p>
