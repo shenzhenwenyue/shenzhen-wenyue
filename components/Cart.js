@@ -73,7 +73,8 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
           const subRep = cartLines.find(l => l.product.categoria === cat && l.product.subcategoria === sub)?.product
           if (!subRep) return
           const tiers = buildTiers(subRep)
-          result.push({ cat: sub, qty: subQty, minQty: null, isIncomplete: false, nextTier: tiers.find(t => subQty < t.qty), hasTiers: tiers.length > 0 })
+          const currentPrice = getPrecio(subRep, subQty)
+          result.push({ cat: sub, qty: subQty, minQty: null, isIncomplete: false, nextTier: tiers.find(t => subQty < t.qty), hasTiers: tiers.length > 0, currentPrice })
         })
       } else {
         const rep = cat === 'Perfumes'
@@ -84,7 +85,8 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
         const minQty = rep.qty_minima || 10
         const isIncomplete = catQty < minQty
         const tiers = buildTiers(rep)
-        result.push({ cat, qty: catQty, minQty, isIncomplete, nextTier: tiers.find(t => catQty < t.qty), hasTiers: tiers.length > 0 })
+        const currentPrice = getPrecio(rep, catQty)
+        result.push({ cat, qty: catQty, minQty, isIncomplete, nextTier: tiers.find(t => catQty < t.qty), hasTiers: tiers.length > 0, currentPrice })
       }
     })
     return result
@@ -204,25 +206,36 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
           <div className="border-t p-4 space-y-3">
             {/* Resumen por categoría */}
             <div className="space-y-1.5">
-              {categorySummary.map(({ cat, qty, minQty, isIncomplete, nextTier, hasTiers }) => (
-                <div key={cat} className={`rounded-xl px-3 py-2 text-xs ${isIncomplete ? 'bg-amber-50 border border-amber-200' : 'bg-gray-50'}`}>
-                  <div className="flex justify-between items-center">
-                    <span className={`font-semibold ${isIncomplete ? 'text-amber-700' : 'text-gray-700'}`}>{cat}</span>
-                    <span className={`font-bold ${isIncomplete ? 'text-amber-600' : 'text-gray-900'}`}>{qty} pz</span>
+              {categorySummary.map(({ cat, qty, minQty, isIncomplete, nextTier, hasTiers, currentPrice }) => {
+                const diff = nextTier ? nextTier.qty - qty : 0
+                const saving = nextTier && currentPrice > nextTier.price
+                  ? ((currentPrice - nextTier.price) * qty).toFixed(2)
+                  : null
+                return (
+                  <div key={cat} className={`rounded-xl px-3 py-2 text-xs ${isIncomplete ? 'bg-amber-50 border border-amber-200' : nextTier ? 'bg-blue-50 border border-blue-100' : 'bg-gray-50'}`}>
+                    <div className="flex justify-between items-center">
+                      <span className={`font-semibold ${isIncomplete ? 'text-amber-700' : 'text-gray-700'}`}>{cat}</span>
+                      <span className={`font-bold ${isIncomplete ? 'text-amber-600' : 'text-gray-900'}`}>{qty} pz</span>
+                    </div>
+                    {isIncomplete ? (
+                      <p className="text-amber-600 mt-0.5">
+                        Mín. {minQty} pz — agrega {minQty - qty} pieza{minQty - qty !== 1 ? 's' : ''} más
+                      </p>
+                    ) : nextTier ? (
+                      <div className="mt-0.5">
+                        <p className="text-blue-700 font-semibold">
+                          Agrega {diff} pz más → <span className="font-bold">${nextTier.price.toFixed(2)} c/u</span>
+                        </p>
+                        {saving && (
+                          <p className="text-blue-500">Ahorras ${saving} en tu pedido actual</p>
+                        )}
+                      </div>
+                    ) : hasTiers ? (
+                      <p className="text-green-600 mt-0.5">Mejor precio activo ✓</p>
+                    ) : null}
                   </div>
-                  {isIncomplete ? (
-                    <p className="text-amber-600 mt-0.5">
-                      Mín. {minQty} pz — agrega {minQty - qty} pieza{minQty - qty !== 1 ? 's' : ''} más
-                    </p>
-                  ) : nextTier ? (
-                    <p className="text-blue-600 mt-0.5">
-                      +{nextTier.qty - qty} pz más → ${nextTier.price.toFixed(2)} c/u
-                    </p>
-                  ) : hasTiers ? (
-                    <p className="text-green-600 mt-0.5">Mejor precio activo ✓</p>
-                  ) : null}
-                </div>
-              ))}
+                )
+              })}
             </div>
 
             {/* Total */}
