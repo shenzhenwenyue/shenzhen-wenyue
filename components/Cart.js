@@ -212,24 +212,19 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
                   ? ((currentPrice - nextTier.price) * qty).toFixed(2)
                   : null
                 return (
-                  <div key={cat} className={`rounded-xl px-3 py-2 text-xs ${isIncomplete ? 'bg-amber-50 border border-amber-200' : nextTier ? 'bg-blue-50 border border-blue-100' : 'bg-gray-50'}`}>
+                  <div key={cat} className={`rounded-xl px-3 py-2 text-xs ${isIncomplete ? 'bg-amber-50 border border-amber-200' : 'bg-gray-50'}`}>
                     <div className="flex justify-between items-center">
                       <span className={`font-semibold ${isIncomplete ? 'text-amber-700' : 'text-gray-700'}`}>{cat}</span>
                       <span className={`font-bold ${isIncomplete ? 'text-amber-600' : 'text-gray-900'}`}>{qty} pz</span>
                     </div>
                     {isIncomplete ? (
                       <p className="text-amber-600 mt-0.5">
-                        Mín. {minQty} pz — agrega {minQty - qty} pieza{minQty - qty !== 1 ? 's' : ''} más
+                        Mín. {minQty} pz — faltan {minQty - qty} pieza{minQty - qty !== 1 ? 's' : ''}
                       </p>
                     ) : nextTier ? (
-                      <div className="mt-0.5">
-                        <p className="text-blue-700 font-semibold">
-                          Agrega {diff} pz más → <span className="font-bold">${nextTier.price.toFixed(2)} c/u</span>
-                        </p>
-                        {saving && (
-                          <p className="text-blue-500">Ahorras ${saving} en tu pedido actual</p>
-                        )}
-                      </div>
+                      <p className="text-blue-600 mt-0.5">
+                        +{diff} pz → ${nextTier.price.toFixed(2)} c/u{saving ? ` · ahorras $${saving}` : ''}
+                      </p>
                     ) : hasTiers ? (
                       <p className="text-green-600 mt-0.5">Mejor precio activo ✓</p>
                     ) : null}
