@@ -30,6 +30,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   })
   const [costFromRules, setCostFromRules] = useState(new Set())
   const [savingCosts, setSavingCosts] = useState(false)
+  const [editingCosts, setEditingCosts] = useState(false)
   const [costoEnvioReal, setCostoEnvioReal] = useState(
     order.costo_envio_real != null ? String(order.costo_envio_real) : ''
   )
@@ -314,7 +315,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
             </div>
 
             {/* Costo por producto */}
-            {(() => {
+            {editingCosts && (() => {
               const qty = item.available_qty || item.qty
               const revenue = qty * item.unit_price
               const costo = parseFloat(costInputs[i])
@@ -435,14 +436,22 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       {/* Footer */}
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 space-y-2">
 
-        {/* Guardar costos por producto */}
+        {/* Toggle + guardar costos */}
         <button
-          onClick={handleSaveCosts}
-          disabled={savingCosts}
-          className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-semibold rounded-xl transition-colors"
+          onClick={() => setEditingCosts(v => !v)}
+          className="w-full py-1.5 border border-gray-200 text-gray-600 text-xs font-semibold rounded-xl hover:bg-gray-50 transition-colors"
         >
-          {savingCosts ? 'Guardando…' : 'Guardar costos'}
+          {editingCosts ? 'Cerrar costos' : 'Editar costos'}
         </button>
+        {editingCosts && (
+          <button
+            onClick={handleSaveCosts}
+            disabled={savingCosts}
+            className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-semibold rounded-xl transition-colors"
+          >
+            {savingCosts ? 'Guardando…' : 'Guardar costos'}
+          </button>
+        )}
 
         {/* Envío — visible en todos los estados activos */}
         {order.status !== 'completed' && (
