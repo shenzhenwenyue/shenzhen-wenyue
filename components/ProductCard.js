@@ -140,80 +140,83 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         {/* Precio actual */}
         <div className="mt-auto pt-1">
           <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-base font-bold text-gray-900">${currentPrice.toFixed(2)}</span>
-              <span className="text-xs text-gray-400">c/u</span>
-              {isDiscounted && (
-                <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-semibold">
-                  Descuento −{savingsPct}%
-                </span>
-              )}
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-base font-bold text-gray-900">${currentPrice.toFixed(2)}</span>
+                <span className="text-xs text-gray-400">c/u</span>
+                {isDiscounted && (
+                  <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-semibold">
+                    Descuento −{savingsPct}%
+                  </span>
+                )}
+              </div>
             </div>
 
-          {/* Controles SIN tallas */}
-          {!hasSizes && (
-            qty > 0 ? (
-              <div className="flex items-center gap-1.5 shrink-0">
-                <button
-                  onClick={() => onRemove(product.id)}
-                  className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-lg leading-none text-gray-700 shrink-0"
-                >−</button>
-                {editingQty ? (
-                  <input
-                    type="number"
-                    min={1}
-                    autoFocus
-                    value={inputVal}
-                    onChange={e => setInputVal(e.target.value)}
-                    onBlur={() => {
-                      const n = parseInt(inputVal)
-                      if (n >= 1) {
-                        const clamped = stockTracked ? Math.min(n, product.stock) : n
-                        onSetQty(product.id, clamped)
-                      }
-                      setEditingQty(false)
-                    }}
-                    onKeyDown={e => {
-                      if (e.key === 'Enter') e.target.blur()
-                      if (e.key === 'Escape') setEditingQty(false)
-                    }}
-                    className="w-9 h-9 text-center font-semibold text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-black"
-                  />
-                ) : (
-                  <span
-                    onClick={() => { setInputVal(String(qty)); setEditingQty(true) }}
-                    className="w-9 h-9 text-center font-semibold text-sm cursor-pointer hover:bg-gray-100 rounded-lg flex items-center justify-center"
-                  >{qty}</span>
-                )}
+            {/* Controles SIN tallas */}
+            {!hasSizes && (
+              qty > 0 ? (
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <button
+                    onClick={() => onRemove(product.id)}
+                    className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-lg leading-none text-gray-700 shrink-0"
+                  >−</button>
+                  {editingQty ? (
+                    <input
+                      type="number"
+                      min={1}
+                      autoFocus
+                      value={inputVal}
+                      onChange={e => setInputVal(e.target.value)}
+                      onBlur={() => {
+                        const n = parseInt(inputVal)
+                        if (n >= 1) {
+                          const clamped = stockTracked ? Math.min(n, product.stock) : n
+                          onSetQty(product.id, clamped)
+                        }
+                        setEditingQty(false)
+                      }}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter') e.target.blur()
+                        if (e.key === 'Escape') setEditingQty(false)
+                      }}
+                      className="w-9 h-9 text-center font-semibold text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                    />
+                  ) : (
+                    <span
+                      onClick={() => { setInputVal(String(qty)); setEditingQty(true) }}
+                      className="w-9 h-9 text-center font-semibold text-sm cursor-pointer hover:bg-gray-100 rounded-lg flex items-center justify-center"
+                    >{qty}</span>
+                  )}
+                  <button
+                    onClick={() => onAdd(product)}
+                    disabled={stockTracked && qty >= product.stock}
+                    className="w-9 h-9 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-lg leading-none text-white shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
+                  >+</button>
+                </div>
+              ) : (
                 <button
                   onClick={() => onAdd(product)}
-                  disabled={stockTracked && qty >= product.stock}
-                  className="w-9 h-9 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-lg leading-none text-white shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
-                >+</button>
-              </div>
-            ) : (
-              <button
-                onClick={() => onAdd(product)}
-                disabled={isOut}
-                className="px-4 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-              >Agregar</button>
-            )
-          )}
+                  disabled={isOut}
+                  className="px-4 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+                >Agregar</button>
+              )
+            )}
 
-          {/* Controles CON tallas */}
-          {hasSizes && (
-            <button
-              onClick={() => setShowSizes(v => !v)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-xl transition-colors ${
-                totalSizedQty > 0
-                  ? 'bg-black text-white'
-                  : 'bg-black text-white hover:bg-gray-800'
-              }`}
-            >
-              {totalSizedQty > 0 ? `${totalSizedQty} u. ▾` : 'Agregar'}
-            </button>
-          )}
+            {/* Controles CON tallas */}
+            {hasSizes && (
+              <button
+                onClick={() => setShowSizes(v => !v)}
+                className={`px-3 py-1.5 text-xs font-semibold rounded-xl transition-colors shrink-0 ${
+                  totalSizedQty > 0
+                    ? 'bg-black text-white'
+                    : 'bg-black text-white hover:bg-gray-800'
+                }`}
+              >
+                {totalSizedQty > 0 ? `${totalSizedQty} u. ▾` : 'Agregar'}
+              </button>
+            )}
           </div>
+
           {nextTier && (
             <p className="text-xs text-blue-600 font-medium mt-1.5 leading-snug">
               +{nextTier.qty - pricingQty} {product.subcategoria === 'Louis Vuitton' ? 'pz más (cualquier perfume)' : 'u. más'} → ${nextTier.price.toFixed(2)} c/u
