@@ -114,10 +114,10 @@ export async function GET() {
       pricingByCategoria[row.categoria].push(row)
     }
 
-    // Build stock lookup: { "nombre del producto": stock }
-    const stockByNombre = {}
+    // Build inventory lookup: { "nombre del producto": { stock, destacado } }
+    const inventoryByNombre = {}
     for (const row of (inventoryResult.data || [])) {
-      stockByNombre[row.nombre] = row.stock
+      inventoryByNombre[row.nombre] = row
     }
 
     const products = rows
@@ -174,9 +174,11 @@ export async function GET() {
           product.precio_tier5 = null
         }
 
-        // Enriquecer con stock desde Supabase (todas las categorías)
-        if (product.nombre in stockByNombre) {
-          product.stock = stockByNombre[product.nombre]
+        // Enriquecer con stock y destacado desde Supabase (todas las categorías)
+        if (product.nombre in inventoryByNombre) {
+          const inv = inventoryByNombre[product.nombre]
+          product.stock = inv.stock ?? product.stock
+          if (inv.destacado != null) product.destacado = inv.destacado
         }
 
         return product

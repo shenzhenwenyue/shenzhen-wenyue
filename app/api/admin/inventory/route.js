@@ -15,12 +15,17 @@ export async function GET(req) {
 
 export async function PUT(req) {
   if (!isAuthorized(req)) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
-  const { nombre, stock } = await req.json()
-  if (!nombre || stock === undefined) return NextResponse.json({ error: 'nombre y stock requeridos' }, { status: 400 })
+  const { nombre, stock, destacado } = await req.json()
+  if (!nombre) return NextResponse.json({ error: 'nombre requerido' }, { status: 400 })
+  if (stock === undefined && destacado === undefined)
+    return NextResponse.json({ error: 'stock o destacado requeridos' }, { status: 400 })
+  const upsertData = { nombre }
+  if (stock !== undefined) upsertData.stock = parseInt(stock)
+  if (destacado !== undefined) upsertData.destacado = Boolean(destacado)
   const sb = getSupabase()
   const { data, error } = await sb
     .from('inventory')
-    .upsert({ nombre, stock: parseInt(stock) }, { onConflict: 'nombre' })
+    .upsert(upsertData, { onConflict: 'nombre' })
     .select()
     .single()
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })

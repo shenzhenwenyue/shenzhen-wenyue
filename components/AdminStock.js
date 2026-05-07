@@ -13,10 +13,11 @@ function StockBadge({ stock }) {
   return <span className="text-sm font-bold text-green-600">{stock} pz</span>
 }
 
-function ProductRow({ product, stock, onSave }) {
+function ProductRow({ product, stock, destacado, onSaveStock, onSaveDestacado }) {
   const [editing, setEditing] = useState(false)
   const [val, setVal] = useState('')
   const [saving, setSaving] = useState(false)
+  const [togglingDest, setTogglingDest] = useState(false)
 
   function startEdit() {
     setVal(String(stock ?? 0))
@@ -27,9 +28,15 @@ function ProductRow({ product, stock, onSave }) {
     const n = parseInt(val)
     if (isNaN(n) || n < 0) return
     setSaving(true)
-    await onSave(product.nombre, n)
+    await onSaveStock(product.nombre, n)
     setSaving(false)
     setEditing(false)
+  }
+
+  async function toggleDestacado() {
+    setTogglingDest(true)
+    await onSaveDestacado(product.nombre, !destacado)
+    setTogglingDest(false)
   }
 
   return (
@@ -58,6 +65,14 @@ function ProductRow({ product, stock, onSave }) {
         </div>
       ) : (
         <div className="flex items-center gap-3 shrink-0">
+          <button
+            onClick={toggleDestacado}
+            disabled={togglingDest}
+            title={destacado ? 'Quitar Top' : 'Marcar como Top'}
+            className={`text-base leading-none transition-opacity ${togglingDest ? 'opacity-40' : ''} ${destacado ? 'text-amber-400' : 'text-gray-200 hover:text-amber-300'}`}
+          >
+            ★
+          </button>
           <StockBadge stock={stock} />
           <button onClick={startEdit}
             className="text-xs text-gray-400 hover:text-gray-900 px-2.5 py-1 rounded-xl hover:bg-gray-100 transition-colors font-medium">
@@ -69,7 +84,7 @@ function ProductRow({ product, stock, onSave }) {
   )
 }
 
-function CategorySection({ categoria, products, inventory, onSave }) {
+function CategorySection({ categoria, products, inventory, destacadoMap, onSaveStock, onSaveDestacado }) {
   const [open, setOpen] = useState(false)
 
   const tracked = products.filter(p => inventory[p.nombre] !== undefined)
@@ -110,7 +125,9 @@ function CategorySection({ categoria, products, inventory, onSave }) {
               key={p.id}
               product={p}
               stock={inventory[p.nombre] ?? null}
-              onSave={onSave}
+              destacado={destacadoMap[p.nombre] ?? false}
+              onSaveStock={onSaveStock}
+              onSaveDestacado={onSaveDestacado}
             />
           ))}
         </div>
@@ -122,6 +139,7 @@ function CategorySection({ categoria, products, inventory, onSave }) {
 export default function AdminStock({ adminPassword }) {
   const [products, setProducts] = useState([])
   const [inventory, setInventory] = useState({})
+  const [destacadoMap, setDestacadoMap] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -137,15 +155,20 @@ export default function AdminStock({ adminPassword }) {
       if (Array.isArray(prods)) setProducts(prods)
       else setError('Error cargando productos')
       if (Array.isArray(inv)) {
-        const map = {}
-        inv.forEach(row => { map[row.nombre] = row.stock })
-        setInventory(map)
+        const stockMap = {}
+        const destMap = {}
+        inv.forEach(row => {
+          stockMap[row.nombre] = row.stock
+          destMap[row.nombre] = row.destacado ?? false
+        })
+        setInventory(stockMap)
+        setDestacadoMap(destMap)
       }
       setLoading(false)
     }).catch(() => { setError('Error de conexión'); setLoading(false) })
   }, [adminPassword])
 
-  async function handleSave(nombre, stock) {
+  async function handleSaveStock(nombre, stock) {
     const res = await fetch('/api/admin/inventory', {
       method: 'PUT',
       headers,
@@ -153,6 +176,16 @@ export default function AdminStock({ adminPassword }) {
     })
     const data = await res.json()
     if (!data.error) setInventory(inv => ({ ...inv, [nombre]: stock }))
+  }
+
+  async function handleSaveDestacado(nombre, destacado) {
+    const res = await fetch('/api/admin/inventory', {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({ nombre, destacado }),
+    })
+    const data = await res.json()
+    if (!data.error) setDestacadoMap(d => ({ ...d, [nombre]: destacado }))
   }
 
   const byCategoria = products.reduce((acc, p) => {
@@ -204,7 +237,9 @@ export default function AdminStock({ adminPassword }) {
             categoria={cat}
             products={prods}
             inventory={inventory}
-            onSave={handleSave}
+            destacadoMap={destacadoMap}
+            onSaveStock={handleSaveStock}
+            onSaveDestacado={handleSaveDestacado}
           />
         ))}
       </div>
