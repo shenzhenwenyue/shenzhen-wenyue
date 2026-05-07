@@ -52,22 +52,38 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       .then(rules => {
         if (!Array.isArray(rules) || rules.length === 0) return
         const ruleIndices = new Set()
-        setCostInputs(prev => {
-          const updated = { ...prev }
-          order.items.forEach((item, i) => {
-            if (updated[i] !== '' && updated[i] !== null && updated[i] !== undefined) return
-            const totalCategoryQty = order.items
-              .filter(it => it.categoria === item.categoria)
-              .reduce((s, it) => s + it.qty, 0)
-            const costo = getCosto(rules, item, totalCategoryQty)
-            if (costo !== null) {
-              updated[i] = String(costo)
-              ruleIndices.add(i)
-            }
-          })
-          return updated
+        const updatedInputs = {}
+        const updatedItems = order.items.map(item => ({ ...item }))
+        let anyNewFromRules = false
+
+        order.items.forEach((item, i) => {
+          if (item.unit_cost != null) {
+            updatedInputs[i] = String(item.unit_cost)
+            return
+          }
+          const totalCategoryQty = order.items
+            .filter(it => it.categoria === item.categoria)
+            .reduce((s, it) => s + it.qty, 0)
+          const costo = getCosto(rules, item, totalCategoryQty)
+          if (costo !== null) {
+            updatedInputs[i] = String(costo)
+            ruleIndices.add(i)
+            updatedItems[i] = { ...item, unit_cost: costo }
+            anyNewFromRules = true
+          } else {
+            updatedInputs[i] = ''
+          }
         })
+
+        setCostInputs(updatedInputs)
         setCostFromRules(ruleIndices)
+
+        if (anyNewFromRules) {
+          const allCovered = order.items.every((item, i) =>
+            item.unit_cost != null || ruleIndices.has(i)
+          )
+          if (allCovered) patch({ items: updatedItems })
+        }
       })
   }, [])
   const [showHistory, setShowHistory] = useState(false)
@@ -510,13 +526,24 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 space-y-2">
 
         {/* Costos — colapsable */}
-        <button
-          onClick={() => setEditingCosts(v => !v)}
-          className="w-full py-1.5 border border-gray-200 text-gray-600 text-xs font-semibold rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5"
-        >
-          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-          {editingCosts ? 'Cerrar costos' : 'Editar costos'}
-        </button>
+        {(() => {
+          const allCostsSet = order.items.every(item => item.unit_cost != null)
+          const pendingCount = order.items.filter(item => item.unit_cost == null).length
+          return (
+            <button
+              onClick={() => setEditingCosts(v => !v)}
+              className={`w-full py-1.5 border text-xs font-semibold rounded-xl transition-colors flex items-center justify-center gap-1.5 ${
+                editingCosts
+                  ? 'border-gray-300 bg-gray-100 text-gray-700'
+                  : allCostsSet
+                    ? 'border-emerald-200 text-emerald-700 hover:bg-emerald-50'
+                    : 'border-amber-200 text-amber-700 hover:bg-amber-50'
+              }`}
+            >
+              {editingCosts ? 'Cerrar costos' : allCostsSet ? '✓ Costos completos' : `Costos — ${pendingCount} sin capturar`}
+            </button>
+          )
+        })()}
         {editingCosts && (
           <div className="border border-gray-200 rounded-xl overflow-hidden">
             {order.items.map((item, i) => {
@@ -524,9 +551,10 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
               const revenue = qty * item.unit_price
               const costo = parseFloat(costInputs[i])
               const ganancia = !isNaN(costo) ? revenue - costo * qty : null
+              const needsManual = (costInputs[i] === '' || costInputs[i] == null) && !costFromRules.has(i)
               return (
-                <div key={i} className="flex items-center gap-2 px-3 py-2 border-b border-gray-100 last:border-0">
-                  <p className="flex-1 text-xs text-gray-700 truncate min-w-0">{item.nombre}</p>
+                <div key={i} className={`flex items-center gap-2 px-3 py-2 border-b border-gray-100 last:border-0 ${needsManual ? 'bg-amber-50' : ''}`}>
+                  <p className={`flex-1 text-xs truncate min-w-0 ${needsManual ? 'text-amber-800 font-medium' : 'text-gray-700'}`}>{item.nombre}</p>
                   <div className="relative shrink-0">
                     <input
                       type="number"
@@ -539,9 +567,11 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                       }}
                       placeholder="$0.00"
                       className={`w-20 px-2 py-1 rounded-lg text-xs text-center focus:outline-none transition-colors ${
-                        costFromRules.has(i)
-                          ? 'border border-blue-300 bg-blue-50 text-blue-700 focus:border-blue-500'
-                          : 'border border-gray-200 focus:border-gray-400'
+                        needsManual
+                          ? 'border border-amber-300 bg-amber-50 focus:border-amber-500'
+                          : costFromRules.has(i)
+                            ? 'border border-blue-300 bg-blue-50 text-blue-700 focus:border-blue-500'
+                            : 'border border-gray-200 focus:border-gray-400'
                       }`}
                     />
                     {costFromRules.has(i) && (
