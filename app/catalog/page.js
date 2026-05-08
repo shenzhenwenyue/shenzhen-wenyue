@@ -1,16 +1,18 @@
 'use client'
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import ProductCard from '@/components/ProductCard'
 import GroupedProductCard from '@/components/GroupedProductCard'
 import CategoryFilter from '@/components/CategoryFilter'
 import Cart from '@/components/Cart'
 import OrderModal from '@/components/OrderModal'
 
-export default function CatalogPage() {
+function CatalogInner() {
+  const searchParams = useSearchParams()
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [selectedCat, setSelectedCat] = useState(null)
+  const [selectedCat, setSelectedCat] = useState(() => searchParams.get('cat') || null)
   const [selectedSubcat, setSelectedSubcat] = useState(null)
   const [sortOrder, setSortOrder] = useState('destacado')
   const [search, setSearch] = useState('')
@@ -371,6 +373,14 @@ export default function CatalogPage() {
         />
       )}
     </main>
+  )
+}
+
+export default function CatalogPage() {
+  return (
+    <Suspense>
+      <CatalogInner />
+    </Suspense>
   )
 }
 

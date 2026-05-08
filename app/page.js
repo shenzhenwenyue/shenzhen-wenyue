@@ -2,9 +2,9 @@
 import { useState, useEffect } from 'react'
 
 const CATEGORIES = [
-  { name: 'Designer Fragrances', sub: 'Chanel, Dior, YSL, Tom Ford & more', icon: '🌸', color: 'bg-purple-50 border-purple-100' },
-  { name: 'Lululemon', sub: 'Leggings, bras, shorts & more', icon: '🏃', color: 'bg-red-50 border-red-100' },
-  { name: 'Alo Yoga', sub: 'Premium activewear sets', icon: '🧘', color: 'bg-sky-50 border-sky-100' },
+  { name: 'Designer Fragrances', sub: 'Chanel, Dior, YSL, Tom Ford & more', icon: '🌸', color: 'bg-purple-50 border-purple-100', cat: 'Perfumes' },
+  { name: 'Lululemon', sub: 'Leggings, bras, shorts & more', icon: '🏃', color: 'bg-red-50 border-red-100', cat: 'Lululemon' },
+  { name: 'Alo Yoga', sub: 'Premium activewear sets', icon: '🧘', color: 'bg-sky-50 border-sky-100', cat: 'Alo Yoga' },
   { name: 'Van Cleef & Co.', sub: 'Fine jewelry & accessories', icon: '💎', color: 'bg-yellow-50 border-yellow-100', soon: true },
   { name: 'Makeup', sub: 'Luxury cosmetics brands', icon: '💄', color: 'bg-pink-50 border-pink-100', soon: true },
   { name: 'Designer Caps', sub: 'MLB, luxury & streetwear', icon: '🧢', color: 'bg-green-50 border-green-100', soon: true },
@@ -171,7 +171,7 @@ export default function LandingPage() {
               ) : (
                 <a
                   key={cat.name}
-                  href="/catalog"
+                  href={`/catalog?cat=${encodeURIComponent(cat.cat)}`}
                   className={`flex flex-col items-center text-center p-4 sm:p-5 rounded-2xl border-2 bg-white hover:border-[#FF6A00] hover:shadow-md transition-all group ${cat.color}`}
                 >
                   <span className="text-3xl sm:text-4xl mb-2">{cat.icon}</span>
