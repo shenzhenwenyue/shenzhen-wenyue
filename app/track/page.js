@@ -54,7 +54,7 @@ export default function TrackPage() {
             <h1 className="text-base font-bold text-gray-900">Order Tracking</h1>
             <p className="text-xs text-gray-400">Shenzhen Wenyue</p>
           </div>
-          <a href="/" className="text-xs text-gray-500 hover:text-gray-900 transition-colors">
+          <a href="/catalog" className="text-xs text-gray-500 hover:text-gray-900 transition-colors">
             ← Back to catalog
           </a>
         </div>
