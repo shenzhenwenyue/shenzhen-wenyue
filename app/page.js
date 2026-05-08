@@ -55,7 +55,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div>
             <span className="font-bold text-base sm:text-lg tracking-tight leading-none">Shenzhen Wenyue Ltd.</span>
-            <p className="text-xs text-orange-100 mt-0.5">Wholesale · B2B</p>
+            <p className="text-xs text-orange-100 mt-0.5">深圳闻悦贸易有限公司</p>
           </div>
           <nav className="flex items-center gap-2">
             <a
