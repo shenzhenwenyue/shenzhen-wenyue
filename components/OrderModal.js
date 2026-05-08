@@ -101,7 +101,6 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
 
       setWaUrl(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`)
       setDone(true)
-      onSuccess()
     } catch (e) {
       setError(e.message)
     } finally {
@@ -111,7 +110,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/50" onClick={done ? onSuccess : onClose} />
       <div className="relative w-full max-w-md bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl p-6 max-h-[92vh] overflow-y-auto">
 
         {done ? (
@@ -128,8 +127,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
             {waUrl && (
               <a
                 href={waUrl}
-                target="_blank"
-                rel="noreferrer"
+                onClick={() => setTimeout(onSuccess, 500)}
                 className="flex items-center justify-center gap-2 w-full py-3.5 bg-green-500 hover:bg-green-600 text-white font-bold rounded-2xl transition-colors"
               >
                 <svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -138,6 +136,12 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
                 Enviar pedido por WhatsApp
               </a>
             )}
+            <button
+              onClick={onSuccess}
+              className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              Cerrar
+            </button>
           </div>
         ) : (
           <>
