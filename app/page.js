@@ -11,7 +11,7 @@ const CATEGORIES = [
 ]
 
 const STATS = [
-  { value: '500+', label: 'Active Buyers' },
+  { value: '2,000+', label: 'Active Buyers' },
   { value: '1,000+', label: 'SKUs Available' },
   { value: '5+', label: 'Years in Business' },
   { value: '24h', label: 'Quote Turnaround' },
