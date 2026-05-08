@@ -183,7 +183,7 @@ export default function CatalogPage() {
             </button>
           </div>
 
-          <
+          <a
             href="/track"
             className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 px-3 py-2 rounded-xl transition-colors text-sm font-medium shrink-0"
           >
