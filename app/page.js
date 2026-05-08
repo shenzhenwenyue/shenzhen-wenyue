@@ -14,7 +14,7 @@ const STATS = [
   { value: '2,000+', label: 'Active Buyers' },
   { value: '1,000+', label: 'SKUs Available' },
   { value: '5+', label: 'Years in Business' },
-  { value: '~1hr', label: 'Quote Response' },
+  { value: 'Same-Day', label: 'Quote Response' },
 ]
 
 const STEPS = [
