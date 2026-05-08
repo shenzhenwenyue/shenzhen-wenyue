@@ -53,13 +53,15 @@ export async function POST(req) {
         .map(i => `• ${i.qty}x ${i.nombre}${i.size ? ` (${i.size})` : ''} — $${(i.qty * i.unit_price).toFixed(2)}`)
         .join('\n')
 
+      const orderNumber = `#${data.id.substring(0, 8).toUpperCase()}`
       await resend.emails.send({
         from: 'Pedidos <onboarding@resend.dev>',
         to: process.env.NOTIFY_EMAIL,
-        subject: `Nuevo pedido de ${data.customer_name}`,
+        subject: `Nuevo pedido ${orderNumber} — ${data.customer_name}`,
         text: [
           `NUEVO PEDIDO — Shenzhen Wenyue`,
           ``,
+          `Orden: ${orderNumber}`,
           `Cliente: ${data.customer_name}`,
           `Correo: ${data.customer_email || 'No proporcionado'}`,
           `WhatsApp: ${data.customer_whatsapp}`,

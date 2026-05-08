@@ -84,6 +84,8 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
 
       setDone(true)
 
+      const orderNumber = `#${data.id.substring(0, 8).toUpperCase()}`
+
       // Avisar por WhatsApp con resumen por categoría
       const catSummary = Object.entries(totalByCategory)
         .map(([cat, qty]) => {
@@ -91,7 +93,8 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
           return `• ${cat}: ${qty} pz — $${sub.toFixed(2)}`
         }).join('\n')
       const msg =
-        `Hola! Soy *${name.trim()}*.\n\n` +
+        `Hola! Soy *${name.trim()}*.\n` +
+        `📋 Pedido *${orderNumber}*\n\n` +
         `📦 Solicitud de cotización:\n${catSummary}\n\n` +
         `Subtotal: $${subtotal.toFixed(2)}\n` +
         `Envío: $${shipping.toFixed(2)}\n` +
