@@ -253,6 +253,53 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── PAYMENT METHODS ── */}
+      <section className="py-14 px-4 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-2">Accepted Payments</h2>
+          <p className="text-gray-500 text-sm mb-10">Simple, secure and flexible payment options for every buyer</p>
+          <div className="grid grid-cols-3 gap-4 sm:gap-6">
+
+            {/* Cash App */}
+            <div className="flex flex-col items-center gap-3 bg-[#00D64F]/8 border-2 border-[#00D64F]/30 rounded-2xl p-5 sm:p-7 hover:border-[#00D64F] hover:shadow-md transition-all">
+              <div className="w-14 h-14 rounded-2xl bg-[#00D64F] flex items-center justify-center shadow-md">
+                <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.5 2C9.46 2 6.67 3.37 4.78 5.57L3.5 4.3A1 1 0 002 5v4a1 1 0 001 1h4a1 1 0 00.71-1.71L6.56 7.14A7.5 7.5 0 0119.5 12a1 1 0 002 0C21.5 6.75 17.47 2 12.5 2zm0 20c3.04 0 5.83-1.37 7.72-3.57l1.28 1.27A1 1 0 0023 19v-4a1 1 0 00-1-1h-4a1 1 0 00-.71 1.71l1.15 1.15A7.5 7.5 0 014.5 12a1 1 0 00-2 0c0 5.25 4.03 10 9 10z"/>
+                </svg>
+              </div>
+              <div>
+                <p className="font-extrabold text-gray-900 text-base">Cash App</p>
+                <p className="text-gray-400 text-xs mt-0.5">Instant transfers</p>
+              </div>
+            </div>
+
+            {/* Zelle */}
+            <div className="flex flex-col items-center gap-3 bg-[#6D1ED4]/8 border-2 border-[#6D1ED4]/30 rounded-2xl p-5 sm:p-7 hover:border-[#6D1ED4] hover:shadow-md transition-all">
+              <div className="w-14 h-14 rounded-2xl bg-[#6D1ED4] flex items-center justify-center shadow-md">
+                <span className="text-white font-extrabold text-xl tracking-tighter">Z</span>
+              </div>
+              <div>
+                <p className="font-extrabold text-gray-900 text-base">Zelle</p>
+                <p className="text-gray-400 text-xs mt-0.5">Bank-to-bank</p>
+              </div>
+            </div>
+
+            {/* Alibaba */}
+            <div className="flex flex-col items-center gap-3 bg-[#FF6A00]/8 border-2 border-[#FF6A00]/30 rounded-2xl p-5 sm:p-7 hover:border-[#FF6A00] hover:shadow-md transition-all">
+              <div className="w-14 h-14 rounded-2xl bg-[#FF6A00] flex items-center justify-center shadow-md">
+                <span className="text-white font-extrabold text-lg tracking-tighter">Ali</span>
+              </div>
+              <div>
+                <p className="font-extrabold text-gray-900 text-base">Alibaba</p>
+                <p className="text-gray-400 text-xs mt-0.5">Trade Assurance</p>
+              </div>
+            </div>
+
+          </div>
+          <p className="text-xs text-gray-400 mt-8">Payment instructions are sent with your quote confirmation.</p>
+        </div>
+      </section>
+
       {/* ── BOTTOM CTA ── */}
       <section className="bg-[#FF6A00] text-white py-14 px-4 text-center">
         <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">Ready to place your first order?</h2>
