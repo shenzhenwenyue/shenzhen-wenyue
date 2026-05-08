@@ -164,7 +164,7 @@ function CatalogInner() {
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
           <a href="/" className="min-w-0 shrink-0 hover:opacity-90 transition-opacity">
             <h1 className="font-bold tracking-tight leading-none text-base sm:text-lg truncate">
-              Shenzhen Wenyue Ltd.
+              Shenzhen Wenyue LTD. Co.
             </h1>
             <p className="text-xs text-orange-100 mt-0.5">Wholesale · B2B</p>
           </a>

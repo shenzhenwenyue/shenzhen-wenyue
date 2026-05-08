@@ -54,7 +54,7 @@ export default function LandingPage() {
       <header className="bg-[#FF6A00] text-white sticky top-0 z-40 shadow-md">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div>
-            <span className="font-bold text-base sm:text-lg tracking-tight leading-none">Shenzhen Wenyue Ltd.</span>
+            <span className="font-bold text-base sm:text-lg tracking-tight leading-none">Shenzhen Wenyue LTD. Co.</span>
             <p className="text-xs text-orange-100 mt-0.5">深圳闻悦贸易有限公司</p>
           </div>
           <nav className="flex items-center gap-2">
@@ -235,8 +235,8 @@ export default function LandingPage() {
           <h2 className="text-center text-2xl font-extrabold text-gray-900 mb-8">Why Buyers Choose Us</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
-              { icon: '🇨🇳', title: 'China Direct Source', desc: 'Products sourced directly from manufacturers in Shenzhen. No middlemen.' },
-              { icon: '🏭', title: 'USA Warehouse', desc: 'Inventory held in the US. Faster shipping, no customs delays.' },
+              { icon: '🇨🇳', title: 'China Direct Source', desc: 'Factory-direct pricing on premium brands. Sourced straight from Shenzhen.' },
+              { icon: '🏭', title: 'USA Warehouse', desc: 'Inventory held in the US. Fast domestic shipping to your door.' },
               { icon: '💰', title: 'Volume Pricing', desc: 'Prices drop automatically as you add more pieces. No negotiation needed.' },
               { icon: '✅', title: 'Verified Products', desc: 'Every product is inspected and verified before shipment.' },
               { icon: '⚡', title: 'Fast Quote Response', desc: 'Submit your cart online and receive a quote response within hours.' },
@@ -285,7 +285,7 @@ export default function LandingPage() {
 
       {/* ── FOOTER ── */}
       <footer className="bg-[#1A1A1A] text-gray-400 py-6 px-4 text-center text-xs">
-        <p className="font-semibold text-white mb-1">Shenzhen Wenyue Ltd.</p>
+        <p className="font-semibold text-white mb-1">Shenzhen Wenyue LTD. Co.</p>
         <p>USA Wholesale Supplier · All prices in USD</p>
         <div className="flex justify-center gap-4 mt-3">
           <a href="/catalog" className="hover:text-white transition-colors">Catalog</a>

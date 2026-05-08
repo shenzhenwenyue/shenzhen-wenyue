@@ -4,7 +4,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Shenzhen Wenyue — Wholesale Catalog',
+  title: 'Shenzhen Wenyue LTD. Co. — Wholesale Catalog',
   description: 'Designer fragrances, activewear, jewelry & more at wholesale prices. USA warehouse. B2B supplier.',
 }
 
