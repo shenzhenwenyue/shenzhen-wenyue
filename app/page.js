@@ -14,7 +14,7 @@ const STATS = [
   { value: '2,000+', label: 'Active Buyers' },
   { value: '1,000+', label: 'SKUs Available' },
   { value: '5+', label: 'Years in Business' },
-  { value: '24h', label: 'Quote Turnaround' },
+  { value: '~1hr', label: 'Quote Response' },
 ]
 
 const STEPS = [
@@ -31,7 +31,7 @@ const STEPS = [
   {
     n: '03',
     title: 'Confirm & Receive',
-    desc: "We confirm availability within 24h, send a PDF invoice, and ship from our USA warehouse.",
+    desc: "We confirm availability within hours, send a PDF invoice, and ship from our USA warehouse.",
   },
 ]
 
