@@ -71,17 +71,17 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         {/* Stock badges — bottom right */}
         {stockTracked && product.stock > 0 && !isLow && (
           <span className="absolute bottom-2 right-2 bg-green-600 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
-            En Stock
+            In Stock
           </span>
         )}
         {isOut && (
           <span className="absolute bottom-2 right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
-            Agotado
+            Out of Stock
           </span>
         )}
         {isLow && (
           <span className="absolute bottom-2 right-2 bg-amber-500 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
-            Últimas {product.stock}
+            Last {product.stock}
           </span>
         )}
       </div>
@@ -96,7 +96,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
 
         {/* MOQ badge */}
         <span className="inline-block text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-medium mb-1">
-          MOQ: {product.qty_minima || 1} pz
+          MOQ: {product.qty_minima || 1} pcs
         </span>
 
         {product.descripcion && (
@@ -107,7 +107,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         {hasTiers && (
           <div className="mb-2 rounded-lg bg-[#FFF7F0] p-2 space-y-0.5 text-xs">
             {(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') && (
-              <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Precio según total de piezas en la subcategoría</p>
+              <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Price based on total pieces in subcategory</p>
             )}
             <TierRow
               label={`${(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 1 : (product.qty_minima || 1)}–${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} u.`}
@@ -149,13 +149,13 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             )}
             {categoryQty > (displayQty || 0) && (
               <p className="text-green-600 font-medium pt-0.5 border-t border-gray-200 mt-1">
-                ✓ {categoryQty} u. en total en esta {(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 'subcategoría' : 'categoría'}
+                ✓ {categoryQty} pcs total in this {(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 'subcategory' : 'category'}
               </p>
             )}
             {/* Nota LV: el precio mejora con cualquier perfume del pedido */}
             {product.subcategoria === 'Louis Vuitton' && (
               <p className="text-xs text-purple-600 font-medium pt-0.5 border-t border-gray-200 mt-1">
-                El precio aplica sobre el total de perfumes en tu pedido (LV + otras marcas)
+                Price applies to total perfumes in your order (LV + all brands)
               </p>
             )}
           </div>
@@ -170,7 +170,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
               )}
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-base font-bold text-[#FF6A00]">${currentPrice.toFixed(2)}</span>
-                <span className="text-xs text-gray-400">c/u</span>
+                <span className="text-xs text-gray-400">ea.</span>
                 {isDiscounted && (
                   <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-bold">
                     −{savingsPct}%
@@ -225,7 +225,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                   onClick={() => onAdd(product)}
                   disabled={isOut}
                   className="px-4 py-2 bg-[#FF6A00] text-white text-xs font-semibold rounded-xl hover:bg-[#E55A00] transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
-                >Agregar</button>
+                >Add</button>
               )
             )}
 
@@ -239,14 +239,14 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                     : 'bg-[#FF6A00] text-white hover:bg-[#E55A00]'
                 }`}
               >
-                {totalSizedQty > 0 ? `${totalSizedQty} u. ▾` : 'Agregar'}
+                {totalSizedQty > 0 ? `${totalSizedQty} pcs ▾` : 'Add'}
               </button>
             )}
           </div>
 
           {nextTier && (
             <p className="text-xs text-[#FF6A00] font-medium mt-1.5 leading-snug">
-              +{nextTier.qty - pricingQty} {product.subcategoria === 'Louis Vuitton' ? 'pz más (cualquier perfume)' : 'u. más'} → ${nextTier.price.toFixed(2)} c/u
+              +{nextTier.qty - pricingQty} {product.subcategoria === 'Louis Vuitton' ? 'more pcs (any perfume)' : 'more pcs'} → ${nextTier.price.toFixed(2)} ea.
             </p>
           )}
         </div>
@@ -254,7 +254,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         {/* Selector de tallas (inline) */}
         {hasSizes && showSizes && (
           <div className="mt-3 pt-3 border-t border-gray-100">
-            <p className="text-xs font-semibold text-gray-500 mb-2">Selecciona talla:</p>
+            <p className="text-xs font-semibold text-gray-500 mb-2">Select size:</p>
             <div className="flex flex-wrap gap-2">
               {product.tallas.map(size => {
                 const sizeQty = cartSizes?.[size] || 0
@@ -294,7 +294,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                         <span>{size}</span>
                         {tracked && (
                           <span className={`block text-[10px] leading-none mt-0.5 ${isOut ? 'text-red-400' : isLow ? 'text-amber-500' : 'text-gray-400'}`}>
-                            {isOut ? 'Agotado' : `${avail} disp.`}
+                            {isOut ? 'Out of Stock' : `${avail} avail.`}
                           </span>
                         )}
                       </button>
@@ -304,23 +304,23 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
               })}
             </div>
             {product.qty_minima > 1 && !(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') && (
-              <p className="text-xs text-gray-400 mt-2">Mín. {product.qty_minima} pz en total en la categoría "{product.categoria}"</p>
+              <p className="text-xs text-gray-400 mt-2">Min. {product.qty_minima} pcs total in "{product.categoria}" category</p>
             )}
           </div>
         )}
 
         {(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga')
-          ? <p className="text-xs text-gray-400 mt-1">Mín. 10 pz totales de {product.categoria}</p>
+          ? <p className="text-xs text-gray-400 mt-1">Min. 10 pcs total for {product.categoria}</p>
           : !hasSizes && product.qty_minima > 1
-            ? <p className="text-xs text-gray-400 mt-1">Mín. {product.qty_minima} pz en total en la categoría "{product.categoria}"</p>
+            ? <p className="text-xs text-gray-400 mt-1">Min. {product.qty_minima} pcs total in "{product.categoria}" category</p>
             : null
         }
 
         {/* Trust footer */}
         <div className="mt-2 pt-2 border-t border-gray-100 flex items-center gap-1.5">
-          <span className="text-[10px] text-green-600 font-semibold">&#10003; Verificado</span>
+          <span className="text-[10px] text-green-600 font-semibold">&#10003; Verified</span>
           <span className="text-gray-300 text-[10px]">·</span>
-          <span className="text-[10px] text-gray-400">Envío USA</span>
+          <span className="text-[10px] text-gray-400">USA Shipping</span>
         </div>
       </div>
     </div>

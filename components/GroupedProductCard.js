@@ -66,7 +66,7 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
             </svg>
-            {group.variants.length} tallas
+            {group.variants.length} sizes
           </div>
         </div>
 
@@ -81,17 +81,17 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
           {hasTiers && (
             <div className="mb-2 rounded-lg bg-gray-50 p-2 space-y-0.5 text-xs">
               {(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') && (
-                <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Precio según total de piezas en la subcategoría</p>
+                <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Price based on total pieces in subcategory</p>
               )}
               <TierRow label={`${(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') ? 1 : (base.qty_minima || 1)}–${base.qty_tier2 ? base.qty_tier2 - 1 : '+'} u.`} price={base.precio_1} active={pricingQty < (base.qty_tier2 || Infinity)} />
               {base.qty_tier2 && base.precio_tier2 && <TierRow label={`${base.qty_tier2}–${base.qty_tier3 ? base.qty_tier3 - 1 : '+'} u.`} price={base.precio_tier2} active={pricingQty >= base.qty_tier2 && (!base.qty_tier3 || pricingQty < base.qty_tier3)} highlight />}
               {base.qty_tier3 && base.precio_tier3 && <TierRow label={`${base.qty_tier3}–${base.qty_tier4 ? base.qty_tier4 - 1 : '+'} u.`} price={base.precio_tier3} active={pricingQty >= base.qty_tier3 && (!base.qty_tier4 || pricingQty < base.qty_tier4)} highlight />}
               {base.qty_tier4 && base.precio_tier4 && <TierRow label={`${base.qty_tier4}+ u.`} price={base.precio_tier4} active={pricingQty >= base.qty_tier4} highlight best />}
               {categoryQty > totalInCart && (
-                <p className="text-green-600 font-medium pt-0.5 border-t border-gray-200 mt-1">✓ {categoryQty} u. en total en esta categoría</p>
+                <p className="text-green-600 font-medium pt-0.5 border-t border-gray-200 mt-1">✓ {categoryQty} pcs total in this category</p>
               )}
               {base.qty_minima > 1 && (
-                <p className="text-gray-400 pt-0.5 border-t border-gray-200 mt-1">Mín. {base.qty_minima} pz en total en la categoría</p>
+                <p className="text-gray-400 pt-0.5 border-t border-gray-200 mt-1">Min. {base.qty_minima} pcs total in category</p>
               )}
             </div>
           )}
@@ -100,16 +100,16 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
             <div>
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-base font-bold text-gray-900">${currentPrice.toFixed(2)}</span>
-                <span className="text-xs text-gray-400">c/u</span>
+                <span className="text-xs text-gray-400">ea.</span>
                 {isDiscounted && <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-semibold">−{savingsPct}%</span>}
               </div>
               {nextTier && (
-                <p className="text-xs text-blue-600 font-medium mt-0.5">+{nextTier.qty - pricingQty} u. más → ${nextTier.price.toFixed(2)} c/u</p>
+                <p className="text-xs text-blue-600 font-medium mt-0.5">+{nextTier.qty - pricingQty} more pcs → ${nextTier.price.toFixed(2)} ea.</p>
               )}
             </div>
           </div>
           {(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') && (
-            <p className="text-xs text-gray-400 mt-1">Mín. 10 pz totales de {group.categoria}</p>
+            <p className="text-xs text-gray-400 mt-1">Min. 10 pcs total for {group.categoria}</p>
           )}
         </div>
       </div>
@@ -146,7 +146,7 @@ function SizeModal({ group, cart, onAdd, onRemove, onClose, currentPrice, totalI
           <div className="flex-1 min-w-0 pr-3">
             <p className="text-xs text-gray-400 uppercase tracking-wide">{group.categoria} · {group.subcategoria}</p>
             <h2 className="font-bold text-gray-900 text-base leading-snug mt-0.5">{group.nombre}</h2>
-            <p className="text-sm font-semibold text-gray-700 mt-0.5">${currentPrice.toFixed(2)} <span className="font-normal text-gray-400">c/u</span></p>
+            <p className="text-sm font-semibold text-gray-700 mt-0.5">${currentPrice.toFixed(2)} <span className="font-normal text-gray-400">ea.</span></p>
           </div>
           <button
             onClick={onClose}
@@ -165,7 +165,7 @@ function SizeModal({ group, cart, onAdd, onRemove, onClose, currentPrice, totalI
             const cartItem = cart.find(i => i.id === cartId)
             const inCart = cartItem?.qty || 0
             const isOutOfStock = variant.stock !== null && variant.stock === 0
-            const stockLabel = variant.stock !== null ? `${variant.stock} disponibles` : 'Disponible'
+            const stockLabel = variant.stock !== null ? `${variant.stock} available` : 'Available'
 
             return (
               <div
@@ -183,7 +183,7 @@ function SizeModal({ group, cart, onAdd, onRemove, onClose, currentPrice, totalI
                     {variant.talla}
                   </span>
                   {isOutOfStock && (
-                    <span className="text-xs text-gray-300">Agotado</span>
+                    <span className="text-xs text-gray-300">Out of Stock</span>
                   )}
                 </div>
 
@@ -207,7 +207,7 @@ function SizeModal({ group, cart, onAdd, onRemove, onClose, currentPrice, totalI
                     onClick={() => onAdd(variant, variant.talla)}
                     className="px-3 py-1.5 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors"
                   >
-                    Agregar
+                    Add
                   </button>
                 )}
               </div>
@@ -219,17 +219,17 @@ function SizeModal({ group, cart, onAdd, onRemove, onClose, currentPrice, totalI
         <div className="px-4 py-3 border-t border-gray-100 bg-gray-50 rounded-b-3xl sm:rounded-b-2xl space-y-1">
           {totalInCart > 0 ? (
             <p className="text-sm text-center text-gray-600">
-              <span className="font-bold text-gray-900">{totalInCart}</span> u. de este modelo
+              <span className="font-bold text-gray-900">{totalInCart}</span> pcs of this style
               {categoryQty > totalInCart && (
-                <span className="text-green-600 font-semibold"> · {categoryQty} en total en la categoría</span>
+                <span className="text-green-600 font-semibold"> · {categoryQty} total in category</span>
               )}
             </p>
           ) : minQty > 1 ? (
-            <p className="text-xs text-center text-gray-400">Mín. {minQty} pz en total en la categoría</p>
+            <p className="text-xs text-center text-gray-400">Min. {minQty} pcs total in category</p>
           ) : null}
           {nextTier && (
             <p className="text-xs text-center text-blue-600 font-medium">
-              +{nextTier.qty - Math.max(totalInCart, categoryQty || 0)} pz más → ${nextTier.price.toFixed(2)} c/u
+              +{nextTier.qty - Math.max(totalInCart, categoryQty || 0)} more pcs → ${nextTier.price.toFixed(2)} ea.
             </p>
           )}
         </div>

@@ -105,28 +105,28 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b">
           <h2 className="text-base font-bold">
-            Tu Pedido{!isEmpty && <span className="ml-2 text-gray-400 font-normal text-sm">{cartLines.length} producto{cartLines.length !== 1 ? 's' : ''}</span>}
+            Your Order{!isEmpty && <span className="ml-2 text-gray-400 font-normal text-sm">{cartLines.length} item{cartLines.length !== 1 ? 's' : ''}</span>}
           </h2>
           <div className="flex items-center gap-3">
             {!isEmpty && !confirmClear && (
               <button onClick={() => setConfirmClear(true)} className="text-xs text-red-400 hover:text-red-600 transition-colors">
-                Vaciar
+                Clear
               </button>
             )}
             {!isEmpty && confirmClear && (
               <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-500">¿Eliminar todo?</span>
+                <span className="text-xs text-gray-500">Remove all?</span>
                 <button
                   onClick={() => { onClearAll(); setConfirmClear(false) }}
                   className="text-xs font-semibold text-red-500 hover:text-red-700"
-                >Sí</button>
+                >Yes</button>
                 <button
                   onClick={() => setConfirmClear(false)}
                   className="text-xs text-gray-400 hover:text-gray-600"
                 >No</button>
               </div>
             )}
-            <button onClick={onClose} className="text-gray-400 hover:text-gray-700 transition-colors" aria-label="Cerrar">
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-700 transition-colors" aria-label="Close">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -141,7 +141,7 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
               <svg className="w-12 h-12 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
-              <p className="text-sm">Agrega productos al pedido</p>
+              <p className="text-sm">Add products to your order</p>
             </div>
           ) : (
             <div className="p-4 space-y-4">
@@ -170,10 +170,10 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
                       {line.size && <span className="ml-1.5 text-xs bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium">{line.size}</span>}
                     </p>
                     <p className="text-xs text-gray-500 mt-0.5">
-                      ${line.price.toFixed(2)} c/u
+                      ${line.price.toFixed(2)} ea.
                       {(line.price < line.product.precio_1 ||
                         (line.product.qty_tier2 && line.pricingQty >= line.product.qty_tier2)) && (
-                        <span className="ml-1 text-green-600 font-medium">precio mayoreo</span>
+                        <span className="ml-1 text-green-600 font-medium">bulk price</span>
                       )}
                     </p>
                   </div>
@@ -210,10 +210,10 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
                 <div key={cat} className="rounded-xl px-3 py-2 text-xs bg-amber-50 border border-amber-200">
                   <div className="flex justify-between items-center">
                     <span className="font-semibold text-amber-700">{cat}</span>
-                    <span className="font-bold text-amber-600">{qty} pz</span>
+                    <span className="font-bold text-amber-600">{qty} pcs</span>
                   </div>
                   <p className="text-amber-600 mt-0.5">
-                    Mín. {minQty} pz — faltan {minQty - qty} pieza{minQty - qty !== 1 ? 's' : ''}
+                    Min. {minQty} pcs — need {minQty - qty} more
                   </p>
                 </div>
               ))}
@@ -226,11 +226,11 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
                 <span>${total.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-sm text-gray-500">
-                <span>Envío estimado</span>
+                <span>Est. Shipping</span>
                 <span>${DEFAULT_SHIPPING.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center pt-1 border-t border-gray-100">
-                <span className="text-gray-600 text-sm font-semibold">Total estimado</span>
+                <span className="text-gray-600 text-sm font-semibold">Est. Total</span>
                 <span className="text-2xl font-bold">${(total + DEFAULT_SHIPPING).toFixed(2)}</span>
               </div>
             </div>
@@ -240,10 +240,10 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
               disabled={categoriasIncompletas.length > 0}
               className="w-full py-3.5 bg-black hover:bg-gray-800 active:bg-gray-900 text-white font-bold rounded-2xl transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              Solicitar Cotización
+              Request Quote
             </button>
             <p className="text-xs text-gray-400 text-center">
-              Confirmaremos disponibilidad antes de cobrar
+              We'll confirm availability before charging
             </p>
           </div>
         )}

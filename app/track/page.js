@@ -2,11 +2,11 @@
 import { useState } from 'react'
 
 const STATUS_STEPS = [
-  { key: 'pending',   label: 'Pedido recibido' },
-  { key: 'confirmed', label: 'Confirmado' },
-  { key: 'paid',      label: 'Pago recibido' },
-  { key: 'shipped',   label: 'En camino' },
-  { key: 'completed', label: 'Entregado' },
+  { key: 'pending',   label: 'Order Received' },
+  { key: 'confirmed', label: 'Confirmed' },
+  { key: 'paid',      label: 'Payment Received' },
+  { key: 'shipped',   label: 'Shipped' },
+  { key: 'completed', label: 'Delivered' },
 ]
 
 function getStepIndex(status) {
@@ -15,7 +15,7 @@ function getStepIndex(status) {
 }
 
 function formatDate(iso) {
-  return new Date(iso).toLocaleDateString('es-MX', {
+  return new Date(iso).toLocaleDateString('en-US', {
     day: '2-digit', month: 'short', year: 'numeric',
     hour: '2-digit', minute: '2-digit',
   })
@@ -36,7 +36,7 @@ export default function TrackPage() {
     try {
       const res = await fetch(`/api/track?email=${encodeURIComponent(email.trim().toLowerCase())}`)
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Error al buscar pedidos')
+      if (!res.ok) throw new Error(data.error || 'Error searching orders')
       setOrders(data)
     } catch (e) {
       setError(e.message)
@@ -51,11 +51,11 @@ export default function TrackPage() {
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-lg mx-auto px-4 py-4 flex items-center justify-between">
           <div>
-            <h1 className="text-base font-bold text-gray-900">Seguimiento de Pedidos</h1>
+            <h1 className="text-base font-bold text-gray-900">Order Tracking</h1>
             <p className="text-xs text-gray-400">Shenzhen Wenyue</p>
           </div>
           <a href="/" className="text-xs text-gray-500 hover:text-gray-900 transition-colors">
-            ← Volver al catálogo
+            ← Back to catalog
           </a>
         </div>
       </div>
@@ -63,16 +63,16 @@ export default function TrackPage() {
       <div className="max-w-lg mx-auto px-4 py-8 space-y-6">
         {/* Search card */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-          <h2 className="font-bold text-gray-900 mb-1">Busca tu pedido</h2>
+          <h2 className="font-bold text-gray-900 mb-1">Track Your Order</h2>
           <p className="text-sm text-gray-500 mb-5">
-            Ingresa el correo electrónico con el que realizaste tu pedido.
+            Enter the email address you used when placing your order.
           </p>
           <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">
             <input
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="tucorreo@ejemplo.com"
+              placeholder="your@email.com"
               required
               className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400"
             />
@@ -81,7 +81,7 @@ export default function TrackPage() {
               disabled={loading}
               className="w-full sm:w-auto px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-xl hover:bg-gray-800 disabled:opacity-50 transition-colors"
             >
-              {loading ? '...' : 'Buscar'}
+              {loading ? '...' : 'Search'}
             </button>
           </form>
           {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
@@ -96,15 +96,15 @@ export default function TrackPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
               </div>
-              <p className="text-sm font-semibold text-gray-700">No encontramos pedidos</p>
+              <p className="text-sm font-semibold text-gray-700">No orders found</p>
               <p className="text-xs text-gray-400 mt-1">
-                Verifica que sea el mismo correo que usaste al hacer tu pedido.
+                Make sure you're using the same email you used when placing your order.
               </p>
             </div>
           ) : (
             <div className="space-y-4">
               <p className="text-xs text-gray-400 px-1">
-                {orders.length} pedido{orders.length !== 1 ? 's' : ''} encontrado{orders.length !== 1 ? 's' : ''}
+                {orders.length} order{orders.length !== 1 ? 's' : ''} found
               </p>
               {orders.map(order => (
                 <OrderCard key={order.id} order={order} />
@@ -121,9 +121,9 @@ export default function TrackPage() {
             </svg>
           </div>
           <div>
-            <p className="text-sm font-semibold text-gray-900">¿Tienes dudas?</p>
+            <p className="text-sm font-semibold text-gray-900">Need help?</p>
             <p className="text-xs text-gray-500 mt-0.5">
-              Escríbenos por WhatsApp y te ayudamos con tu pedido.
+              Contact us on WhatsApp and we'll help with your order.
             </p>
             <a
               href="https://wa.me/16613737977"
@@ -131,7 +131,7 @@ export default function TrackPage() {
               rel="noopener noreferrer"
               className="inline-block mt-2 text-xs font-semibold text-green-600 hover:text-green-700"
             >
-              Contactar por WhatsApp →
+              Contact via WhatsApp →
             </a>
           </div>
         </div>
@@ -146,7 +146,7 @@ function OrderCard({ order }) {
   const historyMap = {}
   ;(order.history || []).forEach(h => { historyMap[h.status] = h })
   const shortId = order.id?.slice(-6).toUpperCase()
-  const date = new Date(order.created_at).toLocaleDateString('es-MX', {
+  const date = new Date(order.created_at).toLocaleDateString('en-US', {
     day: '2-digit', month: 'long', year: 'numeric',
   })
 
@@ -168,7 +168,7 @@ function OrderCard({ order }) {
       {order.tracking_number && stepIndex >= 3 && (
         <div className="px-5 py-3 bg-blue-50 border-b border-blue-100 flex items-center justify-between">
           <div>
-            <p className="text-xs font-semibold text-blue-600">Número de guía</p>
+            <p className="text-xs font-semibold text-blue-600">Tracking Number</p>
             <p className="text-sm font-mono font-bold text-blue-900 break-all mt-0.5">
               {order.tracking_number}
             </p>
@@ -229,8 +229,8 @@ function OrderCard({ order }) {
           onClick={() => setShowItems(v => !v)}
           className="w-full px-5 py-3 flex items-center justify-between text-xs font-semibold text-gray-500 hover:text-gray-900 transition-colors"
         >
-          <span>{(order.items || []).length} producto{(order.items || []).length !== 1 ? 's' : ''}</span>
-          <span>{showItems ? '▲ Ocultar' : '▼ Ver detalle'}</span>
+          <span>{(order.items || []).length} item{(order.items || []).length !== 1 ? 's' : ''}</span>
+          <span>{showItems ? '▲ Hide' : '▼ View details'}</span>
         </button>
         {showItems && (
           <div className="px-5 pb-4 space-y-2">
@@ -247,7 +247,7 @@ function OrderCard({ order }) {
                   <p className="text-xs font-semibold text-gray-900 truncate">
                     {item.nombre}{item.size ? ` — ${item.size}` : ''}
                   </p>
-                  <p className="text-xs text-gray-400">{item.qty} u. × ${item.unit_price?.toFixed(2)}</p>
+                  <p className="text-xs text-gray-400">{item.qty} pcs × ${item.unit_price?.toFixed(2)}</p>
                 </div>
                 <p className="text-xs font-bold text-gray-900 shrink-0">
                   ${(item.qty * (item.unit_price || 0)).toFixed(2)}
