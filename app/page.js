@@ -94,9 +94,17 @@ export default function LandingPage() {
       {/* ── HERO ── */}
       <section className="bg-gradient-to-br from-[#FF6A00] via-[#F05500] to-[#C23B00] text-white py-16 sm:py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-widest">
-            USA-Based Wholesale Supplier
-          </span>
+          <div className="flex flex-wrap justify-center gap-2 mb-5">
+            <span className="inline-flex items-center gap-1.5 bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest">
+              🇨🇳 China Direct Source
+            </span>
+            <span className="inline-flex items-center gap-1.5 bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest">
+              🇺🇸 USA Warehouse
+            </span>
+            <span className="inline-flex items-center gap-1.5 bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest">
+              ✓ Verified Supplier
+            </span>
+          </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold leading-tight mb-5 tracking-tight">
             Premium Products.<br className="hidden sm:block" /> Wholesale Prices.<br className="hidden sm:block" /> USA Ready.
           </h1>
@@ -227,6 +235,7 @@ export default function LandingPage() {
           <h2 className="text-center text-2xl font-extrabold text-gray-900 mb-8">Why Buyers Choose Us</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
+              { icon: '🇨🇳', title: 'China Direct Source', desc: 'Products sourced directly from manufacturers in Shenzhen. No middlemen.' },
               { icon: '🏭', title: 'USA Warehouse', desc: 'Inventory held in the US. Faster shipping, no customs delays.' },
               { icon: '💰', title: 'Volume Pricing', desc: 'Prices drop automatically as you add more pieces. No negotiation needed.' },
               { icon: '✅', title: 'Verified Products', desc: 'Every product is inspected and verified before shipment.' },
