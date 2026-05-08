@@ -187,7 +187,6 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
                   >
                     <option value="" disabled>Code</option>
                     <option value="+1">🇺🇸 +1 USA</option>
-                    <option value="+52">🇲🇽 +52 México</option>
                   </select>
                   <input
                     type="tel"
