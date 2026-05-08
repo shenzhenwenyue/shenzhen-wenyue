@@ -5,9 +5,9 @@ const CATEGORIES = [
   { name: 'Designer Fragrances', sub: 'Chanel, Dior, YSL, Tom Ford & more', icon: '🌸', color: 'bg-purple-50 border-purple-100' },
   { name: 'Lululemon', sub: 'Leggings, bras, shorts & more', icon: '🏃', color: 'bg-red-50 border-red-100' },
   { name: 'Alo Yoga', sub: 'Premium activewear sets', icon: '🧘', color: 'bg-sky-50 border-sky-100' },
-  { name: 'Van Cleef & Co.', sub: 'Fine jewelry replicas', icon: '💎', color: 'bg-yellow-50 border-yellow-100' },
-  { name: 'Makeup', sub: 'Luxury cosmetics brands', icon: '💄', color: 'bg-pink-50 border-pink-100' },
-  { name: 'Designer Caps', sub: 'MLB, luxury & streetwear', icon: '🧢', color: 'bg-green-50 border-green-100' },
+  { name: 'Van Cleef & Co.', sub: 'Fine jewelry & accessories', icon: '💎', color: 'bg-yellow-50 border-yellow-100', soon: true },
+  { name: 'Makeup', sub: 'Luxury cosmetics brands', icon: '💄', color: 'bg-pink-50 border-pink-100', soon: true },
+  { name: 'Designer Caps', sub: 'MLB, luxury & streetwear', icon: '🧢', color: 'bg-green-50 border-green-100', soon: true },
 ]
 
 const STATS = [
@@ -153,15 +153,32 @@ export default function LandingPage() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
             {CATEGORIES.map(cat => (
-              <a
-                key={cat.name}
-                href={`/catalog`}
-                className={`flex flex-col items-center text-center p-4 sm:p-5 rounded-2xl border-2 bg-white hover:border-[#FF6A00] hover:shadow-md transition-all group ${cat.color}`}
-              >
-                <span className="text-3xl sm:text-4xl mb-2">{cat.icon}</span>
-                <p className="font-bold text-gray-900 text-sm sm:text-base group-hover:text-[#FF6A00] transition-colors">{cat.name}</p>
-                <p className="text-gray-400 text-xs mt-0.5 leading-snug">{cat.sub}</p>
-              </a>
+              cat.soon ? (
+                <div
+                  key={cat.name}
+                  className="relative flex flex-col items-center text-center p-4 sm:p-5 rounded-2xl border-2 bg-gray-100 border-gray-200 overflow-hidden select-none"
+                >
+                  {/* Darkened overlay */}
+                  <div className="absolute inset-0 bg-gray-900/40 rounded-2xl z-10 flex items-center justify-center">
+                    <span className="bg-gray-900 text-white text-[10px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                      Coming Soon
+                    </span>
+                  </div>
+                  <span className="text-3xl sm:text-4xl mb-2 opacity-40">{cat.icon}</span>
+                  <p className="font-bold text-gray-400 text-sm sm:text-base">{cat.name}</p>
+                  <p className="text-gray-300 text-xs mt-0.5 leading-snug">{cat.sub}</p>
+                </div>
+              ) : (
+                <a
+                  key={cat.name}
+                  href="/catalog"
+                  className={`flex flex-col items-center text-center p-4 sm:p-5 rounded-2xl border-2 bg-white hover:border-[#FF6A00] hover:shadow-md transition-all group ${cat.color}`}
+                >
+                  <span className="text-3xl sm:text-4xl mb-2">{cat.icon}</span>
+                  <p className="font-bold text-gray-900 text-sm sm:text-base group-hover:text-[#FF6A00] transition-colors">{cat.name}</p>
+                  <p className="text-gray-400 text-xs mt-0.5 leading-snug">{cat.sub}</p>
+                </a>
+              )
             ))}
           </div>
           <div className="text-center mt-8">
