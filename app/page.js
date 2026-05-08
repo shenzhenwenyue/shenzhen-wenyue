@@ -230,7 +230,7 @@ export default function LandingPage() {
               { icon: '🏭', title: 'USA Warehouse', desc: 'Inventory held in the US. Faster shipping, no customs delays.' },
               { icon: '💰', title: 'Volume Pricing', desc: 'Prices drop automatically as you add more pieces. No negotiation needed.' },
               { icon: '✅', title: 'Verified Products', desc: 'Every product is inspected and verified before shipment.' },
-              { icon: '⚡', title: '24h Quote Turnaround', desc: 'Submit your cart online and receive a PDF quote within 24 hours.' },
+              { icon: '⚡', title: 'Fast Quote Response', desc: 'Submit your cart online and receive a quote response within hours.' },
             ].map(item => (
               <div key={item.title} className="flex gap-4 bg-white rounded-2xl p-4 border border-orange-100">
                 <span className="text-2xl shrink-0">{item.icon}</span>
