@@ -94,11 +94,6 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         )}
         <h3 className="font-semibold text-[#333] text-sm leading-snug mb-1">{product.nombre}</h3>
 
-        {/* MOQ badge */}
-        <span className="inline-block text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-medium mb-1">
-          MOQ: {product.qty_minima || 1} pcs
-        </span>
-
         {product.descripcion && (
           <p className="text-xs text-gray-400 mb-2 line-clamp-2">{product.descripcion}</p>
         )}
