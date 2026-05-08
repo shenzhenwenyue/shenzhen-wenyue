@@ -69,13 +69,13 @@ export default function LandingPage() {
       <section className="bg-gradient-to-br from-[#FF6A00] via-[#F05500] to-[#C23B00] text-white py-16 sm:py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex flex-wrap justify-center gap-2 mb-6">
-            <span className="inline-flex items-center gap-1.5 bg-white/15 text-white text-xs font-medium px-3 py-1 rounded-md border border-white/20">
+            <span className="inline-flex items-center gap-1.5 bg-white/15 text-white text-xs font-medium px-3 py-1 border border-white/20">
               China Direct Source
             </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/15 text-white text-xs font-medium px-3 py-1 rounded-md border border-white/20">
+            <span className="inline-flex items-center gap-1.5 bg-white/15 text-white text-xs font-medium px-3 py-1 border border-white/20">
               USA Warehouse
             </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/15 text-white text-xs font-medium px-3 py-1 rounded-md border border-white/20">
+            <span className="inline-flex items-center gap-1.5 bg-white/15 text-white text-xs font-medium px-3 py-1 border border-white/20">
               Verified Supplier
             </span>
           </div>
@@ -129,20 +129,20 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {CATEGORIES.map(cat => (
               cat.soon ? (
-                <div key={cat.name} className="relative flex flex-col p-4 sm:p-5 rounded-xl border border-gray-200 bg-gray-100 overflow-hidden select-none">
-                  <div className="absolute inset-0 bg-gray-900/35 rounded-xl z-10 flex items-center justify-center">
-                    <span className="bg-gray-800 text-gray-300 text-[10px] font-semibold px-3 py-1 rounded uppercase tracking-widest">
+                <div key={cat.name} className="relative flex flex-col p-4 sm:p-5 border border-gray-200 bg-gray-100 overflow-hidden select-none">
+                  <div className="absolute inset-0 bg-gray-900/35 z-10 flex items-center justify-center">
+                    <span className="bg-gray-800 text-gray-300 text-[10px] font-semibold px-3 py-1 uppercase tracking-widest">
                       Coming Soon
                     </span>
                   </div>
-                  <div className="w-8 h-8 rounded-lg bg-gray-200 mb-3 opacity-40" />
+                  <div className="w-8 h-8 bg-gray-200 mb-3 opacity-40" />
                   <p className="font-semibold text-gray-400 text-sm">{cat.name}</p>
                   <p className="text-gray-300 text-xs mt-0.5">{cat.sub}</p>
                 </div>
               ) : (
                 <a key={cat.name} href={`/catalog?cat=${encodeURIComponent(cat.cat)}`}
-                  className="flex flex-col p-4 sm:p-5 rounded-xl border border-gray-200 bg-white hover:border-[#FF6A00] hover:shadow-sm transition-all group">
-                  <div className="w-8 h-8 rounded-lg bg-[#FF6A00]/10 flex items-center justify-center mb-3">
+                  className="flex flex-col p-4 sm:p-5 border border-gray-200 bg-white hover:border-[#FF6A00] hover:shadow-sm transition-all group">
+                  <div className="w-8 h-8 bg-[#FF6A00]/10 flex items-center justify-center mb-3">
                     <svg className="w-4 h-4 text-[#FF6A00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10" />
                     </svg>
@@ -201,8 +201,8 @@ export default function LandingPage() {
               { title: 'Fast Quote Response', desc: 'Submit your cart online and receive a quote response same day.',
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /> },
             ].map(item => (
-              <div key={item.title} className="flex gap-3 bg-white rounded-lg p-4 border border-gray-100">
-                <div className="w-8 h-8 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center shrink-0">
+              <div key={item.title} className="flex gap-3 bg-white p-4 border border-gray-100">
+                <div className="w-8 h-8 bg-gray-50 border border-gray-100 flex items-center justify-center shrink-0">
                   <svg className="w-4 h-4 text-[#FF6A00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {item.icon}
                   </svg>
@@ -226,7 +226,7 @@ export default function LandingPage() {
 
             {/* Cash App */}
             <div className="flex flex-col items-center gap-3 border border-gray-200 rounded-xl p-5 sm:p-6">
-              <div className="w-12 h-12 rounded-xl bg-[#00D64F] flex items-center justify-center">
+              <div className="w-12 h-12 bg-[#00D64F] flex items-center justify-center">
                 <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12.5 2C9.46 2 6.67 3.37 4.78 5.57L3.5 4.3A1 1 0 002 5v4a1 1 0 001 1h4a1 1 0 00.71-1.71L6.56 7.14A7.5 7.5 0 0119.5 12a1 1 0 002 0C21.5 6.75 17.47 2 12.5 2zm0 20c3.04 0 5.83-1.37 7.72-3.57l1.28 1.27A1 1 0 0023 19v-4a1 1 0 00-1-1h-4a1 1 0 00-.71 1.71l1.15 1.15A7.5 7.5 0 014.5 12a1 1 0 00-2 0c0 5.25 4.03 10 9 10z"/>
                 </svg>
@@ -239,7 +239,7 @@ export default function LandingPage() {
 
             {/* Zelle */}
             <div className="flex flex-col items-center gap-3 border border-gray-200 rounded-xl p-5 sm:p-6">
-              <div className="w-12 h-12 rounded-xl bg-[#6D1ED4] flex items-center justify-center">
+              <div className="w-12 h-12 bg-[#6D1ED4] flex items-center justify-center">
                 <span className="text-white font-bold text-lg">Z</span>
               </div>
               <div className="text-center">
@@ -250,7 +250,7 @@ export default function LandingPage() {
 
             {/* Alibaba */}
             <div className="flex flex-col items-center gap-3 border border-gray-200 rounded-xl p-5 sm:p-6">
-              <div className="w-12 h-12 rounded-xl bg-[#FF6A00] flex items-center justify-center">
+              <div className="w-12 h-12 bg-[#FF6A00] flex items-center justify-center">
                 <span className="text-white font-bold text-sm">Ali</span>
               </div>
               <div className="text-center">
