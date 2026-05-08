@@ -172,20 +172,38 @@ export default function Home() {
   const cartCount = cart.reduce((sum, i) => sum + i.qty, 0)
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-[#F5F5F5]">
       {/* Header */}
-      <header className="bg-black text-white sticky top-0 z-40 shadow-lg">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="min-w-0">
+      <header className="bg-[#FF6A00] text-white sticky top-0 z-40 shadow-lg">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
+          {/* Logo */}
+          <div className="min-w-0 shrink-0">
             <h1 className="font-bold tracking-tight leading-none text-base sm:text-lg truncate">
-              <span>Shenzhen Wenyue</span>
-              <span className="hidden sm:inline"> Ltd. Liability Co.</span>
+              Shenzhen Wenyue Ltd.
             </h1>
-            <p className="text-xs text-gray-400 mt-0.5">Catálogo Mayoreo</p>
+            <p className="text-xs text-orange-100 mt-0.5">Wholesale · Mayoreo</p>
           </div>
+
+          {/* Search bar — centrado, flex-1 */}
+          <div className="flex flex-1 min-w-0">
+            <input
+              type="text"
+              placeholder="Buscar productos, marcas, categorías..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className="flex-1 min-w-0 bg-white rounded-l-xl px-4 py-2.5 text-gray-900 text-sm focus:outline-none"
+            />
+            <button className="bg-[#E55A00] px-5 py-2.5 rounded-r-xl flex items-center justify-center shrink-0">
+              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Track + Cart */}
           <a
             href="/track"
-            className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 px-3 py-2 rounded-xl transition-colors text-sm font-medium"
+            className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 px-3 py-2 rounded-xl transition-colors text-sm font-medium shrink-0"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -194,14 +212,14 @@ export default function Home() {
           </a>
           <button
             onClick={() => setCartOpen(true)}
-            className="relative flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl transition-colors"
+            className="relative flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-xl transition-colors shrink-0"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
             <span className="text-sm font-medium hidden sm:inline">Pedido</span>
             {cartCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 bg-green-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+              <span className="absolute -top-1.5 -right-1.5 bg-[#00A650] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
                 {cartCount > 99 ? '99+' : cartCount}
               </span>
             )}
@@ -209,31 +227,18 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto px-4 py-5">
-        {/* Buscador */}
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Buscar productos..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400 transition-colors"
-          />
-          <svg className="absolute left-3 top-3 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          {search && (
-            <button
-              onClick={() => setSearch('')}
-              className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          )}
+      {/* Trust strip */}
+      <div className="bg-gray-900 py-1.5 text-white">
+        <div className="max-w-6xl mx-auto px-4 flex gap-6 justify-center text-xs flex-wrap">
+          <span>&#10003; Proveedor Verificado</span>
+          <span>&#10003; Pago Seguro</span>
+          <span>&#10003; Stock en Bodega USA</span>
+          <span>&#10003; Precios en USD</span>
+          <span>&#10003; +5 años de experiencia</span>
         </div>
+      </div>
 
+      <div className="max-w-6xl mx-auto px-4 py-5">
         {/* Filtros por categoría */}
         {categories.length > 0 && (
           <CategoryFilter
@@ -248,8 +253,8 @@ export default function Home() {
           <div className="flex flex-wrap gap-2 pb-2">
             <button
               onClick={() => setSelectedSubcat(null)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
-                !selectedSubcat ? 'bg-black text-white border-black' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+              className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-colors ${
+                !selectedSubcat ? 'bg-[#FF6A00] text-white border-[#FF6A00]' : 'bg-white text-gray-600 border-[#E8E8E8] hover:border-[#FF6A00] hover:text-[#FF6A00]'
               }`}
             >
               Todas
@@ -258,8 +263,8 @@ export default function Home() {
               <button
                 key={sub}
                 onClick={() => setSelectedSubcat(sub === selectedSubcat ? null : sub)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
-                  selectedSubcat === sub ? 'bg-black text-white border-black' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+                className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-colors ${
+                  selectedSubcat === sub ? 'bg-[#FF6A00] text-white border-[#FF6A00]' : 'bg-white text-gray-600 border-[#E8E8E8] hover:border-[#FF6A00] hover:text-[#FF6A00]'
                 }`}
               >
                 {sub}
@@ -278,7 +283,7 @@ export default function Home() {
         {loading && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden animate-pulse">
+              <div key={i} className="bg-white rounded-lg overflow-hidden animate-pulse">
                 <div className="aspect-square bg-gray-100" />
                 <div className="p-3 space-y-2">
                   <div className="h-2.5 bg-gray-100 rounded w-1/2" />
@@ -302,11 +307,11 @@ export default function Home() {
         {/* Grid de productos */}
         {!loading && !error && (
           <>
-            <p className="text-xs text-gray-400 mb-3">
+            <p className="text-xs text-gray-500 mb-3 font-medium">
               {sorted.length} {sorted.length === 1 ? 'producto' : 'productos'}
             </p>
             {sorted.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-3">
                 {sorted.map(product => (
                   product.isGroup ? (
                     <GroupedProductCard
@@ -403,8 +408,8 @@ function FilterDropdown({ sortOrder, setSortOrder }) {
         onClick={() => setOpen(v => !v)}
         className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
           hasFilters
-            ? 'bg-black text-white border-black'
-            : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+            ? 'bg-[#FF6A00] text-white border-[#FF6A00]'
+            : 'bg-white text-gray-600 border-[#E8E8E8] hover:border-[#FF6A00] hover:text-[#FF6A00]'
         }`}
       >
         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -429,7 +434,7 @@ function FilterDropdown({ sortOrder, setSortOrder }) {
                   key={key}
                   onClick={() => { setSortOrder(key); }}
                   className={`text-left px-3 py-1.5 rounded-lg text-sm transition-colors ${
-                    sortOrder === key ? 'bg-black text-white font-medium' : 'text-gray-700 hover:bg-gray-100'
+                    sortOrder === key ? 'bg-[#FF6A00] text-white font-medium' : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >{label}</button>
               ))}

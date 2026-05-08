@@ -46,8 +46,11 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
   const isOut = stockTracked && product.stock === 0
   const isLow = stockTracked && product.stock > 0 && product.stock <= 5
 
+  // Precio más bajo disponible (último tier configurado)
+  const lowestTierPrice = allTiers.length > 0 ? allTiers[allTiers.length - 1].price : null
+
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex flex-col">
+    <div className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow border border-[#E8E8E8] flex flex-col">
       {/* Imagen */}
       <div className="relative aspect-square bg-gray-100 overflow-hidden">
         {product.imagen_url && !imgError ? (
@@ -61,19 +64,40 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
           <ImagePlaceholder />
         )}
         {product.destacado && (
-          <span className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-0.5 rounded-full font-medium">
+          <span className="absolute top-2 left-2 bg-[#FF6A00] text-white text-xs px-2 py-0.5 rounded-full font-medium">
             Top
+          </span>
+        )}
+        {/* Stock badges — bottom right */}
+        {stockTracked && product.stock > 0 && !isLow && (
+          <span className="absolute bottom-2 right-2 bg-green-600 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
+            En Stock
+          </span>
+        )}
+        {isOut && (
+          <span className="absolute bottom-2 right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
+            Agotado
+          </span>
+        )}
+        {isLow && (
+          <span className="absolute bottom-2 right-2 bg-amber-500 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
+            Últimas {product.stock}
           </span>
         )}
       </div>
 
       {/* Info */}
       <div className="p-3 flex flex-col flex-1">
-        <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">{product.categoria}</p>
+        <p className="text-[10px] text-[#FF6A00] uppercase tracking-wide font-semibold mb-0.5">{product.categoria}</p>
         {product.subcategoria && (
           <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-0.5">{product.subcategoria}</p>
         )}
-        <h3 className="font-semibold text-gray-900 text-sm leading-snug mb-1">{product.nombre}</h3>
+        <h3 className="font-semibold text-[#333] text-sm leading-snug mb-1">{product.nombre}</h3>
+
+        {/* MOQ badge */}
+        <span className="inline-block text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-medium mb-1">
+          MOQ: {product.qty_minima || 1} pz
+        </span>
 
         {product.descripcion && (
           <p className="text-xs text-gray-400 mb-2 line-clamp-2">{product.descripcion}</p>
@@ -81,7 +105,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
 
         {/* Tabla de precios por volumen */}
         {hasTiers && (
-          <div className="mb-2 rounded-lg bg-gray-50 p-2 space-y-0.5 text-xs">
+          <div className="mb-2 rounded-lg bg-[#FFF7F0] p-2 space-y-0.5 text-xs">
             {(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') && (
               <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Precio según total de piezas en la subcategoría</p>
             )}
@@ -141,12 +165,15 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         <div className="mt-auto pt-1">
           <div className="flex items-center justify-between gap-2">
             <div className="flex-1 min-w-0">
+              {hasTiers && lowestTierPrice && lowestTierPrice < product.precio_1 && (
+                <p className="text-xs text-gray-400 line-through">Desde ${lowestTierPrice.toFixed(2)}</p>
+              )}
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-base font-bold text-gray-900">${currentPrice.toFixed(2)}</span>
+                <span className="text-base font-bold text-[#FF6A00]">${currentPrice.toFixed(2)}</span>
                 <span className="text-xs text-gray-400">c/u</span>
                 {isDiscounted && (
-                  <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-semibold">
-                    Descuento −{savingsPct}%
+                  <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-bold">
+                    −{savingsPct}%
                   </span>
                 )}
               </div>
@@ -179,7 +206,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                         if (e.key === 'Enter') e.target.blur()
                         if (e.key === 'Escape') setEditingQty(false)
                       }}
-                      className="w-9 h-9 text-center font-semibold text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                      className="w-9 h-9 text-center font-semibold text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-[#FF6A00]"
                     />
                   ) : (
                     <span
@@ -190,14 +217,14 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                   <button
                     onClick={() => onAdd(product)}
                     disabled={stockTracked && qty >= product.stock}
-                    className="w-9 h-9 rounded-full bg-black hover:bg-gray-800 flex items-center justify-center font-bold text-lg leading-none text-white shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="w-9 h-9 rounded-full bg-[#FF6A00] hover:bg-[#E55A00] flex items-center justify-center font-bold text-lg leading-none text-white shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
                   >+</button>
                 </div>
               ) : (
                 <button
                   onClick={() => onAdd(product)}
                   disabled={isOut}
-                  className="px-4 py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+                  className="px-4 py-2 bg-[#FF6A00] text-white text-xs font-semibold rounded-xl hover:bg-[#E55A00] transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
                 >Agregar</button>
               )
             )}
@@ -208,8 +235,8 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                 onClick={() => setShowSizes(v => !v)}
                 className={`px-3 py-1.5 text-xs font-semibold rounded-xl transition-colors shrink-0 ${
                   totalSizedQty > 0
-                    ? 'bg-black text-white'
-                    : 'bg-black text-white hover:bg-gray-800'
+                    ? 'bg-[#FF6A00] text-white'
+                    : 'bg-[#FF6A00] text-white hover:bg-[#E55A00]'
                 }`}
               >
                 {totalSizedQty > 0 ? `${totalSizedQty} u. ▾` : 'Agregar'}
@@ -218,7 +245,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
           </div>
 
           {nextTier && (
-            <p className="text-xs text-blue-600 font-medium mt-1.5 leading-snug">
+            <p className="text-xs text-[#FF6A00] font-medium mt-1.5 leading-snug">
               +{nextTier.qty - pricingQty} {product.subcategoria === 'Louis Vuitton' ? 'pz más (cualquier perfume)' : 'u. más'} → ${nextTier.price.toFixed(2)} c/u
             </p>
           )}
@@ -251,7 +278,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                         <button
                           onClick={() => onAdd(product, size)}
                           disabled={tracked && sizeQty >= avail}
-                          className="w-8 h-8 rounded-lg bg-black hover:bg-gray-800 flex items-center justify-center text-sm font-bold text-white disabled:opacity-40 disabled:cursor-not-allowed"
+                          className="w-8 h-8 rounded-lg bg-[#FF6A00] hover:bg-[#E55A00] flex items-center justify-center text-sm font-bold text-white disabled:opacity-40 disabled:cursor-not-allowed"
                         >+</button>
                       </>
                     ) : (
@@ -261,7 +288,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                         className={`px-3 py-2 rounded-xl text-xs font-semibold border transition-colors ${
                           isOut
                             ? 'border-gray-100 text-gray-300 cursor-not-allowed'
-                            : 'border-gray-200 text-gray-600 hover:border-black hover:text-black'
+                            : 'border-gray-200 text-gray-600 hover:border-[#FF6A00] hover:text-[#FF6A00]'
                         }`}
                       >
                         <span>{size}</span>
@@ -288,6 +315,13 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             ? <p className="text-xs text-gray-400 mt-1">Mín. {product.qty_minima} pz en total en la categoría "{product.categoria}"</p>
             : null
         }
+
+        {/* Trust footer */}
+        <div className="mt-2 pt-2 border-t border-gray-100 flex items-center gap-1.5">
+          <span className="text-[10px] text-green-600 font-semibold">&#10003; Verificado</span>
+          <span className="text-gray-300 text-[10px]">·</span>
+          <span className="text-[10px] text-gray-400">Envío USA</span>
+        </div>
       </div>
     </div>
   )
@@ -295,13 +329,13 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
 
 function TierRow({ label, price, active, highlight, best }) {
   const activeColor = best
-    ? 'text-amber-600 font-bold'
+    ? 'text-[#FF6A00] font-bold'
     : highlight
       ? 'text-green-600 font-semibold'
       : 'text-gray-800 font-semibold'
   return (
     <div className={`flex justify-between items-center ${active ? activeColor : 'text-gray-400'}`}>
-      <span>{label}{best && active && <span className="ml-1 text-amber-500 font-bold">★</span>}</span>
+      <span>{active && <span className="mr-1">●</span>}{label}{best && active && <span className="ml-1 text-[#FF6A00] font-bold">★</span>}</span>
       <span>${price.toFixed(2)}</span>
     </div>
   )

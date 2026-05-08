@@ -2,30 +2,32 @@
 
 export default function CategoryFilter({ categories, selected, onChange }) {
   return (
-    <div className="flex flex-wrap gap-2 py-3">
-      <button
-        onClick={() => onChange(null)}
-        className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-          selected === null
-            ? 'bg-black text-white'
-            : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-400'
-        }`}
-      >
-        Todos
-      </button>
-      {categories.map(cat => (
+    <div className="border-b border-[#E8E8E8] bg-white">
+      <div className="overflow-x-auto scrollbar-hide flex flex-nowrap gap-2 py-3 px-1">
         <button
-          key={cat}
-          onClick={() => onChange(cat === selected ? null : cat)}
-          className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-            selected === cat
-              ? 'bg-black text-white'
-              : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-400'
+          onClick={() => onChange(null)}
+          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors border shrink-0 ${
+            selected === null
+              ? 'bg-[#FF6A00] text-white border-[#FF6A00]'
+              : 'bg-white text-gray-600 border-[#E8E8E8] hover:border-[#FF6A00] hover:text-[#FF6A00]'
           }`}
         >
-          {cat}
+          Todos
         </button>
-      ))}
+        {categories.map(cat => (
+          <button
+            key={cat}
+            onClick={() => onChange(cat === selected ? null : cat)}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors border shrink-0 ${
+              selected === cat
+                ? 'bg-[#FF6A00] text-white border-[#FF6A00]'
+                : 'bg-white text-gray-600 border-[#E8E8E8] hover:border-[#FF6A00] hover:text-[#FF6A00]'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }
