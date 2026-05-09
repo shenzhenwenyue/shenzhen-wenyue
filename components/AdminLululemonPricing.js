@@ -578,6 +578,7 @@ export default function AdminLululemonPricing({ adminPassword }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [showAddAlo, setShowAddAlo] = useState(false)
+  const [showAddLulu, setShowAddLulu] = useState(false)
   const [open, setOpen] = useState({ lululemon: true, alo: true, perfumes: true, gifts: true })
   const toggle = key => setOpen(prev => ({ ...prev, [key]: !prev[key] }))
 
@@ -623,7 +624,7 @@ export default function AdminLululemonPricing({ adminPassword }) {
     return subcats.has(row.label)
   }
 
-  const lululemonRows = rows.filter(r => r.categoria === 'Lululemon' && isActive(r))
+  const lululemonRows = rows.filter(r => r.categoria === 'Lululemon')
   const aloRows = rows.filter(r => r.categoria === 'Alo Yoga')
   const perfumeRows = rows.filter(r => r.categoria === 'Perfumes')
   const giftSetRow = rows.find(r => r.categoria === 'Gift Set de Perfumes')
@@ -676,13 +677,36 @@ export default function AdminLululemonPricing({ adminPassword }) {
             <h3 className="text-sm font-bold text-gray-700">Lululemon</h3>
             <span className="text-xs text-gray-400">MOQ 10 pz</span>
           </div>
-          <span className="text-gray-400 text-xs">{open.lululemon ? '▲' : '▼'}</span>
+          <div className="flex items-center gap-2">
+            {!showAddLulu && open.lululemon && (
+              <span onClick={e => { e.stopPropagation(); setShowAddLulu(true) }}
+                className="text-xs font-medium text-gray-500 hover:text-gray-900 px-2 py-1 rounded-lg hover:bg-gray-100 transition-colors">
+                + Agregar
+              </span>
+            )}
+            <span className="text-gray-400 text-xs">{open.lululemon ? '▲' : '▼'}</span>
+          </div>
         </button>
         {open.lululemon && (
           <div className="px-4 pb-4 pt-2 space-y-2 bg-gray-50">
-            {loading ? skeleton : lululemonRows.map(row => (
-              <BrandRow key={row.id} row={row} headers={headers} onSave={handleSave} onDelete={handleDelete} canDelete={false} />
-            ))}
+            {loading ? skeleton : (
+              <>
+                {lululemonRows.map(row => (
+                  <BrandRow key={row.id} row={row} headers={headers} onSave={handleSave} onDelete={handleDelete} canDelete={true} />
+                ))}
+                {lululemonRows.length === 0 && !showAddLulu && (
+                  <p className="text-xs text-gray-400">Sin productos Lululemon todavía.</p>
+                )}
+                {showAddLulu && (
+                  <AddBrandRowForm
+                    categoria="Lululemon"
+                    headers={headers}
+                    onAdd={row => { setRows(prev => [...prev, row]); setShowAddLulu(false) }}
+                    onCancel={() => setShowAddLulu(false)}
+                  />
+                )}
+              </>
+            )}
           </div>
         )}
       </div>
