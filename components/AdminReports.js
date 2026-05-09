@@ -26,6 +26,15 @@ const STATUS_LABELS = {
   completed: 'Completado',
 }
 
+function getCostFromCatalog(catalogPricing, item) {
+  const rows = catalogPricing.filter(r => r.categoria === item.categoria)
+  if (!rows.length) return null
+  const byNombre = rows.find(r => r.nombre_match && item.nombre?.toLowerCase().includes(r.nombre_match.toLowerCase()))
+  const row = byNombre || rows.find(r => r.label === item.subcategoria) || null
+  if (!row || row.costo == null) return null
+  return parseFloat(row.costo)
+}
+
 export default function AdminReports({ orders, adminPassword }) {
   const [period, setPeriod] = useState('month')
   const [capitalItems, setCapitalItems] = useState([])
@@ -87,7 +96,7 @@ export default function AdminReports({ orders, adminPassword }) {
         const qty = item.available_qty || item.qty
         const revenue = qty * (item.unit_price || 0)
         const totalCategoryQty = item.categoria ? (categoryQtyMap[item.categoria] ?? qty) : qty
-        const costo = item.unit_cost ?? getCosto(costRules, item, totalCategoryQty)
+        const costo = item.unit_cost ?? getCosto(costRules, item, totalCategoryQty) ?? getCostFromCatalog(catalogPricing, item)
         totalItemsRevenue += revenue
         if (costo !== null) {
           totalCosto += parseFloat(costo) * qty
@@ -103,7 +112,7 @@ export default function AdminReports({ orders, adminPassword }) {
     const margen = totalRevenue > 0 ? (ganancia / totalRevenue) * 100 : null
 
     return { totalRevenue, totalOrders, paidOrders, avgTicket, totalUnits, pendingRevenue, ganancia, margen, tieneCostos: itemsConCosto > 0 }
-  }, [filteredOrders, costRules])
+  }, [filteredOrders, costRules, catalogPricing])
 
   const categoryBreakdown = useMemo(() => {
     const map = {}
@@ -122,7 +131,7 @@ export default function AdminReports({ orders, adminPassword }) {
           const qty = item.available_qty || item.qty
           const revenue = qty * (item.unit_price || 0)
           const totalCategoryQty = item.categoria ? (categoryQtyMap[item.categoria] ?? qty) : qty
-          const costo = item.unit_cost ?? getCosto(costRules, item, totalCategoryQty)
+          const costo = item.unit_cost ?? getCosto(costRules, item, totalCategoryQty) ?? getCostFromCatalog(catalogPricing, item)
           map[cat].qty += qty
           map[cat].revenue += revenue
           if (costo !== null) {
@@ -134,7 +143,7 @@ export default function AdminReports({ orders, adminPassword }) {
     return Object.entries(map)
       .map(([cat, data]) => [cat, { ...data, ganancia: data.tieneCosto ? data.revenue - data.costo : null }])
       .sort((a, b) => b[1].revenue - a[1].revenue)
-  }, [filteredOrders, costRules])
+  }, [filteredOrders, costRules, catalogPricing])
 
   const topProducts = useMemo(() => {
     const map = {}
@@ -278,8 +287,11 @@ export default function AdminReports({ orders, adminPassword }) {
 
     autoTable(doc, {
       startY: 24,
-      head: [['Categoría', 'Unidades vendidas', 'Ingresos']],
-      body: categoryBreakdown.map(([cat, data]) => [cat, data.qty, `$${data.revenue.toFixed(2)}`]),
+      head: [['Categoría', 'Unidades', 'Ingresos', 'Ganancia']],
+      body: categoryBreakdown.map(([cat, data]) => [
+        cat, data.qty, `$${data.revenue.toFixed(2)}`,
+        data.ganancia !== null ? `$${data.ganancia.toFixed(2)}` : '—',
+      ]),
       styles: { fontSize: 9 },
       headStyles: { fillColor: [0, 0, 0] },
       columnStyles: { 2: { halign: 'right' } },
@@ -412,7 +424,7 @@ export default function AdminReports({ orders, adminPassword }) {
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-sm text-gray-700 font-medium">{cat}</span>
                   <div className="flex gap-4 text-sm items-baseline">
-                    <span className="text-gray-400">{data.qty} u.</span>
+                    <span className="text-gray-400">{data.qty} pcs</span>
                     <span className="font-bold text-gray-900 w-20 text-right">${data.revenue.toFixed(2)}</span>
                     {data.ganancia !== null && (
                       <span className={`font-semibold w-20 text-right text-xs ${data.ganancia >= 0 ? 'text-green-600' : 'text-red-500'}`}>
@@ -449,7 +461,7 @@ export default function AdminReports({ orders, adminPassword }) {
                 </div>
                 <div className="text-right shrink-0">
                   <p className="text-sm font-bold text-gray-900">${data.revenue.toFixed(2)}</p>
-                  <p className="text-xs text-gray-400">{data.qty} u.</p>
+                  <p className="text-xs text-gray-400">{data.qty} pcs</p>
                 </div>
               </div>
             ))}
@@ -488,7 +500,7 @@ export default function AdminReports({ orders, adminPassword }) {
                     )}
                   </div>
                   <p className="text-xs text-gray-400 mt-0.5">
-                    {item.qty} u. × ${parseFloat(item.costo_unit).toFixed(2)}
+                    {item.qty} pcs × ${parseFloat(item.costo_unit).toFixed(2)}
                     {item.fecha_compra && ` · ${new Date(item.fecha_compra + 'T12:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' })}`}
                     {item.notas && ` · ${item.notas}`}
                   </p>
