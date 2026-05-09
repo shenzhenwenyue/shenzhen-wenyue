@@ -11,7 +11,7 @@ const SUBCATEGORIA_PRICING = new Set(['Lululemon', 'Alo Yoga'])
 export default function OrderModal({ items, products, onClose, onSuccess }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [countryCode, setCountryCode] = useState('')
+  const [countryCode, setCountryCode] = useState('+1')
   const [whatsapp, setWhatsapp] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)

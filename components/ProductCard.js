@@ -105,13 +105,13 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
               <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Price based on total pieces in subcategory</p>
             )}
             <TierRow
-              label={`${(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 1 : (product.qty_minima || 1)}–${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} u.`}
+              label={`${(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? (product.qty_minima || 10) : (product.qty_minima || 1)}–${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} pcs`}
               price={product.precio_1}
               active={pricingQty === 0 || pricingQty < (product.qty_tier2 || Infinity)}
             />
             {product.qty_tier2 && product.precio_tier2 && (
               <TierRow
-                label={`${product.qty_tier2}–${product.qty_tier3 ? product.qty_tier3 - 1 : '+'} u.`}
+                label={`${product.qty_tier2}–${product.qty_tier3 ? product.qty_tier3 - 1 : '+'} pcs`}
                 price={product.precio_tier2}
                 active={pricingQty >= product.qty_tier2 && (!product.qty_tier3 || pricingQty < product.qty_tier3)}
                 highlight
@@ -119,7 +119,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             )}
             {product.qty_tier3 && product.precio_tier3 && (
               <TierRow
-                label={`${product.qty_tier3}–${product.qty_tier4 ? product.qty_tier4 - 1 : '+'} u.`}
+                label={`${product.qty_tier3}–${product.qty_tier4 ? product.qty_tier4 - 1 : '+'} pcs`}
                 price={product.precio_tier3}
                 active={pricingQty >= product.qty_tier3 && (!product.qty_tier4 || pricingQty < product.qty_tier4)}
                 highlight
@@ -127,7 +127,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             )}
             {product.qty_tier4 && product.precio_tier4 && (
               <TierRow
-                label={`${product.qty_tier4}–${product.qty_tier5 ? product.qty_tier5 - 1 : '+'} u.`}
+                label={`${product.qty_tier4}–${product.qty_tier5 ? product.qty_tier5 - 1 : '+'} pcs`}
                 price={product.precio_tier4}
                 active={pricingQty >= product.qty_tier4 && (!product.qty_tier5 || pricingQty < product.qty_tier5)}
                 highlight
@@ -135,7 +135,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             )}
             {product.qty_tier5 && product.precio_tier5 && (
               <TierRow
-                label={`${product.qty_tier5}+ u.`}
+                label={`${product.qty_tier5}+ pcs`}
                 price={product.precio_tier5}
                 active={pricingQty >= product.qty_tier5}
                 highlight
@@ -160,10 +160,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         <div className="mt-auto pt-1">
           <div className="flex items-center justify-between gap-2">
             <div className="flex-1 min-w-0">
-              {hasTiers && lowestTierPrice && lowestTierPrice < product.precio_1 && (
-                <p className="text-xs text-gray-400 line-through">Desde ${lowestTierPrice.toFixed(2)}</p>
-              )}
-              <div className="flex items-center gap-1.5 flex-wrap">
+                  <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-base font-bold text-[#FF6A00]">${currentPrice.toFixed(2)}</span>
                 <span className="text-xs text-gray-400">ea.</span>
                 {isDiscounted && (

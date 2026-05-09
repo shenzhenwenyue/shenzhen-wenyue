@@ -96,7 +96,11 @@ function CatalogInner() {
   })
 
   const sorted = sortOrder === 'destacado'
-    ? [...filtered]
+    ? [...filtered].sort((a, b) => {
+        const aD = a.isGroup ? a.variants.some(v => v.destacado) : !!a.destacado
+        const bD = b.isGroup ? b.variants.some(v => v.destacado) : !!b.destacado
+        return (bD ? 1 : 0) - (aD ? 1 : 0)
+      })
     : [...filtered].sort((a, b) =>
         sortOrder === 'az'
           ? a.nombre.localeCompare(b.nombre)

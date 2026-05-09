@@ -170,7 +170,7 @@ export default function LandingPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-8">How It Works</h2>
           <div className="grid sm:grid-cols-3 gap-8">
             {[
-              { n: '01', title: 'Browse the Catalog', desc: 'Explore hundreds of products across 6 categories. All prices shown in USD with volume tiers.' },
+              { n: '01', title: 'Browse the Catalog', desc: 'Explore hundreds of products across multiple categories. All prices shown in USD with volume tiers.' },
               { n: '02', title: 'Request a Quote', desc: 'Add items to your order and submit a quote request. No payment required upfront.' },
               { n: '03', title: 'Confirm & Receive', desc: 'We confirm availability within hours, send a PDF invoice, and ship from our USA warehouse.' },
             ].map((step) => (
