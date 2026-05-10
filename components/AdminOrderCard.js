@@ -186,21 +186,46 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       }, 0)
       const totalCotizacion = confirmedTotal + subtotalReemplazos
 
-      let msg = `Hola *${order.customer_name}*! 📋 Aquí está tu cotización:\n\n`
-      msg += `🔗 ${pdfUrl}\n\n`
+      const available = order.items.filter(i => i.confirmed !== false)
 
-      if (unavailable.length > 0 && hayReemplazos) {
-        msg += `_Algunos productos no están disponibles — el PDF incluye alternativas sugeridas._\n\n`
+      let msg = `Hola *${order.customer_name}*! Revisamos tu pedido y aquí está tu cotización:\n\n`
+
+      // Disponibles
+      if (available.length > 0) {
+        msg += `✅ *Disponible:*\n`
+        available.forEach(item => {
+          const qty = item.available_qty || item.qty
+          msg += `• ${qty}× ${item.nombre}${item.size ? ` (${item.size})` : ''} — $${(qty * item.unit_price).toFixed(2)}\n`
+        })
+        msg += `\n`
       }
 
-      msg += `*Total: $${totalCotizacion.toFixed(2)}*${hayReemplazos ? ' _(si aceptas las alternativas)_' : ''}`
+      // No disponibles y reemplazos
+      if (unavailable.length > 0) {
+        msg += `❌ *No disponible:*\n`
+        unavailable.forEach(item => {
+          const idx = order.items.indexOf(item)
+          const rep = replacements[idx]
+          if (rep?.nombre) {
+            msg += `• ~~${item.nombre}~~\n   ↳ ¿Lo cambiamos por *${rep.nombre}* ($${((item.available_qty || item.qty) * rep.unit_price).toFixed(2)})?\n`
+          } else {
+            msg += `• ${item.nombre} — sin stock\n`
+          }
+        })
+        msg += `\n`
+      }
 
-      if (!hayReemplazos && paymentLink.trim()) {
+      msg += `📋 Cotización completa con imágenes: ${pdfUrl}\n\n`
+      msg += `*Total: $${totalCotizacion.toFixed(2)}*${hayReemplazos ? ' _(incluyendo alternativas)_' : ''}`
+
+      if (hayReemplazos) {
+        msg += `\n\n¿Confirmamos con las alternativas o prefieres hacer algún cambio?`
+      } else if (unavailable.length > 0) {
+        msg += `\n\n¿Confirmamos el pedido con los productos disponibles?`
+      } else if (paymentLink.trim()) {
         msg += `\n\n💳 *Enlace de pago:*\n${paymentLink.trim()}`
-      } else if (!hayReemplazos) {
-        msg += `\n\nPara proceder, indícanos tu confirmación y te enviamos los datos de pago.`
       } else {
-        msg += `\n\nIndícanos qué alternativas prefieres y actualizamos el pedido.`
+        msg += `\n\n¿Confirmamos el pedido? Te enviamos los datos de pago.`
       }
 
       window.open(`https://wa.me/${order.customer_whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank')
