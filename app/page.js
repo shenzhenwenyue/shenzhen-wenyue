@@ -225,7 +225,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-3 gap-3 sm:gap-4">
 
             {/* Cash App */}
-            <div className="flex flex-col items-center gap-3 border border-gray-200 rounded-xl p-5 sm:p-6">
+            <div className="flex flex-col items-center gap-3 border border-gray-200 p-5 sm:p-6">
               <div className="w-12 h-12 bg-[#00D64F] flex items-center justify-center">
                 <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12.5 2C9.46 2 6.67 3.37 4.78 5.57L3.5 4.3A1 1 0 002 5v4a1 1 0 001 1h4a1 1 0 00.71-1.71L6.56 7.14A7.5 7.5 0 0119.5 12a1 1 0 002 0C21.5 6.75 17.47 2 12.5 2zm0 20c3.04 0 5.83-1.37 7.72-3.57l1.28 1.27A1 1 0 0023 19v-4a1 1 0 00-1-1h-4a1 1 0 00-.71 1.71l1.15 1.15A7.5 7.5 0 014.5 12a1 1 0 00-2 0c0 5.25 4.03 10 9 10z"/>
@@ -238,7 +238,7 @@ export default function LandingPage() {
             </div>
 
             {/* Zelle */}
-            <div className="flex flex-col items-center gap-3 border border-gray-200 rounded-xl p-5 sm:p-6">
+            <div className="flex flex-col items-center gap-3 border border-gray-200 p-5 sm:p-6">
               <div className="w-12 h-12 bg-[#6D1ED4] flex items-center justify-center">
                 <span className="text-white font-bold text-lg">Z</span>
               </div>
@@ -249,7 +249,7 @@ export default function LandingPage() {
             </div>
 
             {/* Alibaba */}
-            <div className="flex flex-col items-center gap-3 border border-gray-200 rounded-xl p-5 sm:p-6">
+            <div className="flex flex-col items-center gap-3 border border-gray-200 p-5 sm:p-6">
               <div className="w-12 h-12 bg-[#FF6A00] flex items-center justify-center">
                 <span className="text-white font-bold text-sm">Ali</span>
               </div>
