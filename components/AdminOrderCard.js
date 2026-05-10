@@ -178,6 +178,14 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       const hayReemplazos = Object.values(replacements).some(r => r?.nombre)
       const unavailable = order.items.filter(i => i.confirmed === false)
 
+      // Total incluye disponibles + precio de reemplazos sugeridos
+      const subtotalReemplazos = unavailable.reduce((s, item) => {
+        const idx = order.items.indexOf(item)
+        const rep = replacements[idx]
+        return rep?.unit_price ? s + (item.available_qty || item.qty) * rep.unit_price : s
+      }, 0)
+      const totalCotizacion = confirmedTotal + subtotalReemplazos
+
       let msg = `Hola *${order.customer_name}*! 📋 Aquí está tu cotización:\n\n`
       msg += `🔗 ${pdfUrl}\n\n`
 
@@ -185,7 +193,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
         msg += `_Algunos productos no están disponibles — el PDF incluye alternativas sugeridas._\n\n`
       }
 
-      msg += `*Total: $${confirmedTotal.toFixed(2)}*`
+      msg += `*Total: $${totalCotizacion.toFixed(2)}*${hayReemplazos ? ' _(si aceptas las alternativas)_' : ''}`
 
       if (!hayReemplazos && paymentLink.trim()) {
         msg += `\n\n💳 *Enlace de pago:*\n${paymentLink.trim()}`
