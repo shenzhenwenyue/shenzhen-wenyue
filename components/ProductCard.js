@@ -164,8 +164,8 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
                 <span className="text-base font-bold text-[#FF6A00]">${currentPrice.toFixed(2)}</span>
                 <span className="text-xs text-gray-400">ea.</span>
                 {isDiscounted && (
-                  <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-bold">
-                    −{savingsPct}%
+                  <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-bold">
+                    {savingsPct}% off
                   </span>
                 )}
               </div>
