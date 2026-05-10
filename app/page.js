@@ -87,7 +87,7 @@ export default function LandingPage() {
             priced for resellers, shipped from our US warehouse.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="/catalog" className="inline-flex items-center justify-center gap-2 bg-white text-[#FF6A00] font-semibold px-7 py-3 hover:bg-orange-50 transition-colors text-sm shadow">
+            <a href="/catalog" className="inline-flex items-center justify-center gap-2 bg-white text-[#FF6A00] font-semibold px-7 py-3 hover:bg-orange-50 transition-colors text-sm">
               Browse Full Catalog
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -270,7 +270,7 @@ export default function LandingPage() {
           Browse our full catalog, build your order, and request a quote — no account required.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/catalog" className="inline-flex items-center justify-center gap-2 bg-white text-[#FF6A00] font-semibold px-8 py-3 hover:bg-orange-50 transition-colors text-sm shadow">
+          <a href="/catalog" className="inline-flex items-center justify-center gap-2 bg-white text-[#FF6A00] font-semibold px-8 py-3 hover:bg-orange-50 transition-colors text-sm">
             Browse Catalog
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
