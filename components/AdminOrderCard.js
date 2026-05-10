@@ -34,6 +34,20 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [costoEnvioReal, setCostoEnvioReal] = useState(
     order.costo_envio_real != null ? String(order.costo_envio_real) : ''
   )
+
+  // Sync local states when parent re-renders with updated order (polling)
+  useEffect(() => {
+    setOrder(initialOrder)
+    setShipping(initialOrder.shipping_cost != null ? String(initialOrder.shipping_cost) : String(DEFAULT_SHIPPING))
+    setTrackingInput(initialOrder.tracking_number || '')
+    setAdminNote(initialOrder.admin_notes || '')
+    setCostoEnvioReal(initialOrder.costo_envio_real != null ? String(initialOrder.costo_envio_real) : '')
+    setCostInputs(() => {
+      const byIdx = {}
+      initialOrder.items.forEach((item, i) => { byIdx[i] = item.unit_cost ?? '' })
+      return byIdx
+    })
+  }, [initialOrder.id, initialOrder.updated_at])
   const [stockMap, setStockMap] = useState({})
 
   useEffect(() => {
@@ -100,7 +114,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const confirmedItems = order.items.filter(i => i.confirmed !== false)
 
   const shippingCost = parseFloat(shipping) || 0
-  const confirmedTotal = confirmedItems.reduce((sum, i) => sum + (i.available_qty || i.qty) * i.unit_price, 0) + shippingCost
+  const confirmedTotal = confirmedItems.reduce((sum, i) => sum + (i.available_qty ?? i.qty) * i.unit_price, 0) + shippingCost
 
   async function patch(updates) {
     setSaving(true)
@@ -199,7 +213,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       if (puroDisponible.length > 0) {
         msg += `✅ *Disponible:*\n`
         puroDisponible.forEach(item => {
-          const qty = item.available_qty || item.qty
+          const qty = item.available_qty ?? item.qty
           msg += `• ${qty}× ${item.nombre}${item.size ? ` (${item.size})` : ''} — $${(qty * item.unit_price).toFixed(2)}\n`
         })
         msg += `\n`
@@ -211,7 +225,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
         itemsConSugerencias.forEach(item => {
           const idx = order.items.indexOf(item)
           const sug = replacements[idx] || []
-          const availQty = item.confirmed === true ? (item.available_qty || 0) : 0
+          const availQty = item.confirmed === true ? (item.available_qty ?? 0) : 0
           msg += `• ~~${item.qty}× ${item.nombre}~~\n`
           if (availQty > 0) msg += `   ✓ ${availQty}× disponibles del original\n`
           sug.forEach(r => {
@@ -278,11 +292,11 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     msg += `Fecha: ${fecha}\n`
     msg += `Pedido: #${order.id.substring(0, 8).toUpperCase()}\n\n`
     items.forEach(item => {
-      const qty = item.available_qty || item.qty
+      const qty = item.available_qty ?? item.qty
       const sku = item.sku ? `[${item.sku}] ` : ''
       msg += `• ${sku}${item.nombre} — ${qty} u.\n`
     })
-    msg += `\nTotal unidades: ${items.reduce((s, i) => s + (i.available_qty || i.qty), 0)}`
+    msg += `\nTotal unidades: ${items.reduce((s, i) => s + (i.available_qty ?? i.qty), 0)}`
     navigator.clipboard?.writeText(msg)
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
   }
@@ -539,7 +553,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       {/* Desglose financiero — solo en pedidos completados */}
       {order.status === 'completed' && (() => {
         const items = confirmedItems.map(item => {
-          const qty = item.available_qty || item.qty
+          const qty = item.available_qty ?? item.qty
           const venta = qty * item.unit_price
           const costo = item.unit_cost != null ? qty * item.unit_cost : null
           const ganancia = costo != null ? venta - costo : null
@@ -673,7 +687,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
         {editingCosts && (
           <div className="border border-gray-200 rounded-xl overflow-hidden">
             {order.items.map((item, i) => {
-              const qty = item.available_qty || item.qty
+              const qty = item.available_qty ?? item.qty
               const revenue = qty * item.unit_price
               const costo = parseFloat(costInputs[i])
               const ganancia = !isNaN(costo) ? revenue - costo * qty : null
@@ -888,7 +902,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
           {order.status === 'paid' && (
             <button
               onClick={() => {
-                if (!trackingInput.trim()) return
+                if (!trackingInput.trim() || saving) return
                 patch({ status: 'shipped', tracking_number: trackingInput.trim() })
                 handleEnviarTracking()
               }}
@@ -1037,7 +1051,15 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                 </div>
               ))}
               <button
-                onClick={() => { patch({ items: editItems }); setEditingItems(false) }}
+                onClick={() => {
+                  patch({ items: editItems })
+                  setEditingItems(false)
+                  setCostInputs(() => {
+                    const byIdx = {}
+                    editItems.forEach((item, i) => { byIdx[i] = item.unit_cost ?? '' })
+                    return byIdx
+                  })
+                }}
                 disabled={saving || editItems.length === 0}
                 className="w-full py-2 bg-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 disabled:opacity-50 transition-colors mt-1"
               >Guardar cambios</button>
@@ -1115,7 +1137,7 @@ function ReplacementSection({ item, products, suggestions, onChange }) {
   const [query, setQuery] = useState('')
   const [showSearch, setShowSearch] = useState(false)
 
-  const availQty = item.confirmed === true ? (item.available_qty || 0) : 0
+  const availQty = item.confirmed === true ? (item.available_qty ?? 0) : 0
   const originalQty = item.qty
   const coveredPcs = availQty + suggestions.reduce((s, r) => s + r.qty, 0)
   const remaining = originalQty - coveredPcs

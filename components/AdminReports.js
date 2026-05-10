@@ -77,10 +77,10 @@ export default function AdminReports({ orders, adminPassword }) {
     const totalOrders = filteredOrders.length
     const paidOrders = revenueOrders.length
     const totalUnits = revenueOrders.reduce((sum, o) =>
-      sum + (o.items || []).filter(i => i.confirmed !== false).reduce((s, i) => s + (i.available_qty || i.qty), 0), 0)
+      sum + (o.items || []).filter(i => i.confirmed !== false).reduce((s, i) => s + (i.available_qty ?? i.qty), 0), 0)
     const pendingRevenue = filteredOrders
       .filter(o => o.status === 'pending' || o.status === 'confirmed')
-      .reduce((sum, o) => sum + (o.items || []).filter(i => i.confirmed !== false).reduce((s, i) => s + (i.available_qty || i.qty) * (i.unit_price || 0), 0), 0)
+      .reduce((sum, o) => sum + (o.items || []).filter(i => i.confirmed !== false).reduce((s, i) => s + (i.available_qty ?? i.qty) * (i.unit_price || 0), 0), 0)
 
     let totalCosto = 0
     let itemsConCosto = 0
@@ -90,10 +90,10 @@ export default function AdminReports({ orders, adminPassword }) {
       const categoryQtyMap = {}
       confirmedItems.forEach(item => {
         const cat = item.categoria
-        if (cat) categoryQtyMap[cat] = (categoryQtyMap[cat] || 0) + (item.available_qty || item.qty)
+        if (cat) categoryQtyMap[cat] = (categoryQtyMap[cat] || 0) + (item.available_qty ?? item.qty)
       })
       confirmedItems.forEach(item => {
-        const qty = item.available_qty || item.qty
+        const qty = item.available_qty ?? item.qty
         const revenue = qty * (item.unit_price || 0)
         const totalCategoryQty = item.categoria ? (categoryQtyMap[item.categoria] ?? qty) : qty
         const costo = item.unit_cost ?? getCosto(costRules, item, totalCategoryQty) ?? getCostFromCatalog(catalogPricing, item)
@@ -123,12 +123,12 @@ export default function AdminReports({ orders, adminPassword }) {
         const categoryQtyMap = {}
         confirmedItems.forEach(item => {
           const cat = item.categoria
-          if (cat) categoryQtyMap[cat] = (categoryQtyMap[cat] || 0) + (item.available_qty || item.qty)
+          if (cat) categoryQtyMap[cat] = (categoryQtyMap[cat] || 0) + (item.available_qty ?? item.qty)
         })
         confirmedItems.forEach(item => {
           const cat = item.categoria || 'Sin categoría'
           if (!map[cat]) map[cat] = { qty: 0, revenue: 0, costo: 0, tieneCosto: false }
-          const qty = item.available_qty || item.qty
+          const qty = item.available_qty ?? item.qty
           const revenue = qty * (item.unit_price || 0)
           const totalCategoryQty = item.categoria ? (categoryQtyMap[item.categoria] ?? qty) : qty
           const costo = item.unit_cost ?? getCosto(costRules, item, totalCategoryQty) ?? getCostFromCatalog(catalogPricing, item)
@@ -154,7 +154,7 @@ export default function AdminReports({ orders, adminPassword }) {
           if (item.confirmed === false) return
           const key = item.nombre
           if (!map[key]) map[key] = { qty: 0, revenue: 0, categoria: item.categoria }
-          const qty = item.available_qty || item.qty
+          const qty = item.available_qty ?? item.qty
           map[key].qty += qty
           map[key].revenue += qty * (item.unit_price || 0)
         })
@@ -179,7 +179,7 @@ export default function AdminReports({ orders, adminPassword }) {
         ])
       } else {
         items.forEach((item, idx) => {
-          const qty = item.available_qty || item.qty
+          const qty = item.available_qty ?? item.qty
           rows.push([
             o.id.substring(0, 8).toUpperCase(),
             fecha,
@@ -262,7 +262,7 @@ export default function AdminReports({ orders, adminPassword }) {
         o.customer_name,
         STATUS_LABELS[o.status] || o.status,
         (o.items || [])
-          .map(i => `${i.available_qty || i.qty}× ${i.nombre}${i.size ? ` (${i.size})` : ''}`)
+          .map(i => `${i.available_qty ?? i.qty}× ${i.nombre}${i.size ? ` (${i.size})` : ''}`)
           .join(', '),
         `$${(o.total || 0).toFixed(2)}`,
       ]),
@@ -557,7 +557,7 @@ export default function AdminReports({ orders, adminPassword }) {
                 <div className="text-xs text-gray-500 mt-1">
                   {(o.items || []).map((item, i) => (
                     <span key={i} className="inline-block mr-3">
-                      {item.available_qty || item.qty}× {item.nombre}
+                      {item.available_qty ?? item.qty}× {item.nombre}
                       {item.size ? ` (${item.size})` : ''}
                     </span>
                   ))}

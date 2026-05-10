@@ -101,7 +101,7 @@ export async function PATCH(req, { params }) {
   if (body.status === 'paid' && current?.status !== 'paid') {
     const itemsToDecrement = (current?.items || []).filter(i => i.confirmed !== false)
     for (const item of itemsToDecrement) {
-      const qty = item.available_qty || item.qty || 0
+      const qty = (item.available_qty ?? item.qty) || 0
       if (qty <= 0 || !item.nombre) continue
       const { data: inv } = await supabase
         .from('inventory')

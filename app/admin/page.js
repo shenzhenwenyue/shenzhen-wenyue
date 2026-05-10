@@ -117,7 +117,7 @@ export default function AdminPage() {
   function orderTotal(order) {
     return (order.items || []).reduce((sum, item) => {
       if (item.confirmed === false) return sum
-      return sum + (item.available_qty || item.qty || 0) * (item.unit_price || 0)
+      return sum + ((item.available_qty ?? item.qty) || 0) * (item.unit_price || 0)
     }, 0)
   }
 
