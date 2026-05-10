@@ -23,6 +23,7 @@ export default function AdminPage() {
   const [authenticated, setAuthenticated] = useState(false)
   const [authError, setAuthError] = useState(false)
   const [orders, setOrders] = useState([])
+  const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState('pending')
   const [adminPassword, setAdminPassword] = useState('')
@@ -38,7 +39,10 @@ export default function AdminPage() {
   }, [])
 
   useEffect(() => {
-    if (authenticated) fetchOrders()
+    if (authenticated) {
+      fetchOrders()
+      fetch('/api/products').then(r => r.json()).then(data => { if (Array.isArray(data)) setProducts(data) }).catch(() => {})
+    }
   }, [authenticated])
 
   useEffect(() => {
@@ -515,6 +519,7 @@ export default function AdminPage() {
                       order={order}
                       adminPassword={adminPassword}
                       onDelete={id => setOrders(prev => prev.filter(o => o.id !== id))}
+                      products={products}
                     />
                   </div>
                 ))}

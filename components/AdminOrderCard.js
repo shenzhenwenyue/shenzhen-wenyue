@@ -13,7 +13,7 @@ const STATUS_LABELS = {
   completed: 'Completado',
 }
 
-export default function AdminOrderCard({ order: initialOrder, adminPassword, onDelete }) {
+export default function AdminOrderCard({ order: initialOrder, adminPassword, onDelete, products = [] }) {
   const [order, setOrder] = useState(initialOrder)
   const [saving, setSaving] = useState(false)
   const [partialQtys, setPartialQtys] = useState({})
@@ -92,7 +92,8 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [adminNote, setAdminNote] = useState(order.admin_notes || '')
   const [savingNote, setSavingNote] = useState(false)
   const [paymentLink, setPaymentLink] = useState('')
-  const [replacements, setReplacements] = useState({}) // { itemIndex: 'texto del reemplazo' }
+  const [replacements, setReplacements] = useState({}) // { itemIndex: { nombre, imagen_url, unit_price } }
+  const [sendingCotizacion, setSendingCotizacion] = useState(false)
   const [exportSelected, setExportSelected] = useState(null) // null = todos los confirmados; Set<idx> = selección manual
 
   const allReviewed = order.items.every(i => i.confirmed !== null)
@@ -155,37 +156,51 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     await patch({ items: updatedItems })
   }
 
-  async function handleEnviarWhatsApp() {
-    const unavailable = order.items.filter(i => i.confirmed === false)
-    const hayReemplazos = unavailable.some((_, idx) => replacements[order.items.indexOf(unavailable[idx])]?.trim())
+  async function handleEnviarCotizacion() {
+    setSendingCotizacion(true)
+    try {
+      const { generarCotizacionPDF } = await import('@/lib/pdf')
+      const doc = await generarCotizacionPDF(order, replacements, shippingCost)
+      const pdfBase64 = doc.output('datauristring').split(',')[1]
 
-    let msg = `Hola *${order.customer_name}*! Confirmamos disponibilidad de tu pedido:\n\n`
-    confirmedItems.forEach(item => {
-      const qty = item.available_qty || item.qty
-      msg += `✓ ${qty}× ${item.nombre} — $${(qty * item.unit_price).toFixed(2)}\n`
-    })
-    if (unavailable.length > 0) {
-      msg += `\nNo disponible:\n`
-      unavailable.forEach(item => {
-        const idx = order.items.indexOf(item)
-        const rep = replacements[idx]?.trim()
-        if (rep) {
-          msg += `✗ ${item.nombre} — No disponible\n   ↳ ¿Lo reemplazamos con *${rep}*?\n`
-        } else {
-          msg += `✗ ${item.nombre} — No disponible\n`
-        }
+      const res = await fetch(`/api/orders/${order.id}/quote-pdf`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-password': adminPassword,
+        },
+        body: JSON.stringify({ pdfBase64 }),
       })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Error al subir PDF')
+
+      const pdfUrl = data.url
+      const hayReemplazos = Object.values(replacements).some(r => r?.nombre)
+      const unavailable = order.items.filter(i => i.confirmed === false)
+
+      let msg = `Hola *${order.customer_name}*! 📋 Aquí está tu cotización:\n\n`
+      msg += `🔗 ${pdfUrl}\n\n`
+
+      if (unavailable.length > 0 && hayReemplazos) {
+        msg += `_Algunos productos no están disponibles — el PDF incluye alternativas sugeridas._\n\n`
+      }
+
+      msg += `*Total: $${confirmedTotal.toFixed(2)}*`
+
+      if (!hayReemplazos && paymentLink.trim()) {
+        msg += `\n\n💳 *Enlace de pago:*\n${paymentLink.trim()}`
+      } else if (!hayReemplazos) {
+        msg += `\n\nPara proceder, indícanos tu confirmación y te enviamos los datos de pago.`
+      } else {
+        msg += `\n\nIndícanos qué alternativas prefieres y actualizamos el pedido.`
+      }
+
+      window.open(`https://wa.me/${order.customer_whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank')
+    } catch (err) {
+      alert('Error al generar cotización: ' + err.message)
+    } finally {
+      setSendingCotizacion(false)
     }
-    if (shippingCost > 0) msg += `\nEnvío: $${shippingCost.toFixed(2)}`
-    msg += `\n*Total: $${confirmedTotal.toFixed(2)}*`
-    if (hayReemplazos) {
-      msg += `\n\nIndícanos qué prefieres para actualizar tu pedido.`
-    } else if (paymentLink.trim()) {
-      msg += `\n\n💳 *Enlace de pago:*\n${paymentLink.trim()}`
-    } else {
-      msg += `\n\nPara proceder, favor de realizar el pago.`
-    }
-    window.open(`https://wa.me/${order.customer_whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank')
   }
 
   async function handleDelete() {
@@ -443,16 +458,11 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
             {/* Reemplazo sugerido — visible cuando el item está marcado como no disponible */}
             {order.status === 'pending' && item.confirmed === false && (
-              <div className="mt-2 flex items-center gap-2">
-                <span className="text-xs text-amber-600 shrink-0">↳ Ofrecer reemplazo:</span>
-                <input
-                  type="text"
-                  value={replacements[i] || ''}
-                  onChange={e => setReplacements(prev => ({ ...prev, [i]: e.target.value }))}
-                  placeholder="Ej: Versace Eros 100ml"
-                  className="flex-1 px-2 py-1 border border-amber-200 rounded-lg text-xs focus:outline-none focus:border-amber-400 bg-amber-50"
-                />
-              </div>
+              <ReplacementPicker
+                products={products}
+                value={replacements[i] || null}
+                onChange={rep => setReplacements(prev => ({ ...prev, [i]: rep }))}
+              />
             )}
 
             {order.status !== 'pending' && (
@@ -775,17 +785,30 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                   type="url"
                   value={paymentLink}
                   onChange={e => setPaymentLink(e.target.value)}
-                  placeholder="Enlace de pago (opcional, se incluye en el mensaje)"
+                  placeholder="Enlace de pago (opcional — se incluye si todo está disponible)"
                   className="w-full px-3 py-2 border border-gray-200 rounded-xl text-xs focus:outline-none focus:border-gray-400"
                 />
                 <button
-                  onClick={handleEnviarWhatsApp}
-                  className="w-full py-2 bg-green-500 text-white text-xs font-semibold rounded-xl hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
+                  onClick={handleEnviarCotizacion}
+                  disabled={sendingCotizacion}
+                  className="w-full py-2.5 bg-green-500 text-white text-xs font-bold rounded-xl hover:bg-green-600 disabled:opacity-60 transition-colors flex items-center justify-center gap-2"
                 >
-                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg>
-                  Avisar cliente{paymentLink.trim() ? ' + enlace de pago' : ''}
+                  {sendingCotizacion ? (
+                    <>
+                      <svg className="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                      </svg>
+                      Generando PDF…
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                      </svg>
+                      Enviar Cotización PDF
+                    </>
+                  )}
                 </button>
               </div>
               <button
@@ -1030,6 +1053,74 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
         )}
       </div>
       </>}
+    </div>
+  )
+}
+
+function ReplacementPicker({ products, value, onChange }) {
+  const [query, setQuery] = useState('')
+  const [open, setOpen] = useState(false)
+
+  const filtered = query.length >= 2
+    ? products.filter(p => p.nombre?.toLowerCase().includes(query.toLowerCase())).slice(0, 7)
+    : []
+
+  if (value) {
+    return (
+      <div className="mt-2 flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1.5">
+        <span className="text-xs text-amber-600 shrink-0">↳ Reemplazo:</span>
+        {value.imagen_url && (
+          <img src={value.imagen_url} alt="" className="w-7 h-7 rounded object-cover shrink-0" />
+        )}
+        <span className="text-xs font-medium text-gray-800 flex-1 truncate">{value.nombre}</span>
+        <span className="text-xs text-gray-400 shrink-0">${(value.unit_price || 0).toFixed(2)}</span>
+        <button onClick={() => onChange(null)} className="text-gray-300 hover:text-red-400 shrink-0 ml-1">
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div className="mt-2 relative">
+      <div className="flex items-center gap-2">
+        <span className="text-xs text-amber-600 shrink-0">↳ Sugerir reemplazo:</span>
+        <input
+          type="text"
+          value={query}
+          onChange={e => { setQuery(e.target.value); setOpen(true) }}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setTimeout(() => setOpen(false), 150)}
+          placeholder="Buscar producto…"
+          className="flex-1 px-2 py-1 border border-amber-200 rounded-lg text-xs focus:outline-none focus:border-amber-400 bg-amber-50"
+        />
+      </div>
+      {open && filtered.length > 0 && (
+        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl z-20 max-h-52 overflow-y-auto">
+          {filtered.map(p => (
+            <button
+              key={p.id}
+              onMouseDown={() => {
+                onChange({ nombre: p.nombre, imagen_url: p.imagen_url || null, unit_price: p.precio_1 || 0 })
+                setQuery('')
+                setOpen(false)
+              }}
+              className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-50 text-left border-b border-gray-100 last:border-0"
+            >
+              {p.imagen_url
+                ? <img src={p.imagen_url} alt="" className="w-8 h-8 rounded-lg object-cover shrink-0" />
+                : <div className="w-8 h-8 rounded-lg bg-gray-100 shrink-0" />
+              }
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-medium text-gray-900 truncate">{p.nombre}</p>
+                <p className="text-xs text-gray-400">{p.categoria}{p.subcategoria ? ` · ${p.subcategoria}` : ''} · ${(p.precio_1 || 0).toFixed(2)}</p>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
