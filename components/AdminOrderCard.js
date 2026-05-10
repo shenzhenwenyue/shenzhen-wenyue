@@ -178,48 +178,65 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       const hayReemplazos = Object.values(replacements).some(r => r?.nombre)
       const unavailable = order.items.filter(i => i.confirmed === false)
 
-      // Total incluye disponibles + precio de reemplazos sugeridos
-      const subtotalReemplazos = unavailable.reduce((s, item) => {
-        const idx = order.items.indexOf(item)
-        const rep = replacements[idx]
-        return rep?.unit_price ? s + (item.available_qty || item.qty) * rep.unit_price : s
-      }, 0)
+      // Total = items confirmados + todas las sugerencias de reemplazo
+      const subtotalReemplazos = Object.values(replacements).reduce((s, sug) =>
+        s + (sug || []).reduce((rs, r) => rs + r.qty * (r.unit_price || 0), 0), 0
+      )
       const totalCotizacion = confirmedTotal + subtotalReemplazos
 
       const available = order.items.filter(i => i.confirmed !== false)
+      // Items con reemplazos sugeridos (no hay O parcial con sugerencias)
+      const itemsConSugerencias = order.items.filter((item, idx) => (replacements[idx] || []).length > 0)
+      const hayReemplazosNuevos = itemsConSugerencias.length > 0
 
       let msg = `Hola *${order.customer_name}*! Revisamos tu pedido y aquí está tu cotización:\n\n`
 
-      // Disponibles
-      if (available.length > 0) {
+      // Disponibles (sin reemplazos)
+      const puroDisponible = available.filter((item) => {
+        const idx = order.items.indexOf(item)
+        return (replacements[idx] || []).length === 0
+      })
+      if (puroDisponible.length > 0) {
         msg += `✅ *Disponible:*\n`
-        available.forEach(item => {
+        puroDisponible.forEach(item => {
           const qty = item.available_qty || item.qty
           msg += `• ${qty}× ${item.nombre}${item.size ? ` (${item.size})` : ''} — $${(qty * item.unit_price).toFixed(2)}\n`
         })
         msg += `\n`
       }
 
-      // No disponibles y reemplazos
-      if (unavailable.length > 0) {
-        msg += `❌ *No disponible:*\n`
-        unavailable.forEach(item => {
+      // Items con sugerencias (parcial o sin stock)
+      if (itemsConSugerencias.length > 0) {
+        msg += `🔄 *Cambios sugeridos:*\n`
+        itemsConSugerencias.forEach(item => {
           const idx = order.items.indexOf(item)
-          const rep = replacements[idx]
-          if (rep?.nombre) {
-            msg += `• ~~${item.nombre}~~\n   ↳ ¿Lo cambiamos por *${rep.nombre}* ($${((item.available_qty || item.qty) * rep.unit_price).toFixed(2)})?\n`
-          } else {
-            msg += `• ${item.nombre} — sin stock\n`
-          }
+          const sug = replacements[idx] || []
+          const availQty = item.confirmed === true ? (item.available_qty || 0) : 0
+          msg += `• ~~${item.qty}× ${item.nombre}~~\n`
+          if (availQty > 0) msg += `   ✓ ${availQty}× disponibles del original\n`
+          sug.forEach(r => {
+            msg += `   ↳ ${r.qty}× *${r.nombre}* — $${(r.qty * r.unit_price).toFixed(2)}\n`
+          })
         })
         msg += `\n`
       }
 
-      msg += `📋 Cotización completa con imágenes: ${pdfUrl}\n\n`
-      msg += `*Total: $${totalCotizacion.toFixed(2)}*${hayReemplazos ? ' _(incluyendo alternativas)_' : ''}`
+      // Sin stock y sin sugerencia
+      const sinStockSinRep = unavailable.filter(item => {
+        const idx = order.items.indexOf(item)
+        return (replacements[idx] || []).length === 0
+      })
+      if (sinStockSinRep.length > 0) {
+        msg += `❌ *Sin stock:*\n`
+        sinStockSinRep.forEach(item => { msg += `• ${item.nombre}\n` })
+        msg += `\n`
+      }
 
-      if (hayReemplazos) {
-        msg += `\n\n¿Confirmamos con las alternativas o prefieres hacer algún cambio?`
+      msg += `📋 Cotización completa con imágenes: ${pdfUrl}\n\n`
+      msg += `*Total: $${totalCotizacion.toFixed(2)}*${hayReemplazosNuevos ? ' _(incluyendo alternativas)_' : ''}`
+
+      if (hayReemplazosNuevos) {
+        msg += `\n\n¿Confirmamos con los cambios sugeridos o prefieres ajustar algo?`
       } else if (unavailable.length > 0) {
         msg += `\n\n¿Confirmamos el pedido con los productos disponibles?`
       } else if (paymentLink.trim()) {
@@ -489,12 +506,16 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
               </div>
             )}
 
-            {/* Reemplazo sugerido — visible cuando el item está marcado como no disponible */}
-            {order.status === 'pending' && item.confirmed === false && (
-              <ReplacementPicker
+            {/* Reemplazos — visible cuando no hay stock o hay stock parcial */}
+            {order.status === 'pending' && (
+              item.confirmed === false ||
+              (item.confirmed === true && item.available_qty != null && item.available_qty < item.qty)
+            ) && (
+              <ReplacementSection
+                item={item}
                 products={products}
-                value={replacements[i] || null}
-                onChange={rep => setReplacements(prev => ({ ...prev, [i]: rep }))}
+                suggestions={replacements[i] || []}
+                onChange={sug => setReplacements(prev => ({ ...prev, [i]: sug }))}
               />
             )}
 
@@ -1090,70 +1111,106 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   )
 }
 
-function ReplacementPicker({ products, value, onChange }) {
+function ReplacementSection({ item, products, suggestions, onChange }) {
   const [query, setQuery] = useState('')
-  const [open, setOpen] = useState(false)
+  const [showSearch, setShowSearch] = useState(false)
+
+  const availQty = item.confirmed === true ? (item.available_qty || 0) : 0
+  const originalQty = item.qty
+  const coveredPcs = availQty + suggestions.reduce((s, r) => s + r.qty, 0)
+  const remaining = originalQty - coveredPcs
 
   const filtered = query.length >= 2
-    ? products.filter(p => p.nombre?.toLowerCase().includes(query.toLowerCase())).slice(0, 7)
+    ? products.filter(p => p.nombre?.toLowerCase().includes(query.toLowerCase())).slice(0, 6)
     : []
 
-  if (value) {
-    return (
-      <div className="mt-2 flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1.5">
-        <span className="text-xs text-amber-600 shrink-0">↳ Reemplazo:</span>
-        {value.imagen_url && (
-          <img src={value.imagen_url} alt="" className="w-7 h-7 rounded object-cover shrink-0" />
-        )}
-        <span className="text-xs font-medium text-gray-800 flex-1 truncate">{value.nombre}</span>
-        <span className="text-xs text-gray-400 shrink-0">${(value.unit_price || 0).toFixed(2)}</span>
-        <button onClick={() => onChange(null)} className="text-gray-300 hover:text-red-400 shrink-0 ml-1">
-          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-    )
+  function addSuggestion(p) {
+    const defaultQty = Math.max(1, remaining > 0 ? remaining : 1)
+    onChange([...suggestions, { nombre: p.nombre, imagen_url: p.imagen_url || null, unit_price: p.precio_1 || 0, qty: defaultQty }])
+    setQuery('')
+    setShowSearch(false)
   }
 
+  function updateQty(si, delta) {
+    onChange(suggestions.map((s, i) => i === si ? { ...s, qty: Math.max(1, s.qty + delta) } : s))
+  }
+
+  function remove(si) {
+    onChange(suggestions.filter((_, i) => i !== si))
+  }
+
+  const progressColor = coveredPcs < originalQty ? 'text-red-500' : coveredPcs === originalQty ? 'text-green-600' : 'text-amber-500'
+  const progressLabel = coveredPcs === 0 ? null
+    : coveredPcs < originalQty ? `${coveredPcs}/${originalQty} pcs — faltan ${remaining}`
+    : coveredPcs === originalQty ? `✓ ${originalQty}/${originalQty} pcs completo`
+    : `${coveredPcs}/${originalQty} pcs — ${coveredPcs - originalQty} extra`
+
   return (
-    <div className="mt-2 relative">
-      <div className="flex items-center gap-2">
-        <span className="text-xs text-amber-600 shrink-0">↳ Sugerir reemplazo:</span>
-        <input
-          type="text"
-          value={query}
-          onChange={e => { setQuery(e.target.value); setOpen(true) }}
-          onFocus={() => setOpen(true)}
-          onBlur={() => setTimeout(() => setOpen(false), 150)}
-          placeholder="Buscar producto…"
-          className="flex-1 px-2 py-1 border border-amber-200 rounded-lg text-xs focus:outline-none focus:border-amber-400 bg-amber-50"
-        />
-      </div>
-      {open && filtered.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl z-20 max-h-52 overflow-y-auto">
-          {filtered.map(p => (
-            <button
-              key={p.id}
-              onMouseDown={() => {
-                onChange({ nombre: p.nombre, imagen_url: p.imagen_url || null, unit_price: p.precio_1 || 0 })
-                setQuery('')
-                setOpen(false)
-              }}
-              className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-50 text-left border-b border-gray-100 last:border-0"
-            >
-              {p.imagen_url
-                ? <img src={p.imagen_url} alt="" className="w-8 h-8 rounded-lg object-cover shrink-0" />
-                : <div className="w-8 h-8 rounded-lg bg-gray-100 shrink-0" />
-              }
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-medium text-gray-900 truncate">{p.nombre}</p>
-                <p className="text-xs text-gray-400">{p.categoria}{p.subcategoria ? ` · ${p.subcategoria}` : ''} · ${(p.precio_1 || 0).toFixed(2)}</p>
-              </div>
-            </button>
-          ))}
-        </div>
+    <div className="mt-2 pl-3 border-l-2 border-amber-200 space-y-1.5">
+      {progressLabel && (
+        <p className={`text-xs font-semibold ${progressColor}`}>{progressLabel}</p>
       )}
+
+      {suggestions.map((sug, si) => (
+        <div key={si} className="flex items-center gap-1.5">
+          {sug.imagen_url
+            ? <img src={sug.imagen_url} alt="" className="w-6 h-6 rounded object-cover shrink-0" />
+            : <div className="w-6 h-6 rounded bg-gray-100 shrink-0" />
+          }
+          <span className="text-xs text-gray-700 flex-1 truncate min-w-0">{sug.nombre}</span>
+          <span className="text-xs text-gray-400 shrink-0">${(sug.unit_price || 0).toFixed(2)}</span>
+          <div className="flex items-center gap-1 shrink-0">
+            <button onClick={() => updateQty(si, -1)} className="w-5 h-5 rounded bg-gray-200 hover:bg-gray-300 text-xs font-bold flex items-center justify-center">−</button>
+            <span className="text-xs font-bold w-5 text-center">{sug.qty}</span>
+            <button onClick={() => updateQty(si, 1)} className="w-5 h-5 rounded bg-gray-200 hover:bg-gray-300 text-xs font-bold flex items-center justify-center">+</button>
+          </div>
+          <button onClick={() => remove(si)} className="text-gray-300 hover:text-red-400 shrink-0">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      ))}
+
+      <div className="relative">
+        {!showSearch ? (
+          <button onClick={() => setShowSearch(true)} className="text-xs text-amber-600 font-medium hover:text-amber-700 flex items-center gap-1">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+            </svg>
+            {suggestions.length === 0 ? 'Sugerir reemplazo' : 'Agregar otro'}
+          </button>
+        ) : (
+          <div className="relative">
+            <input
+              autoFocus
+              type="text"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              onBlur={() => setTimeout(() => { setShowSearch(false); setQuery('') }, 150)}
+              placeholder="Buscar producto…"
+              className="w-full px-2 py-1 border border-amber-200 rounded-lg text-xs focus:outline-none focus:border-amber-400 bg-amber-50"
+            />
+            {filtered.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl z-20 max-h-52 overflow-y-auto">
+                {filtered.map(p => (
+                  <button key={p.id} onMouseDown={() => addSuggestion(p)}
+                    className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-50 text-left border-b border-gray-100 last:border-0">
+                    {p.imagen_url
+                      ? <img src={p.imagen_url} alt="" className="w-8 h-8 rounded-lg object-cover shrink-0" />
+                      : <div className="w-8 h-8 rounded-lg bg-gray-100 shrink-0" />
+                    }
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-medium text-gray-900 truncate">{p.nombre}</p>
+                      <p className="text-xs text-gray-400">{p.categoria}{p.subcategoria ? ` · ${p.subcategoria}` : ''} · ${(p.precio_1 || 0).toFixed(2)}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
