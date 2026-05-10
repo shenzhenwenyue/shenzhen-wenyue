@@ -23,15 +23,18 @@ export async function POST(req, { params }) {
   }
 
   const pdfBuffer = Buffer.from(pdfBase64, 'base64')
-  const fileName = `${id}-${Date.now()}.pdf`
+  const fileName = `${id}.pdf`
 
   const { error } = await supabase.storage
     .from(BUCKET)
-    .upload(fileName, pdfBuffer, { contentType: 'application/pdf', upsert: false })
+    .upload(fileName, pdfBuffer, { contentType: 'application/pdf', upsert: true })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  const { data: { publicUrl } } = supabase.storage.from(BUCKET).getPublicUrl(fileName)
+  // Devolver URL propia (dominio del negocio) en lugar de la URL de Supabase
+  const host = req.headers.get('host')
+  const proto = host?.includes('localhost') ? 'http' : 'https'
+  const shortUrl = `${proto}://${host}/q/${id}`
 
-  return NextResponse.json({ url: publicUrl })
+  return NextResponse.json({ url: shortUrl })
 }
