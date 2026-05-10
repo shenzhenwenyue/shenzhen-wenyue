@@ -83,10 +83,10 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
               {(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') && (
                 <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Price based on total pieces in subcategory</p>
               )}
-              <TierRow label={`${(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') ? 1 : (base.qty_minima || 1)}–${base.qty_tier2 ? base.qty_tier2 - 1 : '+'} u.`} price={base.precio_1} active={pricingQty < (base.qty_tier2 || Infinity)} />
-              {base.qty_tier2 && base.precio_tier2 && <TierRow label={`${base.qty_tier2}–${base.qty_tier3 ? base.qty_tier3 - 1 : '+'} u.`} price={base.precio_tier2} active={pricingQty >= base.qty_tier2 && (!base.qty_tier3 || pricingQty < base.qty_tier3)} highlight />}
-              {base.qty_tier3 && base.precio_tier3 && <TierRow label={`${base.qty_tier3}–${base.qty_tier4 ? base.qty_tier4 - 1 : '+'} u.`} price={base.precio_tier3} active={pricingQty >= base.qty_tier3 && (!base.qty_tier4 || pricingQty < base.qty_tier4)} highlight />}
-              {base.qty_tier4 && base.precio_tier4 && <TierRow label={`${base.qty_tier4}+ u.`} price={base.precio_tier4} active={pricingQty >= base.qty_tier4} highlight best />}
+              <TierRow label={`${(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') ? 1 : (base.qty_minima || 1)}–${base.qty_tier2 ? base.qty_tier2 - 1 : '+'} pcs`} price={base.precio_1} active={pricingQty < (base.qty_tier2 || Infinity)} />
+              {base.qty_tier2 && base.precio_tier2 && <TierRow label={`${base.qty_tier2}–${base.qty_tier3 ? base.qty_tier3 - 1 : '+'} pcs`} price={base.precio_tier2} active={pricingQty >= base.qty_tier2 && (!base.qty_tier3 || pricingQty < base.qty_tier3)} highlight />}
+              {base.qty_tier3 && base.precio_tier3 && <TierRow label={`${base.qty_tier3}–${base.qty_tier4 ? base.qty_tier4 - 1 : '+'} pcs`} price={base.precio_tier3} active={pricingQty >= base.qty_tier3 && (!base.qty_tier4 || pricingQty < base.qty_tier4)} highlight />}
+              {base.qty_tier4 && base.precio_tier4 && <TierRow label={`${base.qty_tier4}+ pcs`} price={base.precio_tier4} active={pricingQty >= base.qty_tier4} highlight best />}
               {categoryQty > totalInCart && (
                 <p className="text-green-600 font-medium pt-0.5 border-t border-gray-200 mt-1">✓ {categoryQty} pcs total in this category</p>
               )}
@@ -101,16 +101,33 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-base font-bold text-gray-900">${currentPrice.toFixed(2)}</span>
                 <span className="text-xs text-gray-400">ea.</span>
-                {isDiscounted && <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-semibold">−{savingsPct}%</span>}
+                {isDiscounted && <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-semibold">{savingsPct}% off</span>}
               </div>
               {nextTier && (
                 <p className="text-xs text-blue-600 font-medium mt-0.5">+{nextTier.qty - pricingQty} more pcs → ${nextTier.price.toFixed(2)} ea.</p>
               )}
             </div>
           </div>
+          {totalInCart > 0 && (
+            <button
+              onClick={e => { e.stopPropagation(); setOpen(true) }}
+              className="mt-2 w-full py-2 border border-gray-300 rounded-xl text-xs font-semibold text-gray-700 hover:border-gray-500 hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+              </svg>
+              Edit sizes · {totalInCart} pcs
+            </button>
+          )}
           {(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') && (
             <p className="text-xs text-gray-400 mt-1">Min. 10 pcs total for {group.categoria}</p>
           )}
+          <div className="flex items-center gap-1 mt-2 pt-2 border-t border-gray-100">
+            <svg className="w-3 h-3 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+            <span className="text-xs text-gray-400">Verified · USA Shipping</span>
+          </div>
         </div>
       </div>
 
