@@ -144,7 +144,7 @@ export default function LandingPage() {
                   className="flex flex-col p-4 sm:p-5 border border-gray-200 bg-white hover:border-[#FF6A00] hover:shadow-sm transition-all group">
                   <div className="w-8 h-8 bg-[#FF6A00]/10 flex items-center justify-center mb-3">
                     <svg className="w-4 h-4 text-[#FF6A00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 2 L22 7 L22 17 L12 22 L2 17 L2 7 Z M12 2 L12 12 M2 7 L12 12 M22 7 L12 12" />
                     </svg>
                   </div>
                   <p className="font-semibold text-gray-900 text-sm group-hover:text-[#FF6A00] transition-colors">{cat.name}</p>
