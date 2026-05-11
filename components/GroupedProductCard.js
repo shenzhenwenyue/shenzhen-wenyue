@@ -83,9 +83,9 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
               {(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') && (
                 <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Price based on total pieces in subcategory</p>
               )}
-              <TierRow label={`${(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') ? 1 : (base.qty_minima || 1)}–${base.qty_tier2 ? base.qty_tier2 - 1 : '+'} pcs`} price={base.precio_1} active={pricingQty < (base.qty_tier2 || Infinity)} />
-              {base.qty_tier2 && base.precio_tier2 && <TierRow label={`${base.qty_tier2}–${base.qty_tier3 ? base.qty_tier3 - 1 : '+'} pcs`} price={base.precio_tier2} active={pricingQty >= base.qty_tier2 && (!base.qty_tier3 || pricingQty < base.qty_tier3)} highlight />}
-              {base.qty_tier3 && base.precio_tier3 && <TierRow label={`${base.qty_tier3}–${base.qty_tier4 ? base.qty_tier4 - 1 : '+'} pcs`} price={base.precio_tier3} active={pricingQty >= base.qty_tier3 && (!base.qty_tier4 || pricingQty < base.qty_tier4)} highlight />}
+              <TierRow label={`${(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') ? 1 : (base.qty_minima || 1)} a ${base.qty_tier2 ? base.qty_tier2 - 1 : '+'} pcs`} price={base.precio_1} active={pricingQty < (base.qty_tier2 || Infinity)} />
+              {base.qty_tier2 && base.precio_tier2 && <TierRow label={`${base.qty_tier2} a ${base.qty_tier3 ? base.qty_tier3 - 1 : '+'} pcs`} price={base.precio_tier2} active={pricingQty >= base.qty_tier2 && (!base.qty_tier3 || pricingQty < base.qty_tier3)} highlight />}
+              {base.qty_tier3 && base.precio_tier3 && <TierRow label={`${base.qty_tier3} a ${base.qty_tier4 ? base.qty_tier4 - 1 : '+'} pcs`} price={base.precio_tier3} active={pricingQty >= base.qty_tier3 && (!base.qty_tier4 || pricingQty < base.qty_tier4)} highlight />}
               {base.qty_tier4 && base.precio_tier4 && <TierRow label={`${base.qty_tier4}+ pcs`} price={base.precio_tier4} active={pricingQty >= base.qty_tier4} highlight best />}
               {categoryQty > totalInCart && (
                 <p className="text-green-600 font-medium pt-0.5 border-t border-gray-200 mt-1">✓ {categoryQty} pcs total in this category</p>

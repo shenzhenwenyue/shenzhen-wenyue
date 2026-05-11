@@ -105,13 +105,13 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
               <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Price based on total pieces in subcategory</p>
             )}
             <TierRow
-              label={`${(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 1 : (product.qty_minima || 1)}–${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} pcs`}
+              label={`${(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 1 : (product.qty_minima || 1)} a ${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} pcs`}
               price={product.precio_1}
               active={pricingQty === 0 || pricingQty < (product.qty_tier2 || Infinity)}
             />
             {product.qty_tier2 && product.precio_tier2 && (
               <TierRow
-                label={`${product.qty_tier2}–${product.qty_tier3 ? product.qty_tier3 - 1 : '+'} pcs`}
+                label={`${product.qty_tier2} a ${product.qty_tier3 ? product.qty_tier3 - 1 : '+'} pcs`}
                 price={product.precio_tier2}
                 active={pricingQty >= product.qty_tier2 && (!product.qty_tier3 || pricingQty < product.qty_tier3)}
                 highlight
@@ -119,7 +119,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             )}
             {product.qty_tier3 && product.precio_tier3 && (
               <TierRow
-                label={`${product.qty_tier3}–${product.qty_tier4 ? product.qty_tier4 - 1 : '+'} pcs`}
+                label={`${product.qty_tier3} a ${product.qty_tier4 ? product.qty_tier4 - 1 : '+'} pcs`}
                 price={product.precio_tier3}
                 active={pricingQty >= product.qty_tier3 && (!product.qty_tier4 || pricingQty < product.qty_tier4)}
                 highlight
