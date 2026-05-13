@@ -12,7 +12,7 @@ function ImagePlaceholder() {
   )
 }
 
-export default function ProductCard({ product, cartQty, cartSizes, categoryQty, onAdd, onRemove, onSetQty, onSetQtyDirect }) {
+export default function ProductCard({ product, cartQty, cartSizes, categoryQty, onAdd, onRemove, onSetQty }) {
   const [imgError, setImgError] = useState(false)
   const [editingQty, setEditingQty] = useState(false)
   const [inputVal, setInputVal] = useState('')
@@ -86,27 +86,6 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         )}
       </div>
 
-      {/* Qty picker 1–24 — Perfumes only */}
-      {product.categoria === 'Perfumes' && !isOut && (
-        <div className="overflow-x-auto border-b border-gray-100 bg-white" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          <div className="flex gap-1 px-2 py-1.5 min-w-max">
-            {Array.from({ length: 24 }, (_, i) => i + 1).map(n => (
-              <button
-                key={n}
-                onClick={() => onSetQtyDirect && onSetQtyDirect(product, n)}
-                className={`w-7 h-7 rounded text-[11px] font-semibold flex-shrink-0 transition-colors ${
-                  qty === n
-                    ? 'bg-[#FF6A00] text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-[#FF6A00]'
-                }`}
-              >
-                {n}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* Info */}
       <div className="p-3 flex flex-col flex-1">
         <p className="text-[10px] text-[#FF6A00] uppercase tracking-wide font-semibold mb-0.5">{product.categoria}</p>
@@ -126,7 +105,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
               <p className="text-gray-400 pb-1 border-b border-gray-200 mb-1">Price based on total pieces in subcategory</p>
             )}
             <TierRow
-              label={`${(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 1 : (product.qty_minima || 1)} a ${product.qty_tier2 ? product.qty_tier2 - 1 : '+'} pcs`}
+              label={`${(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 1 : (product.qty_minima || 1)} a ${product.qty_tier2 ? product.qty_tier2 - 1 : product.categoria === 'Perfumes' ? 24 : '+'} pcs`}
               price={product.precio_1}
               active={pricingQty === 0 || pricingQty < (product.qty_tier2 || Infinity)}
             />
