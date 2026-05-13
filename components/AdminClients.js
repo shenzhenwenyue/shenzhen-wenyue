@@ -302,7 +302,7 @@ export default function AdminClients({ orders }) {
                     )}
                     {isAtRisk && (
                       <a
-                        href={`https://wa.me/${client.whatsapp?.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola *${client.name}*! ¿Cómo estás? Tenemos productos nuevos disponibles. ¿Te interesa ver el catálogo?`)}`}
+                        href={`https://wa.me/${client.whatsapp?.replace(/\D/g, '')}?text=${encodeURIComponent(`Hi *${client.name}*! How are you? We have new products available. Would you like to check the catalog?`)}`}
                         target="_blank"
                         rel="noreferrer"
                         className="w-full py-2 bg-orange-500 text-white text-xs font-semibold rounded-xl hover:bg-orange-600 transition-colors flex items-center justify-center gap-1.5"

@@ -91,13 +91,13 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
           return `• ${cat}: ${qty} pz — $${sub.toFixed(2)}`
         }).join('\n')
       const msg =
-        `Hola! Soy *${name.trim()}*.\n` +
-        `📋 Pedido *${orderNumber}*\n\n` +
-        `📦 Solicitud de cotización:\n${catSummary}\n\n` +
+        `Hi! I'm *${name.trim()}*.\n` +
+        `📋 Order *${orderNumber}*\n\n` +
+        `📦 Quote request:\n${catSummary}\n\n` +
         `Subtotal: $${subtotal.toFixed(2)}\n` +
-        `Envío: $${shipping.toFixed(2)}\n` +
-        `*Total estimado: $${total.toFixed(2)}*\n\n` +
-        `Espero confirmación de disponibilidad. Gracias!`
+        `Shipping: $${shipping.toFixed(2)}\n` +
+        `*Estimated total: $${total.toFixed(2)}*\n\n` +
+        `Awaiting availability confirmation. Thank you!`
 
       setWaUrl(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`)
       setDone(true)

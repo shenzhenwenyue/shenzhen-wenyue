@@ -204,7 +204,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       const itemsConSugerencias = order.items.filter((item, idx) => (replacements[idx] || []).length > 0)
       const hayReemplazosNuevos = itemsConSugerencias.length > 0
 
-      let msg = `Hola *${order.customer_name}*! Revisamos tu pedido y aquí está tu cotización:\n\n`
+      let msg = `Hi *${order.customer_name}*! We reviewed your order, here is your quote:\n\n`
 
       // Disponibles (sin reemplazos)
       const puroDisponible = available.filter((item) => {
@@ -212,7 +212,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
         return (replacements[idx] || []).length === 0
       })
       if (puroDisponible.length > 0) {
-        msg += `✅ *Disponible:*\n`
+        msg += `✅ *Available:*\n`
         puroDisponible.forEach(item => {
           const qty = item.available_qty ?? item.qty
           msg += `• ${qty}× ${item.nombre}${item.size ? ` (${item.size})` : ''} — $${(qty * item.unit_price).toFixed(2)}\n`
@@ -222,7 +222,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
       // Items con sugerencias (parcial o sin stock)
       if (itemsConSugerencias.length > 0) {
-        msg += `🔄 *Cambios sugeridos:*\n`
+        msg += `🔄 *Suggested changes:*\n`
         itemsConSugerencias.forEach(item => {
           const idx = order.items.indexOf(item)
           const sug = replacements[idx] || []
@@ -242,22 +242,22 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
         return (replacements[idx] || []).length === 0
       })
       if (sinStockSinRep.length > 0) {
-        msg += `❌ *Sin stock:*\n`
+        msg += `❌ *Out of stock:*\n`
         sinStockSinRep.forEach(item => { msg += `• ${item.nombre}\n` })
         msg += `\n`
       }
 
-      msg += `📋 Cotización completa con imágenes: ${pdfUrl}\n\n`
-      msg += `*Total: $${totalCotizacion.toFixed(2)}*${hayReemplazosNuevos ? ' _(incluyendo alternativas)_' : ''}`
+      msg += `📋 Full quote with images: ${pdfUrl}\n\n`
+      msg += `*Total: $${totalCotizacion.toFixed(2)}*${hayReemplazosNuevos ? ' _(including alternatives)_' : ''}`
 
       if (hayReemplazosNuevos) {
-        msg += `\n\n¿Confirmamos con los cambios sugeridos o prefieres ajustar algo?`
+        msg += `\n\nWould you like to confirm with the suggested changes, or adjust something?`
       } else if (unavailable.length > 0) {
-        msg += `\n\n¿Confirmamos el pedido con los productos disponibles?`
+        msg += `\n\nShall we confirm the order with the available items?`
       } else if (paymentLink.trim()) {
-        msg += `\n\n💳 *Enlace de pago:*\n${paymentLink.trim()}`
+        msg += `\n\n💳 *Payment link:*\n${paymentLink.trim()}`
       } else {
-        msg += `\n\n¿Confirmamos el pedido? Te enviamos los datos de pago.`
+        msg += `\n\nReady to confirm? We'll send you the payment details.`
       }
 
       window.open(`https://wa.me/${order.customer_whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank')
@@ -271,12 +271,12 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   function handleEnviarPago() {
     const total = confirmedTotal.toFixed(2)
     let msg =
-      `Hola *${order.customer_name}*! Tu pedido está listo para procesarse.\n\n` +
-      `*Total a pagar: $${total}*\n\n` +
-      `Puedes enviarnos tu pago por cualquiera de estos métodos:\n\n` +
+      `Hi *${order.customer_name}*! Your order is ready to process.\n\n` +
+      `*Total due: $${total}*\n\n` +
+      `You can send your payment through any of these methods:\n\n` +
       `💵 *Cash App:* $ShenzhenWenyue\n` +
       `📧 *Zelle:* shenzhenwenyue@gmail.com\n\n` +
-      `Mándanos el comprobante por aquí y procesamos tu pedido de inmediato. ¡Gracias! 🙏`
+      `Send us your payment confirmation here and we'll process your order right away. Thank you! 🙏`
     if (alibabaLink.trim()) {
       msg += `\n\n🔗 *Alibaba Trade Assurance:*\n${alibabaLink.trim()}`
     }
@@ -302,17 +302,17 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
   function exportarOrden(items, proveedor = null) {
     if (items.length === 0) return
-    const fecha = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })
-    let msg = `*ORDEN DE COMPRA — Shenzhen Wenyue*\n`
-    if (proveedor) msg += `Proveedor: ${proveedor}\n`
-    msg += `Fecha: ${fecha}\n`
-    msg += `Pedido: #${order.id.substring(0, 8).toUpperCase()}\n\n`
+    const fecha = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })
+    let msg = `*PURCHASE ORDER — Shenzhen Wenyue*\n`
+    if (proveedor) msg += `Supplier: ${proveedor}\n`
+    msg += `Date: ${fecha}\n`
+    msg += `Order: #${order.id.substring(0, 8).toUpperCase()}\n\n`
     items.forEach(item => {
       const qty = item.available_qty ?? item.qty
       const sku = item.sku ? `[${item.sku}] ` : ''
       msg += `• ${sku}${item.nombre} — ${qty} u.\n`
     })
-    msg += `\nTotal unidades: ${items.reduce((s, i) => s + (i.available_qty ?? i.qty), 0)}`
+    msg += `\nTotal units: ${items.reduce((s, i) => s + (i.available_qty ?? i.qty), 0)}`
     navigator.clipboard?.writeText(msg)
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
   }
@@ -352,9 +352,9 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
   function handleEnviarTracking() {
     const msg =
-      `Hola *${order.customer_name}*! Tu pedido ha sido enviado.\n\n` +
-      `*Número de seguimiento:* ${trackingInput}\n\n` +
-      `Puedes rastrear tu paquete con ese número. Cualquier duda estamos a tus órdenes.`
+      `Hi *${order.customer_name}*! Your order has been shipped.\n\n` +
+      `*Tracking number:* ${trackingInput}\n\n` +
+      `You can track your package with that number. Feel free to reach out if you have any questions.`
     window.open(`https://wa.me/${order.customer_whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank')
   }
 
