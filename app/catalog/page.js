@@ -132,6 +132,16 @@ function CatalogInner() {
     })
   }, [])
 
+  const setQtyDirect = useCallback((product, qty) => {
+    const cartId = product.id
+    setCart(prev => {
+      if (qty < 1) return prev.filter(i => i.id !== cartId)
+      const existing = prev.find(i => i.id === cartId)
+      if (existing) return prev.map(i => i.id === cartId ? { ...i, qty } : i)
+      return [...prev, { id: cartId, productId: product.id, size: null, qty, categoria: product.categoria }]
+    })
+  }, [])
+
   function getCartSizes(productId) {
     return cart
       .filter(i => i.productId === productId && i.size)
@@ -335,6 +345,7 @@ function CatalogInner() {
                       onAdd={addToCart}
                       onRemove={removeFromCart}
                       onSetQty={setQtyInCart}
+                      onSetQtyDirect={setQtyDirect}
                     />
                   )
                 ))}
