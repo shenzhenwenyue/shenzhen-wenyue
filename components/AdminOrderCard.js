@@ -338,6 +338,35 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     })
   }
 
+  function handleConfirmarPedido() {
+    const repItems = []
+    Object.entries(replacements).forEach(([idxStr, sug]) => {
+      if (!sug) return
+      sug.filter(r => r.nombre && r.qty > 0).forEach(s => {
+        repItems.push({
+          nombre: s.nombre,
+          imagen_url: s.imagen_url || null,
+          unit_price: s.unit_price || 0,
+          qty: s.qty,
+          confirmed: true,
+          available_qty: s.qty,
+          categoria: order.items[parseInt(idxStr)]?.categoria || '',
+          subcategoria: '',
+          sku: '',
+        })
+      })
+    })
+    const updatedItems = repItems.length > 0 ? [...order.items, ...repItems] : order.items
+    const subtotalReemplazos = repItems.reduce((s, i) => s + i.qty * i.unit_price, 0)
+    const totalFinal = confirmedTotal + subtotalReemplazos
+    patch({
+      status: 'confirmed',
+      shipping_cost: shippingCost,
+      total: totalFinal,
+      ...(repItems.length > 0 && { items: updatedItems }),
+    })
+  }
+
   function handleOrdenProveedor() {
     exportarOrden(getExportItems())
   }
@@ -896,7 +925,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                 </button>
               </div>
               <button
-                onClick={() => patch({ status: 'confirmed', shipping_cost: shippingCost, total: confirmedTotal })}
+                onClick={handleConfirmarPedido}
                 disabled={saving}
                 className="w-full py-2 bg-blue-500 text-white text-xs font-semibold rounded-xl hover:bg-blue-600 disabled:opacity-50 transition-colors"
               >
