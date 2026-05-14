@@ -116,6 +116,10 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
   const shippingCost = parseFloat(shipping) || 0
   const confirmedTotal = confirmedItems.reduce((sum, i) => sum + (i.available_qty ?? i.qty) * i.unit_price, 0) + shippingCost
+  const subtotalReemplazos = Object.values(replacements).reduce((s, sug) =>
+    s + (sug || []).reduce((rs, r) => rs + r.qty * (r.unit_price || 0), 0), 0
+  )
+  const displayTotal = confirmedTotal + subtotalReemplazos
 
   async function patch(updates) {
     setSaving(true)
@@ -357,8 +361,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       })
     })
     const updatedItems = repItems.length > 0 ? [...order.items, ...repItems] : order.items
-    const subtotalReemplazos = repItems.reduce((s, i) => s + i.qty * i.unit_price, 0)
-    const totalFinal = confirmedTotal + subtotalReemplazos
+    const totalFinal = displayTotal
     patch({
       status: 'confirmed',
       shipping_cost: shippingCost,
@@ -807,7 +810,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
             </div>
             <div className="flex justify-between text-sm font-bold text-gray-900 border-t border-gray-200 pt-2">
               <span>Total{order.status === 'pending' ? (allReviewed ? ' confirmado' : ' estimado') : ' real'}</span>
-              <span>${confirmedTotal.toFixed(2)}</span>
+              <span>${displayTotal.toFixed(2)}</span>
             </div>
             {order.status !== 'pending' && (
               <button
