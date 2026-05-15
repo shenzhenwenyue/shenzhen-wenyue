@@ -328,6 +328,12 @@ export default function AdminPage() {
         >
           Clientes
         </button>
+        <a
+          href="/admin/catalogo"
+          className="shrink-0 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-amber-500 hover:text-amber-700 transition-colors"
+        >
+          Preview Catálogo
+        </a>
       </div>
 
       {/* Search bar — only on order tabs */}

@@ -7,11 +7,9 @@ import CategoryFilter from '@/components/CategoryFilter'
 import Cart from '@/components/Cart'
 import OrderModal from '@/components/OrderModal'
 
-// Cambiar a true para activar el catálogo público
-const CATALOG_LIVE = false
-
-function CatalogInner() {
+function CatalogPreviewInner() {
   const searchParams = useSearchParams()
+  const [authed, setAuthed] = useState(false)
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -23,24 +21,31 @@ function CatalogInner() {
   const [cartOpen, setCartOpen] = useState(false)
   const [quoteOpen, setQuoteOpen] = useState(false)
 
+  // Check admin session auth
+  useEffect(() => {
+    const saved = sessionStorage.getItem('adminPassword')
+    if (saved) {
+      setAuthed(true)
+    } else {
+      window.location.href = '/admin'
+    }
+  }, [])
+
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('sw_cart')
+      const saved = localStorage.getItem('sw_cart_preview')
       if (saved) setCart(JSON.parse(saved))
     } catch {}
   }, [])
 
   useEffect(() => {
     try {
-      localStorage.setItem('sw_cart', JSON.stringify(cart))
+      localStorage.setItem('sw_cart_preview', JSON.stringify(cart))
     } catch {}
   }, [cart])
 
   useEffect(() => {
-    if (!CATALOG_LIVE) {
-      setLoading(false)
-      return
-    }
+    if (!authed) return
     fetch('/api/products')
       .then(r => r.json())
       .then(data => {
@@ -49,7 +54,7 @@ function CatalogInner() {
       })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false))
-  }, [])
+  }, [authed])
 
   const groupedProducts = useMemo(() => {
     const groupMap = {}
@@ -139,7 +144,7 @@ function CatalogInner() {
     })
   }, [])
 
-function getCartSizes(productId) {
+  function getCartSizes(productId) {
     return cart
       .filter(i => i.productId === productId && i.size)
       .reduce((acc, i) => ({ ...acc, [i.size]: i.qty }), {})
@@ -168,8 +173,16 @@ function getCartSizes(productId) {
   const SUBCATEGORIA_PRICING = new Set(['Lululemon', 'Alo Yoga'])
   const cartCount = cart.reduce((sum, i) => sum + i.qty, 0)
 
+  if (!authed) return null
+
   return (
     <main className="min-h-screen bg-[#F5F5F5]">
+      {/* Admin preview banner */}
+      <div className="bg-black text-white text-xs px-4 py-2 flex items-center justify-between">
+        <span className="font-semibold text-yellow-400">PREVIEW — Catálogo no visible al público</span>
+        <a href="/admin" className="text-gray-400 hover:text-white transition-colors">← Volver al Admin</a>
+      </div>
+
       {/* Header */}
       <header className="bg-[#FF6A00] text-white sticky top-0 z-40 shadow-lg">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
@@ -180,7 +193,6 @@ function getCartSizes(productId) {
             <p className="text-xs text-orange-100 mt-0.5">Wholesale · B2B</p>
           </a>
 
-          {/* Search bar — hidden on mobile, visible on sm+ */}
           <div className="hidden sm:flex flex-1 min-w-0">
             <input
               type="text"
@@ -234,7 +246,7 @@ function getCartSizes(productId) {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-5">
-        {/* Search bar — mobile only (desktop version is in the header) */}
+        {/* Search bar — mobile only */}
         <div className="flex sm:hidden mb-3">
           <input
             type="text"
@@ -300,28 +312,13 @@ function getCartSizes(productId) {
           </div>
         )}
 
-        {(!CATALOG_LIVE || error) && (
-          <div className="mt-12 flex flex-col items-center text-center px-6 py-14 bg-orange-50 rounded-2xl border border-orange-100">
-            <svg className="w-10 h-10 text-[#FF6A00] mb-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 4a7 7 0 110 14A7 7 0 0111 4zm0 0v1m0 12v1m8-8h-1M4 11H3m14.07-5.07l-.707.707M6.343 16.243l-.707.707m11.314 0l-.707-.707M6.343 6.343l-.707-.707" />
-            </svg>
-            <h2 className="text-lg font-bold text-gray-900 mb-1">Catalog Under Maintenance</h2>
-            <p className="text-sm text-gray-500 max-w-xs">We're updating our catalog. Check back shortly or contact us directly on WhatsApp to place your order.</p>
-            <a
-              href="https://wa.me/16613737977"
-              target="_blank"
-              rel="noreferrer"
-              className="mt-5 inline-flex items-center gap-2 bg-[#25D366] text-white text-sm font-bold px-5 py-2.5 rounded-full hover:bg-green-500 transition-colors"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-              </svg>
-              Contact us on WhatsApp
-            </a>
+        {error && (
+          <div className="mt-12 text-center py-10 text-red-500 text-sm">
+            Error cargando catálogo: {error}
           </div>
         )}
 
-        {CATALOG_LIVE && !loading && !error && (
+        {!loading && !error && (
           <>
             <p className="text-xs text-gray-500 mb-3 font-medium">
               {sorted.length} {sorted.length === 1 ? 'product' : 'products'}
@@ -401,10 +398,10 @@ function getCartSizes(productId) {
   )
 }
 
-export default function CatalogPage() {
+export default function CatalogPreviewPage() {
   return (
     <Suspense>
-      <CatalogInner />
+      <CatalogPreviewInner />
     </Suspense>
   )
 }
