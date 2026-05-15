@@ -165,7 +165,6 @@ function getCartSizes(productId) {
       .reduce((sum, i) => sum + i.qty, 0)
   }
 
-  const SUBCATEGORIA_PRICING = new Set(['Lululemon', 'Alo Yoga'])
   const cartCount = cart.reduce((sum, i) => sum + i.qty, 0)
 
   return (
@@ -337,9 +336,7 @@ function getCartSizes(productId) {
                       onAdd={addToCart}
                       onRemove={removeFromCart}
                       categoryQty={
-                        SUBCATEGORIA_PRICING.has(product.categoria) && product.subcategoria
-                          ? getSubcategoriaQty(product.categoria, product.subcategoria)
-                          : getCategoryQty(product.categoria)
+                        getCategoryQty(product.categoria)
                       }
                     />
                   ) : (
@@ -349,9 +346,7 @@ function getCartSizes(productId) {
                       cartQty={cart.find(i => i.id === product.id)?.qty || 0}
                       cartSizes={getCartSizes(product.id)}
                       categoryQty={
-                        SUBCATEGORIA_PRICING.has(product.categoria) && product.subcategoria
-                          ? getSubcategoriaQty(product.categoria, product.subcategoria)
-                          : getCategoryQty(product.categoria)
+                        getCategoryQty(product.categoria)
                       }
                       onAdd={addToCart}
                       onRemove={removeFromCart}

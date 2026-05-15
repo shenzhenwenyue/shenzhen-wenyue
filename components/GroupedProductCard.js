@@ -2,20 +2,17 @@
 import { useState } from 'react'
 import { getPrecio } from '@/lib/pricing'
 
-function getMixLabel(categoria, subcategoria) {
+function getMixLabel(categoria) {
   if (categoria === 'Perfumes' || categoria === 'Gift Set de Perfumes')
     return 'Mix any brand or scent — price based on total perfumes in your order'
   if (categoria === 'Lululemon' || categoria === 'Alo Yoga')
-    return subcategoria
-      ? `Mix any ${subcategoria} style — price based on total ${subcategoria} in your order`
-      : `Mix any style — price based on total pieces in your order`
+    return `Mix any ${categoria} style — price based on total ${categoria} in your order`
   return `Mix any ${categoria} — price based on total in your order`
 }
 
-function getNudgeSuffix(categoria, subcategoria) {
+function getNudgeSuffix(categoria) {
   if (categoria === 'Perfumes' || categoria === 'Gift Set de Perfumes') return 'more pcs — any brand counts'
-  if (categoria === 'Lululemon' || categoria === 'Alo Yoga')
-    return subcategoria ? `more ${subcategoria} — any style counts` : 'more pcs — any style counts'
+  if (categoria === 'Lululemon' || categoria === 'Alo Yoga') return `more ${categoria} — any style counts`
   return 'more pcs'
 }
 
@@ -98,7 +95,7 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
           {hasTiers && (
             <div className="mb-2 rounded-lg bg-gray-50 p-2 space-y-0.5 text-xs">
               <p className="text-[#FF6A00] font-semibold pb-1 border-b border-orange-100 mb-1 leading-snug">
-                ✓ {getMixLabel(group.categoria, group.subcategoria)}
+                ✓ {getMixLabel(group.categoria)}
               </p>
               <TierRow label={`${(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') ? 1 : (base.qty_minima || 1)} a ${base.qty_tier2 ? base.qty_tier2 - 1 : '+'} pcs`} price={base.precio_1} active={pricingQty < (base.qty_tier2 || Infinity)} />
               {base.qty_tier2 && base.precio_tier2 && <TierRow label={`${base.qty_tier2} a ${base.qty_tier3 ? base.qty_tier3 - 1 : '+'} pcs`} price={base.precio_tier2} active={pricingQty >= base.qty_tier2 && (!base.qty_tier3 || pricingQty < base.qty_tier3)} highlight />}
@@ -121,7 +118,7 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
                 {isDiscounted && <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-semibold">{savingsPct}% off</span>}
               </div>
               {nextTier && (
-                <p className="text-xs text-[#FF6A00] font-medium mt-0.5">+{nextTier.qty - pricingQty} {getNudgeSuffix(group.categoria, group.subcategoria)} → ${nextTier.price.toFixed(2)} ea.</p>
+                <p className="text-xs text-[#FF6A00] font-medium mt-0.5">+{nextTier.qty - pricingQty} {getNudgeSuffix(group.categoria)} → ${nextTier.price.toFixed(2)} ea.</p>
               )}
             </div>
           </div>
@@ -263,7 +260,7 @@ function SizeModal({ group, cart, onAdd, onRemove, onClose, currentPrice, totalI
           ) : null}
           {nextTier && (
             <p className="text-xs text-center text-[#FF6A00] font-medium">
-              +{nextTier.qty - Math.max(totalInCart, categoryQty || 0)} {getNudgeSuffix(group.categoria, group.subcategoria)} → ${nextTier.price.toFixed(2)} ea.
+              +{nextTier.qty - Math.max(totalInCart, categoryQty || 0)} {getNudgeSuffix(group.categoria)} → ${nextTier.price.toFixed(2)} ea.
             </p>
           )}
         </div>

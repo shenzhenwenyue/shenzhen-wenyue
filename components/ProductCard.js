@@ -2,20 +2,17 @@
 import { useState } from 'react'
 import { getPrecio } from '@/lib/pricing'
 
-function getMixLabel(categoria, subcategoria) {
+function getMixLabel(categoria) {
   if (categoria === 'Perfumes' || categoria === 'Gift Set de Perfumes')
     return 'Mix any brand or scent — price based on total perfumes in your order'
   if (categoria === 'Lululemon' || categoria === 'Alo Yoga')
-    return subcategoria
-      ? `Mix any ${subcategoria} style — price based on total ${subcategoria} in your order`
-      : `Mix any style — price based on total pieces in your order`
+    return `Mix any ${categoria} style — price based on total ${categoria} in your order`
   return `Mix any ${categoria} — price based on total in your order`
 }
 
-function getNudgeSuffix(categoria, subcategoria) {
+function getNudgeSuffix(categoria) {
   if (categoria === 'Perfumes' || categoria === 'Gift Set de Perfumes') return 'more pcs — any brand counts'
-  if (categoria === 'Lululemon' || categoria === 'Alo Yoga')
-    return subcategoria ? `more ${subcategoria} — any style counts` : 'more pcs — any style counts'
+  if (categoria === 'Lululemon' || categoria === 'Alo Yoga') return `more ${categoria} — any style counts`
   return 'more pcs'
 }
 
@@ -119,7 +116,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         {hasTiers && (
           <div className="mb-2 rounded-lg bg-[#FFF7F0] p-2 space-y-0.5 text-xs">
             <p className="text-[#FF6A00] font-semibold pb-1 border-b border-orange-100 mb-1 leading-snug">
-              ✓ {getMixLabel(product.categoria, product.subcategoria)}
+              ✓ {getMixLabel(product.categoria)}
             </p>
             <TierRow
               label={`${(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 1 : (product.qty_minima || 1)} a ${product.qty_tier2 ? product.qty_tier2 - 1 : product.categoria === 'Perfumes' ? 24 : '+'} pcs`}
@@ -255,7 +252,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
 
           {nextTier && (
             <p className="text-xs text-[#FF6A00] font-medium mt-1.5 leading-snug">
-              +{nextTier.qty - pricingQty} {getNudgeSuffix(product.categoria, product.subcategoria)} → ${nextTier.price.toFixed(2)} ea.
+              +{nextTier.qty - pricingQty} {getNudgeSuffix(product.categoria)} → ${nextTier.price.toFixed(2)} ea.
             </p>
           )}
         </div>
