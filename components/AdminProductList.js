@@ -20,6 +20,7 @@ export default function AdminProductList() {
   const [uploading, setUploading] = useState(false)
   const [saveError, setSaveError] = useState(null)
   const pasteZoneRef = useRef(null)
+  const fileInputRef = useRef(null)
 
   // Category/subcategory toggle state
   const [togglingKey, setTogglingKey] = useState(null) // "categoria" or "categoria|subcategoria"
@@ -429,26 +430,58 @@ export default function AdminProductList() {
                     onPaste={e => handlePaste(e, product.id)}
                     ref={pasteZoneRef}
                   >
-                    <p className="text-xs font-semibold text-gray-500 mt-3 mb-1">URL de la imagen</p>
-                    <p className="text-xs text-gray-400 mb-2">
-                      Pega una URL, o <strong>Ctrl+V</strong> con una imagen copiada para subirla directo
-                    </p>
+                    {/* Input oculto para seleccionar archivo */}
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={e => {
+                        const file = e.target.files?.[0]
+                        if (file) uploadImageFile(file, product.id)
+                        e.target.value = ''
+                      }}
+                    />
+
+                    <p className="text-xs font-semibold text-gray-500 mt-3 mb-2">Imagen del producto</p>
+
+                    {/* Botón subir archivo */}
+                    <button
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploading || saving}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-xl text-sm text-gray-600 hover:border-black hover:text-black transition-colors disabled:opacity-50 bg-white mb-3"
+                    >
+                      {uploading ? (
+                        <>
+                          <span className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin inline-block" />
+                          Subiendo...
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                          </svg>
+                          Seleccionar foto desde el dispositivo
+                        </>
+                      )}
+                    </button>
+
+                    <p className="text-xs text-gray-400 text-center mb-3">— o pega una URL —</p>
 
                     <div className="flex gap-2">
                       <input
                         type="url"
                         value={urlInput}
                         onChange={e => setUrlInput(e.target.value)}
-                        placeholder="https://... o pega imagen con Ctrl+V aquí"
+                        placeholder="https://... o Ctrl+V con imagen copiada"
                         className="flex-1 min-w-0 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-black bg-white"
-                        autoFocus
                       />
                       <button
                         onClick={() => handleSave(product.id)}
-                        disabled={saving || uploading}
+                        disabled={saving || uploading || !urlInput.trim()}
                         className="shrink-0 px-4 py-2 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 disabled:opacity-50 transition-colors"
                       >
-                        {saving ? 'Guardando...' : uploading ? 'Subiendo...' : 'Guardar'}
+                        {saving ? 'Guardando...' : 'Guardar'}
                       </button>
                     </div>
 
