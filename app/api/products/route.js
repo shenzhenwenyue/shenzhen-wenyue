@@ -3,45 +3,6 @@ import { getSupabase } from '@/lib/supabase'
 
 export const dynamic = 'force-dynamic'
 
-const SHEET_CSV_URL = process.env.SHEET_CSV_URL
-
-/**
- * Parsea CSV respetando campos entre comillas que pueden contener comas.
- */
-function parseCSV(text) {
-  const lines = text.trim().split('\n')
-  const headers = splitCSVLine(lines[0])
-
-  return lines.slice(1)
-    .filter(line => line.trim())
-    .map(line => {
-      const values = splitCSVLine(line)
-      const obj = {}
-      headers.forEach((header, i) => {
-        obj[header.trim()] = (values[i] || '').trim()
-      })
-      return obj
-    })
-}
-
-function splitCSVLine(line) {
-  const values = []
-  let current = ''
-  let inQuotes = false
-  for (const char of line) {
-    if (char === '"') {
-      inQuotes = !inQuotes
-    } else if (char === ',' && !inQuotes) {
-      values.push(current)
-      current = ''
-    } else {
-      current += char
-    }
-  }
-  values.push(current)
-  return values
-}
-
 /**
  * Convierte links de Google Drive al formato thumbnail (más confiable para embeber).
  * Input:  https://drive.google.com/file/d/{ID}/view
@@ -84,28 +45,14 @@ function findPricingRow(pricingByCategoria, categoria, subcategoria, nombre) {
 }
 
 export async function GET() {
-  if (!SHEET_CSV_URL) {
-    return NextResponse.json(
-      { error: 'SHEET_CSV_URL no configurado. Agrega SHEET_CSV_URL a .env.local' },
-      { status: 500 }
-    )
-  }
-
   try {
-    const [sheetRes, pricingResult, inventoryResult] = await Promise.all([
-      fetch(SHEET_CSV_URL, { cache: 'no-store' }),
+    const [productsResult, pricingResult, inventoryResult] = await Promise.all([
+      getSupabase().from('products').select('*'),
       getSupabase().from('catalog_pricing').select('*'),
-      getSupabase().from('inventory').select('nombre, stock'),
+      getSupabase().from('inventory').select('nombre, stock, destacado'),
     ])
 
-    if (!sheetRes.ok) {
-      throw new Error(
-        `No se pudo leer el catálogo (status ${sheetRes.status}). Verifica que el Sheet esté publicado.`
-      )
-    }
-
-    const text = await sheetRes.text()
-    const rows = parseCSV(text)
+    if (productsResult.error) throw new Error(productsResult.error.message)
 
     // Build lookup: { "Lululemon": [...rows], "Alo Yoga": [...rows], "Perfumes": [...rows], ... }
     const pricingByCategoria = {}
@@ -120,27 +67,36 @@ export async function GET() {
       inventoryByNombre[row.nombre] = row
     }
 
-    const products = rows
-      .filter(row => row.nombre && row.disponible?.toUpperCase() !== 'FALSE')
+    const products = (productsResult.data || [])
+      .filter(row => {
+        if (!row.nombre) return false
+        const d = row.disponible
+        if (d === false) return false
+        if (typeof d === 'string' && d.toUpperCase() === 'FALSE') return false
+        return true
+      })
       .map((row, i) => {
-        const stockRaw = row.stock?.trim() ?? ''
+        const stockRaw = String(row.stock ?? '').trim()
         const hasNumericStock = /^\d+$/.test(stockRaw)
         const nameParts = (row.nombre || '').trim().split(' - ')
         const lastSegment = nameParts[nameParts.length - 1]?.trim()
         const autoTalla = nameParts.length > 1 && /^(XS|S|M|L|XL|XXL|2XL|3XL|XXXL|XS\/S|M\/L)$/i.test(lastSegment)
           ? lastSegment.toUpperCase()
           : null
-        const tallaVal = row.talla?.trim() || row.tallas?.trim() || autoTalla || null
-        const grupoVal = row.grupo?.trim() ||
+        const tallaStr = row.talla ? String(row.talla).trim() : null
+        const tallasStr = row.tallas ? String(row.tallas).trim() : null
+        const tallaVal = tallaStr || tallasStr || autoTalla || null
+        const grupoStr = row.grupo ? String(row.grupo).trim() : null
+        const grupoVal = grupoStr ||
           (tallaVal ? (row.nombre || '').trim().replace(new RegExp(` - ${tallaVal}$`, 'i'), '').trim() : null)
 
         const product = {
-          id: String(i + 1),
+          id: String(row.id || i + 1),
           nombre: row.nombre || '',
           categoria: (row.categoria === 'Gift Set de Pefumes' ? 'Gift Set de Perfumes' : row.categoria) || 'General',
           descripcion: row.descripcion || '',
           imagen_url: normalizeImageUrl(row.imagen_url),
-          destacado: row.destacado?.toUpperCase() === 'TRUE',
+          destacado: row.destacado === true || String(row.destacado ?? '').toUpperCase() === 'TRUE',
           precio_1: parseFloat(row.precio_1) || 0,
           qty_tier2: parseInt(row.qty_tier2) || null,
           precio_tier2: parseFloat(row.precio_tier2) || null,
@@ -153,7 +109,7 @@ export async function GET() {
           qty_minima: parseInt(row.qty_minima) || 1,
           sku: row.sku || '',
           subcategoria: row.subcategoria || '',
-          tallas: row.tallas ? row.tallas.split(',').map(t => t.trim()).filter(Boolean) : [],
+          tallas: tallasStr ? tallasStr.split(',').map(t => t.trim()).filter(Boolean) : [],
           grupo: grupoVal,
           talla: tallaVal,
           stock: hasNumericStock ? parseInt(stockRaw) : null,
