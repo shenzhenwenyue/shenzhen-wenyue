@@ -25,6 +25,15 @@ export async function POST(req) {
   const buffer = Buffer.from(await file.arrayBuffer())
 
   const supabase = getSupabase()
+
+  // Auto-create bucket if it doesn't exist yet
+  const { data: buckets } = await supabase.storage.listBuckets()
+  const bucketExists = buckets?.some(b => b.name === 'product-images')
+  if (!bucketExists) {
+    const { error: bucketError } = await supabase.storage.createBucket('product-images', { public: true })
+    if (bucketError) return NextResponse.json({ error: 'No se pudo crear el bucket: ' + bucketError.message }, { status: 500 })
+  }
+
   const { error: uploadError } = await supabase.storage
     .from('product-images')
     .upload(path, buffer, { contentType: file.type, upsert: false })
