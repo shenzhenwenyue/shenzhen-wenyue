@@ -128,16 +128,27 @@ export default function AdminProductList() {
     setUploading(true)
     setSaveError(null)
     try {
-      const formData = new FormData()
-      formData.append('file', file)
+      // Step 1: get signed upload URL from our API (tiny payload)
       const res = await fetch('/api/admin/upload-image', {
         method: 'POST',
-        headers: { 'x-admin-password': getAdminPwd() },
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-password': getAdminPwd(),
+        },
+        body: JSON.stringify({ filename: file.name, contentType: file.type }),
       })
       const data = await res.json()
-      if (!res.ok || data.error) throw new Error(data.error || 'Error al subir imagen')
-      setUrlInput(data.url)
+      if (!res.ok || data.error) throw new Error(data.error || 'Error al obtener URL de subida')
+
+      // Step 2: upload file directly to Supabase (bypasses Vercel size limit)
+      const uploadRes = await fetch(data.signedUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': file.type },
+        body: file,
+      })
+      if (!uploadRes.ok) throw new Error('Error al subir el archivo a Storage')
+
+      setUrlInput(data.publicUrl)
     } catch (e) {
       setSaveError(e.message)
     } finally {

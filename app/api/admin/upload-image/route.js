@@ -5,24 +5,18 @@ function isAuthorized(req) {
   return req.headers.get('x-admin-password') === process.env.ADMIN_PASSWORD
 }
 
+// Returns a signed upload URL so the browser uploads directly to Supabase
+// (bypasses Vercel's 4.5MB serverless payload limit)
 export async function POST(req) {
   if (!isAuthorized(req)) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
 
-  let formData
-  try {
-    formData = await req.formData()
-  } catch {
-    return NextResponse.json({ error: 'Request inválido' }, { status: 400 })
+  const { filename, contentType } = await req.json()
+  if (!filename || !contentType) {
+    return NextResponse.json({ error: 'filename y contentType requeridos' }, { status: 400 })
   }
 
-  const file = formData.get('file')
-  if (!file || typeof file === 'string') {
-    return NextResponse.json({ error: 'Archivo requerido' }, { status: 400 })
-  }
-
-  const ext = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg'
+  const ext = contentType === 'image/png' ? 'png' : contentType === 'image/webp' ? 'webp' : 'jpg'
   const path = `products/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`
-  const buffer = Buffer.from(await file.arrayBuffer())
 
   const supabase = getSupabase()
 
@@ -34,17 +28,15 @@ export async function POST(req) {
     if (bucketError) return NextResponse.json({ error: 'No se pudo crear el bucket: ' + bucketError.message }, { status: 500 })
   }
 
-  const { error: uploadError } = await supabase.storage
+  const { data, error } = await supabase.storage
     .from('product-images')
-    .upload(path, buffer, { contentType: file.type, upsert: false })
+    .createSignedUploadUrl(path)
 
-  if (uploadError) {
-    return NextResponse.json({ error: uploadError.message }, { status: 500 })
-  }
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
   const { data: { publicUrl } } = supabase.storage
     .from('product-images')
     .getPublicUrl(path)
 
-  return NextResponse.json({ url: publicUrl })
+  return NextResponse.json({ signedUrl: data.signedUrl, token: data.token, path, publicUrl })
 }
