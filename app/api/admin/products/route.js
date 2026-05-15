@@ -13,17 +13,19 @@ export async function GET(req) {
   return NextResponse.json(data)
 }
 
-// PATCH: bulk toggle disponible for an entire category
+// PATCH: bulk toggle disponible for a category or subcategory
 export async function PATCH(req) {
   if (!isAuthorized(req)) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
-  const { categoria, disponible } = await req.json()
+  const { categoria, subcategoria, disponible } = await req.json()
   if (!categoria || disponible === undefined) {
     return NextResponse.json({ error: 'categoria y disponible requeridos' }, { status: 400 })
   }
-  const { error } = await getSupabase()
+  let query = getSupabase()
     .from('products')
     .update({ disponible: Boolean(disponible) })
     .eq('categoria', categoria)
+  if (subcategoria) query = query.eq('subcategoria', subcategoria)
+  const { error } = await query
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ ok: true })
 }

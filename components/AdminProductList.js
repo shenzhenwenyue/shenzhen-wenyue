@@ -10,6 +10,7 @@ export default function AdminProductList() {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [selectedCat, setSelectedCat] = useState(null)
+  const [selectedSubcat, setSelectedSubcat] = useState(null)
   const [showDisabled, setShowDisabled] = useState(false)
 
   // Image edit state
@@ -20,9 +21,9 @@ export default function AdminProductList() {
   const [saveError, setSaveError] = useState(null)
   const pasteZoneRef = useRef(null)
 
-  // Category toggle state
-  const [togglingCat, setTogglingCat] = useState(null)
-  const [confirmCat, setConfirmCat] = useState(null) // { categoria, action: 'disable'|'enable' }
+  // Category/subcategory toggle state
+  const [togglingKey, setTogglingKey] = useState(null) // "categoria" or "categoria|subcategoria"
+  const [confirmCat, setConfirmCat] = useState(null) // { categoria, subcategoria?, action: 'disable'|'enable' }
 
   useEffect(() => {
     loadProducts()
@@ -48,7 +49,7 @@ export default function AdminProductList() {
 
   const categories = [...new Set(products.map(p => p.categoria))].sort()
 
-  // Per-category status: all disabled, some disabled, all enabled
+  // Per-category status
   const catStatus = {}
   categories.forEach(cat => {
     const inCat = products.filter(p => p.categoria === cat)
@@ -56,14 +57,28 @@ export default function AdminProductList() {
     catStatus[cat] = enabledCount === 0 ? 'disabled' : enabledCount === inCat.length ? 'enabled' : 'partial'
   })
 
+  // Subcategories for selected category
+  const subcategories = selectedCat
+    ? [...new Set(products.filter(p => p.categoria === selectedCat && p.subcategoria).map(p => p.subcategoria))].sort()
+    : []
+
+  // Per-subcategory status within selected category
+  const subcatStatus = {}
+  subcategories.forEach(sub => {
+    const inSub = products.filter(p => p.categoria === selectedCat && p.subcategoria === sub)
+    const enabledCount = inSub.filter(p => isEnabled(p)).length
+    subcatStatus[sub] = enabledCount === 0 ? 'disabled' : enabledCount === inSub.length ? 'enabled' : 'partial'
+  })
+
   const visibleProducts = showDisabled ? products : products.filter(p => isEnabled(p))
 
   const filtered = visibleProducts.filter(p => {
     const matchCat = !selectedCat || p.categoria === selectedCat
+    const matchSubcat = !selectedSubcat || p.subcategoria === selectedSubcat
     const matchSearch = !search ||
       (p.nombre || '').toLowerCase().includes(search.toLowerCase()) ||
       (p.sku || '').toLowerCase().includes(search.toLowerCase())
-    return matchCat && matchSearch
+    return matchCat && matchSubcat && matchSearch
   })
 
   // ── Image editing ────────────────────────────────────────────
@@ -142,29 +157,33 @@ export default function AdminProductList() {
     }
   }
 
-  // ── Category toggle ──────────────────────────────────────────
+  // ── Category / subcategory toggle ───────────────────────────
 
-  async function toggleCategory(categoria, enable) {
-    setTogglingCat(categoria)
+  async function toggleGroup(categoria, subcategoria, enable) {
+    const key = subcategoria ? `${categoria}|${subcategoria}` : categoria
+    setTogglingKey(key)
     setConfirmCat(null)
     try {
+      const body = { categoria, disponible: enable }
+      if (subcategoria) body.subcategoria = subcategoria
       const res = await fetch('/api/admin/products', {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-password': getAdminPwd(),
-        },
-        body: JSON.stringify({ categoria, disponible: enable }),
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': getAdminPwd() },
+        body: JSON.stringify(body),
       })
       const data = await res.json()
       if (!res.ok || data.error) throw new Error(data.error)
       setProducts(prev =>
-        prev.map(p => p.categoria === categoria ? { ...p, disponible: enable } : p)
+        prev.map(p => {
+          if (p.categoria !== categoria) return p
+          if (subcategoria && p.subcategoria !== subcategoria) return p
+          return { ...p, disponible: enable }
+        })
       )
     } catch (e) {
       alert('Error: ' + e.message)
     } finally {
-      setTogglingCat(null)
+      setTogglingKey(null)
     }
   }
 
@@ -189,7 +208,7 @@ export default function AdminProductList() {
       {/* Filtros de categoría con toggle de visibilidad */}
       <div className="flex flex-wrap gap-2">
         <button
-          onClick={() => setSelectedCat(null)}
+          onClick={() => { setSelectedCat(null); setSelectedSubcat(null) }}
           className={`px-3 py-1 rounded-full text-xs font-medium ${!selectedCat ? 'bg-black text-white' : 'bg-white border border-gray-200 text-gray-600'}`}
         >
           Todos
@@ -198,10 +217,11 @@ export default function AdminProductList() {
           const status = catStatus[cat]
           const isDisabled = status === 'disabled'
           const isPartial = status === 'partial'
+          const toggleKey = cat
           return (
             <div key={cat} className="flex items-center gap-0.5">
               <button
-                onClick={() => setSelectedCat(cat === selectedCat ? null : cat)}
+                onClick={() => { setSelectedCat(cat === selectedCat ? null : cat); setSelectedSubcat(null) }}
                 className={`px-3 py-1 rounded-l-full text-xs font-medium transition-colors ${
                   selectedCat === cat
                     ? 'bg-black text-white'
@@ -214,26 +234,23 @@ export default function AdminProductList() {
               >
                 {cat}
               </button>
-              {/* Eye toggle */}
               <button
-                onClick={() => setConfirmCat({ categoria: cat, action: isDisabled ? 'enable' : 'disable' })}
-                disabled={togglingCat === cat}
-                title={isDisabled ? 'Habilitar categoría' : 'Deshabilitar categoría'}
+                onClick={() => setConfirmCat({ categoria: cat, subcategoria: null, action: isDisabled ? 'enable' : 'disable' })}
+                disabled={togglingKey === toggleKey}
+                title={isDisabled ? 'Habilitar categoría completa' : 'Deshabilitar categoría completa'}
                 className={`px-1.5 py-1 rounded-r-full border text-xs transition-colors ${
                   isDisabled
                     ? 'bg-red-50 border-red-200 text-red-400 hover:bg-red-100'
                     : 'bg-white border-gray-200 text-gray-400 hover:bg-gray-50 hover:text-gray-700'
                 }`}
               >
-                {togglingCat === cat ? (
+                {togglingKey === toggleKey ? (
                   <span className="inline-block w-3 h-3 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
                 ) : isDisabled ? (
-                  // Eye-off icon
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
                   </svg>
                 ) : (
-                  // Eye icon
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -244,6 +261,65 @@ export default function AdminProductList() {
           )
         })}
       </div>
+
+      {/* Subcategorías — solo si la categoría seleccionada las tiene */}
+      {selectedCat && subcategories.length > 0 && (
+        <div className="flex flex-wrap gap-2 pl-2 border-l-2 border-gray-200">
+          <button
+            onClick={() => setSelectedSubcat(null)}
+            className={`px-3 py-1 rounded-full text-xs font-medium ${!selectedSubcat ? 'bg-gray-700 text-white' : 'bg-white border border-gray-200 text-gray-600'}`}
+          >
+            Todo {selectedCat}
+          </button>
+          {subcategories.map(sub => {
+            const status = subcatStatus[sub]
+            const isDisabled = status === 'disabled'
+            const isPartial = status === 'partial'
+            const toggleKey = `${selectedCat}|${sub}`
+            return (
+              <div key={sub} className="flex items-center gap-0.5">
+                <button
+                  onClick={() => setSelectedSubcat(sub === selectedSubcat ? null : sub)}
+                  className={`px-3 py-1 rounded-l-full text-xs font-medium transition-colors ${
+                    selectedSubcat === sub
+                      ? 'bg-gray-700 text-white'
+                      : isDisabled
+                      ? 'bg-red-50 border border-red-200 text-red-400 line-through'
+                      : isPartial
+                      ? 'bg-amber-50 border border-amber-200 text-amber-700'
+                      : 'bg-white border border-gray-200 text-gray-600 hover:border-gray-400'
+                  }`}
+                >
+                  {sub}
+                </button>
+                <button
+                  onClick={() => setConfirmCat({ categoria: selectedCat, subcategoria: sub, action: isDisabled ? 'enable' : 'disable' })}
+                  disabled={togglingKey === toggleKey}
+                  title={isDisabled ? `Habilitar ${sub}` : `Deshabilitar ${sub}`}
+                  className={`px-1.5 py-1 rounded-r-full border text-xs transition-colors ${
+                    isDisabled
+                      ? 'bg-red-50 border-red-200 text-red-400 hover:bg-red-100'
+                      : 'bg-white border-gray-200 text-gray-400 hover:bg-gray-50 hover:text-gray-700'
+                  }`}
+                >
+                  {togglingKey === toggleKey ? (
+                    <span className="inline-block w-3 h-3 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+                  ) : isDisabled ? (
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                    </svg>
+                  ) : (
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      )}
 
       {/* Toggle mostrar deshabilitados */}
       <div className="flex items-center justify-between">
@@ -256,21 +332,21 @@ export default function AdminProductList() {
         </button>
       </div>
 
-      {/* Confirmación de toggle de categoría */}
+      {/* Confirmación */}
       {confirmCat && (
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center justify-between gap-4">
           <p className="text-sm text-amber-800">
             {confirmCat.action === 'disable'
-              ? `¿Ocultar todos los productos de "${confirmCat.categoria}" del catálogo público?`
-              : `¿Habilitar todos los productos de "${confirmCat.categoria}" en el catálogo público?`
+              ? `¿Ocultar "${confirmCat.subcategoria || confirmCat.categoria}" del catálogo público?`
+              : `¿Habilitar "${confirmCat.subcategoria || confirmCat.categoria}" en el catálogo público?`
             }
           </p>
           <div className="flex gap-2 shrink-0">
             <button
-              onClick={() => toggleCategory(confirmCat.categoria, confirmCat.action === 'enable')}
+              onClick={() => toggleGroup(confirmCat.categoria, confirmCat.subcategoria, confirmCat.action === 'enable')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-white ${confirmCat.action === 'disable' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-600 hover:bg-green-700'}`}
             >
-              {confirmCat.action === 'disable' ? 'Deshabilitar' : 'Habilitar'}
+              {confirmCat.action === 'disable' ? 'Ocultar' : 'Habilitar'}
             </button>
             <button
               onClick={() => setConfirmCat(null)}
