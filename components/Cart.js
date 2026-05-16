@@ -3,24 +3,34 @@ import { useState } from 'react'
 import { getPrecio, getSubtotal } from '@/lib/pricing'
 import { DEFAULT_SHIPPING } from '@/lib/constants'
 
-// Estas categorías usan precios por subcategoría, no por categoría total
-const SUBCATEGORIA_PRICING = new Set(['Lululemon', 'Alo Yoga'])
+// Alo Yoga agrupa por subcategoría; Lululemon tiene City Bags (sub='Bags') independiente,
+// el resto de Lululemon mezcla junto. Todo lo demás agrupa por categoría.
+const AloYoga = 'Alo Yoga'
+const LULULEMON = 'Lululemon'
+const CITY_BAGS_SUB = 'Bags'
+
+function getPricingKey(cat, sub) {
+  if (cat === LULULEMON) return sub === CITY_BAGS_SUB ? 'Lululemon__Bags' : 'Lululemon'
+  if (cat === AloYoga && sub) return `${cat}__${sub}`
+  return cat
+}
 
 export default function Cart({ items, products, onAdd, onRemove, onClose, onRequestQuote, onClearAll }) {
   const [confirmClear, setConfirmClear] = useState(false)
-  // Qty total por categoría — para el mínimo de piezas y resumen de footer
+
+  // Qty total por categoría (para display)
   const totalByCategory = items.reduce((acc, item) => {
     const cat = item.categoria || products.find(p => p.id === item.productId)?.categoria || ''
     acc[cat] = (acc[cat] || 0) + item.qty
     return acc
   }, {})
 
-  // Para pricing: Lululemon/Alo agrupan por subcategoría; el resto por categoría
+  // Qty por pool de pricing
   const totalByPricingGroup = items.reduce((acc, item) => {
     const product = products.find(p => p.id === item.productId)
     const cat = item.categoria || product?.categoria || ''
     const sub = product?.subcategoria || ''
-    const key = SUBCATEGORIA_PRICING.has(cat) && sub ? `${cat}__${sub}` : cat
+    const key = getPricingKey(cat, sub)
     acc[key] = (acc[key] || 0) + item.qty
     return acc
   }, {})
@@ -31,7 +41,7 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
       if (!product) return null
       const cat = item.categoria || product.categoria
       const sub = product.subcategoria || ''
-      const pricingKey = SUBCATEGORIA_PRICING.has(cat) && sub ? `${cat}__${sub}` : cat
+      const pricingKey = getPricingKey(cat, sub)
       const pricingQty = totalByPricingGroup[pricingKey] || item.qty
       const price = getPrecio(product, pricingQty)
       const subtotal = price * item.qty
@@ -42,7 +52,6 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
   const total = cartLines.reduce((sum, l) => sum + l.subtotal, 0)
   const isEmpty = cartLines.length === 0
 
-  // Resumen para el footer del carrito
   function buildTiers(rep) {
     return [
       rep.qty_tier2 && rep.precio_tier2 ? { qty: rep.qty_tier2, price: rep.precio_tier2 } : null,
@@ -53,18 +62,40 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
 
   const categorySummary = (() => {
     const result = []
+
     Object.entries(totalByCategory).forEach(([cat, catQty]) => {
-      if (SUBCATEGORIA_PRICING.has(cat)) {
-        const rep = cartLines.find(l => l.product.categoria === cat)?.product
-        if (!rep) return
-        const minQty = 10  // mínimo de categoría fijo para marcas con pricing por subcategoría
-        const isIncomplete = catQty < minQty
-        if (isIncomplete) {
-          // Mínimo no cubierto → advertencia a nivel categoría
-          result.push({ cat, qty: catQty, minQty, isIncomplete: true, nextTier: null, hasTiers: false })
-          return
+      if (cat === LULULEMON) {
+        // Pool 1: City Bags — completamente independiente
+        const bagsQty = totalByPricingGroup['Lululemon__Bags'] || 0
+        if (bagsQty > 0) {
+          const bagsRep = cartLines.find(l => l.product.categoria === LULULEMON && l.product.subcategoria === CITY_BAGS_SUB)?.product
+          if (bagsRep) {
+            const tiers = buildTiers(bagsRep)
+            if (bagsQty < 10) {
+              result.push({ cat: 'City Bags', qty: bagsQty, minQty: 10, isIncomplete: true })
+            } else {
+              result.push({ cat: 'City Bags', qty: bagsQty, minQty: null, isIncomplete: false, nextTier: tiers.find(t => bagsQty < t.qty), hasTiers: tiers.length > 0, currentPrice: getPrecio(bagsRep, bagsQty) })
+            }
+          }
         }
-        // Mínimo cubierto → progreso por subcategoría
+        // Pool 2: resto de Lululemon — todo mezcla junto
+        const nonBagsQty = totalByPricingGroup['Lululemon'] || 0
+        if (nonBagsQty > 0) {
+          const nonBagsRep = cartLines.find(l => l.product.categoria === LULULEMON && l.product.subcategoria !== CITY_BAGS_SUB)?.product
+          if (nonBagsRep) {
+            const tiers = buildTiers(nonBagsRep)
+            if (nonBagsQty < 10) {
+              result.push({ cat: 'Lululemon', qty: nonBagsQty, minQty: 10, isIncomplete: true })
+            } else {
+              result.push({ cat: 'Lululemon', qty: nonBagsQty, minQty: null, isIncomplete: false, nextTier: tiers.find(t => nonBagsQty < t.qty), hasTiers: tiers.length > 0, currentPrice: getPrecio(nonBagsRep, nonBagsQty) })
+            }
+          }
+        }
+        return
+      }
+
+      if (cat === AloYoga) {
+        // Alo Yoga: por subcategoría
         const subcats = [...new Set(
           cartLines.filter(l => l.product.categoria === cat && l.product.subcategoria).map(l => l.product.subcategoria)
         )]
@@ -73,21 +104,26 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
           const subRep = cartLines.find(l => l.product.categoria === cat && l.product.subcategoria === sub)?.product
           if (!subRep) return
           const tiers = buildTiers(subRep)
-          const currentPrice = getPrecio(subRep, subQty)
-          result.push({ cat: sub, qty: subQty, minQty: null, isIncomplete: false, nextTier: tiers.find(t => subQty < t.qty), hasTiers: tiers.length > 0, currentPrice })
+          if (subQty < 10) {
+            result.push({ cat: sub, qty: subQty, minQty: 10, isIncomplete: true })
+          } else {
+            result.push({ cat: sub, qty: subQty, minQty: null, isIncomplete: false, nextTier: tiers.find(t => subQty < t.qty), hasTiers: tiers.length > 0, currentPrice: getPrecio(subRep, subQty) })
+          }
         })
-      } else {
-        const rep = cat === 'Perfumes'
-          ? (cartLines.find(l => l.product.categoria === cat && l.product.subcategoria !== 'Louis Vuitton')?.product
-              || cartLines.find(l => l.product.categoria === cat)?.product)
-          : cartLines.find(l => l.product.categoria === cat)?.product
-        if (!rep) return
-        const minQty = rep.qty_minima || 10
-        const isIncomplete = catQty < minQty
-        const tiers = buildTiers(rep)
-        const currentPrice = getPrecio(rep, catQty)
-        result.push({ cat, qty: catQty, minQty, isIncomplete, nextTier: tiers.find(t => catQty < t.qty), hasTiers: tiers.length > 0, currentPrice })
+        return
       }
+
+      // Resto de categorías
+      const rep = cat === 'Perfumes'
+        ? (cartLines.find(l => l.product.categoria === cat && l.product.subcategoria !== 'Louis Vuitton')?.product
+            || cartLines.find(l => l.product.categoria === cat)?.product)
+        : cartLines.find(l => l.product.categoria === cat)?.product
+      if (!rep) return
+      const minQty = rep.qty_minima || 1
+      const isIncomplete = minQty > 1 && catQty < minQty
+      const tiers = buildTiers(rep)
+      const currentPrice = getPrecio(rep, catQty)
+      result.push({ cat, qty: catQty, minQty, isIncomplete, nextTier: tiers.find(t => catQty < t.qty), hasTiers: tiers.length > 0, currentPrice })
     })
     return result
   })()
