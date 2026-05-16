@@ -20,7 +20,7 @@ export async function PUT(req) {
   if (stock === undefined && destacado === undefined)
     return NextResponse.json({ error: 'stock o destacado requeridos' }, { status: 400 })
   const upsertData = { nombre }
-  if (stock !== undefined) upsertData.stock = parseInt(stock)
+  if (stock !== undefined) upsertData.stock = Math.max(0, parseInt(stock) || 0)
   if (destacado !== undefined) upsertData.destacado = Boolean(destacado)
   const sb = getSupabase()
   const { data, error } = await sb

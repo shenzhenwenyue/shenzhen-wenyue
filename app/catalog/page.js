@@ -45,7 +45,7 @@ function CatalogInner() {
           .then(r => r.json())
           .then(data => {
             if (data.error) throw new Error(data.error)
-            setProducts(data)
+            if (Array.isArray(data)) setProducts(data)
           })
           .catch(e => setError(e.message))
           .finally(() => setLoading(false))
@@ -54,7 +54,7 @@ function CatalogInner() {
         setCatalogLive(true)
         fetch('/api/products')
           .then(r => r.json())
-          .then(data => { if (!data.error) setProducts(data) })
+          .then(data => { if (!data.error && Array.isArray(data)) setProducts(data) })
           .catch(e => setError(e.message))
           .finally(() => setLoading(false))
       })
@@ -98,7 +98,7 @@ function CatalogInner() {
 
   const filtered = groupedProducts.filter(p => {
     const matchCat = !selectedCat || p.categoria === selectedCat
-    const matchSubcat = !selectedSubcat || p.subcategoria === selectedSubcat
+    const matchSubcat = !selectedSubcat || (p.isGroup ? p.variants.some(v => v.subcategoria === selectedSubcat) : p.subcategoria === selectedSubcat)
     const term = search.toLowerCase()
     const matchSearch = !search || (
       p.isGroup
@@ -371,7 +371,7 @@ function getCartSizes(productId) {
                     <ProductCard
                       key={product.id}
                       product={product}
-                      cartQty={cart.find(i => i.id === product.id)?.qty || 0}
+                      cartQty={cart.filter(i => i.productId === product.id).reduce((sum, i) => sum + i.qty, 0)}
                       cartSizes={getCartSizes(product.id)}
                       categoryQty={
                         getCatalogCategoryQty(product)
@@ -388,7 +388,7 @@ function getCartSizes(productId) {
                 <p className="text-sm">No products found</p>
                 {(search || selectedCat) && (
                   <button
-                    onClick={() => { setSearch(''); setSelectedCat(null) }}
+                    onClick={() => { setSearch(''); setSelectedCat(null); setSelectedSubcat(null) }}
                     className="mt-3 text-xs underline"
                   >
                     Clear filters

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getSupabase } from '@/lib/supabase'
 import { Resend } from 'resend'
+import { DEFAULT_SHIPPING } from '@/lib/constants'
 
 function isAdmin(req) {
   return req.headers.get('x-admin-password') === process.env.ADMIN_PASSWORD
@@ -37,9 +38,11 @@ export async function POST(req) {
     timestamp: new Date().toISOString(),
   }]
 
+  const serverTotal = items.reduce((s, i) => s + (i.unit_price || 0) * (i.qty || 0), 0) + DEFAULT_SHIPPING
+
   const { data, error } = await supabase
     .from('orders')
-    .insert({ customer_name, customer_email, customer_whatsapp, items, total, status: 'pending', history: initialHistory })
+    .insert({ customer_name, customer_email, customer_whatsapp, items, total: serverTotal, status: 'pending', history: initialHistory })
     .select()
     .single()
 
@@ -69,7 +72,7 @@ export async function POST(req) {
           `Productos:`,
           itemLines,
           ``,
-          `Total estimado: $${data.total.toFixed(2)}`,
+          `Total estimado: $${(data.total ?? 0).toFixed(2)}`,
           ``,
           `Ver en el panel: https://shenzhen-wenyue.vercel.app/admin`,
         ].join('\n'),

@@ -31,10 +31,8 @@ export async function POST(req, { params }) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  // Devolver URL propia (dominio del negocio) en lugar de la URL de Supabase
-  const host = req.headers.get('host')
-  const proto = host?.includes('localhost') ? 'http' : 'https'
-  const shortUrl = `${proto}://${host}/q/${id}`
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://shenzhen-wenyue.vercel.app'
+  const shortUrl = `${baseUrl}/q/${id}`
 
   return NextResponse.json({ url: shortUrl })
 }

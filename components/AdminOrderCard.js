@@ -205,7 +205,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       )
       const totalCotizacion = confirmedTotal + subtotalReemplazos
 
-      const available = order.items.filter(i => i.confirmed !== false)
+      const available = order.items.filter(i => i.confirmed === true)
       // Items con reemplazos sugeridos (no hay O parcial con sugerencias)
       const itemsConSugerencias = order.items.filter((item, idx) => (replacements[idx] || []).length > 0)
       const hayReemplazosNuevos = itemsConSugerencias.length > 0
@@ -816,7 +816,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
             </div>
             {order.status !== 'pending' && (
               <button
-                onClick={() => patch({ shipping_cost: shippingCost, total: confirmedTotal })}
+                onClick={() => patch({ shipping_cost: shippingCost, total: displayTotal })}
                 disabled={saving}
                 className="w-full py-1.5 border border-gray-200 text-gray-600 text-xs font-semibold rounded-xl hover:bg-gray-50 disabled:opacity-40 transition-colors"
               >
@@ -1138,8 +1138,9 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                 </div>
               ))}
               <button
-                onClick={() => {
-                  patch({ items: editItems })
+                onClick={async () => {
+                  const ok = await patch({ items: editItems })
+                  if (!ok) return
                   setEditingItems(false)
                   setCostInputs(() => {
                     const byIdx = {}

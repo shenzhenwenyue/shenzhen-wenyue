@@ -73,7 +73,7 @@ export default function AdminPersonalInventory({ adminPassword }) {
     const res = await fetch('/api/admin/personal-inventory', {
       method: 'PUT',
       headers,
-      body: JSON.stringify({ id: item.id, pagado: !item.pagado }),
+      body: JSON.stringify({ ...item, pagado: !item.pagado }),
     })
     const data = await res.json()
     if (!data.error) setItems(prev => prev.map(i => i.id === item.id ? data : i))
@@ -81,8 +81,8 @@ export default function AdminPersonalInventory({ adminPassword }) {
 
   async function handleDelete(id) {
     if (!confirm('¿Eliminar este artículo?')) return
-    await fetch('/api/admin/personal-inventory', { method: 'DELETE', headers, body: JSON.stringify({ id }) })
-    setItems(prev => prev.filter(i => i.id !== id))
+    const res = await fetch('/api/admin/personal-inventory', { method: 'DELETE', headers, body: JSON.stringify({ id }) })
+    if (res.ok) setItems(prev => prev.filter(i => i.id !== id))
   }
 
   const pendientes = items.filter(i => !i.pagado)
@@ -120,7 +120,7 @@ export default function AdminPersonalInventory({ adminPassword }) {
         </div>
       )}
 
-      {totalPendiente === 0 && items.length > 0 && (
+      {pendientes.length === 0 && items.length > 0 && (
         <div className="bg-green-50 border border-green-200 rounded-2xl px-4 py-3">
           <p className="text-sm font-semibold text-green-700">Todo pagado. Sin deuda pendiente.</p>
         </div>

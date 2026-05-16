@@ -1,0 +1,717 @@
+categoria,subcategoria,nombre,sku,descripcion,tallas,imagen_url,disponible,destacado,precio_1,qty_tier2,precio_tier2,qty_tier3,precio_tier3,qty_tier4,precio_tier4,qty_tier5,precio_tier5,qty_minima
+Perfumes,Ariana Grande,CLOUD 100ML,XP135,Eau de Parfum,,https://i.ebayimg.com/images/g/iSkAAOSwk8JdscJo/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armaf,CLUB DE NUIT INTENSE MAN 105ML,XP207,Eau de Toilette Intense,,https://i.ebayimg.com/images/g/v3UAAOSwgdhoJkuM/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armaf,CLUB DE NUIT WOMEN 105ML,XP215,Eau de Parfum,,https://i.ebayimg.com/images/g/rCUAAeSwzp1p3W-r/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armaf,CLUB DE NUIT URBAN ELIXIR MEN 105ML,XP296,Eau de Parfum Elixir,,https://i.ebayimg.com/images/g/QagAAOSwAk5j4nFX/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,MY WAY 90 ML,XP24,Eau de Parfum,,https://perfumania.com/cdn/shop/products/I0115884larger.jpg?format=pjpg&v=1625603200&width=650,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,MY WAY NECTAR 90ML,V094,Eau de Parfum,,https://valenciaperfumes.com/cdn/shop/files/361FF5DA-EE43-40DE-9789-1962F8EEBFA2.png?v=1714753410&width=990,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,MY WAY INTENSE 90ML,S095,Eau de Parfum,,https://i.ebayimg.com/images/g/a2wAAeSwhPFp4a83/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,STRONGER WITH YOU ABSOLUTELY 100ML,XP116,Parfum,,https://i.ebayimg.com/images/g/8-0AAOSwBjxnPFdo/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,STRONGER WITH YOU AMBAR 100ML,XP243,Eau de Parfum,,https://i.ebayimg.com/images/g/8egAAeSwh9RpGoOV/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,STRONGER WITH YOU INTENSELY 100ML,XP316,Eau de Parfum,,https://i.ebayimg.com/images/g/7hkAAOSw~5lluE7o/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,ARMANI CODE PARFUM 100ML,XP168,Parfum,,https://i.ebayimg.com/images/g/9REAAOSwtTlnppcB/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,ACQUA DI GIO PROFUMO 100ML,XP34,Parfum,,https://i.ebayimg.com/images/g/xm8AAeSw-SxpRl98/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,ACQUA DI GIO ELIXIR 100ML,XP297,Parfum Elixir.,,https://i.ebayimg.com/images/g/A84AAeSwLvhomfVn/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,ACQUA DI GIO EDT 100ML,XP169,Eau de Toilette,,https://i.ebayimg.com/images/g/dq0AAeSwG6ZppkqW/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,ABSOLU INSTINCT 125 ML,XP333,Eau de Parfum,,https://i.ebayimg.com/images/g/vAkAAOSwJLxn-XGA/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,THE YULONG 100ML,XP165,Eau de Toilette,,https://i.ebayimg.com/images/g/65IAAeSwAk9oZ2u7/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,SI PASSIONE 100ML,XP167,Eau de Parfum,,https://i.ebayimg.com/images/g/9icAAOSwYiZmlX8Y/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,BLANC KOGANE 100 ML,XP240,Eau de Parfum,,https://i.ebayimg.com/images/g/dREAAeSwlVRov0Mb/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,NOIR KOGANE 100ML,XP241,Eau de Parfum,,https://i.ebayimg.com/images/g/MugAAeSwTzRovTBE/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,PRIVÉ VETIVER D'HIVER 100ML,XP242,Eau de Toilette,,https://i.ebayimg.com/images/g/HEkAAeSwqrFovTBM/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Armani,CODE PARFUM 125ML,S105,Parfum,,https://i.ebayimg.com/images/g/FswAAOSwPKVmetXS/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Armani,4 PIECE GIFT SET FOR MAN 30 ML PER BOTTLE.,XP368,Eau de Parfum,,https://i.ebayimg.com/images/g/VAIAAeSwLQ1p3kYi/s-l1600.webp,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Azzaro,THE MOST WANTED EDT INTENSE 100ML,XP353,Eau de Toilette Intense,,https://i.ebayimg.com/images/g/ulwAAeSwC7lpgSgm/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Azzaro,THE MOST WANTED PARFUM 100ML,XP354,Parfum,,https://i.ebayimg.com/images/g/gA4AAOSwbORmfmlm/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Azzaro,THE MOST WANTED EDP INTENSE 100ML,XP355,Eau de Parfum Intense,,https://i.ebayimg.com/images/g/loQAAOSwFallOGTC/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Billie Eilish,EILISH 100ML,XP227,Eau de Parfum,,https://i.ebayimg.com/images/g/CZ0AAOSw0vpnD3Bu/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,SUTTON PLACE 100ML,XP380,Eau de Parfum,,https://i.ebayimg.com/images/g/mHoAAeSwucRpxUaQ/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,TRIBECA  100ML,XP381,Eau de Parfum,,https://i.ebayimg.com/images/g/UFkAAOSw07xn~c0G/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,BEEKMAN PLACE 100ML,XP382,Eau de Parfum,,https://i.ebayimg.com/images/g/OWoAAeSwvwZpuM7r/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,SIGNATURE 100ML,XP383,Eau de Parfum,,https://i.ebayimg.com/images/g/jbAAAeSwMXdpiquy/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,LAFAYETTE STREET 100ML,XP384,Eau de Parfum,,https://i.ebayimg.com/images/g/eeQAAeSwWHlpGiI1/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,WALL STREET 100ML,XP385,Eau de Parfum,,https://i.ebayimg.com/images/g/BMcAAOSwRHJnoicd/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,BLEECKER STREET 100ML,XP386,Eau de Parfum,,https://i.ebayimg.com/images/g/puoAAeSwi-Zphjeo/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,NEW BOND STREET 100ML,XP388,Eau de Parfum,,https://i.ebayimg.com/images/g/emoAAOSwTWFncvr2/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,MADISON AVENUE 100ML,S063,Eau de Parfum,,https://perfumania.com/cdn/shop/products/Bond-No-9-Madison-Avenue-Women-Eau-de-Parfum-3.3-Best-Price-Fragrance-Parfume-FragranceOutlet.com-details.jpg?format=pjpg&v=1579127679&width=1100,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,GREENWICH VILLAGE 100ML,S112,Eau de Parfum,,https://i.ebayimg.com/images/g/ZzkAAeSwA7tpO0l4/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,NEW YORK NIGHTS 100ML,S113,Eau de Parfum,,https://i.ebayimg.com/images/g/3zoAAeSw5eRpLuYN/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bond No. 9,HARRODS 175 100ML,V177,Eau de Parfum,,https://i.ebayimg.com/images/g/AZ0AAeSwEeppxRDT/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Burberry,HER ELIXIR DE PARFUM 100ML,XP54,Elixir de Parfum,,https://i.ebayimg.com/images/g/qYMAAOSwX-xlOXj6/s-l400.jpg,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Burberry,HER BLOSSOM 100ML,XP56,Eau de Toilette,,https://i.ebayimg.com/images/g/Rv0AAeSwY8Fp1Jor/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Burberry,HER EDP 100ML,XP57,Eau de Parfum,,https://i.ebayimg.com/images/g/duEAAeSw2Cpp3Vig/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Burberry,HER EDT 100ML,XP55,Eau de Toilette,,https://i.ebayimg.com/images/g/nyAAAeSwIXFpz-56/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Burberry,HERO 100ML,XP82,Eau de Parfum,,https://www.giftexpress.com/media/catalog/product/cache/8707a82ff53728be6dbcd7cea0f577d3/g/x/gxp-12472.jpg,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Burberry,GODDESS 100ML,S057,Eau de Parfum,,https://i.ebayimg.com/images/g/HoEAAeSwfyRpaPTS/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bvlgari,AQVA POUR HOMME 100ML,XP174,Eau de Toilette,,https://i.ebayimg.com/images/g/cEIAAeSwNYVo~Ero/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Bvlgari,PUUR HOMME 100ML,XP166,Eau de Toilette,,https://i.ebayimg.com/images/g/ScsAAeSwvsRp3Ls-/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Byredo,ROSE OF NO MAN'S LAND 100ML,XP182,Eau de Parfum,,https://i.ebayimg.com/images/g/mVMAAeSwRohpL9dv/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Byredo,MOJAVE GHOST 100ML,XP198,Eau de Parfum,,https://i.ebayimg.com/images/g/58sAAeSwPw9p2Uic/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Calvin Klein,CK ONE 100ML,XP183,Eau de Toilette,,https://i.ebayimg.com/images/g/ZJUAAeSwCB9p6A~g/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,GOOD GIRL EDP 80ML,XP31,Eau de Parfum,,https://i.ebayimg.com/images/g/oREAAeSwLrlpxOGc/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,GOOD GIRL BLUSH 80ML,S040,Eau de Parfum,,https://i.ebayimg.com/images/g/n5oAAOSwXExkmFpj/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,GOOD GIRL COLORMANIA 80ML,XP325,Eau de Parfum,,https://i.ebayimg.com/images/g/uDkAAeSw5A9pqVzb/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,VERY GOOD GIRL EDP 80ML,S013,Eau de Parfum,,https://i.ebayimg.com/images/g/jr0AAOSwJTJkwvqz/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,IT'S SO GOOD TO BE BAD 80ML,XP64,Eau de Parfum,,https://i.ebayimg.com/images/g/jr0AAOSwJTJkwvqz/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,212 SEXY MEN 100ML,XP128,Eau de Toilette,,https://i.ebayimg.com/images/g/dZAAAeSwucRpz-Up/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,212 VIP MEN 100ML,XP129,Eau de Toilette,,https://i.ebayimg.com/images/g/TNkAAeSwBYJpQO8j/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,BAD BOY ELIXIR 100ML,XP345,Eau de Parfum Elixir,,https://i.ebayimg.com/images/g/e24AAeSwRbxo6C5F/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,BAD BOY 100ML,S059,Eau de Toilette,,https://fragrancemarket.com/cdn/shop/files/Carolina_Herrera_Bad_Boy.jpg?v=1773849382&_gl=1*zhyd7n*_up*MQ..*_gs*MQ..*_ga*MTYxMTAzMDAxOS4xNzc3ODM5MDE0*_ga_T0JSMF6LRW*czE3Nzc4MzkwMTMkbzEkZzAkdDE3Nzc4MzkwMTMkajYwJGwwJGgyOTE0Mjk0Ng..&gclid=CjwKCAjw5NvPBhAoEiwA_2egfrMu_IakZlRGnZDG7bh2XSB09eTmINLVdMmc-iJM5jwDAAeoTtFkXRoC0WEQAvD_BwE&gbraid=0AAAAADNYlT_C6JwhvMOR7T1DB0Muo3KZF,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,BAD BOY COLBAT ELIXIR  100ML,S060,Eau de Parfum,,https://i.ebayimg.com/images/g/o-gAAeSwobRpbR~I/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Carolina Herrera,LA BOMBA 80ML,S084,Eau de Parfum,,https://i.ebayimg.com/images/g/hcQAAeSwmOdozr~N/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,ALLURE HOMME SPORT 100ML,XP09,Eau de Toilette,,https://i.ebayimg.com/images/g/i1gAAeSw~ZRofkjz/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,BLEU DE CHANEL PARFUM 100ML,XP14,Parfum,,https://i.ebayimg.com/images/g/2uIAAOSwoe9iQD1a/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,BLEU DE CHANEL  100ML,XP46,Eau de Parfum,,https://i.ebayimg.com/images/g/VoIAAeSwNtJpyzfr/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,BLEU DE CHANEL GOLD BOX 100 ML,XP119,Parfum,,https://editorialist.com/thumbnail/600/2023/10/027/039/078/27039078~violet_0.webp?width=600&quality=60,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,COCO MADEMOISELLE LEAU PRIVÉE 100ML,XP15,Eau Pour La Nuit,,https://i.ebayimg.com/images/g/uxAAAeSwl0BpnXTr/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,COCO MADEMOISELLE EDP INTENSE 100ML,XP17,Eau de Parfum Intense,,https://i.ebayimg.com/images/g/XFAAAOSwwkhgNAAe/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,GABRIELLE 100 ML,XP36,Eau de Parfum,,https://i.ebayimg.com/images/g/FAwAAeSw61dp1Ejy/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,CHANCE TENDRE 100ML,XP22,Eau de Toilette,,https://i.ebayimg.com/images/g/9LwAAeSwtqRpts1E/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,CHANCE EAU SPLENDIDE 100ML,XP283,Eau de Parfum,,https://i.ebayimg.com/images/g/J3IAAeSw~GZpTYtv/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,CHANCE EAU FRAICHE 100ML,XP176,Eau de Toilette,,https://i.ebayimg.com/images/g/OskAAOSwHqdfjhsn/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,No 5 100ML,XP74,Eau de Parfum,,https://i.ebayimg.com/images/g/XeEAAOSwpsZjJeMz/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,COCO MADEMOISELLE EDP LIMITED EDITION 100ML,XP52,Eau de Parfum,,https://www.oasisonline.ps/public/files/media/ChanelCocoMademoiselleLimitedEdition_W_Edp100Ml__43117.jpg,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,No 5 L EAU 100ML,XP181,Eau de Toilette,,https://i.ebayimg.com/images/g/EOYAAOSweJpjJfsy/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,No 5 EDP LIMITED EDITION 100ML,XP212,Eau de Parfum,,https://i.ebayimg.com/images/g/31cAAeSwsq1o8iKu/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,COCO EDP 100ML ,XP217,Eau de Parfum,,https://i.ebayimg.com/images/g/I3gAAeSwkV5o2jHn/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,COCO NOIR 100ml,XP218,Eau de Parfum,,https://i.ebayimg.com/images/g/oqoAAOSw9eVjJd9S/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,GABRIELLE ESSENCE 100ML,XP232,Eau de Parfum,,https://i.ebayimg.com/images/g/R8YAAeSwhjdo2jbr/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,No19 POUDRE 100ML,XP235,Eau de Parfum,,https://i.ebayimg.com/images/g/t6IAAOSwKbtmvNZ1/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Chanel,No 1 DE CHANEL L'EAU ROUGE 100ML,XP233,L'eau Rouge Revitalizing,,https://i.ebayimg.com/images/g/MFgAAeSwH~dpvh3u/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Chanel,4 PIECE GIFT SET FOR MAN 25 ML PER BOTTLE.,XP364,Eau de Toilette,,https://i.ebayimg.com/images/g/6AYAAeSwE9dpz6SD/s-l500.jpg,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Chanel,4 PIECE GIFT SET FOR WOMEN 30 ML PER BOTTLE.,XP367,Eau de Parfum,,https://i.ebayimg.com/images/g/aMYAAeSwXelp4FKl/s-l1600.webp,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Chanel,4 PIECE GIFT SET FOR WOMEN 30 ML PER BOTTLE.,XP379,Eau de Parfum,,https://i.ebayimg.com/images/g/q9UAAeSwE3dpdEkc/s-l1600.webp,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,MILLESIME IMPERIAL 100ML,XP05,Eau de Parfum,,https://i.ebayimg.com/images/g/Ez8AAeSw245o1hjY/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,AVENTUS COLOGNE 100ML,XP06,Eau de Cologne,,https://i.ebayimg.com/images/g/M7IAAeSwheNpcYaI/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,AVENTUS MEN 100ML,XP07,Eau de Parfum,,https://i.ebayimg.com/images/g/wxIAAeSwJWtp0p9Y/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,LOVE IN WHITE 75ML,XP10,Eau de Parfum,,https://i.ebayimg.com/images/g/3E8AAOSwQPNkUGwV/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,HIMALAYA 100ML,XP33,Eau de Parfum,,https://i.ebayimg.com/images/g/aEYAAeSwl~tpeTLu/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,SILVER MOUNTAIN 100ML,XP43,Eau de Parfum,,https://perfumania.com/cdn/shop/products/Creed-Silver_Mountain_Water-Men-Eau_de_Parfum_Spray-3.3-Best-Price-Fragrance-Parfume-FragranceOutlet.com-DETAILS.jpg?format=pjpg&v=1581000003&width=1100,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,GREEN IRISH TWEED 100ML,XP72,Eau de Parfum,,https://i.ebayimg.com/images/g/B9AAAeSwGmhprE8W/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,CARMINA 75ML,XP84,Eau de Parfum,,https://i.ebayimg.com/images/g/p~YAAeSw5rNpz-4w/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,ABSOLU AVENTUS 75ML,XP90,Eau de Parfum,,https://i.ebayimg.com/images/g/s0AAAOSwcwtlS6m5/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,SPRING FLOWER 100ML,XP109,Eau de Parfum,,https://i.ebayimg.com/images/g/WvUAAOSwhU1myEG8/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,VIRGIN ISLAND WATER 100ML,XP91,Eau de Parfum,,https://i.ebayimg.com/images/g/MhEAAeSwZcJpucu5/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,ORIGINAL VETIVER 100ML,XP130,Eau de Parfum,,https://i.ebayimg.com/images/g/WZwAAeSwgH9puclM/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,ROYAL PRINCESS OUD 75ML,XP131,Eau de Parfum,,https://i.ebayimg.com/images/g/ZSIAAeSwChBpUdm4/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,QUEEN OF SILK 75ML,XP275,Eau de Parfum,,https://i.ebayimg.com/images/g/91EAAeSwdP5pfSMv/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,VIKING 100ML,XP323,Eau de Parfum,,https://i.ebayimg.com/images/g/G0sAAOSwsnVeTjLI/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,ELADARIA 75ML,XP133,Eau de Parfum,,https://i.ebayimg.com/images/g/7WcAAOSw9dtoBrib/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,FRAGARIA 75ML,XP132,Eau de Parfum,,https://i.ebayimg.com/images/g/f0IAAeSwC59ow6Ro/s-l1200.png,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,CENTAURUS 100ML,XP330,Eau de Parfum,,https://i.ebayimg.com/images/g/ZiEAAOSwQ49oOgbp/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,FLEURISSIMO 75ML,XP332,Eau de Parfum,,https://i.ebayimg.com/images/g/4RIAAeSwWIVpwwYD/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Creed,AVENTUS FOR HER 75ML,S097,Eau de Parfum,,https://i.ebayimg.com/images/g/HvMAAOSw6LtlPfyP/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Creed,3 PIECE GIFT SET FOR MEN 30 ML PER BOTTLE.,XP374,Eau de Parfum,,https://media-photos.depop.com/b1/486135937/3698730540_a2414b79979444c39594a92eb95b4544/P0.jpg,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Creed,4 PIECE GIFT SET FOR MAN 30 ML PER BOTTLE.,XP377,Eau de Parfum,,https://i.ebayimg.com/images/g/ahgAAeSwjgxp2OB5/s-l1600.webp,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,SAUVAGE 100ML,XP03,Eau de Parfum,,https://i.ebayimg.com/images/g/ggsAAeSwmnxoo96U/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,SAUVAGE ELIXIR 60ML,XP23,Elixir,,https://i.ebayimg.com/images/g/1bUAAeSwQ6tpHPkc/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,SAUVAGE EAU FORTE 100ML,XP88,Eau Force Parfum,,https://i.ebayimg.com/images/g/J-8AAeSwjOxpystu/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,MISS DIOR BLOOMING 100M,XP26,Eau de Toilette,,https://i.ebayimg.com/images/g/ergAAeSwYi9p6C55/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,MISS DIOR 100ML,XP159,Eau de Parfum,,https://i.ebayimg.com/images/g/OhAAAOSw7s5jMJkA/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,MISS DIOR ROSE N'ROSES 100ML,XP313,Eau de Toilette,,https://perfumania.com/cdn/shop/files/rosenrosesdior.webp?format=pjpg&v=1694100343&width=990,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,JADORE PARFUM D’EAU 100ML,XP38,Eau de Parfum,,https://i.ebayimg.com/images/g/ySEAAOSwOGdkwwAr/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,JADORE EDP 100ML,XP106,Eau de Parfum,,https://i.ebayimg.com/images/g/PeoAAeSwnhhp0PKJ/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,ADDICT 100ML,XP156,Eau de Parfum,,https://i.ebayimg.com/images/g/nHoAAOSwpPhnSwR2/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,FAHRENHEIT 100ML,XP158,Eau de Toilette,,https://i.ebayimg.com/images/g/pncAAeSw13Zp8CBm/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,HYPNOTIC POISON 100ML,XP238,Eau de Parfum,,https://www.scentinthecity.com/cdn/shop/files/51MlmVn13OL._SL1024.jpg?v=1732907463&width=1946,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,GRIS DIOR 100ML,S048,Eau de Parfum,,https://mapleprime.com/cdn/shop/files/MP453566.jpg?v=1774173906,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,HOMME INTENSE 100ml,S083,Eau de Parfum Intense,,https://i.ebayimg.com/images/g/MtwAAOSwD0dn1O9H/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dior,MISS DIOR ESSENCE 100ml,V141,Essence de Parfum,,https://microperfumes.com/cdn/shop/files/mp-0572-1500px_b6974c7d-c1df-434e-9aeb-9d16b531553d.jpg?v=1770941443&width=600,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Dior,4 PIECE GIFT SET FOR WOMEN 30 ML PER BOTTLE.,XP362,Eau de Parfum,,https://i.ebayimg.com/images/g/fBQAAeSwLFVp6Z8q/s-l1200.jpg,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Dior,4 PIECE GIFT SET FOR WOMEN 30 ML PER BOTTLE.,XP372,Eau de Parfum,,https://i.ebayimg.com/images/g/JDkAAeSw6uBpNiIq/s-l1600.webp,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dolce & Gabbana,LIGHT BLUE POUR HOMME 100ML,XP104,Eau de Toilette,,https://i.ebayimg.com/images/g/aosAAeSwzL1oI5VH/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dolce & Gabbana,K MEN 100ML,XP219,Eau de Toilette,,https://i.ebayimg.com/images/g/87EAAeSwzANp7I8u/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dolce & Gabbana,DEVOTION 100ML,S056,Eau de Parfum,,https://perfumania.com/cdn/shop/files/dgdev.webp?format=pjpg&v=1773856724&width=1100,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dolce & Gabbana,DEVOTION INTENSE 100ML,XP320,Eau de Parfum,,https://i.ebayimg.com/images/g/1lUAAOSwaplnnMwp/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dolce & Gabbana,POUR HOMME PARFUM MEN 100ML,XP343,Parfum,,https://i.ebayimg.com/images/g/NOIAAeSwI11o3PDm/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Dolce & Gabbana,Q WOMAN PARFUM 100ML,XP344,Parfum,,https://i.ebayimg.com/images/g/0bQAAOSwGmNn93DB/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Gucci,GUILTY MEN 100ML,XP75,Eau de Toilette,,https://i.ebayimg.com/images/g/tRwAAOSwIZtoTZ-y/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Gucci,GUILTY POUR FEMME 100ML,XP216,Eau de Toilette,,https://i.ebayimg.com/images/g/kSkAAeSw3DRpzfY~/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Gucci,BLOOM 100ML,XP111,Eau de Parfum,,https://i.ebayimg.com/images/g/B~IAAOSwjkJlr30e/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Gucci,FLORA GORGEOUS MAGNOLIA 100ML,XP81,Eau de Parfum,,https://i.ebayimg.com/images/g/GjkAAOSwVQtlPLB4/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Gucci,GORGEOUS ORCHID 100ML,XP214,Eau de Parfum,,https://i.ebayimg.com/images/g/OHsAAeSwh-xpxrfK/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Gucci,FLOWER GORGEOUS GARDENIA 100ML,XP79,Eau de Parfum,,https://i.ebayimg.com/images/g/Xo0AAeSwDRln01K~/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Gucci,FLORA GORGEOUS JASMINE 100ML,S070,Eau de Parfum,,https://i.ebayimg.com/images/g/SX8AAOSwp-lkEMDK/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Gucci,FLORA EDT 100ML,S098,Eau de Toilette,,https://i.ebayimg.com/images/g/uToAAeSwM7RpYgho/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Hugo Boss,BOSS BOTTLED 100ML,S100,Parfum,,https://www.lojaglamourosa.com/resources/medias/shop/products/thumbnails/shop-image-large/shop-pf-03462-02-boss-bottled-parfum---100ml--1.jpg,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Initio,OUD FOR GREATNESS 90ML,XP105,Eau de Parfum,,https://i.ebayimg.com/images/g/qCQAAOSw~ZVn4ZMD/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Initio,OUD FOR HAPPYNESS 90ML,XP197,Eau de Parfum,,https://i.ebayimg.com/images/g/KVMAAOSw2O1kmCgB/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Initio,PSYCHEDELIC LOVE 90ML,S053,Eau de Parfum,,https://i.ebayimg.com/images/g/kvMAAeSwc51petcF/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,SCANDAL POUR HOMME ABSOLU 100 ML,XP134,Parfum,,https://i.ebayimg.com/images/g/JTQAAOSwvqhmBFg2/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,SCANDAL LE PARFUM 100 ML,S080,Eau de Parfum Intense,,https://i.ebayimg.com/images/g/UwsAAeSwtR9pjcnc/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,LE MALE ELIXIR 125ML,XP63,Eau de Parfum Elixir,,https://i.ebayimg.com/images/g/AyYAAOSw1WlknBKI/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,DIVINE 100ML,XP68,Eau de Parfum,,https://i.ebayimg.com/images/g/WtUAAOSwoKxmeRHk/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,LE MALE ELIXIR ABSOLU 100ML,XP302,Eau de Parfum Elixir,,https://i.ebayimg.com/images/g/5QgAAOSwYH1nt6AY/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,2 WOMAN 100 ML,XP203,Eau de Parfum,,https://i.ebayimg.com/images/g/6-oAAeSwvwZprkIP/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,SCANDAL WOMAN 80 ML,XP286,Eau de Parfum,,https://i.ebayimg.com/images/g/sHIAAOSwQh5kwwKJ/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,SO SCANDAL WOMAN 80 ML,XP287,Eau de Parfum,,https://i.ebayimg.com/images/g/zPwAAeSwmlFp2jJF/s-l1200.png,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,ULTRA MALE 125ML,XP70,Eau de Toilette Intense,,https://i.ebayimg.com/images/g/xH0AAeSwNiRpyS23/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,LE MALE LE PARFUM INTENSE 125ML,XP346,Eau de Parfum Intense,,https://i.ebayimg.com/images/g/TSsAAOSwIgNkSwpM/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,LE MALE LOVER 125ML,XP347,Eau de Parfum,,https://i.ebayimg.com/images/g/HBAAAOSwuSRmi~DT/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,LE BEAU PARADISE GARDEN 125ML,XP348,Eau de Parfum,,https://i.ebayimg.com/images/g/kNgAAOSwVOJnDzBn/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,LE BEAU 100ML,XP350,Eau de Toilette,,https://i.ebayimg.com/images/g/4ssAAOSwlotjXAQp/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Jean Paul Gaultier,LE BEAU EDP INTENSE 125ML,XP351,Eau de Parfum Intense,,https://i.ebayimg.com/images/g/2-kAAOSwVXRl7dQo/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Kilian,APPLE BRANDY 50ML,XP186,Eau de Parfum,,https://i.ebayimg.com/images/g/8NgAAeSwZ19om1nH/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Kilian,ANGELS SHARE 50ML,XP187,Eau de Parfum,,https://i.ebayimg.com/images/g/DKAAAeSw~MJom1MY/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Kilian,GOOD GIRL GONA BAD 50ML,XP200,Eau de Parfum,,https://i.ebayimg.com/images/g/B3wAAeSw6Sxp1aVw/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Kilian,SMOKING HOT 50ML,XP257,Eau de Parfum,,https://www.perfumenz.co.nz/cdn/shop/files/kilian-smoking-hot_1432x1432.png?v=1725593019,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Kilian,L HEURE VERTE 50ML,XP258,Eau de Parfum,,https://i.ebayimg.com/images/g/yuMAAeSw7rppxqe1/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Kilian,BLACK PHANTOM 50ML,XP259,Eau de Parfum,,https://i.ebayimg.com/images/g/kb4AAOSwdGtgNRT3/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Kilian,ROSES ON ICE 50ML,XP260,Eau de Parfum,,https://i.ebayimg.com/images/g/I-IAAeSwYnNpzsjr/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Kilian,SACRED WOOD 50ML,XP261,Eau de Parfum,,https://i.ebayimg.com/images/g/cPEAAeSwi2Fpz-Ts/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Kilian,ROLLING IN LOVE 50ML,XP262,Eau de Parfum,,https://i.ebayimg.com/images/g/JTsAAeSw7cFpuM-p/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Kilian,DONT BE SHY EDP 50ML,XP149,Eau de Parfum,,https://i.ebayimg.com/images/g/2oEAAOSwvRZny~FJ/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Lacoste,L.12.12 SILVER GREY,V070,Eau de Parfum,,https://i.ebayimg.com/images/g/lsIAAOSwETpoT8co/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Lancome,MIRACLE 100ML,XP142,Eau de Parfum,,https://i.ebayimg.com/images/g/1BQAAOSwuOtlGm7S/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Lancome,IDÔLE 100ML,XP143,Eau de Parfum,,https://i.ebayimg.com/images/g/NOYAAOSwsbllGmpH/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Lancome,IDÔLE NOW 100ML,XP145,Eau de Parfum,,https://i.ebayimg.com/images/g/QkwAAeSwESto6Maj/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Lancome,LA VIE EST BELLE 100ML,S094,Eau de Parfum,,https://i.ebayimg.com/images/g/SmYAAeSw-IhpbuI6/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Lattafa,ASAD PERFUMES 100ML,XP163,Eau de Parfum,,https://i.ebayimg.com/images/g/XgoAAOSwunRjl~cc/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Le Labo,SANTAL 33 100ML,XP99,Eau de Parfum,,https://i.ebayimg.com/images/g/2SEAAOSwCn5oDd9u/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Le Labo,THE NOIR 29 100ML,XP196,Eau de Parfum,,https://i.ebayimg.com/images/g/97MAAOSwt9toJPDS/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Louis Vuitton,PACIFIC CHILL  100ML,XP117,Eau de Parfum,,https://i.ebayimg.com/images/g/OmwAAeSwH6xoTgyW/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Louis Vuitton,OMBRE NOMADE 100ML,XP118,Eau de Parfum,,https://i.ebayimg.com/images/g/6MAAAeSwG7pplEV5/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Louis Vuitton,IMAGINATION 100ML,XP122,Eau de Parfum,,https://i.ebayimg.com/images/g/-EsAAOSwy-xoBKTw/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Louis Vuitton,CALIFORNIA DREAM 100ML,XP137,Eau de Parfum,,https://i.ebayimg.com/images/g/ycEAAeSwnNBpuHQl/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Louis Vuitton,FLEUR DU DESERT 100ML,XP138,Eau de Parfum,,https://i.ebayimg.com/images/g/whkAAeSwmNppuHdt/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Louis Vuitton,SYMPHONY 100ML,XP281,Extrait de Parfum,,https://i.ebayimg.com/images/g/aw8AAOSwvcxnhEwz/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Louis Vuitton,MYRIAD 100ML,XP308,Extrait de Parfum,,https://i.ebayimg.com/images/g/0voAAOSw75RnhGtP/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Louis Vuitton,RHAPSODY 100ML,XP309,Extrait de Parfum,,https://i.ebayimg.com/images/g/uLAAAeSwKnlpuHOX/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Louis Vuitton,AFTERNOON SWIM 100ML,S123,Eau de Parfum,,https://u-mercari-images.mercdn.net/photos/m28672190045_1.jpg?width=1280&quality=75&_=1766709073,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Louis Vuitton,CITY OF STARS 100ML,S108,Eau de Parfum,,https://i.ebayimg.com/images/g/QIkAAeSwggBopLjD/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Louis Vuitton,4 PIECE GIFT SET 30 ML PER BOTTLE.,XP363,Eau de Parfum,,https://i.ebayimg.com/images/g/eLoAAeSwwsNphWE5/s-l500.jpg,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Louis Vuitton,7 PIECE GIFT SET 10 ML PER BOTTLE.,XP376,Eau de Parfum,,https://u-mercari-images.mercdn.net/photos/m67753386591_1.jpg?width=1280&quality=75&_=1738436609,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Francis Kurkdjian,BACCARAT ROUGE 540 RED 70ML,XP08,Extrait de Parfum,,https://i.ebayimg.com/images/g/ZY0AAeSwPN5p8L2a/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Francis Kurkdjian,A LA ROSE 70 ML,XP50,Eau de Parfum,,https://i.ebayimg.com/images/g/LQ8AAeSwvZxpHOAW/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Francis Kurkdjian,OUD SILK MOOD 70ML,XP80,Eau de Parfum,,https://i.ebayimg.com/images/g/ZGoAAeSwmT1p4i1-/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Francis Kurkdjian,BACCARAT ROUGE 540 WHITE 70ML,XP125,Eau de Parfum,,https://i.ebayimg.com/images/g/XmoAAeSwh5Vp5kkU/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Francis Kurkdjian,OUD 70ML,XP249,Extrait de Parfum,,https://i.ebayimg.com/images/g/j74AAeSwCCpordqS/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Francis Kurkdjian,724  70ML,XP248,Eau de Parfum,,https://i.ebayimg.com/images/g/hHIAAeSwFxZordKS/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Francis Kurkdjian,APOM  70ML,XP250,Eau de Parfum,,https://i.ebayimg.com/images/g/oDkAAOSwlIBniIMZ/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Francis Kurkdjian,AQUA UNIVERSALIS  70ML,XP251,Eau de Toilette,,https://i.ebayimg.com/images/g/uhsAAeSwq9Nordul/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Francis Kurkdjian,GRAND SOIR 70ML,S087,Eau de Parfum,,https://i.ebayimg.com/images/g/Qg8AAeSwTU5p6kv7/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Maison Francis Kurkdjian,4 PIECE GIFT SET 30 ML PER BOTTLE.,XP366,Eau de Parfum,,https://i.ebayimg.com/images/g/YhQAAeSwiwJpynVC/s-l1600.webp,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Margiela,REPLICA THE FIREPLACE 100ML,XP185,Eau de Toilette,,https://i.ebayimg.com/images/g/r~kAAeSwKDdp1yM8/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Margiela,REPLICA MAISON MARGIELA UNDER THE STARS 100ML,XP253,Eau de Toilette,,https://i.ebayimg.com/images/g/G4QAAeSwY6Bpjh-T/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Maison Margiela,REPLICA MAISON MARGIELA LAZY SUNDAY 100ML,XP254,Eau de Toilette,,https://i.ebayimg.com/images/g/SUAAAOSwIZlkwxP~/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Marc Jacobs,DAISY 100ML,S090,Eau de Toilette,,https://fragrancemarket.com/cdn/shop/products/Marc-Jacobs-Daisy-Womens-Eau-de-Toilette-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Details_1283bb72-34a2-4471-9ffb-c47e6ad828c6.jpg?v=1564168928&width=990,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Montblanc,LEGEND 100ML,V069,Eau de Toilette,,https://fragrancemarket.com/cdn/shop/products/MontBlanc-Legend-Mens-Eau-de-Toilette-Spray-1.7-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Details.jpg?v=1752243487&_gl=1*oeazxi*_up*MQ..*_gs*MQ..*_ga*MTkxOTgzNDI3Ni4xNzc3ODQ3NDIz*_ga_T0JSMF6LRW*czE3Nzc4NDc0MjIkbzEkZzAkdDE3Nzc4NDc0MjIkajYwJGwwJGgxODUzOTg5ODc1&gclid=CjwKCAjw5NvPBhAoEiwA_2egfqy1MmeXUBp8ko_aNL2kYLyu305JbSbXR-rt-aRczvyVSO-45lF_IBoCVc4QAvD_BwE&gbraid=0AAAAADNYlT_C6JwhvMOR7T1DB0Muo3KZF,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Paco Rabanne,1 MILLION 100ML,XP13,Eau de Toilette,,https://i.ebayimg.com/images/g/sYoAAeSw83tpqZb3/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Paco Rabanne,1 MILLION ELIXIR 100ML,XP73,Elixir Parfum Intense,,https://i.ebayimg.com/images/g/y2gAAOSwbs5n6MEg/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Paco Rabanne,FAME WOMAN 100ML,XP224,Eau de Parfum,,https://i.ebayimg.com/images/g/QKYAAeSw-H1p8IrA/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Paco Rabanne,1 MLLION GOLD MEN  INTENSE 100M,XP69,Eau de Parfum Intense,,https://i.ebayimg.com/images/g/GMQAAeSw705ppxEg/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Paco Rabanne,1 MILLION ROYAL 100ML,XP101,Parfum,,https://i.ebayimg.com/images/g/O6IAAOSwNBdn6L9G/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Paco Rabanne,PACCO RABBANE INVICTUS 100ML,XP59,Eau de Toilette,,https://i.ebayimg.com/images/g/bcoAAeSwLo5oX-XY/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Paco Rabanne,PHANTOM 100ML,S085,Eau de Toilette,,https://fragrancemarket.com/cdn/shop/products/phantompic.jpg?v=1758033573&_gl=1*o5uebl*_up*MQ..*_gs*MQ..*_ga*MjAxMTk0NTc5OC4xNzc3ODQ3NTU4*_ga_T0JSMF6LRW*czE3Nzc4NDc1NTYkbzEkZzAkdDE3Nzc4NDc1NTYkajYwJGwwJGg1NjkzODU1NDk.&gclid=CjwKCAjw5NvPBhAoEiwA_2egfovfQ4B7FOhWKnIlv5R0T-CYRoCXjWIP2546WyTGcg7DphubzdmPJBoCbPAQAvD_BwE&gbraid=0AAAAADNYlT_C6JwhvMOR7T1DB0Muo3KZF,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Paco Rabanne,INVICTUS VICTORY 100ML,S089,Eau de Parfum Extreme,,https://i.ebayimg.com/images/g/2VkAAOSwC29mPJc9/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,DELINA 75ML,XP28,Eau de Parfum,,https://www.fragranceoutlet.com/cdn/shop/files/delina.webp?v=1712064026,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,DELINA LA ROSEE 75ML,XP89,Eau de Parfum,,https://i.ebayimg.com/images/g/mHEAAeSwgY5pkDEM/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,ORIANA 75ML,XP279,Eau de Parfum,,https://i.ebayimg.com/images/g/8TIAAeSwQEloxh6Q/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,VALAYA 100ML,XP141,Eau de Parfum,,https://i.ebayimg.com/images/g/-vMAAeSwj3FoxfwC/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,LAYTON 125ML,XP123,Eau de Parfum,,https://i.ebayimg.com/images/g/2vAAAeSwRL1p0ZRO/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,LAYTON ROYAL ESSENCE 125ML,S023,Eau de Parfum,,https://i.ebayimg.com/images/g/u3QAAOSwAY5kbk-3/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,HALTANE 125ML,XP96,Eau de Parfum,,https://i.ebayimg.com/images/g/psYAAeSwlNRoxrRb/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,PEGASUS EXCLUSIF 125ML,XP121,Parfum,,https://i.ebayimg.com/images/g/AIQAAeSwpDhpp7vV/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,GREENLEY 125ML,XP312,Eau de Parfum,,https://i.ebayimg.com/images/g/xLMAAeSwzRtoyi6H/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,CASTLEY 125ML,XP340,Eau de Parfum,,https://i.ebayimg.com/images/g/8VIAAeSw7mpprqvz/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,ALTHAIR 125ML,S071,Eau de Parfum,,https://i.ebayimg.com/images/g/XzEAAeSwgMRoy2hO/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Parfums de Marly,CASSILI 75ML,V138,Eau de Parfum,,https://www.scentsangel.com/cdn/shop/files/Untitleddesign-2026-04-06T213503.323.jpg?v=1775489856&width=1946,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Prada,PARADOXE INTENSE 90ML,S026,Eau de Parfum,,https://i.ebayimg.com/images/g/LUIAAeSwAEhoeJuO/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Prada,PARADOXE 90ML,XP27,Eau de Parfum,,https://i.ebayimg.com/images/g/4aQAAeSweDNp7M3D/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Prada,OCEAN LUNA ROSSA EDP 100ML,XP35,Eau de Parfum,,https://i.ebayimg.com/images/g/xb0AAeSwto1p3Wwj/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Prada,LUNA ROSSA EDT 100ML,XP126,Eau de Toilette,,https://i.ebayimg.com/images/g/v-UAAeSwu-Zpz5g~/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Prada,PARADIGME 100ML,S124,Eau de Parfum,,https://i.ebayimg.com/images/g/5C4AAeSwKCho8m7z/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Roja Parfums,BURLINGTON 1819 100ML,XP327,Eau de Parfum,,https://i.ebayimg.com/images/g/KFsAAeSwphJpvAt8/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Roja Parfums,ISOLA BLU 50ML,XP191,Parfum,,https://i.ebayimg.com/images/g/FY4AAeSwQZxphMC7/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,FUCKING FABULOUS 100ml,XP25,Eau de Parfum,,https://i.ebayimg.com/images/g/IEcAAOSwZF9ldUuP/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,OUD WOOD 100ML,XP65,Eau de Parfum,,https://i.ebayimg.com/images/g/kAoAAOSwZOZlCswC/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,LOST CHERRY 100ML,XP66,Eau de Parfum,,https://i.ebayimg.com/images/g/cl0AAeSwjOhpYEp3/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,VANILLA SEX 100ML,XP85,Eau de Parfum,,https://i.ebayimg.com/images/g/5WoAAeSw705puKtO/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,NEROLI PORTOFINO 100ML,XP87,Eau de Parfum,,https://i.ebayimg.com/images/g/lhcAAeSwCy1p8nls/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,BITTER PEACH 100ML,XP92,Eau de Parfum,,https://i.ebayimg.com/images/g/bycAAeSwaSZpSR8Q/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,BLACK ORCHID 100ML,XP93,Eau de Parfum,,https://i.ebayimg.com/images/g/nZMAAOSwRTVaZ4yl/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,TOBACCO VANILLA 100ML,XP102,Eau de Parfum,,https://i.ebayimg.com/images/g/ElIAAeSwiSFpwh6o/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,OMBRE LEATHER 100ML,XP108,Eau de Parfum,,https://i.ebayimg.com/images/g/XTMAAeSwcUppuddI/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,SOLEIL NEIGE 100ML,XP150,Eau de Parfum,,https://u-mercari-images.mercdn.net/photos/m71826332319_1.jpg?width=1280&quality=75&_=1777137541,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,GREY VETIVER  100ML,XP151,Eau de Parfum,,https://i.ebayimg.com/images/g/8kcAAOSwnf1kdOVX/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,VANILLE FATALE 100ML,XP152,Eau de Parfum,,https://i.ebayimg.com/images/g/pREAAeSwMcVppuxG/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,ELECTRIC CHERRY 100ML,XP153,Eau de Parfum,,https://i.ebayimg.com/images/g/FFUAAeSwto1p7h8M/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,WHITE SUEDE 100ML,XP155,Eau de Parfum,,https://i.ebayimg.com/images/g/iTkAAeSwwPRpqyci/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,CAFE ROSE 100ML,XP199,Eau de Parfum,,https://i.ebayimg.com/images/g/JkgAAOSwozNl9uXI/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,OUD MINERALE 100ML,XP204,Eau de Parfum,,https://i.ebayimg.com/images/g/XQoAAeSwwYRp1UWa/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,MYRRHE MYSTERE 100ML,XP205,Eau de Parfum,,https://i.ebayimg.com/images/g/HKAAAeSwQZxphO9a/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,SOLEIL BLANC 100ML,XP208,Eau de Toilette,,https://www.godutyfree.mu/wp-content/uploads/2021/09/0006_TOM-FORD-EAU-DE-SOLEIL-BLANC-EDT-100ml.jpg,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,JASMIN ROUGE 100ML,XP230,Eau de Parfum,,https://i.ebayimg.com/images/g/1CkAAOSwl2hcYzj4/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Tom Ford,FUCKING FABULOUS PARFUM 100ML,XP336,Parfum,,https://i.ebayimg.com/images/g/W2UAAeSwkf1pj6JH/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,UOMO BORN IN ROMA INTENSE 100M,XP11,Eau de Parfum Intense,,https://i.ebayimg.com/images/g/c~YAAeSwS-xp3yAJ/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,DONNA BORN IN ROMA CORAL FANTASY100M,XP16,Eau de Parfum,,https://i.ebayimg.com/images/g/jyEAAeSwxbBpVTgV/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,UOMO BORN IN ROMA GREEN STRAVAGANZA 100M,XP19,Eau de Toilette,,https://i5.walmartimages.com/seo/Valentino-Men-s-Born-in-Roma-Green-Stravaganza-EDT-Spray-3-4-oz_9c1ec676-1f16-4f44-a50f-13c76e668e60.5411b694e0758247bf9a7c80b857862d.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,DONNA BORN IN ROMA 100ML,XP32,Eau de Parfum,,https://i.ebayimg.com/images/g/2UcAAeSwEG1pt9e0/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,DONNA BORN IN ROMA INTENSE 100ML,XP39,Eau de Parfum Intense,,https://i.ebayimg.com/images/g/-okAAeSw2MtptY09/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,DONNA BORN IN ROMA PINK PP 100 ML,XP45,Eau de Parfum,,https://i.ebayimg.com/images/g/o38AAeSwiT9p188k/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,UOMO BORN IN ROMA EXTRADOSE 100ML,XP107,Parfum,,https://i.ebayimg.com/images/g/L0wAAeSw-jBpXrFR/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,UOMO BORN IN ROMA 100ML,XP112,Eau de Toilette,,https://i.ebayimg.com/images/g/jmUAAOSwtepn6zE2/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,DONNA 100ML,XP62,Eau de Parfum,,https://i.ebayimg.com/images/g/SkQAAeSwVuppMw2l/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,OUMO THE GOLD 100ML,XP114,Eau de Toilette,,https://valenciaperfumes.com/cdn/shop/files/0D7909B3-7FDE-4265-8366-69F82DFDB919.png?v=1759781339&width=990,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,DONNA THE GOLD 100ML,XP115,Eau de Parfum,,https://valenciaperfumes.com/cdn/shop/files/E8CFD051-ED1E-4DD3-84A9-B550432B0971.png?v=1759782431&width=990,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,UOMO 100ML,XP267,Eau de Toilette,,https://i.ebayimg.com/images/g/KaAAAOSwNOFkrE-p/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,UOMO INTENSE 100ML,XP209,Eau de Parfum Intense,,https://i.ebayimg.com/images/g/QQAAAeSwkuZp7Iy5/s-l1200.jpg,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,OUMO YELLOW DREAM 100ML,XP268,Eau de Toilette,,https://i.ebayimg.com/images/g/x6oAAeSwJGJp1TJJ/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,DONNA EXTRADOSE 100ML,XP288,Parfum,,https://img.perfume.com/images/products/sku/large/valv6p.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,OUMO IVORY EDT 100ML,XP360,Eau de Toilette,,https://i.ebayimg.com/images/g/tXwAAeSwBhJprvPy/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,DONNA IVORY EDP 100ML,XP361,Eau de Parfum,,https://i.ebayimg.com/images/g/aAcAAeSw1rlp3R40/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,UOMO ROCKSTUD NOIR 100ML,XP195,Eau de Toilette,,https://i.ebayimg.com/images/g/9e8AAeSwmmlp4WdU/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,DONNA BORN IN ROMA GREEN STRAVAGANZA  100ML,XP21,Eau de Parfum,,https://i.ebayimg.com/images/g/FtYAAeSw-lBpcSl-/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Valentino,OUMO BORN IN ROMA CORAL FANTASY100M,S019,Eau de Toilette,,https://i.ebayimg.com/images/g/~akAAOSw-zBnU3af/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Valentino,4 PIECE GIFT SET FOR MAN 30 ML PER BOTTLE.,XP370,Eau de Parfum,,https://i.ebayimg.com/images/g/nywAAeSwzANp2M6-/s-l1600.webp,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Valentino,4 PIECE GIFT SET FOR WOMEN 30 ML PER BOTTLE.,XP371,Eau de Parfum,,https://di2ponv0v5otw.cloudfront.net/posts/2026/04/29/69f238e0a0dc2b0007898387/l_wp_69f238e0a0dc2b0007898388.webp,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Versace,EROS EDP 100ML,XP20,Eau de Parfum,,https://i.ebayimg.com/images/g/B4QAAeSw7X1pMDE7/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Versace,EROS PARFUM 100ml,XP162,Parfum,,https://i.ebayimg.com/images/g/rTAAAOSw7yZjNzjg/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Versace,EROS FLAME 100 ML,XP94,Eau de Parfum,,https://i.ebayimg.com/images/g/sEoAAOSw3ChkwxvN/s-l400.jpg,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Versace,EROS NAJIM 100ML,XP78,Eau de Parfum,,https://i.ebayimg.com/images/g/4McAAeSwBXRp6Hgv/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Versace,POUR HOMME 100ML,XP97,Eau de Toilette,,https://i.ebayimg.com/images/g/5AMAAeSwMWNo-JYm/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Versace,MAN EAU FRAICHE 100ML,XP170,Eau de Toilette,,https://i.ebayimg.com/images/g/D94AAOSwHfNluzgW/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Versace,CRYSTAL NOIR 100ML,XP184,Eau de Parfum,,https://i.ebayimg.com/images/g/qN4AAeSwiqxpjuTs/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Versace,BRINGHT CRYSTAL 100ML,S036,Eau de Toilette,,https://i.ebayimg.com/images/g/9mcAAeSw5nxpteRk/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Versace,DYLAN BLUE 100ML,XP237,Eau de Toilette,,https://i.ebayimg.com/images/g/Hy4AAOSwDgRkwxwu/s-l1200.jpg,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,Versace,4 PIECE GIFT SET 30 ML PER BOTTLE.,XP369,Eau de Parfum,,https://u-mercari-images.mercdn.net/photos/m53779543916_1.jpg?width=1280&quality=75&_=1776287006,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Viktor & Rolf,SPICEBOMB COLAGNE FOR MEN 90ML,XP277,Eau de Toilette,,https://i.ebayimg.com/images/g/sy0AAeSwh5lp874M/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Viktor & Rolf,FLOWERBOMB 100ML,V066,Eau de Parfum,,https://i.ebayimg.com/images/g/nSAAAeSwSYtpH44O/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Xerjoff,SOPRANO 100ML,XP263,Eau de Parfum,,https://i.ebayimg.com/images/g/7xYAAOSwUOZl2x86/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Xerjoff,OPERA 100ML,XP264,Eau de Parfum,,https://i.ebayimg.com/images/g/C0MAAeSwQ~dpcZS2/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Xerjoff,ERBA PURA 100ML,S022,Eau de Parfum,,https://i.ebayimg.com/images/g/ePcAAOSw0j1oXFtE/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,Xerjoff,ALEJANDRIA II 100ML,S072,Eau de Parfum,,https://i.ebayimg.com/images/g/9LsAAOSweBhn9aoB/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,Y EDP 100ML,XP01,Eau de Parfum,,https://i.ebayimg.com/images/g/QesAAeSwajBp6Wjr/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,Y L ELIXIR 100ML,XP48,Parfum Concentre,,https://i.ebayimg.com/images/g/fVQAAeSwV5to5~C7/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,MYSLF EDP 100ML,XP18,Eau de Parfum,,https://i.ebayimg.com/images/g/uQMAAeSwQdhp8W28/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,BLACK OPIUM OPIUM OVER RED 90ML,XP172,Eau de Parfum,,https://i.ebayimg.com/images/g/Z~wAAOSwtXVoLzD4/s-l1200.png,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,BLACK OPIUM GLITTER 90ML,XP322,Eau de Parfum,,https://i.ebayimg.com/images/g/ivQAAeSwd6Np09jk/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,L HOMME 100ML,XP213,Eau de Parfum,,https://i.ebayimg.com/images/g/QaMAAeSwBhJor0yN/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,MON PARIS 90ML,XP12,Eau de Parfum,,https://i.ebayimg.com/images/g/2bcAAeSwPGtpN2~h/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,MYSLF LE PARFUM 100ML,XP98,Parfum,,https://i.ebayimg.com/images/g/55sAAeSwkuFp7MWw/s-l500.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,MYSLF L’ABSOLU 90ML,XP342,Parfum,,https://i.ebayimg.com/images/g/7QsAAeSw3VFozZmY/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,LIBRE EDP INTENSE 90ML,S029,Eau de Parfum,,https://i.ebayimg.com/images/g/d4IAAeSw6A9o6i4g/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,LIBRE L'ABSOLU PLATINE 90ML,XP278,Eau de Parfum,,https://i.ebayimg.com/images/g/Uc4AAeSwnQRpzsNT/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,YVES SAINT LAURENT LIBRE L’EAU NUE 90ML,XP303,Parfum de Peau,,https://i.ebayimg.com/images/g/6QMAAeSwUv5p6oI4/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,Y PARFUM 100ML,S001,Parfum,,https://i.ebayimg.com/images/g/EDAAAeSwMeJn0yQS/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL,LA NUIT DE L'HOMME 100ML,S101,Eau de Parfum Intense,,https://i5.walmartimages.com/seo/Yves-Saint-Laurent-La-Nuit-De-LHomme-3-3-oz-EDP-Spray_48d69d45-c887-41ca-b30d-8830747d6348.f95cc9931e485de906ef31c34e68d0f8.jpeg?odnHeight=573&odnWidth=573&odnBg=FFFFFF,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL ,Y LE PARFUM 100ML,XP49,Parfum,,https://i.ebayimg.com/images/g/EDAAAeSwMeJn0yQS/s-l960.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Perfumes,YSL ,BLACK OPIUM 90ML,XP04,Eau de Parfum,,https://i.ebayimg.com/images/g/C6YAAeSwCmBp6NPn/s-l1600.webp,TRUE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,YSL,3 PIECE GIFT SET FOR WOMEN 30 ML PER BOTTLE.,XP365,Eau de Parfum,,https://u-mercari-images.mercdn.net/photos/m78261091278_1.jpg?width=1280&quality=75&_=1749522646,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Gift Set de Pefumes,YSL,4 PIECE GIFT SET FOR WOMEN 30 ML PER BOTTLE.,XP378,Eau de Parfum,,https://u-mercari-images.mercdn.net/photos/m56385464235_1.jpg?width=1280&quality=75&_=1775656403,FALSE,FALSE,45,25,35,50,30,100,25,,,10
+Lululemon,Waist Bags,Waist Bag - Lake Blue,YB-002,,,https://drive.google.com/file/d/1kGPWbLy8_WSphMj7TFtzW18EcseCZCl_/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Cherry Blossom Pink,YB-005,,,https://drive.google.com/file/d/17HTKcllpOOPC7U3Kw96qOHv-W6rntCBJ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Washed White,YB-007,,,https://drive.google.com/file/d/1Z6h28z4SQ9O3QC3JsDHMMZcHZ7dEZqNM/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Bright Red,YB-008,,,https://drive.google.com/file/d/1R50gQyGMtEMaRCILSvQCoTOgv_6rg6Pi/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Lemon Yellow,YB-009,,,https://drive.google.com/file/d/1nvPZ7drpaeYqhL_JKdn42L8iXif5sLiS/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Beige,YB-013,,,https://drive.google.com/file/d/1S4PDTCiCemsmmVW50jWkTalNGx3JelgX/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Rose Red,YB-014,,,https://drive.google.com/file/d/1l31fABDR-WGjiubgY5xgN2HxoVih49t4/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - White,YB-015,,,https://drive.google.com/file/d/1ferG4Y3gfRZQMIEP9NsxMsEEJ1-n2_r9/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Red,YB-017,,,https://drive.google.com/file/d/1xxL1ySvNhxK2n7Z7AHhF2UVmagD_mleP/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Brown,YB-019,,,https://drive.google.com/file/d/1QalA6I_6Nhl2syCMFdPu46la7OhKEKSF/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Army Green,YB-022,,,https://drive.google.com/file/d/1lP4-5Tyyd6wtwiRf6VEkrOXgBxDObCUE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Black,YB-024,,,https://drive.google.com/file/d/1yzyHnz4sAAqevpZdy7XM96mtevZZZTa9/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Fluorescent Green,YB-029,,,https://drive.google.com/file/d/1fv9TqJbGmIp6M8raKfO032RTtf8u48-B/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Dark Pink Logo White,YB-032,,,https://drive.google.com/file/d/1jNAdQ_Tp_9oMGQDOsRxB9d-QKsoBMFzi/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Black Logo White,YB-033,,,https://drive.google.com/file/d/1Iu5ZX9LPrWLNKLg7AYHMYA5MI_fN0ivR/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Silver Gray Logo White,YB-034,,,https://drive.google.com/file/d/1WYtla0veirEpqQL7-ggxGnibLaKlNCn0/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Red Logo White,YB-036,,,https://drive.google.com/file/d/1v4bgXdmyIXJliLLqNDJIrit_9jQMiGYt/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Sapphire Blue Logo Gold,YB-037,,,https://drive.google.com/file/d/1PE8Uku-a9EpyqdFa-1Qei0j6AL5mPyRO/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Blue Gold Logo Gold,YB-039,,,https://drive.google.com/file/d/12GAyOEO81X1Da1INugm11R3K5jM-iDLb/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Pink Gold Logo Gold,YB-040,,,https://drive.google.com/file/d/1Iymqa6ZxKZorgt1iHEob6M81LWfRk1RA/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Black Gold Logo Gold,YB-043,,,https://drive.google.com/file/d/1tQH0T-q4K1eeO3n-NwOLEJYgYLxEudC4/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Black Grey Logo Gold,YB-045,,,https://drive.google.com/file/d/1ItxA6PdcQBLp9070ZYOnB1QP9L7iIM8n/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Purple Gold Logo Gold,YB-046,,,https://www.pearlsandrocks.com/cdn/shop/files/LululemonBags_73_1024x1024.png?v=1747153350,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Pink Grey Logo Gold,YB-047,,,https://drive.google.com/file/d/1XVveR7GTyZQgCdCu5ty3wJuLPvETKH9c/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Red Mickey,YB-054,,,https://drive.google.com/file/d/1l8cmLOpQvsNbyVbYatGlnFdC35nGfDze/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - White Picture Mickey,YB-056,,,https://drive.google.com/file/d/1WHLSfNjtpBEZix-5oTSodeXcOM0iJNdL/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Black Picture Mickey,YB-057,,,https://drive.google.com/file/d/1NG1uAeatNkLXejSI95GHLFWcmU98HbuZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Mickey Head,YB-058,,,https://drive.google.com/file/d/1odAhB_yR6ELlF3UEd_jn29EaOS0zxZga/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Dark Pink 2L,YB-060,,,https://drive.google.com/file/d/1qSgIytxadxCnu4X5mupfL31aAyeSOKwk/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Pink 2L,YB-061,,,https://drive.google.com/file/d/1pPxZ6o0jVQ_e4nuhhbdVU3vdrgajPise/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Dark Blue 2L,YB-062,,,https://drive.google.com/file/d/1CHXNQkIS92KUm0E5JNGrdgXco7Ux1ryi/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Wine Red 2L,YB-063,,,https://drive.google.com/file/d/1dm5ehO3kBcfH_tAt0-RER4uHymF1mcVj/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Red 2L,YB-064,,,https://drive.google.com/file/d/1CA18hqlF34hx5sK61NnL67wOTwmQqizf/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Olive Drab 2L,YB-066,,,https://drive.google.com/file/d/1M1M0D0YRAGX3sv7qdVggMV0BJpEPMx_l/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Cream 2L,YB-069,,,https://drive.google.com/file/d/10Zb2_dz7cc0Q_OSVHRZ7IUaHtSRTI3zE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Black 2L,YB-070,,,https://drive.google.com/file/d/1kteF2e-ByqQSBHf6Uw43Z8sdxJVENLSg/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - White Grey 2L Logo Gold,YB-071,,,https://drive.google.com/file/d/1PDyFodyFUKCkEWgwe8jbDbYrXZw5SWCA/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Sapphire Blue 2L Logo Gold,YB-072,,,https://drive.google.com/file/d/13_iV6evbLfcPgfXuO_1XpUzP0UC89PpO/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Wine Red 2L Logo Gold,YB-073,,,https://drive.google.com/file/d/11_jOc2OuQlYsTqBiLAc6MRM_dNo7h4x8/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Light Blue 2L Logo Gold,YB-074,,,https://drive.google.com/file/d/1yr7qIxtSC3E0DMFwx5CcyMvVNotxjNM7/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Black Gold 2L Logo Gold,YB-075,,,https://drive.google.com/file/d/1DZi3DQya7q7RX9FLH6RHUUCJANfvj_k-/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Blue Black 2L,YB-076,,,https://drive.google.com/file/d/18_LZ1wfQm49bj8-jtOjJVSTVGnV-XR-O/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Dark Purple,YB-077,,,https://drive.google.com/file/d/1H-CNNWfQG-Jy6dli4OOMeaZb9p8WvaVL/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Waist Bags,Waist Bag - Camo Red,YB-079,,,https://drive.google.com/file/d/13kzbGkawU-t7SQ29-fVIcACOV9hIgRbp/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Bags,City Essentials Shoulder Bag 4L - Black,,,,https://drive.google.com/file/d/1fDeDzrNQNJqHjCM3ck6YCtOxIeG0oHP8/view?usp=sharing,TRUE,FALSE,,,,,,,,,,
+Lululemon,Bags,City Essentials Shoulder Bag 4L - Pink,,,,https://drive.google.com/file/d/1SDUyUsIuxEpFYnHGhUGIFBktt_E8e_O6/view?usp=sharing,TRUE,FALSE,,,,,,,,,,
+Lululemon,Bags,City Essentials Shoulder Bag 4L - Beige,,,,https://drive.google.com/file/d/17BkhFHkigL9-xZpWuBx_jNRxx5WvZI3S/view?usp=sharing,TRUE,FALSE,,,,,,,,,,
+Lululemon,Key Pouches,Key Pouch - Pink Dark Pink,YS-001,,,https://drive.google.com/file/d/1vmcxxQOZ-kUNR4BBdQIUae-CiTK9owyt/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Vermilion Beige,YS-002,,,https://drive.google.com/file/d/1dMl6jAyQIRy9qHzP20ENH6mrFRT6k9MH/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Ivory Nude,YS-003,,,https://drive.google.com/file/d/1kKaXJqeKek9dJ2ddYYUovAssX7hf3hJh/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Gold Black,YS-005,,,https://drive.google.com/file/d/1lxmVdrtMg6nidvrLj_SjKW_koepu39aw/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Ivory Royal Blue,YS-006,,,https://drive.google.com/file/d/1g9ashKi9c7WTbyztLXj57DlHq8wSaHh3/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Ivory Burgundy,YS-007,,,https://drive.google.com/file/d/1iqMQI4E_vjQGIolNPcRwmFZ4quIB-CFW/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Gray Pink,YS-008,,,https://drive.google.com/file/d/1_90veONesH094SrA97VMmmTYzwwtzhm0/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Blue Blue,YS-009,,,https://drive.google.com/file/d/1wm4PFsCcx5OgPdf-6xX9MZJyuUuMvDb_/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Green Dark Green,YS-010,,,https://drive.google.com/file/d/1b-vdCklg-2xu68fPfHqWxlUFBK1V4rrN/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Ivory Khaki,YS-011,,,https://drive.google.com/file/d/1XFz_g8hPZ_Hn52mr1ZRViqu4m8BeuGcO/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Brown Dark Red,YS-012,,,https://drive.google.com/file/d/1fafO67YN5LI2N_jbbJbz7Xdw9hcjA-bj/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - White Black,YS-013,,,https://drive.google.com/file/d/1f0gqfOLEiQoYKf2BcKzVSrJhkTZk2xNq/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Black Gunmetal,YS-014,,,https://drive.google.com/file/d/1zd07SmlEgW7XIxowpVedzDX71K4pSlwI/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Pink Burgundy,YS-016,,,https://drive.google.com/file/d/1fMMjlAihCYuOLBJkp15Ajs_e9V9TAkgf/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - White Dark Green,YS-017,,,https://drive.google.com/file/d/1kGELDFwhOm7JrO0OoFiiahWDCnJ7oGT2/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Black Olive Green,YS-018,,,https://drive.google.com/file/d/1yguzRpf8vaDDkTqspMitwLx9VjjQe0lX/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - White Nude,YS-020,,,https://drive.google.com/file/d/1F9oKciurjsw41f5M-ZTmlpFFPM0dpS9l/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Nude Dark Pink,YS-022,,,https://drive.google.com/file/d/1U8lFdM2itB3gK69fOuba0LFXDWaVPBcP/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Orange Nude,YS-023,,,https://drive.google.com/file/d/1v8c79AHushEUTp-eLmbYtDv3KVFnwdV4/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Purple Black,YS-026,,,https://drive.google.com/file/d/1D7-VSPkQX_Qc8hWhJGHyuhln7GZxFzT1/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Lake Blue,YS-030,,,https://drive.google.com/file/d/1uxn3Klx5nH1B_a6ouXgKmI8li7EIE9cm/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Light Purple Light Purple,YS-032,,,https://drive.google.com/file/d/1GHjsZOU3xol09f251B8H_Ju55mRltD8p/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Silver Gray Silver Gray,YS-033,,,https://drive.google.com/file/d/1e4lTvOAtgQ_4HiHU6s2I_0aJd_3PfPcZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Blue Purple A,YS-034,,,https://drive.google.com/file/d/1YE5h-EiTr0OWa5XrSTTPrVO-oefMWFiX/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Orange Red Light Pink,YS-035,,,https://drive.google.com/file/d/1zQ3E8ph6efJttv-mPHrLTkjkbgX22m9q/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Green Light Green,YS-036,,,https://drive.google.com/file/d/1zIHp3-MTchMtX46tSrQUvEodqBHG5K12/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Blue Purple B,YS-037,,,https://drive.google.com/file/d/17gH-jBLQ3nZZWBclKGu0T6p5j5U4rBCB/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Light Green White,YS-038,,,https://drive.google.com/file/d/1Hyiz1PwL-YodO4gLOGgqQkvdxC-T_VCd/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Leopard Print,YS-039,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Black Black Gold Logo,YS-041,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Gray Gray Silver Logo,YS-042,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Red Red Gold Logo,YS-043,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Off-White Off-White Gold Logo,YS-044,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Purple Purple Printed Logo,YS-045,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Pink Bright Pink,YS-046,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Black Bright Black,YS-047,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Silver Bright Silver,YS-048,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Pink Iridescent,YS-049,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Army Green Leather,YS-054,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Pink Leather,YS-055,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Gray Leather,YS-056,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Rose Red Leather,YS-057,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - Black Leather,YS-058,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Key Pouches,Key Pouch - White Leather,YS-059,,,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Black - XS,YJ-002,,XS,https://drive.google.com/file/d/1atvYhT396luTNM12k-AnDm-R5r-umK4u/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Black - S,YJ-003,,S,https://drive.google.com/file/d/1atvYhT396luTNM12k-AnDm-R5r-umK4u/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Black - M,YJ-004,,M,https://drive.google.com/file/d/1atvYhT396luTNM12k-AnDm-R5r-umK4u/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Black - L,YJ-005,,L,https://drive.google.com/file/d/1atvYhT396luTNM12k-AnDm-R5r-umK4u/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Black - XL,YJ-006,,XL,https://drive.google.com/file/d/1atvYhT396luTNM12k-AnDm-R5r-umK4u/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & White - XXS,YJ-007,,XXS,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & White - XS,YJ-008,,XS,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & White - S,YJ-009,,S,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & White - M,YJ-010,,M,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & White - L,YJ-011,,L,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & White - XL,YJ-012,,XL,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Cherry Blossom Pink & Gold - S,YJ-015,,S,https://drive.google.com/file/d/17AU80DtHcvnLm_WR_dqogWBTATg-elsv/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Cherry Blossom Pink & Gold - M,YJ-016,,M,https://drive.google.com/file/d/17AU80DtHcvnLm_WR_dqogWBTATg-elsv/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Cherry Blossom Pink & Gold - L,YJ-017,,L,https://drive.google.com/file/d/17AU80DtHcvnLm_WR_dqogWBTATg-elsv/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Cherry Blossom Pink & Gold - XL,YJ-018,,XL,https://drive.google.com/file/d/17AU80DtHcvnLm_WR_dqogWBTATg-elsv/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Black - XXS,YJ-019,,XXS,https://drive.google.com/file/d/1hZ6VY-U3NUiK6tSSIIUp4VAhCH_7HoZd/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Black - XS,YJ-020,,XS,https://drive.google.com/file/d/1hZ6VY-U3NUiK6tSSIIUp4VAhCH_7HoZd/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Black - S,YJ-021,,S,https://drive.google.com/file/d/1hZ6VY-U3NUiK6tSSIIUp4VAhCH_7HoZd/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Black - M,YJ-022,,M,https://drive.google.com/file/d/1hZ6VY-U3NUiK6tSSIIUp4VAhCH_7HoZd/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Black - L,YJ-023,,L,https://drive.google.com/file/d/1hZ6VY-U3NUiK6tSSIIUp4VAhCH_7HoZd/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Black - XL,YJ-024,,XL,https://drive.google.com/file/d/1hZ6VY-U3NUiK6tSSIIUp4VAhCH_7HoZd/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - White - XXS,YJ-025,,XXS,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - White - XS,YJ-026,,XS,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - White - S,YJ-027,,S,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - White - M,YJ-028,,M,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - White - L,YJ-029,,L,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - White - XL,YJ-030,,XL,https://drive.google.com/file/d/1HTw9cn44ctkgirmS90Nh-dTo1Fs4HGGE/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Cherry Blossom Pink - XXS,YJ-031,,XXS,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Cherry Blossom Pink - XS,YJ-032,,XS,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Cherry Blossom Pink - S,YJ-033,,S,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Cherry Blossom Pink - M,YJ-034,,M,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Cherry Blossom Pink - L,YJ-035,,L,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Cherry Blossom Pink - XL,YJ-036,,XL,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Powder Blue Gold - XXS,YJ-055,,XXS,https://drive.google.com/file/d/1pGlBXYPL1ohrIcn4ZmSF8qD7q8RL5lSQ/view?usp=drive_link,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Powder Blue Gold - XS,YJ-056,,XS,https://drive.google.com/file/d/1pGlBXYPL1ohrIcn4ZmSF8qD7q8RL5lSQ/view?usp=drive_link,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Powder Blue Gold - S,YJ-057,,S,https://drive.google.com/file/d/1pGlBXYPL1ohrIcn4ZmSF8qD7q8RL5lSQ/view?usp=drive_link,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Powder Blue Gold - M,YJ-058,,M,https://drive.google.com/file/d/1pGlBXYPL1ohrIcn4ZmSF8qD7q8RL5lSQ/view?usp=drive_link,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Powder Blue - XXS,YJ-061,,XXS,https://drive.google.com/file/d/1mbfm3PVBs2xMcttQj6PtsMmDOsAtpxIZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Powder Blue - XS,YJ-062,,XS,https://drive.google.com/file/d/1mbfm3PVBs2xMcttQj6PtsMmDOsAtpxIZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Powder Blue - S,YJ-063,,S,https://drive.google.com/file/d/1mbfm3PVBs2xMcttQj6PtsMmDOsAtpxIZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Powder Blue - M,YJ-064,,M,https://drive.google.com/file/d/1mbfm3PVBs2xMcttQj6PtsMmDOsAtpxIZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Powder Blue - L,YJ-065,,L,https://drive.google.com/file/d/1mbfm3PVBs2xMcttQj6PtsMmDOsAtpxIZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Powder Blue - XL,YJ-066,,XL,https://drive.google.com/file/d/1mbfm3PVBs2xMcttQj6PtsMmDOsAtpxIZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Lavender - XXS,YJ-067,,XXS,https://drive.google.com/file/d/1VbkCXOaXofS5uCO_Nvoq34jM-ox7Ia_Q/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Lavender - XS,YJ-068,,XS,https://drive.google.com/file/d/1VbkCXOaXofS5uCO_Nvoq34jM-ox7Ia_Q/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Lavender - S,YJ-069,,S,https://drive.google.com/file/d/1VbkCXOaXofS5uCO_Nvoq34jM-ox7Ia_Q/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Lavender - L,YJ-071,,L,https://drive.google.com/file/d/1VbkCXOaXofS5uCO_Nvoq34jM-ox7Ia_Q/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Lavender - XL,YJ-072,,XL,https://drive.google.com/file/d/1VbkCXOaXofS5uCO_Nvoq34jM-ox7Ia_Q/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Midnight Blue - XXS,YJ-073,,XXS,https://drive.google.com/file/d/1dkUa0km0EfCF_hORc0yOSYcPEU_yyzOZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Midnight Blue - XS,YJ-074,,XS,https://drive.google.com/file/d/1dkUa0km0EfCF_hORc0yOSYcPEU_yyzOZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Midnight Blue - S,YJ-075,,S,https://drive.google.com/file/d/1dkUa0km0EfCF_hORc0yOSYcPEU_yyzOZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Midnight Blue - M,YJ-076,,M,https://drive.google.com/file/d/1dkUa0km0EfCF_hORc0yOSYcPEU_yyzOZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Midnight Blue - L,YJ-077,,L,https://drive.google.com/file/d/1dkUa0km0EfCF_hORc0yOSYcPEU_yyzOZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Midnight Blue - XL,YJ-078,,XL,https://drive.google.com/file/d/1dkUa0km0EfCF_hORc0yOSYcPEU_yyzOZ/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Midnight Blue - L,YJ-083,,L,https://drive.google.com/file/d/1jTdGCuZT3INUlgrmKIzMNnk8XzZFy_nd/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Midnight Blue - XL,YJ-084,,XL,https://drive.google.com/file/d/1jTdGCuZT3INUlgrmKIzMNnk8XzZFy_nd/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Strawberry Milkshake - XXS,YJ-085,,XXS,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Strawberry Milkshake - XS,YJ-086,,XS,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Strawberry Milkshake - S,YJ-087,,S,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Strawberry Milkshake - M,YJ-088,,M,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Strawberry Milkshake - L,YJ-089,,L,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Strawberry Milkshake - XL,YJ-090,,XL,https://drive.google.com/file/d/1BVJAKfJvXj-59i5_HWZAi4md8KSQLVqj/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Off-White - XXS,YJ-115,,XXS,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_071906_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Off-White - XS,YJ-116,,XS,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_071906_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Off-White - S,YJ-117,,S,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_071906_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Off-White - M,YJ-118,,M,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_071906_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Off-White - L,YJ-119,,L,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_071906_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Gold & Off-White - XL,YJ-120,,XL,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_071906_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Light Gray & Gold - XXS,YJ-121,,XXS,https://drive.google.com/file/d/1z1u9-aXa2fvjAZkxXXn1nccLR5ttnNh5/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Light Gray & Gold - XS,YJ-122,,XS,https://drive.google.com/file/d/1z1u9-aXa2fvjAZkxXXn1nccLR5ttnNh5/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Light Gray & Gold - S,YJ-123,,S,https://drive.google.com/file/d/1z1u9-aXa2fvjAZkxXXn1nccLR5ttnNh5/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Light Gray & Gold - M,YJ-124,,M,https://drive.google.com/file/d/1z1u9-aXa2fvjAZkxXXn1nccLR5ttnNh5/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Light Gray & Gold - L,YJ-125,,L,https://drive.google.com/file/d/1z1u9-aXa2fvjAZkxXXn1nccLR5ttnNh5/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Mint Green & Gold - XXS,YJ-127,,XXS,https://drive.google.com/file/d/1AGpBaDexT5WRSg4GkUsYoOzDsmqzvcon/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Mint Green & Gold - XS,YJ-128,,XS,https://drive.google.com/file/d/1AGpBaDexT5WRSg4GkUsYoOzDsmqzvcon/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Mint Green & Gold - S,YJ-129,,S,https://drive.google.com/file/d/1AGpBaDexT5WRSg4GkUsYoOzDsmqzvcon/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Mint Green & Gold - M,YJ-130,,M,https://drive.google.com/file/d/1AGpBaDexT5WRSg4GkUsYoOzDsmqzvcon/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Mint Green & Gold - L,YJ-131,,L,https://drive.google.com/file/d/1AGpBaDexT5WRSg4GkUsYoOzDsmqzvcon/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Maillard Brown & Gold - XXS,YJ-133,,XXS,https://storage.googleapis.com/lulu-fanatics/product/86279/1280/lululemon-define-jacket-luon-java-gold-060747-457824.jpg,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Maillard Brown & Gold - XS,YJ-134,,XS,https://storage.googleapis.com/lulu-fanatics/product/86279/1280/lululemon-define-jacket-luon-java-gold-060747-457824.jpg,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Maillard Brown & Gold - S,YJ-135,,S,https://storage.googleapis.com/lulu-fanatics/product/86279/1280/lululemon-define-jacket-luon-java-gold-060747-457824.jpg,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Maillard Brown & Gold - M,YJ-136,,M,https://storage.googleapis.com/lulu-fanatics/product/86279/1280/lululemon-define-jacket-luon-java-gold-060747-457824.jpg,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Maillard Brown & Gold - L,YJ-137,,L,https://storage.googleapis.com/lulu-fanatics/product/86279/1280/lululemon-define-jacket-luon-java-gold-060747-457824.jpg,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Dark Red & Gold - XXS,YJ-169,,XXS,"https://images.lululemon.com/is/image/lululemon/LW3JCKS_072756_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Dark Red & Gold - XS,YJ-170,,XS,"https://images.lululemon.com/is/image/lululemon/LW3JCKS_072756_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Dark Red & Gold - S,YJ-171,,S,"https://images.lululemon.com/is/image/lululemon/LW3JCKS_072756_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Dark Red & Gold - M,YJ-172,,M,"https://images.lululemon.com/is/image/lululemon/LW3JCKS_072756_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Dark Red & Gold - L,YJ-173,,L,"https://images.lululemon.com/is/image/lululemon/LW3JCKS_072756_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Dark Red & Gold - XL,YJ-174,,XL,"https://images.lululemon.com/is/image/lululemon/LW3JCKS_072756_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Rose & Gold - XXS,YJ-175,,XXS,https://storage.googleapis.com/lulu-fanatics/product/95503/1280/lululemon-define-jacket-nulu-passionate-068605-509001.jpg,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Rose & Gold - XS,YJ-176,,XS,https://storage.googleapis.com/lulu-fanatics/product/95503/1280/lululemon-define-jacket-nulu-passionate-068605-509001.jpg,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Rose & Gold - S,YJ-177,,S,https://storage.googleapis.com/lulu-fanatics/product/95503/1280/lululemon-define-jacket-nulu-passionate-068605-509001.jpg,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Rose & Gold - M,YJ-178,,M,https://storage.googleapis.com/lulu-fanatics/product/95503/1280/lululemon-define-jacket-nulu-passionate-068605-509001.jpg,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Rose & Gold - L,YJ-179,,L,https://storage.googleapis.com/lulu-fanatics/product/95503/1280/lululemon-define-jacket-nulu-passionate-068605-509001.jpg,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Rose & Gold - XL,YJ-180,,XL,https://storage.googleapis.com/lulu-fanatics/product/95503/1280/lululemon-define-jacket-nulu-passionate-068605-509001.jpg,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Chinese Red & Gold - XXS,YJ-181,,XXS,https://modesens.com/product/lululemon-define-jacket-luon-red-merlot-56434362/?srsltid=AfmBOor_oRySgLG85x1cR7_CIWrq7vJ8VbFlfu72CVs-491bQ-q6DpqW,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Chinese Red & Gold - XS,YJ-182,,XS,https://modesens.com/product/lululemon-define-jacket-luon-red-merlot-56434362/?srsltid=AfmBOor_oRySgLG85x1cR7_CIWrq7vJ8VbFlfu72CVs-491bQ-q6DpqW,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Chinese Red & Gold - S,YJ-183,,S,https://modesens.com/product/lululemon-define-jacket-luon-red-merlot-56434362/?srsltid=AfmBOor_oRySgLG85x1cR7_CIWrq7vJ8VbFlfu72CVs-491bQ-q6DpqW,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Chinese Red & Gold - M,YJ-184,,M,https://modesens.com/product/lululemon-define-jacket-luon-red-merlot-56434362/?srsltid=AfmBOor_oRySgLG85x1cR7_CIWrq7vJ8VbFlfu72CVs-491bQ-q6DpqW,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Chinese Red & Gold - L,YJ-185,,L,https://modesens.com/product/lululemon-define-jacket-luon-red-merlot-56434362/?srsltid=AfmBOor_oRySgLG85x1cR7_CIWrq7vJ8VbFlfu72CVs-491bQ-q6DpqW,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Chinese Red & Gold - XL,YJ-186,,XL,https://modesens.com/product/lululemon-define-jacket-luon-red-merlot-56434362/?srsltid=AfmBOor_oRySgLG85x1cR7_CIWrq7vJ8VbFlfu72CVs-491bQ-q6DpqW,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Off-White - XXS,YJ-229,,XXS,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_033454_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Off-White - XS,YJ-230,,XS,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_033454_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Off-White - S,YJ-231,,S,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_033454_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Off-White - M,YJ-232,,M,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_033454_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Off-White - L,YJ-233,,L,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_033454_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Define Jackets,Define Jacket Nulu - Off-White - XL,YJ-234,,XL,"https://images.lululemon.com/is/image/lululemon/LW4CFOS_033454_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Black & Gold - XXS,YJ-265,,XXS,"https://images.lululemon.com/is/image/lululemon/LW3HB5S_071917_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Black & Gold - XS,YJ-266,,XS,"https://images.lululemon.com/is/image/lululemon/LW3HB5S_071917_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Black & Gold - S,YJ-267,,S,"https://images.lululemon.com/is/image/lululemon/LW3HB5S_071917_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Black & Gold - M,YJ-268,,M,"https://images.lululemon.com/is/image/lululemon/LW3HB5S_071917_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Black & Gold - L,YJ-269,,L,"https://images.lululemon.com/is/image/lululemon/LW3HB5S_071917_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - White & Gold - XXS,YJ-271,,XXS,https://drive.google.com/file/d/1JypavZ6Eg9gonrX4iyu2RKsu8jfReeZT/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - White & Gold - XS,YJ-272,,XS,https://drive.google.com/file/d/1JypavZ6Eg9gonrX4iyu2RKsu8jfReeZT/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - White & Gold - S,YJ-273,,S,https://drive.google.com/file/d/1JypavZ6Eg9gonrX4iyu2RKsu8jfReeZT/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - White & Gold - M,YJ-274,,M,https://drive.google.com/file/d/1JypavZ6Eg9gonrX4iyu2RKsu8jfReeZT/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - White & Gold - L,YJ-275,,L,https://drive.google.com/file/d/1JypavZ6Eg9gonrX4iyu2RKsu8jfReeZT/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Cherry Blossom Pink & Gold - XXS,YJ-277,,XXS,https://drive.google.com/file/d/1fVouV342tMCMmaqKLyVcu4EWTNvtirb9/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Cherry Blossom Pink & Gold - XS,YJ-278,,XS,https://drive.google.com/file/d/1fVouV342tMCMmaqKLyVcu4EWTNvtirb9/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Cherry Blossom Pink & Gold - S,YJ-279,,S,https://drive.google.com/file/d/1fVouV342tMCMmaqKLyVcu4EWTNvtirb9/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Cherry Blossom Pink & Gold - M,YJ-280,,M,https://drive.google.com/file/d/1fVouV342tMCMmaqKLyVcu4EWTNvtirb9/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Cherry Blossom Pink & Gold - L,YJ-281,,L,https://drive.google.com/file/d/1fVouV342tMCMmaqKLyVcu4EWTNvtirb9/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Egg White Gold - XXS,YJ-307,,XXS,"https://images.lululemon.com/is/image/lululemon/LW3HYQS_071906_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Egg White Gold - XS,YJ-308,,XS,"https://images.lululemon.com/is/image/lululemon/LW3HYQS_071906_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Cropped Jackets,Cropped Jacket - Egg White Gold - S,YJ-309,,S,"https://images.lululemon.com/is/image/lululemon/LW3HYQS_071906_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Black - XXS,YJ-037,,XXS,https://drive.google.com/file/d/1U4P33n2Qhn5g4dQZ4nAnlozQMFgdC-27/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Black - XS,YJ-038,,XS,https://drive.google.com/file/d/1U4P33n2Qhn5g4dQZ4nAnlozQMFgdC-27/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Black - S,YJ-039,,S,https://drive.google.com/file/d/1U4P33n2Qhn5g4dQZ4nAnlozQMFgdC-27/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Black - M,YJ-040,,M,https://drive.google.com/file/d/1U4P33n2Qhn5g4dQZ4nAnlozQMFgdC-27/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Black - L,YJ-041,,L,https://drive.google.com/file/d/1U4P33n2Qhn5g4dQZ4nAnlozQMFgdC-27/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Black - XL,YJ-042,,XL,https://drive.google.com/file/d/1U4P33n2Qhn5g4dQZ4nAnlozQMFgdC-27/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - White - XXS,YJ-043,,XXS,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=drive_link,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - White - XS,YJ-044,,XS,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=drive_link,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - White - S,YJ-045,,S,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=drive_link,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - White - M,YJ-046,,M,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=drive_link,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - White - L,YJ-047,,L,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=drive_link,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - White - XL,YJ-048,,XL,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=drive_link,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink - XXS,YJ-049,,XXS,"https://images.lululemon.com/is/image/lululemon/LW5IYOS_074028_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink - XS,YJ-050,,XS,"https://images.lululemon.com/is/image/lululemon/LW5IYOS_074028_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink - S,YJ-051,,S,"https://images.lululemon.com/is/image/lululemon/LW5IYOS_074028_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink - M,YJ-052,,M,"https://images.lululemon.com/is/image/lululemon/LW5IYOS_074028_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink - L,YJ-053,,L,"https://images.lululemon.com/is/image/lululemon/LW5IYOS_074028_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink - XL,YJ-054,,XL,"https://images.lululemon.com/is/image/lululemon/LW5IYOS_074028_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Strawberry Milkshake - XXS,YJ-091,,XXS,https://drive.google.com/file/d/1mkGPRx17-LCV-VcwjdHlPrO8IkeT59Ab/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Strawberry Milkshake - XS,YJ-092,,XS,https://drive.google.com/file/d/1mkGPRx17-LCV-VcwjdHlPrO8IkeT59Ab/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Strawberry Milkshake - S,YJ-093,,S,https://drive.google.com/file/d/1mkGPRx17-LCV-VcwjdHlPrO8IkeT59Ab/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Strawberry Milkshake - M,YJ-094,,M,https://drive.google.com/file/d/1mkGPRx17-LCV-VcwjdHlPrO8IkeT59Ab/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Strawberry Milkshake - L,YJ-095,,L,https://drive.google.com/file/d/1mkGPRx17-LCV-VcwjdHlPrO8IkeT59Ab/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Strawberry Milkshake - XL,YJ-096,,XL,https://drive.google.com/file/d/1mkGPRx17-LCV-VcwjdHlPrO8IkeT59Ab/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue - XXS,YJ-097,,XXS,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue - XS,YJ-098,,XS,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue - S,YJ-099,,S,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue - M,YJ-100,,M,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue - L,YJ-101,,L,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue - XL,YJ-102,,XL,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Lavender - XXS,YJ-103,,XXS,"https://images.lululemon.com/is/image/lululemon/LW5FBUS_075702_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Lavender - XS,YJ-104,,XS,"https://images.lululemon.com/is/image/lululemon/LW5FBUS_075702_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Lavender - S,YJ-105,,S,"https://images.lululemon.com/is/image/lululemon/LW5FBUS_075702_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Lavender - M,YJ-106,,M,"https://images.lululemon.com/is/image/lululemon/LW5FBUS_075702_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Lavender - L,YJ-107,,L,"https://images.lululemon.com/is/image/lululemon/LW5FBUS_075702_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Lavender - XL,YJ-108,,XL,"https://images.lululemon.com/is/image/lululemon/LW5FBUS_075702_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Midnight Blue - XXS,YJ-109,,XXS,"https://images.lululemon.com/is/image/lululemon/LW5CTES_074060_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Midnight Blue - XS,YJ-110,,XS,"https://images.lululemon.com/is/image/lululemon/LW5CTES_074060_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Midnight Blue - S,YJ-111,,S,"https://images.lululemon.com/is/image/lululemon/LW5CTES_074060_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Midnight Blue - M,YJ-112,,M,"https://images.lululemon.com/is/image/lululemon/LW5CTES_074060_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Midnight Blue - L,YJ-113,,L,"https://images.lululemon.com/is/image/lululemon/LW5CTES_074060_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Midnight Blue - XL,YJ-114,,XL,"https://images.lululemon.com/is/image/lululemon/LW5CTES_074060_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Off-White - XXS,YJ-139,,XXS,https://images.lululemon.com/is/image/lululemon/LW5CTCS_033454_1,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Off-White - XS,YJ-140,,XS,https://images.lululemon.com/is/image/lululemon/LW5CTCS_033454_1,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Off-White - S,YJ-141,,S,https://images.lululemon.com/is/image/lululemon/LW5CTCS_033454_1,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Off-White - M,YJ-142,,M,https://images.lululemon.com/is/image/lululemon/LW5CTCS_033454_1,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Off-White - L,YJ-143,,L,https://images.lululemon.com/is/image/lululemon/LW5CTCS_033454_1,TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Mint Green - XXS,YJ-151,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Mint Green - XS,YJ-152,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Mint Green - S,YJ-153,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Mint Green - M,YJ-154,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Mint Green - L,YJ-155,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Flared Leggins - Black - XXS,YJ-163,,XXS,"https://images.lululemon.com/is/image/lululemon/LW5FG2S_0001_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,TRUE,,,,,,,,,,10
+Lululemon,Leggings,Flared Leggins - Black - XS,YJ-164,,XS,"https://images.lululemon.com/is/image/lululemon/LW5FG2S_0001_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,TRUE,,,,,,,,,,10
+Lululemon,Leggings,Flared Leggins - Black - S,YJ-165,,S,"https://images.lululemon.com/is/image/lululemon/LW5FG2S_0001_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,TRUE,,,,,,,,,,10
+Lululemon,Leggings,Flared Leggins - Black - M,YJ-166,,M,"https://images.lululemon.com/is/image/lululemon/LW5FG2S_0001_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,TRUE,,,,,,,,,,10
+Lululemon,Leggings,Flared Leggins - Black - L,YJ-167,,L,"https://images.lululemon.com/is/image/lululemon/LW5FG2S_0001_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,TRUE,,,,,,,,,,10
+Lululemon,Leggings,Flared Leggins - Black - XL,YJ-168,,XL,"https://images.lululemon.com/is/image/lululemon/LW5FG2S_0001_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,TRUE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Dark Red & Gold - XXS,YJ-187,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Dark Red & Gold - XS,YJ-188,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Dark Red & Gold - S,YJ-189,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Dark Red & Gold - M,YJ-190,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Dark Red & Gold - L,YJ-191,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Dark Red & Gold - XL,YJ-192,,XL,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Rose & Gold - XXS,YJ-193,,XXS,"https://images.lululemon.com/is/image/lululemon/LW5GI3S_068605_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Rose & Gold - XS,YJ-194,,XS,"https://images.lululemon.com/is/image/lululemon/LW5GI3S_068605_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Rose & Gold - S,YJ-195,,S,"https://images.lululemon.com/is/image/lululemon/LW5GI3S_068605_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Rose & Gold - L,YJ-197,,L,"https://images.lululemon.com/is/image/lululemon/LW5GI3S_068605_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Rose & Gold - XL,YJ-198,,XL,"https://images.lululemon.com/is/image/lululemon/LW5GI3S_068605_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Chinese Red & Gold - XXS,YJ-199,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Chinese Red & Gold - XS,YJ-200,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Chinese Red & Gold - S,YJ-201,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Chinese Red & Gold - M,YJ-202,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Chinese Red & Gold - L,YJ-203,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Chinese Red & Gold - XL,YJ-204,,XL,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Black - XXS,YJ-205,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Black - XS,YJ-206,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Black - S,YJ-207,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Black - M,YJ-208,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Black - L,YJ-209,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Black - XL,YJ-210,,XL,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & White - XXS,YJ-211,,XXS,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & White - XS,YJ-212,,XS,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & White - S,YJ-213,,S,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & White - M,YJ-214,,M,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & White - L,YJ-215,,L,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & White - XL,YJ-216,,XL,https://drive.google.com/file/d/1hu9lx0NwLcITHNtwP5Sb-_kOWhevkJ9I/view?usp=sharing,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink & Gold - XXS,YJ-217,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink & Gold - S,YJ-219,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink & Gold - M,YJ-220,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink & Gold - L,YJ-221,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Cherry Blossom Pink & Gold - XL,YJ-222,,XL,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Off-White - XXS,YJ-223,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Off-White - XS,YJ-224,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Off-White - S,YJ-225,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Off-White - M,YJ-226,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Off-White - L,YJ-227,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Gold & Off-White - XL,YJ-228,,XL,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Maillard Brown Gold Logo - XXS,YJ-289,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Maillard Brown Gold Logo - XS,YJ-290,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Maillard Brown Gold Logo - S,YJ-291,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Maillard Brown Gold Logo - M,YJ-292,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Maillard Brown Gold Logo - L,YJ-293,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Maillard Brown Gold Logo - XL,YJ-294,,XL,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Light Gray Gold Logo - XXS,YJ-295,,XXS,"https://images.lululemon.com/is/image/lululemon/LW5DKHS_047780_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Light Gray Gold Logo - XS,YJ-296,,XS,"https://images.lululemon.com/is/image/lululemon/LW5DKHS_047780_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Light Gray Gold Logo - S,YJ-297,,S,"https://images.lululemon.com/is/image/lululemon/LW5DKHS_047780_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Light Gray Gold Logo - M,YJ-298,,M,"https://images.lululemon.com/is/image/lululemon/LW5DKHS_047780_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Light Gray Gold Logo - L,YJ-299,,L,"https://images.lululemon.com/is/image/lululemon/LW5DKHS_047780_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Light Gray Gold Logo - XL,YJ-300,,XL,"https://images.lululemon.com/is/image/lululemon/LW5DKHS_047780_1?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",TRUE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue Gold - XXS,YJ-355,,XXS,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue Gold - XS,YJ-356,,XS,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue Gold - S,YJ-357,,S,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue Gold - M,YJ-358,,M,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue Gold - L,YJ-359,,L,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Leggings,Yoga Leggins - Powder Blue Gold - XL,YJ-360,,XL,"https://images.lululemon.com/is/image/lululemon/LW5EOLS_033068_2?wid=1080&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Heather Gray & Gold - XXS,YJ-235,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Heather Gray & Gold - XS,YJ-236,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Heather Gray & Gold - S,YJ-237,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Heather Gray & Gold - M,YJ-238,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Heather Gray & Gold - L,YJ-239,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Peony Pink & Gold - XXS,YJ-241,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Peony Pink & Gold - XS,YJ-242,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Peony Pink & Gold - S,YJ-243,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Peony Pink & Gold - M,YJ-244,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Peony Pink & Gold - L,YJ-245,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Black & Gold - XXS,YJ-247,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Black & Gold - XS,YJ-248,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Black & Gold - S,YJ-249,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Black & Gold - M,YJ-250,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Black & Gold - L,YJ-251,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Heather Gray - XXS,YJ-253,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Heather Gray - XS,YJ-254,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Heather Gray - S,YJ-255,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Heather Gray - M,YJ-256,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Heather Gray - L,YJ-257,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Peony Pink - XXS,YJ-259,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Peony Pink - XS,YJ-260,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Peony Pink - S,YJ-261,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Peony Pink - M,YJ-262,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Peony Pink - L,YJ-263,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Black - XXS,YJ-283,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Black - XS,YJ-284,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Black - S,YJ-285,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Black - M,YJ-286,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Hoodies,Hoodie - Black - L,YJ-287,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Black Silver - XXS,YJ-325,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Black Silver - XS,YJ-326,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Black Silver - S,YJ-327,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Black Silver - M,YJ-328,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Black Silver - L,YJ-329,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Chinese Red Silver - XXS,YJ-331,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Chinese Red Silver - XS,YJ-332,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Chinese Red Silver - S,YJ-333,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Chinese Red Silver - M,YJ-334,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Chinese Red Silver - L,YJ-335,,L,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Sakura Pink Silver - XXS,YJ-337,,XXS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Sakura Pink Silver - XS,YJ-338,,XS,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Sakura Pink Silver - S,YJ-339,,S,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Sakura Pink Silver - M,YJ-340,,M,,FALSE,FALSE,,,,,,,,,,10
+Lululemon,Shorts,Five-Point Shorts - Sakura Pink Silver - L,YJ-341,,L,,FALSE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Sports Set (Skirt + Top) - White - S,,,S,https://drive.google.com/file/d/1SNUYJyklhMqQ0UyHDLzB5Ys4b6-up49p/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Sports Set (Skirt + Top) - White - M,,,M,https://drive.google.com/file/d/1SNUYJyklhMqQ0UyHDLzB5Ys4b6-up49p/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Sports Set (Skirt + Top) - White - L,,,L,https://drive.google.com/file/d/1SNUYJyklhMqQ0UyHDLzB5Ys4b6-up49p/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Sports Set (Leggings + Top) - Black - S,,,S,https://drive.google.com/file/d/1WmlFD6_OxDCSAbYI1LtfOdnLjztWC8Hp/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Sports Set (Leggings + Top) - Black - M,,,M,https://drive.google.com/file/d/1WmlFD6_OxDCSAbYI1LtfOdnLjztWC8Hp/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Sports Set (Leggings + Top) - Black - L,,,L,https://drive.google.com/file/d/1WmlFD6_OxDCSAbYI1LtfOdnLjztWC8Hp/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Airbrush Bootcut Onesie - Black - S,,,S,https://drive.google.com/file/d/19gqDubiS0d5LNZmE5enZ6rRwD_eWI26Q/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Airbrush Bootcut Onesie - Black - M,,,M,https://drive.google.com/file/d/19gqDubiS0d5LNZmE5enZ6rRwD_eWI26Q/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Airbrush Bootcut Onesie - Black - L,,,L,https://drive.google.com/file/d/19gqDubiS0d5LNZmE5enZ6rRwD_eWI26Q/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Airbrush Bootcut Onesie - Black - XL,,,XL,https://drive.google.com/file/d/19gqDubiS0d5LNZmE5enZ6rRwD_eWI26Q/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Sports Set,Airbrush Bootcut Onesie - Beige - S,,,S,https://drive.google.com/file/d/1I96NM7xtwQxMx_re6v4I2BnxrUD5Qdu-/view?usp=sharing,TRUE,FALSE,,,,,,,,,,
+Alo Yoga,Sports Set,Airbrush Bootcut Onesie - Beige - M,,,M,https://drive.google.com/file/d/1I96NM7xtwQxMx_re6v4I2BnxrUD5Qdu-/view?usp=sharing,TRUE,FALSE,,,,,,,,,,
+Alo Yoga,Sports Set,Airbrush Bootcut Onesie - Beige - L,,,L,https://drive.google.com/file/d/1I96NM7xtwQxMx_re6v4I2BnxrUD5Qdu-/view?usp=sharing,TRUE,FALSE,,,,,,,,,,
+Alo Yoga,Sports Set,Airbrush Bootcut Onesie - Beige - XL,,,XL,https://drive.google.com/file/d/1I96NM7xtwQxMx_re6v4I2BnxrUD5Qdu-/view?usp=sharing,TRUE,FALSE,,,,,,,,,,
+Alo Yoga,Hoodies,Fall Sports Hoodie - Black - S,,,S,https://drive.google.com/file/d/1W7e1WmEl2JmBb7LeoAFzM5FDUECALChL/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Hoodies,Fall Sports Hoodie - Black - M,,,M,https://drive.google.com/file/d/1W7e1WmEl2JmBb7LeoAFzM5FDUECALChL/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Hoodies,Fall Sports Hoodie - Black - L,,,L,https://drive.google.com/file/d/1W7e1WmEl2JmBb7LeoAFzM5FDUECALChL/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Hoodies,Fall Sports Hoodie - Black - XL,,,XL,https://drive.google.com/file/d/1W7e1WmEl2JmBb7LeoAFzM5FDUECALChL/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Hoodies,Fall Sports Hoodie - Pink - S,,,S,https://drive.google.com/file/d/1Uc9kfA0NRuwoVuHFCtc8dBLYc8Yvyz5j/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Hoodies,Fall Sports Hoodie - Pink - M,,,M,https://drive.google.com/file/d/1Uc9kfA0NRuwoVuHFCtc8dBLYc8Yvyz5j/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Hoodies,Fall Sports Hoodie - Pink - L,,,L,https://drive.google.com/file/d/1Uc9kfA0NRuwoVuHFCtc8dBLYc8Yvyz5j/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Hoodies,Fall Sports Hoodie - Pink - XL,,,XL,https://drive.google.com/file/d/1Uc9kfA0NRuwoVuHFCtc8dBLYc8Yvyz5j/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Hats,Alo Hat - Black,,,,https://drive.google.com/file/d/17WYE8WkmG6a7pdC9NO0QhSblzihMiS5u/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Hats,Alo Hat - White,,,,https://drive.google.com/file/d/1BeXmBZiUh7YKs3BvcApoSIi4-9SgWYz_/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Hats,Alo Hat - Pink,,,,https://drive.google.com/file/d/1Z0EjYmbA7EFdAUWJmIgqyMJvqp49GDMr/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Aloyoga High Elastic Sports - Black - S,,,S,https://drive.google.com/file/d/1RBVOEW7aK6mXLkS4Dq5is0VDrJZQLDzK/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Aloyoga High Elastic Sports - Black - M,,,M,https://drive.google.com/file/d/1RBVOEW7aK6mXLkS4Dq5is0VDrJZQLDzK/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Aloyoga High Elastic Sports - Black - L,,,L,https://drive.google.com/file/d/1RBVOEW7aK6mXLkS4Dq5is0VDrJZQLDzK/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Aloyoga High Elastic Sports - Pink - S,,,S,https://drive.google.com/file/d/1MZmyFZj1mjch36gO1_BrdhtF0CtRw7fr/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Aloyoga High Elastic Sports - Pink - M,,,M,https://drive.google.com/file/d/1MZmyFZj1mjch36gO1_BrdhtF0CtRw7fr/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Aloyoga High Elastic Sports - Pink - L,,,L,https://drive.google.com/file/d/1MZmyFZj1mjch36gO1_BrdhtF0CtRw7fr/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Lift Yoga Pants - Black - S,,,S,https://drive.google.com/file/d/1S06sIfoxuQOzkyTr5V1OErY88extkkKl/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Lift Yoga Pants - Black - M,,,M,https://drive.google.com/file/d/1S06sIfoxuQOzkyTr5V1OErY88extkkKl/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Lift Yoga Pants - Black - L,,,L,https://drive.google.com/file/d/1S06sIfoxuQOzkyTr5V1OErY88extkkKl/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Lift Yoga Pants - Black - XL,,,XL,https://drive.google.com/file/d/1S06sIfoxuQOzkyTr5V1OErY88extkkKl/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Lift Yoga Pants - Blue - S,,,S,https://drive.google.com/file/d/1-3zThYwtbUoMbbrYor5V9cL9vmQmAtGw/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Lift Yoga Pants - Blue - M,,,M,https://drive.google.com/file/d/1-3zThYwtbUoMbbrYor5V9cL9vmQmAtGw/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Lift Yoga Pants - Blue - L,,,L,https://drive.google.com/file/d/1-3zThYwtbUoMbbrYor5V9cL9vmQmAtGw/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10
+Alo Yoga,Leggings,Lift Yoga Pants - Blue - XL,,,XL,https://drive.google.com/file/d/1-3zThYwtbUoMbbrYor5V9cL9vmQmAtGw/view?usp=sharing,TRUE,FALSE,,,,,,,,,,10

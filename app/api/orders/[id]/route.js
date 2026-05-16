@@ -23,7 +23,10 @@ const STATUS_SUBJECTS = {
 
 function buildEmailBody({ status, order, tracking_number }) {
   const itemLines = (order.items || [])
-    .map(i => `  • ${i.qty}x ${i.nombre}${i.size ? ` (${i.size})` : ''} — $${(i.qty * i.unit_price).toFixed(2)}`)
+    .map(i => {
+      const qty = i.available_qty ?? i.qty
+      return `  • ${qty}x ${i.nombre}${i.size ? ` (${i.size})` : ''} — $${(qty * i.unit_price).toFixed(2)}`
+    })
     .join('\n')
 
   const trackUrl = `https://shenzhen-wenyue.vercel.app/track`
@@ -88,9 +91,15 @@ export async function PATCH(req, { params }) {
     })
   }
 
+  const ALLOWED_FIELDS = ['status', 'items', 'shipping_cost', 'total', 'tracking_number', 'admin_notes', 'costo_envio_real']
+  const safeBody = {}
+  for (const key of ALLOWED_FIELDS) {
+    if (key in body) safeBody[key] = body[key]
+  }
+
   const { data, error } = await supabase
     .from('orders')
-    .update({ ...body, history })
+    .update({ ...safeBody, history })
     .eq('id', id)
     .select()
     .single()
@@ -125,7 +134,7 @@ export async function PATCH(req, { params }) {
     const subject = STATUS_SUBJECTS[body.status]
     const text = buildEmailBody({
       status: body.status,
-      order: current,
+      order: data,
       tracking_number: body.tracking_number,
     })
 

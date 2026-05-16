@@ -160,12 +160,12 @@ function OrderCard({ order }) {
         </div>
         <div className="text-right">
           <p className="text-xs text-gray-400">Total</p>
-          <p className="text-sm font-bold text-gray-900">${order.total?.toFixed(2)}</p>
+          <p className="text-sm font-bold text-gray-900">${(order.total ?? 0).toFixed(2)}</p>
         </div>
       </div>
 
       {/* Tracking number destacado */}
-      {order.tracking_number && stepIndex >= 3 && (
+      {order.tracking_number && (
         <div className="px-5 py-3 bg-blue-50 border-b border-blue-100 flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold text-blue-600">Tracking Number</p>
