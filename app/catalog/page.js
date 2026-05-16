@@ -7,14 +7,12 @@ import CategoryFilter from '@/components/CategoryFilter'
 import Cart from '@/components/Cart'
 import OrderModal from '@/components/OrderModal'
 
-// Cambiar a true para activar el catálogo público
-const CATALOG_LIVE = true
-
 function CatalogInner() {
   const searchParams = useSearchParams()
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [catalogLive, setCatalogLive] = useState(null)
   const [selectedCat, setSelectedCat] = useState(() => searchParams.get('cat') || null)
   const [selectedSubcat, setSelectedSubcat] = useState(null)
   const [sortOrder, setSortOrder] = useState('destacado')
@@ -37,18 +35,29 @@ function CatalogInner() {
   }, [cart])
 
   useEffect(() => {
-    if (!CATALOG_LIVE) {
-      setLoading(false)
-      return
-    }
-    fetch('/api/products')
+    fetch('/api/catalog-status')
       .then(r => r.json())
       .then(data => {
-        if (data.error) throw new Error(data.error)
-        setProducts(data)
+        const live = data.live !== false
+        setCatalogLive(live)
+        if (!live) { setLoading(false); return }
+        return fetch('/api/products')
+          .then(r => r.json())
+          .then(data => {
+            if (data.error) throw new Error(data.error)
+            setProducts(data)
+          })
+          .catch(e => setError(e.message))
+          .finally(() => setLoading(false))
       })
-      .catch(e => setError(e.message))
-      .finally(() => setLoading(false))
+      .catch(() => {
+        setCatalogLive(true)
+        fetch('/api/products')
+          .then(r => r.json())
+          .then(data => { if (!data.error) setProducts(data) })
+          .catch(e => setError(e.message))
+          .finally(() => setLoading(false))
+      })
   }, [])
 
   const groupedProducts = useMemo(() => {
@@ -318,7 +327,7 @@ function getCartSizes(productId) {
           </div>
         )}
 
-        {(!CATALOG_LIVE || error) && (
+        {(catalogLive === false || error) && (
           <div className="mt-12 flex flex-col items-center text-center px-6 py-14 bg-orange-50 rounded-2xl border border-orange-100">
             <svg className="w-10 h-10 text-[#FF6A00] mb-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 4a7 7 0 110 14A7 7 0 0111 4zm0 0v1m0 12v1m8-8h-1M4 11H3m14.07-5.07l-.707.707M6.343 16.243l-.707.707m11.314 0l-.707-.707M6.343 6.343l-.707-.707" />
@@ -339,7 +348,7 @@ function getCartSizes(productId) {
           </div>
         )}
 
-        {CATALOG_LIVE && !loading && !error && (
+        {catalogLive && !loading && !error && (
           <>
             <p className="text-xs text-gray-500 mb-3 font-medium">
               {sorted.length} {sorted.length === 1 ? 'product' : 'products'}

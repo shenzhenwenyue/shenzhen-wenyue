@@ -42,8 +42,29 @@ export default function AdminPage() {
     if (authenticated) {
       fetchOrders()
       fetch('/api/products').then(r => r.json()).then(data => { if (Array.isArray(data)) setProducts(data) }).catch(() => {})
+      fetch('/api/catalog-status').then(r => r.json()).then(data => setCatalogLive(data.live !== false)).catch(() => {})
     }
   }, [authenticated])
+
+  async function toggleCatalog() {
+    if (togglingCatalog) return
+    setTogglingCatalog(true)
+    const newValue = !catalogLive
+    try {
+      const res = await fetch('/api/admin/settings', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
+        body: JSON.stringify({ catalog_live: newValue }),
+      })
+      const data = await res.json()
+      if (!res.ok || data.error) throw new Error(data.error)
+      setCatalogLive(newValue)
+    } catch (e) {
+      alert('Error: ' + e.message)
+    } finally {
+      setTogglingCatalog(false)
+    }
+  }
 
   useEffect(() => {
     if (!authenticated) return
@@ -101,6 +122,8 @@ export default function AdminPage() {
 
   const [search, setSearch] = useState('')
   const [viewMode, setViewMode] = useState('cards')
+  const [catalogLive, setCatalogLive] = useState(null)
+  const [togglingCatalog, setTogglingCatalog] = useState(false)
 
   const byNewest = (a, b) => new Date(b.created_at) - new Date(a.created_at)
   const filtered = orders.filter(o => o.status === activeTab).sort(byNewest)
@@ -196,6 +219,23 @@ export default function AdminPage() {
                   : `hace ${Math.floor((Date.now() - lastUpdated) / 60000)} min`}
               </span>
             </div>
+          )}
+          {catalogLive !== null && (
+            <button
+              onClick={toggleCatalog}
+              disabled={togglingCatalog}
+              title={catalogLive ? 'Catálogo público activo — clic para poner en mantenimiento' : 'Catálogo en mantenimiento — clic para activar'}
+              className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-semibold transition-colors ${
+                togglingCatalog
+                  ? 'bg-gray-700 text-gray-400'
+                  : catalogLive
+                  ? 'bg-green-500/20 text-green-400 hover:bg-red-500/20 hover:text-red-400'
+                  : 'bg-red-500/20 text-red-400 hover:bg-green-500/20 hover:text-green-400'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full inline-block ${togglingCatalog ? 'bg-gray-400' : catalogLive ? 'bg-green-400' : 'bg-red-400'}`} />
+              {togglingCatalog ? '...' : catalogLive ? 'Catálogo ON' : 'Catálogo OFF'}
+            </button>
           )}
           <button
             onClick={() => fetchOrders()}
