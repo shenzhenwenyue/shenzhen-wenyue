@@ -161,7 +161,7 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
             )}
             {categoryQty > (displayQty || 0) && (
               <p className="text-green-600 font-medium pt-0.5 border-t border-gray-200 mt-1">
-                ✓ {categoryQty} pcs total in this {(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga') ? 'subcategory' : 'category'}
+                ✓ {categoryQty} pcs total in this {product.categoria === 'Lululemon' && product.subcategoria === 'Bags' ? 'City Bags pool' : 'category'}
               </p>
             )}
             {/* Nota LV: el precio mejora con cualquier perfume del pedido */}
@@ -319,7 +319,13 @@ export default function ProductCard({ product, cartQty, cartSizes, categoryQty, 
         )}
 
         {(product.categoria === 'Lululemon' || product.categoria === 'Alo Yoga')
-          ? <p className="text-xs text-gray-400 mt-1">Min. 10 pcs total for {product.categoria}</p>
+          ? <p className="text-xs text-gray-400 mt-1">Min. 10 pcs{
+              product.categoria === 'Lululemon' && product.subcategoria === 'Bags'
+                ? ' in City Bags pool'
+                : product.categoria === 'Alo Yoga'
+                  ? ' in Alo Yoga category'
+                  : ' in Lululemon category'
+            }</p>
           : !hasSizes && product.qty_minima > 1
             ? <p className="text-xs text-gray-400 mt-1">Min. {product.qty_minima} pcs total in "{product.categoria}" category</p>
             : null

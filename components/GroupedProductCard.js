@@ -105,7 +105,7 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
               {base.qty_tier3 && base.precio_tier3 && <TierRow label={`${base.qty_tier3} a ${base.qty_tier4 ? base.qty_tier4 - 1 : '+'} pcs`} price={base.precio_tier3} active={pricingQty >= base.qty_tier3 && (!base.qty_tier4 || pricingQty < base.qty_tier4)} highlight />}
               {base.qty_tier4 && base.precio_tier4 && <TierRow label={`${base.qty_tier4}+ pcs`} price={base.precio_tier4} active={pricingQty >= base.qty_tier4} highlight best />}
               {categoryQty > totalInCart && (
-                <p className="text-green-600 font-medium pt-0.5 border-t border-gray-200 mt-1">✓ {categoryQty} pcs total in this category</p>
+                <p className="text-green-600 font-medium pt-0.5 border-t border-gray-200 mt-1">✓ {categoryQty} pcs total in this {group.categoria === 'Lululemon' && group.subcategoria === 'Bags' ? 'City Bags pool' : 'category'}</p>
               )}
               {base.qty_minima > 1 && (
                 <p className="text-gray-400 pt-0.5 border-t border-gray-200 mt-1">Min. {base.qty_minima} pcs total in category</p>
@@ -137,7 +137,13 @@ export default function GroupedProductCard({ group, cart, onAdd, onRemove, categ
             </button>
           )}
           {(group.categoria === 'Lululemon' || group.categoria === 'Alo Yoga') && (
-            <p className="text-xs text-gray-400 mt-1">Min. 10 pcs total for {group.categoria}</p>
+            <p className="text-xs text-gray-400 mt-1">Min. 10 pcs{
+              group.categoria === 'Lululemon' && group.subcategoria === 'Bags'
+                ? ' in City Bags pool'
+                : group.categoria === 'Alo Yoga'
+                  ? ' in Alo Yoga category'
+                  : ' in Lululemon category'
+            }</p>
           )}
           <div className="flex items-center gap-1 mt-2 pt-2 border-t border-gray-100">
             <svg className="w-3 h-3 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">

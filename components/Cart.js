@@ -1,17 +1,16 @@
 'use client'
 import { useState } from 'react'
-import { getPrecio, getSubtotal } from '@/lib/pricing'
+import { getPrecio } from '@/lib/pricing'
 import { DEFAULT_SHIPPING } from '@/lib/constants'
 
-// Alo Yoga agrupa por subcategoría; Lululemon tiene City Bags (sub='Bags') independiente,
-// el resto de Lululemon mezcla junto. Todo lo demás agrupa por categoría.
+// Lululemon: City Bags (sub='Bags') pool independiente, min 10 pcs. Resto de Lululemon mezcla junto, min 10 pcs.
+// Alo Yoga: todo mezcla en un solo pool, min 10 pcs. Resto agrupa por categoría.
 const AloYoga = 'Alo Yoga'
 const LULULEMON = 'Lululemon'
 const CITY_BAGS_SUB = 'Bags'
 
 function getPricingKey(cat, sub) {
   if (cat === LULULEMON) return sub === CITY_BAGS_SUB ? 'Lululemon__Bags' : 'Lululemon'
-  if (cat === AloYoga && sub) return `${cat}__${sub}`
   return cat
 }
 
@@ -95,21 +94,15 @@ export default function Cart({ items, products, onAdd, onRemove, onClose, onRequ
       }
 
       if (cat === AloYoga) {
-        // Alo Yoga: por subcategoría
-        const subcats = [...new Set(
-          cartLines.filter(l => l.product.categoria === cat && l.product.subcategoria).map(l => l.product.subcategoria)
-        )]
-        subcats.forEach(sub => {
-          const subQty = totalByPricingGroup[`${cat}__${sub}`] || 0
-          const subRep = cartLines.find(l => l.product.categoria === cat && l.product.subcategoria === sub)?.product
-          if (!subRep) return
-          const tiers = buildTiers(subRep)
-          if (subQty < 10) {
-            result.push({ cat: sub, qty: subQty, minQty: 10, isIncomplete: true })
-          } else {
-            result.push({ cat: sub, qty: subQty, minQty: null, isIncomplete: false, nextTier: tiers.find(t => subQty < t.qty), hasTiers: tiers.length > 0, currentPrice: getPrecio(subRep, subQty) })
-          }
-        })
+        const aloQty = totalByPricingGroup[AloYoga] || 0
+        const aloRep = cartLines.find(l => l.product.categoria === AloYoga)?.product
+        if (!aloRep) return
+        const tiers = buildTiers(aloRep)
+        if (aloQty < 10) {
+          result.push({ cat: AloYoga, qty: aloQty, minQty: 10, isIncomplete: true })
+        } else {
+          result.push({ cat: AloYoga, qty: aloQty, minQty: null, isIncomplete: false, nextTier: tiers.find(t => aloQty < t.qty), hasTiers: tiers.length > 0, currentPrice: getPrecio(aloRep, aloQty) })
+        }
         return
       }
 

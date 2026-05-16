@@ -7,7 +7,6 @@ const WHATSAPP = '16613737977'
 
 function getPricingKey(cat, sub) {
   if (cat === 'Lululemon') return sub === 'Bags' ? 'Lululemon__Bags' : 'Lululemon'
-  if (cat === 'Alo Yoga' && sub) return `${cat}__${sub}`
   return cat
 }
 

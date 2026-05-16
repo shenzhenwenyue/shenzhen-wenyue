@@ -136,8 +136,10 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       if (res.ok) {
         setOrder(data)
         if (updates.status && updates.status !== 'pending') setExpanded(false)
+        return true
       } else {
         alert(`Error al guardar: ${data.error || 'Error desconocido'}`)
+        return false
       }
     } finally {
       setSaving(false)
@@ -587,7 +589,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                   <span className="text-xs text-red-500 font-medium">No disponible</span>
                 ) : (
                   <span className="text-xs text-green-600 font-medium">
-                    {item.available_qty && item.available_qty < item.qty
+                    {item.available_qty != null && item.available_qty < item.qty
                       ? `${item.available_qty} u. disponibles`
                       : 'Disponible'}
                   </span>
@@ -986,10 +988,10 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
           {order.status === 'paid' && (
             <button
-              onClick={() => {
+              onClick={async () => {
                 if (!trackingInput.trim() || saving) return
-                patch({ status: 'shipped', tracking_number: trackingInput.trim() })
-                handleEnviarTracking()
+                const ok = await patch({ status: 'shipped', tracking_number: trackingInput.trim() })
+                if (ok) handleEnviarTracking()
               }}
               disabled={saving || !trackingInput.trim()}
               className="w-full py-2 bg-purple-500 text-white text-xs font-semibold rounded-xl hover:bg-purple-600 disabled:opacity-50 transition-colors"
