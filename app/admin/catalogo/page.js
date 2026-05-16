@@ -182,9 +182,9 @@ function CatalogPreviewInner() {
 
   function getCatalogCategoryQty(product) {
     if (product.categoria === 'Lululemon') {
-      return product.subcategoria === 'Waist Bags'
-        ? getSubcategoriaQty('Lululemon', 'Waist Bags')
-        : getCategoryQtyExcluding('Lululemon', 'Waist Bags')
+      return product.subcategoria === 'Bags'
+        ? getSubcategoriaQty('Lululemon', 'Bags')
+        : getCategoryQtyExcluding('Lululemon', 'Bags')
     }
     return getCategoryQty(product.categoria)
   }
