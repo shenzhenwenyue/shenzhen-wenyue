@@ -165,6 +165,25 @@ function getCartSizes(productId) {
       .reduce((sum, i) => sum + i.qty, 0)
   }
 
+  function getCategoryQtyExcluding(categoria, excludeSubcat) {
+    return cart
+      .filter(i => {
+        const p = products.find(pr => pr.id === i.productId)
+        const cat = i.categoria || p?.categoria || ''
+        return cat === categoria && (p?.subcategoria || '') !== excludeSubcat
+      })
+      .reduce((sum, i) => sum + i.qty, 0)
+  }
+
+  function getCatalogCategoryQty(product) {
+    if (product.categoria === 'Lululemon') {
+      return product.subcategoria === 'Waist Bags'
+        ? getSubcategoriaQty('Lululemon', 'Waist Bags')
+        : getCategoryQtyExcluding('Lululemon', 'Waist Bags')
+    }
+    return getCategoryQty(product.categoria)
+  }
+
   const cartCount = cart.reduce((sum, i) => sum + i.qty, 0)
 
   return (
@@ -336,7 +355,7 @@ function getCartSizes(productId) {
                       onAdd={addToCart}
                       onRemove={removeFromCart}
                       categoryQty={
-                        getCategoryQty(product.categoria)
+                        getCatalogCategoryQty(product)
                       }
                     />
                   ) : (
@@ -346,7 +365,7 @@ function getCartSizes(productId) {
                       cartQty={cart.find(i => i.id === product.id)?.qty || 0}
                       cartSizes={getCartSizes(product.id)}
                       categoryQty={
-                        getCategoryQty(product.categoria)
+                        getCatalogCategoryQty(product)
                       }
                       onAdd={addToCart}
                       onRemove={removeFromCart}

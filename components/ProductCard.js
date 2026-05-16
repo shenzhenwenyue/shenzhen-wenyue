@@ -2,7 +2,9 @@
 import { useState } from 'react'
 import { getPrecio } from '@/lib/pricing'
 
-function getMixLabel(categoria) {
+function getMixLabel(categoria, subcategoria) {
+  if (categoria === 'Lululemon' && subcategoria === 'Waist Bags')
+    return 'Waist Bags are priced independently — min. 10 pcs (not combined with other Lululemon)'
   if (categoria === 'Perfumes' || categoria === 'Gift Set de Perfumes')
     return 'Mix any brand or scent — price based on total perfumes in your order'
   if (categoria === 'Lululemon' || categoria === 'Alo Yoga')
@@ -10,7 +12,8 @@ function getMixLabel(categoria) {
   return `Mix any ${categoria} — price based on total in your order`
 }
 
-function getNudgeSuffix(categoria) {
+function getNudgeSuffix(categoria, subcategoria) {
+  if (categoria === 'Lululemon' && subcategoria === 'Waist Bags') return 'more Waist Bags'
   if (categoria === 'Perfumes' || categoria === 'Gift Set de Perfumes') return 'more pcs — any brand counts'
   if (categoria === 'Lululemon' || categoria === 'Alo Yoga') return `more ${categoria} — any style counts`
   return 'more pcs'
