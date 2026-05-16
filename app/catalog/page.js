@@ -8,7 +8,7 @@ import Cart from '@/components/Cart'
 import OrderModal from '@/components/OrderModal'
 
 // Cambiar a true para activar el catálogo público
-const CATALOG_LIVE = false
+const CATALOG_LIVE = true
 
 function CatalogInner() {
   const searchParams = useSearchParams()
