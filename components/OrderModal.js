@@ -5,8 +5,11 @@ import { DEFAULT_SHIPPING } from '@/lib/constants'
 
 const WHATSAPP = '16613737977'
 
-// Estas categorías usan precios por subcategoría, no por categoría total
-const SUBCATEGORIA_PRICING = new Set(['Lululemon', 'Alo Yoga'])
+function getPricingKey(cat, sub) {
+  if (cat === 'Lululemon') return sub === 'Bags' ? 'Lululemon__Bags' : 'Lululemon'
+  if (cat === 'Alo Yoga' && sub) return `${cat}__${sub}`
+  return cat
+}
 
 export default function OrderModal({ items, products, onClose, onSuccess }) {
   const [name, setName] = useState('')
@@ -30,7 +33,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
     const product = products.find(p => p.id === item.productId)
     const cat = item.categoria || product?.categoria || ''
     const sub = product?.subcategoria || ''
-    const key = SUBCATEGORIA_PRICING.has(cat) && sub ? `${cat}__${sub}` : cat
+    const key = getPricingKey(cat, sub)
     acc[key] = (acc[key] || 0) + item.qty
     return acc
   }, {})
@@ -41,7 +44,7 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
     if (!product) return null
     const cat = item.categoria || product.categoria
     const sub = product.subcategoria || ''
-    const pricingKey = SUBCATEGORIA_PRICING.has(cat) && sub ? `${cat}__${sub}` : cat
+    const pricingKey = getPricingKey(cat, sub)
     const pricingQty = totalByPricingGroup[pricingKey] || item.qty
     return {
       product_id: product.id,
@@ -234,12 +237,10 @@ export default function OrderModal({ items, products, onClose, onSuccess }) {
                 </div>
                 {/* Contexto de precio mayoreo — por subcategoría para Lulu/Alo, por categoría para el resto */}
                 {Object.entries(totalByPricingGroup).map(([key, qty]) => {
-                  const isSub = key.includes('__')
-                  const label = isSub ? key.split('__')[1] : key
-                  const scope = isSub ? 'subcategory' : 'category'
+                  const label = key === 'Lululemon__Bags' ? 'City Bags' : key.includes('__') ? key.split('__')[1] : key
                   return (
                     <p key={key} className="text-xs text-green-600 pt-0.5">
-                      Price for {label} based on {qty} pcs total in the {scope}
+                      Price for {label} based on {qty} pcs total
                     </p>
                   )
                 })}
