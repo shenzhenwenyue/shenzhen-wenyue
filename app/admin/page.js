@@ -38,13 +38,43 @@ export default function AdminPage() {
     }
   }, [])
 
+  const [supplierStatus, setSupplierStatus] = useState({ joy: null, lucy: null })
+  const [togglingSupplier, setTogglingSupplier] = useState(null)
+
   useEffect(() => {
     if (authenticated) {
       fetchOrders()
-      fetch('/api/products').then(r => r.json()).then(data => { if (Array.isArray(data)) setProducts(data) }).catch(() => {})
+      fetch('/api/products').then(r => r.json()).then(data => {
+        if (Array.isArray(data)) {
+          setProducts(data)
+          const joyActive = data.some(p => p.sku?.toUpperCase().startsWith('S') && p.disponible)
+          const lucyActive = data.some(p => p.sku?.toUpperCase().startsWith('XP') && p.disponible)
+          setSupplierStatus({ joy: joyActive, lucy: lucyActive })
+        }
+      }).catch(() => {})
       fetch('/api/catalog-status').then(r => r.json()).then(data => setCatalogLive(data.live !== false)).catch(() => {})
     }
   }, [authenticated])
+
+  async function toggleSupplier(supplier) {
+    if (togglingSupplier) return
+    setTogglingSupplier(supplier)
+    const prefix = supplier === 'joy' ? 'S' : 'XP'
+    const newVal = !supplierStatus[supplier]
+    try {
+      const res = await fetch('/api/admin/products', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
+        body: JSON.stringify({ sku_prefix: prefix, disponible: newVal }),
+      })
+      if (!res.ok) throw new Error((await res.json()).error)
+      setSupplierStatus(prev => ({ ...prev, [supplier]: newVal }))
+    } catch (e) {
+      alert('Error: ' + e.message)
+    } finally {
+      setTogglingSupplier(null)
+    }
+  }
 
   async function toggleCatalog() {
     if (togglingCatalog) return
@@ -416,7 +446,33 @@ export default function AdminPage() {
 
       {/* Products tab */}
       {isProductTab && (
-        <div className="max-w-2xl mx-auto px-4 py-5">
+        <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
+          {/* Supplier toggles */}
+          <div className="bg-white border border-gray-200 rounded-2xl p-4 space-y-3">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Proveedores</p>
+            {[
+              { key: 'joy', label: 'Joy', prefix: 'S' },
+              { key: 'lucy', label: 'Lucy', prefix: 'XP' },
+            ].map(({ key, label, prefix }) => {
+              const active = supplierStatus[key]
+              const loading = togglingSupplier === key
+              return (
+                <div key={key} className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">{label} <span className="text-xs text-gray-400">(SKU {prefix}*)</span></p>
+                    <p className="text-xs text-gray-400">{active === null ? 'Cargando...' : active ? 'Modelos visibles en catálogo' : 'Modelos ocultos del catálogo'}</p>
+                  </div>
+                  <button
+                    onClick={() => toggleSupplier(key)}
+                    disabled={loading || active === null}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors disabled:opacity-40 ${active ? 'bg-black' : 'bg-gray-200'}`}
+                  >
+                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${active ? 'translate-x-6' : 'translate-x-1'}`} />
+                  </button>
+                </div>
+              )
+            })}
+          </div>
           <AdminProductList />
         </div>
       )}
