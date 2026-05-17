@@ -106,6 +106,14 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       })
   }, [])
 
+  const [showHistory, setShowHistory] = useState(false)
+  const [editingItems, setEditingItems] = useState(false)
+  const [editItems, setEditItems] = useState(order.items)
+  const [adminNote, setAdminNote] = useState(order.admin_notes || '')
+  const [savingNote, setSavingNote] = useState(false)
+  const [paymentLink, setPaymentLink] = useState('')
+  const [replacements, setReplacements] = useState({})
+
   useEffect(() => {
     try {
       const saved = localStorage.getItem(`sw_rep_${initialOrder.id}`)
@@ -118,13 +126,6 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       localStorage.setItem(`sw_rep_${initialOrder.id}`, JSON.stringify(replacements))
     } catch {}
   }, [replacements])
-  const [showHistory, setShowHistory] = useState(false)
-  const [editingItems, setEditingItems] = useState(false)
-  const [editItems, setEditItems] = useState(order.items)
-  const [adminNote, setAdminNote] = useState(order.admin_notes || '')
-  const [savingNote, setSavingNote] = useState(false)
-  const [paymentLink, setPaymentLink] = useState('')
-  const [replacements, setReplacements] = useState({})
   const [sendingCotizacion, setSendingCotizacion] = useState(false)
   const [alibabaLink, setAlibabaLink] = useState('')
   const [exportSelected, setExportSelected] = useState(null) // null = todos los confirmados; Set<idx> = selección manual
