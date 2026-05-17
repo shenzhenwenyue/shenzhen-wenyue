@@ -139,6 +139,14 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     return acc
   }, {})
 
+  // Para pricing de reemplazos: pool basado en qty ORIGINAL de todos los items
+  // (incluyendo agotados), para que el bulk pricing refleje el tamaño real del pedido
+  const fullOrderPoolQtys = order.items.reduce((acc, item) => {
+    const key = getPricingKey(item.categoria || '', item.subcategoria || '')
+    acc[key] = (acc[key] || 0) + item.qty
+    return acc
+  }, {})
+
   const shippingCost = parseFloat(shipping) || 0
   const confirmedTotal = confirmedItems.reduce((sum, i) => sum + (i.available_qty ?? i.qty) * i.unit_price, 0) + shippingCost
   const subtotalReemplazos = Object.values(replacements).reduce((s, sug) =>
@@ -607,7 +615,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                 item={item}
                 products={products}
                 suggestions={replacements[i] || []}
-                poolQtys={confirmedPoolQtys}
+                poolQtys={fullOrderPoolQtys}
                 onChange={sug => setReplacements(prev => ({ ...prev, [i]: sug }))}
               />
             )}
