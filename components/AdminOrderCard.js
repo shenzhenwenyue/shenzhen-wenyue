@@ -108,6 +108,13 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
   useEffect(() => {
     try {
+      const saved = localStorage.getItem(`sw_rep_${initialOrder.id}`)
+      if (saved) setReplacements(JSON.parse(saved))
+    } catch {}
+  }, [])
+
+  useEffect(() => {
+    try {
       localStorage.setItem(`sw_rep_${initialOrder.id}`, JSON.stringify(replacements))
     } catch {}
   }, [replacements])
@@ -117,12 +124,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   const [adminNote, setAdminNote] = useState(order.admin_notes || '')
   const [savingNote, setSavingNote] = useState(false)
   const [paymentLink, setPaymentLink] = useState('')
-  const [replacements, setReplacements] = useState(() => {
-    try {
-      const saved = localStorage.getItem(`sw_rep_${initialOrder.id}`)
-      return saved ? JSON.parse(saved) : {}
-    } catch { return {} }
-  })
+  const [replacements, setReplacements] = useState({})
   const [sendingCotizacion, setSendingCotizacion] = useState(false)
   const [alibabaLink, setAlibabaLink] = useState('')
   const [exportSelected, setExportSelected] = useState(null) // null = todos los confirmados; Set<idx> = selección manual
