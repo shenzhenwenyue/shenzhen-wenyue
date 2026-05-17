@@ -44,15 +44,18 @@ export default function AdminPage() {
   useEffect(() => {
     if (authenticated) {
       fetchOrders()
-      fetch('/api/products').then(r => r.json()).then(data => {
-        if (Array.isArray(data)) {
-          setProducts(data)
-          const joyActive = data.some(p => p.sku?.toUpperCase().startsWith('S') && p.disponible)
-          const lucyActive = data.some(p => p.sku?.toUpperCase().startsWith('XP') && p.disponible)
-          setSupplierStatus({ joy: joyActive, lucy: lucyActive })
-        }
-      }).catch(() => {})
+      fetch('/api/products').then(r => r.json()).then(data => { if (Array.isArray(data)) setProducts(data) }).catch(() => {})
       fetch('/api/catalog-status').then(r => r.json()).then(data => setCatalogLive(data.live !== false)).catch(() => {})
+      // Fetch supplier status from admin endpoint (includes disabled products + sku field)
+      fetch('/api/admin/products', { headers: { 'x-admin-password': adminPassword } })
+        .then(r => r.json())
+        .then(data => {
+          if (Array.isArray(data)) {
+            const joyActive = data.some(p => p.sku?.toUpperCase().startsWith('S') && p.disponible)
+            const lucyActive = data.some(p => p.sku?.toUpperCase().startsWith('XP') && p.disponible)
+            setSupplierStatus({ joy: joyActive, lucy: lucyActive })
+          }
+        }).catch(() => {})
     }
   }, [authenticated])
 
