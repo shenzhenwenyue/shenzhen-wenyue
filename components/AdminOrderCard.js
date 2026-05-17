@@ -216,26 +216,34 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   async function handleEnviarCotizacion() {
     setSendingCotizacion(true)
     try {
+      // Generar PDF y pedir URL firmada en paralelo
       const { generarCotizacionPDF } = await import('@/lib/pdf')
-      const doc = await generarCotizacionPDF(order, replacements, shippingCost)
-      const pdfBlob = doc.output('blob')
-
-      // Pedir URL firmada al server (body pequeño, sin datos del PDF)
-      const urlRes = await fetch(`/api/orders/${order.id}/quote-pdf`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
-        body: JSON.stringify({ action: 'request-upload-url' }),
-      })
+      const [doc, urlRes] = await Promise.all([
+        generarCotizacionPDF(order, replacements, shippingCost),
+        fetch(`/api/orders/${order.id}/quote-pdf`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
+          body: JSON.stringify({ action: 'request-upload-url' }),
+        }),
+      ])
       const urlData = await urlRes.json()
       if (!urlRes.ok) throw new Error(urlData.error || 'Error al obtener URL de subida')
 
-      // Subir PDF directo a Supabase (sin pasar por Vercel)
-      const uploadRes = await fetch(urlData.uploadUrl, {
+      const pdfBlob = doc.output('blob')
+
+      // Subir PDF directo a Supabase con token de autenticación
+      const uploadUrl = urlData.token
+        ? `${urlData.uploadUrl}?token=${urlData.token}`
+        : urlData.uploadUrl
+      const uploadRes = await fetch(uploadUrl, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/pdf' },
         body: pdfBlob,
       })
-      if (!uploadRes.ok) throw new Error('Error al subir PDF a storage')
+      if (!uploadRes.ok) {
+        const errText = await uploadRes.text().catch(() => uploadRes.status)
+        throw new Error(`Error al subir PDF: ${errText}`)
+      }
 
       const pdfUrl = urlData.shortUrl
       const hayReemplazos = Object.values(replacements).some(r => r?.nombre)

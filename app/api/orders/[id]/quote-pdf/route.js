@@ -32,7 +32,7 @@ export async function POST(req, { params }) {
       .createSignedUploadUrl(fileName)
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-    return NextResponse.json({ uploadUrl: data.signedUrl, shortUrl })
+    return NextResponse.json({ uploadUrl: data.signedUrl, token: data.token, shortUrl })
   }
 
   // Modo 2 (fallback): PDF en base64 — solo para PDFs pequeños sin imágenes
