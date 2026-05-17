@@ -216,36 +216,19 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   async function handleEnviarCotizacion() {
     setSendingCotizacion(true)
     try {
-      // Generar PDF y pedir URL firmada en paralelo
       const { generarCotizacionPDF } = await import('@/lib/pdf')
-      const [doc, urlRes] = await Promise.all([
-        generarCotizacionPDF(order, replacements, shippingCost),
-        fetch(`/api/orders/${order.id}/quote-pdf`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
-          body: JSON.stringify({ action: 'request-upload-url' }),
-        }),
-      ])
-      const urlData = await urlRes.json()
-      if (!urlRes.ok) throw new Error(urlData.error || 'Error al obtener URL de subida')
+      const doc = await generarCotizacionPDF(order, replacements, shippingCost)
+      const pdfBase64 = doc.output('datauristring').split(',')[1]
 
-      const pdfBlob = doc.output('blob')
-
-      // Subir PDF directo a Supabase con token de autenticación
-      const uploadUrl = urlData.token
-        ? `${urlData.uploadUrl}?token=${urlData.token}`
-        : urlData.uploadUrl
-      const uploadRes = await fetch(uploadUrl, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/pdf' },
-        body: pdfBlob,
+      const res = await fetch(`/api/orders/${order.id}/quote-pdf`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
+        body: JSON.stringify({ pdfBase64 }),
       })
-      if (!uploadRes.ok) {
-        const errText = await uploadRes.text().catch(() => uploadRes.status)
-        throw new Error(`Error al subir PDF: ${errText}`)
-      }
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Error al subir PDF')
 
-      const pdfUrl = urlData.shortUrl
+      const pdfUrl = data.url
       const hayReemplazos = Object.values(replacements).some(r => r?.nombre)
       const unavailable = order.items.filter(i => i.confirmed === false)
 
