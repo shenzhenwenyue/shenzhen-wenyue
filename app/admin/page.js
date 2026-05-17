@@ -52,8 +52,9 @@ export default function AdminPage() {
         .then(r => r.json())
         .then(data => {
           if (Array.isArray(data)) {
-            const joyActive = data.some(p => p.sku?.toUpperCase().startsWith('S') && p.disponible)
-            const lucyActive = data.some(p => p.sku?.toUpperCase().startsWith('XP') && p.disponible)
+            const sku = p => p.sku?.toUpperCase() ?? ''
+            const joyActive = data.some(p => (sku(p).startsWith('S') || sku(p).startsWith('V')) && p.disponible)
+            const lucyActive = data.some(p => sku(p).startsWith('XP') && p.disponible)
             setSupplierStatus({ joy: joyActive, lucy: lucyActive })
           }
         }).catch(() => {})
@@ -63,15 +64,17 @@ export default function AdminPage() {
   async function toggleSupplier(supplier) {
     if (togglingSupplier) return
     setTogglingSupplier(supplier)
-    const prefix = supplier === 'joy' ? 'S' : 'XP'
+    const prefixes = supplier === 'joy' ? ['S', 'V'] : ['XP']
     const newVal = !supplierStatus[supplier]
     try {
-      const res = await fetch('/api/admin/products', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
-        body: JSON.stringify({ sku_prefix: prefix, disponible: newVal }),
-      })
-      if (!res.ok) throw new Error((await res.json()).error)
+      await Promise.all(prefixes.map(async prefix => {
+        const res = await fetch('/api/admin/products', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
+          body: JSON.stringify({ sku_prefix: prefix, disponible: newVal }),
+        })
+        if (!res.ok) throw new Error((await res.json()).error)
+      }))
       setSupplierStatus(prev => ({ ...prev, [supplier]: newVal }))
       setProductListKey(k => k + 1)
     } catch (e) {
