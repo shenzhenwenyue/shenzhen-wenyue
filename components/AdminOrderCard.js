@@ -105,13 +105,24 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
         }
       })
   }, [])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(`sw_rep_${initialOrder.id}`, JSON.stringify(replacements))
+    } catch {}
+  }, [replacements])
   const [showHistory, setShowHistory] = useState(false)
   const [editingItems, setEditingItems] = useState(false)
   const [editItems, setEditItems] = useState(order.items)
   const [adminNote, setAdminNote] = useState(order.admin_notes || '')
   const [savingNote, setSavingNote] = useState(false)
   const [paymentLink, setPaymentLink] = useState('')
-  const [replacements, setReplacements] = useState({}) // { itemIndex: { nombre, imagen_url, unit_price } }
+  const [replacements, setReplacements] = useState(() => {
+    try {
+      const saved = localStorage.getItem(`sw_rep_${initialOrder.id}`)
+      return saved ? JSON.parse(saved) : {}
+    } catch { return {} }
+  })
   const [sendingCotizacion, setSendingCotizacion] = useState(false)
   const [alibabaLink, setAlibabaLink] = useState('')
   const [exportSelected, setExportSelected] = useState(null) // null = todos los confirmados; Set<idx> = selección manual
@@ -147,6 +158,9 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
       if (res.ok) {
         setOrder(data)
         if (updates.status && updates.status !== 'pending') setExpanded(false)
+        if (updates.status === 'completed') {
+          try { localStorage.removeItem(`sw_rep_${initialOrder.id}`) } catch {}
+        }
         return true
       } else {
         alert(`Error al guardar: ${data.error || 'Error desconocido'}`)
