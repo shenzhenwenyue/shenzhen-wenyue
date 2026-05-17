@@ -28,7 +28,7 @@ export async function POST(req, { params }) {
   if (body.action === 'request-upload-url') {
     const { data, error } = await supabase.storage
       .from(BUCKET)
-      .createSignedUploadUrl(fileName)
+      .createSignedUploadUrl(fileName, { upsert: true })
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
     return NextResponse.json({ uploadUrl: data.signedUrl, token: data.token, shortUrl })
   }
