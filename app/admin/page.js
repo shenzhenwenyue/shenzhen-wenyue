@@ -40,6 +40,7 @@ export default function AdminPage() {
 
   const [supplierStatus, setSupplierStatus] = useState({ joy: null, lucy: null })
   const [togglingSupplier, setTogglingSupplier] = useState(null)
+  const [productListKey, setProductListKey] = useState(0)
 
   useEffect(() => {
     if (authenticated) {
@@ -72,6 +73,7 @@ export default function AdminPage() {
       })
       if (!res.ok) throw new Error((await res.json()).error)
       setSupplierStatus(prev => ({ ...prev, [supplier]: newVal }))
+      setProductListKey(k => k + 1)
     } catch (e) {
       alert('Error: ' + e.message)
     } finally {
@@ -476,7 +478,7 @@ export default function AdminPage() {
               )
             })}
           </div>
-          <AdminProductList />
+          <AdminProductList key={productListKey} />
         </div>
       )}
 

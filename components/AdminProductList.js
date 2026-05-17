@@ -11,7 +11,7 @@ export default function AdminProductList() {
   const [search, setSearch] = useState('')
   const [selectedCat, setSelectedCat] = useState(null)
   const [selectedSubcat, setSelectedSubcat] = useState(null)
-  const [showDisabled, setShowDisabled] = useState(false)
+  const [showDisabled, setShowDisabled] = useState(true)
 
   // Image edit state
   const [editingId, setEditingId] = useState(null)
