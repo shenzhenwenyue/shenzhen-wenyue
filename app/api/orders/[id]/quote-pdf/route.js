@@ -4,8 +4,6 @@ import { NextResponse } from 'next/server'
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
 const BUCKET = 'quotes'
 
-// POST { action: 'request-upload-url' }  → devuelve { uploadUrl, token, shortUrl }
-// POST { pdfBase64 }                      → sube PDF directamente (fallback, ≤4MB)
 export async function POST(req, { params }) {
   if (req.headers.get('x-admin-password') !== ADMIN_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -15,7 +13,7 @@ export async function POST(req, { params }) {
   const body = await req.json()
   const supabase = getSupabase()
   const fileName = `${id}.pdf`
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://shenzhen-wenyue.vercel.app'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shenzhenwenyueliabilityco.com'
   const shortUrl = `${baseUrl}/q/${id}`
 
   // Asegurar que el bucket existe
@@ -24,16 +22,20 @@ export async function POST(req, { params }) {
     await supabase.storage.createBucket(BUCKET, { public: true })
   }
 
-  // Modo 1: el browser pide una URL firmada para subir directo a Supabase
+  // Modo 1: browser pide URL firmada para subir directo a Supabase
   if (body.action === 'request-upload-url') {
+    // Borrar archivo existente primero para evitar conflicto de "already exists"
+    await supabase.storage.from(BUCKET).remove([fileName])
+
     const { data, error } = await supabase.storage
       .from(BUCKET)
-      .createSignedUploadUrl(fileName, { upsert: true })
+      .createSignedUploadUrl(fileName)
+
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-    return NextResponse.json({ uploadUrl: data.signedUrl, token: data.token, shortUrl })
+    return NextResponse.json({ uploadUrl: data.signedUrl, shortUrl })
   }
 
-  // Modo 2 (fallback): PDF en base64 en el body (solo funciona si el PDF es pequeño)
+  // Modo 2 (fallback): PDF en base64 — solo para PDFs pequeños sin imágenes
   const { pdfBase64 } = body
   if (!pdfBase64) return NextResponse.json({ error: 'No PDF data' }, { status: 400 })
 
