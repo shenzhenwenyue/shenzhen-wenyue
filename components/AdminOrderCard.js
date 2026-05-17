@@ -218,20 +218,26 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
     try {
       const { generarCotizacionPDF } = await import('@/lib/pdf')
       const doc = await generarCotizacionPDF(order, replacements, shippingCost)
-      const pdfBase64 = doc.output('datauristring').split(',')[1]
+      const pdfBlob = doc.output('blob')
 
-      const res = await fetch(`/api/orders/${order.id}/quote-pdf`, {
+      // Pedir URL firmada al server (body pequeño, sin datos del PDF)
+      const urlRes = await fetch(`/api/orders/${order.id}/quote-pdf`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-password': adminPassword,
-        },
-        body: JSON.stringify({ pdfBase64 }),
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPassword },
+        body: JSON.stringify({ action: 'request-upload-url' }),
       })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Error al subir PDF')
+      const urlData = await urlRes.json()
+      if (!urlRes.ok) throw new Error(urlData.error || 'Error al obtener URL de subida')
 
-      const pdfUrl = data.url
+      // Subir PDF directo a Supabase (sin pasar por Vercel)
+      const uploadRes = await fetch(urlData.uploadUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/pdf' },
+        body: pdfBlob,
+      })
+      if (!uploadRes.ok) throw new Error('Error al subir PDF a storage')
+
+      const pdfUrl = urlData.shortUrl
       const hayReemplazos = Object.values(replacements).some(r => r?.nombre)
       const unavailable = order.items.filter(i => i.confirmed === false)
 
