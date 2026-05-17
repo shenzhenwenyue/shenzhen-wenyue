@@ -256,6 +256,7 @@ function getCartSizes(productId) {
           <span>&#10003; Secure Payment</span>
           <span>&#10003; USA Warehouse Stock</span>
           <span>&#10003; Prices in USD</span>
+          <span>&#10003; Fast Shipping 2-5 Days</span>
           <span>&#10003; +5 Years Experience</span>
         </div>
       </div>
