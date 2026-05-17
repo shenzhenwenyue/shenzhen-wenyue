@@ -30,5 +30,5 @@ export async function POST(req, { params }) {
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shenzhenwenyueliabilityco.com'
-  return NextResponse.json({ url: `${baseUrl}/q/${id}` })
+  return NextResponse.json({ url: `${baseUrl}/q/${id}?t=${Date.now()}` })
 }
