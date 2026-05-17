@@ -1,9 +1,14 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { getCosto } from '@/lib/pricing'
+import { getCosto, getPrecio } from '@/lib/pricing'
 import { DEFAULT_SHIPPING } from '@/lib/constants'
 
 const WHATSAPP = '16613737977'
+
+function getPricingKey(cat, sub) {
+  if (cat === 'Lululemon') return sub === 'Bags' ? 'Lululemon__Bags' : 'Lululemon'
+  return cat
+}
 
 const STATUS_LABELS = {
   pending: 'Pendiente',
@@ -113,6 +118,12 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
 
   const allReviewed = order.items.every(i => i.confirmed !== null)
   const confirmedItems = order.items.filter(i => i.confirmed !== false)
+
+  const confirmedPoolQtys = confirmedItems.reduce((acc, item) => {
+    const key = getPricingKey(item.categoria || '', item.subcategoria || '')
+    acc[key] = (acc[key] || 0) + (item.available_qty ?? item.qty)
+    return acc
+  }, {})
 
   const shippingCost = parseFloat(shipping) || 0
   const confirmedTotal = confirmedItems.reduce((sum, i) => sum + (i.available_qty ?? i.qty) * i.unit_price, 0) + shippingCost
@@ -579,6 +590,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
                 item={item}
                 products={products}
                 suggestions={replacements[i] || []}
+                poolQtys={confirmedPoolQtys}
                 onChange={sug => setReplacements(prev => ({ ...prev, [i]: sug }))}
               />
             )}
@@ -1221,7 +1233,7 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
   )
 }
 
-function ReplacementSection({ item, products, suggestions, onChange }) {
+function ReplacementSection({ item, products, suggestions, poolQtys = {}, onChange }) {
   const [query, setQuery] = useState('')
   const [showSearch, setShowSearch] = useState(false)
 
@@ -1236,7 +1248,10 @@ function ReplacementSection({ item, products, suggestions, onChange }) {
 
   function addSuggestion(p) {
     const defaultQty = Math.max(1, remaining > 0 ? remaining : 1)
-    onChange([...suggestions, { nombre: p.nombre, imagen_url: p.imagen_url || null, unit_price: p.precio_1 || 0, qty: defaultQty }])
+    const pricingKey = getPricingKey(p.categoria || '', p.subcategoria || '')
+    const poolQty = (poolQtys[pricingKey] || 0) + defaultQty
+    const price = getPrecio(p, poolQty)
+    onChange([...suggestions, { nombre: p.nombre, imagen_url: p.imagen_url || null, unit_price: price, qty: defaultQty }])
     setQuery('')
     setShowSearch(false)
   }
