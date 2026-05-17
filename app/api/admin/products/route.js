@@ -13,18 +13,25 @@ export async function GET(req) {
   return NextResponse.json(data)
 }
 
-// PATCH: bulk toggle disponible for a category or subcategory
+// PATCH: bulk toggle disponible for a category, subcategory, or sku_prefix
 export async function PATCH(req) {
   if (!isAuthorized(req)) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
-  const { categoria, subcategoria, disponible } = await req.json()
-  if (!categoria || disponible === undefined) {
-    return NextResponse.json({ error: 'categoria y disponible requeridos' }, { status: 400 })
+  const { categoria, subcategoria, sku_prefix, disponible } = await req.json()
+  if (disponible === undefined) {
+    return NextResponse.json({ error: 'disponible requerido' }, { status: 400 })
   }
-  let query = getSupabase()
-    .from('products')
-    .update({ disponible: Boolean(disponible) })
-    .eq('categoria', categoria)
-  if (subcategoria) query = query.eq('subcategoria', subcategoria)
+
+  let query = getSupabase().from('products').update({ disponible: Boolean(disponible) })
+
+  if (sku_prefix) {
+    query = query.ilike('sku', `${sku_prefix}%`)
+  } else if (categoria) {
+    query = query.eq('categoria', categoria)
+    if (subcategoria) query = query.eq('subcategoria', subcategoria)
+  } else {
+    return NextResponse.json({ error: 'categoria o sku_prefix requerido' }, { status: 400 })
+  }
+
   const { error } = await query
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ ok: true })
