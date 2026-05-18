@@ -457,6 +457,26 @@ export default function AdminOrderCard({ order: initialOrder, adminPassword, onD
           {order.tracking_number && (
             <p className="text-xs text-blue-600 mt-0.5">Tracking: {order.tracking_number}</p>
           )}
+          {(() => {
+            const perfumePcs = order.items.filter(i => /perfum/i.test(i.categoria)).reduce((s, i) => s + (i.qty || 0), 0)
+            const aloPcs = order.items.filter(i => /alo/i.test(i.categoria)).reduce((s, i) => s + (i.qty || 0), 0)
+            const lulPcs = order.items.filter(i => /lulul/i.test(i.categoria)).reduce((s, i) => s + (i.qty || 0), 0)
+            const tags = [
+              perfumePcs > 0 && { label: 'Perfumes', pcs: perfumePcs, cls: 'bg-purple-50 text-purple-700' },
+              aloPcs > 0 && { label: 'Alo', pcs: aloPcs, cls: 'bg-pink-50 text-pink-700' },
+              lulPcs > 0 && { label: 'Lululemon', pcs: lulPcs, cls: 'bg-red-50 text-red-700' },
+            ].filter(Boolean)
+            if (tags.length === 0) return null
+            return (
+              <div className="flex gap-1.5 mt-1 flex-wrap">
+                {tags.map(t => (
+                  <span key={t.label} className={`text-xs px-1.5 py-0.5 rounded font-medium ${t.cls}`}>
+                    {t.label} {t.pcs} pcs
+                  </span>
+                ))}
+              </div>
+            )
+          })()}
         </div>
         <div className="flex items-center gap-3 shrink-0 ml-2">
           <a
