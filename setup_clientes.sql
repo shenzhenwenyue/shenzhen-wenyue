@@ -64,10 +64,14 @@ WITH nuevo_cliente AS (
 ),
 nueva_venta AS (
   INSERT INTO ventas (client_id, fecha, descripcion, cantidad, total_venta, costo_total, fuente)
-  SELECT id, '2026-05-13', '12 perfumes diseñadores', 12, 552.00, 192.00, 'stock_propio'
+  SELECT id, '2026-05-13', '12 perfumes diseñadores', 12, 552.00, 214.82, 'stock_propio'
   FROM nuevo_cliente
   RETURNING id, client_id
 )
+-- Si ya corriste el SQL anterior, usa este UPDATE para corregir el costo:
+-- UPDATE ventas SET costo_total = 214.82, notas = 'Productos $192 + envío $20.82 + caja $2'
+-- WHERE descripcion = '12 perfumes diseñadores' AND fecha = '2026-05-13';
+
 INSERT INTO pagos (venta_id, client_id, monto, metodo, cuenta, fecha)
 SELECT id, client_id, 500, 'Zelle', 'Shenzhen', '2026-05-13' FROM nueva_venta
 UNION ALL

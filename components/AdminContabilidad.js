@@ -8,7 +8,7 @@ const today = () => new Date().toISOString().split('T')[0]
 const FUENTES = ['stock_propio', 'proveedor_lucy', 'proveedor_joy', 'otro']
 const FUENTES_LABEL = { stock_propio: 'Stock propio', proveedor_lucy: 'Lucy', proveedor_joy: 'Joy', otro: 'Otro' }
 const METODOS = ['Zelle', 'CashApp', 'Efectivo', 'Wire Transfer', 'Otro']
-const CUENTAS = ['Shenzhen', 'Christiana', 'Otro']
+const CUENTAS = ['Shenzhen', 'Christian', 'Otro']
 const PROVEEDORES = ['Lucy', 'Joy', 'Otro']
 
 function Input({ label, ...props }) {
