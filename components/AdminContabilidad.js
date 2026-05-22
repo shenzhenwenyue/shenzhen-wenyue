@@ -340,6 +340,12 @@ function VentasSection({ ventas, clients, ventasPagado, headers, onRefresh }) {
                   }
                 </div>
               </div>
+              {v.notas && (
+                <div className="mt-2 pt-2 border-t border-gray-100">
+                  <p className="text-xs font-semibold text-gray-400 mb-1">Notas</p>
+                  <p className="text-xs text-gray-600 whitespace-pre-line">{v.notas}</p>
+                </div>
+              )}
               <div className="flex justify-end mt-2">
                 <button onClick={() => handleDelete(v.id)} className="text-xs text-red-400 hover:text-red-600">
                   Eliminar
