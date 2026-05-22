@@ -232,7 +232,8 @@ function VentasSection({ ventas, clients, ventasPagado, headers, onRefresh }) {
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState({
     client_id: '', fecha: today(), descripcion: '', cantidad: '',
-    total_venta: '', costo_total: '', fuente: 'stock_propio', notas: '',
+    total_venta: '', costo_productos: '', costo_envio: '', costo_empaque: '', costo_otros: '',
+    fuente: 'stock_propio', notas: '',
   })
 
   async function handleAdd(e) {
@@ -246,12 +247,15 @@ function VentasSection({ ventas, clients, ventasPagado, headers, onRefresh }) {
           ...form,
           cantidad: Number(form.cantidad) || 0,
           total_venta: Number(form.total_venta),
-          costo_total: Number(form.costo_total) || 0,
+          costo_productos: Number(form.costo_productos) || 0,
+          costo_envio: Number(form.costo_envio) || 0,
+          costo_empaque: Number(form.costo_empaque) || 0,
+          costo_otros: Number(form.costo_otros) || 0,
           client_id: form.client_id || null,
         }),
       })
       if (!res.ok) throw new Error((await res.json()).error)
-      setForm({ client_id: '', fecha: today(), descripcion: '', cantidad: '', total_venta: '', costo_total: '', fuente: 'stock_propio', notas: '' })
+      setForm({ client_id: '', fecha: today(), descripcion: '', cantidad: '', total_venta: '', costo_productos: '', costo_envio: '', costo_empaque: '', costo_otros: '', fuente: 'stock_propio', notas: '' })
       setAddOpen(false)
       onRefresh()
     } catch (err) {
@@ -295,7 +299,11 @@ function VentasSection({ ventas, clients, ventasPagado, headers, onRefresh }) {
               {FUENTES.map(f => <option key={f} value={f}>{FUENTES_LABEL[f]}</option>)}
             </Select>
             <Input label="Total venta ($) *" type="number" min="0" step="0.01" value={form.total_venta} onChange={e => setForm(f => ({ ...f, total_venta: e.target.value }))} placeholder="0.00" required />
-            <Input label="Costo total ($)" type="number" min="0" step="0.01" value={form.costo_total} onChange={e => setForm(f => ({ ...f, costo_total: e.target.value }))} placeholder="0.00" />
+            <div />
+            <Input label="Costo productos ($)" type="number" min="0" step="0.01" value={form.costo_productos} onChange={e => setForm(f => ({ ...f, costo_productos: e.target.value }))} placeholder="0.00" />
+            <Input label="Costo envío ($)" type="number" min="0" step="0.01" value={form.costo_envio} onChange={e => setForm(f => ({ ...f, costo_envio: e.target.value }))} placeholder="0.00" />
+            <Input label="Empaque / Caja ($)" type="number" min="0" step="0.01" value={form.costo_empaque} onChange={e => setForm(f => ({ ...f, costo_empaque: e.target.value }))} placeholder="0.00" />
+            <Input label="Otros gastos ($)" type="number" min="0" step="0.01" value={form.costo_otros} onChange={e => setForm(f => ({ ...f, costo_otros: e.target.value }))} placeholder="0.00" />
           </div>
           <Input label="Notas" value={form.notas} onChange={e => setForm(f => ({ ...f, notas: e.target.value }))} placeholder="Observaciones…" />
           <div className="flex gap-2">
@@ -904,24 +912,63 @@ export default function AdminContabilidad({ adminPassword }) {
     <div className="space-y-4">
       {/* KPIs */}
       {summary && (
-        <div className="grid grid-cols-2 gap-2">
-          <div className="bg-green-50 border border-green-100 rounded-2xl p-3">
-            <p className="text-xs text-green-600 font-medium">Cobrado</p>
-            <p className="text-xl font-bold text-green-700">{fmt(summary.total_cobrado)}</p>
+        <div className="space-y-2">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-green-50 border border-green-100 rounded-2xl p-3">
+              <p className="text-xs text-green-600 font-medium">Cobrado</p>
+              <p className="text-xl font-bold text-green-700">{fmt(summary.total_cobrado)}</p>
+            </div>
+            <div className="bg-amber-50 border border-amber-100 rounded-2xl p-3">
+              <p className="text-xs text-amber-600 font-medium">Por cobrar</p>
+              <p className="text-xl font-bold text-amber-700">{fmt(summary.por_cobrar)}</p>
+            </div>
+            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3">
+              <p className="text-xs text-blue-600 font-medium">Ganancia bruta</p>
+              <p className="text-xl font-bold text-blue-700">{fmt(summary.ganancia_bruta)}</p>
+              <p className="text-xs text-blue-400">Ventas: {fmt(summary.total_ventas)}</p>
+            </div>
+            <div className={`border rounded-2xl p-3 ${summary.deuda_proveedores > 0 ? 'bg-red-50 border-red-100' : 'bg-gray-50 border-gray-100'}`}>
+              <p className={`text-xs font-medium ${summary.deuda_proveedores > 0 ? 'text-red-600' : 'text-gray-500'}`}>Deuda de Christian</p>
+              <p className={`text-xl font-bold ${summary.deuda_proveedores > 0 ? 'text-red-700' : 'text-gray-400'}`}>{fmt(summary.deuda_proveedores)}</p>
+            </div>
           </div>
-          <div className="bg-amber-50 border border-amber-100 rounded-2xl p-3">
-            <p className="text-xs text-amber-600 font-medium">Por cobrar</p>
-            <p className="text-xl font-bold text-amber-700">{fmt(summary.por_cobrar)}</p>
-          </div>
-          <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3">
-            <p className="text-xs text-blue-600 font-medium">Ganancia bruta</p>
-            <p className="text-xl font-bold text-blue-700">{fmt(summary.ganancia_bruta)}</p>
-            <p className="text-xs text-blue-400">Ventas totales: {fmt(summary.total_ventas)}</p>
-          </div>
-          <div className={`border rounded-2xl p-3 ${summary.deuda_proveedores > 0 ? 'bg-red-50 border-red-100' : 'bg-gray-50 border-gray-100'}`}>
-            <p className={`text-xs font-medium ${summary.deuda_proveedores > 0 ? 'text-red-600' : 'text-gray-500'}`}>Debo a proveedores</p>
-            <p className={`text-xl font-bold ${summary.deuda_proveedores > 0 ? 'text-red-700' : 'text-gray-400'}`}>{fmt(summary.deuda_proveedores)}</p>
-          </div>
+
+          {/* Desglose de costos */}
+          {summary.total_costos > 0 && (
+            <div className="bg-white border border-gray-100 rounded-2xl p-3 space-y-1.5">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Desglose de costos</p>
+              <div className="space-y-1">
+                {summary.costo_productos > 0 && (
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-500">Productos</span>
+                    <span className="font-medium text-gray-800">{fmt(summary.costo_productos)}</span>
+                  </div>
+                )}
+                {summary.costo_envio > 0 && (
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-500">Envío</span>
+                    <span className="font-medium text-gray-800">{fmt(summary.costo_envio)}</span>
+                  </div>
+                )}
+                {summary.costo_empaque > 0 && (
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-500">Empaque / Caja</span>
+                    <span className="font-medium text-gray-800">{fmt(summary.costo_empaque)}</span>
+                  </div>
+                )}
+                {summary.costo_otros > 0 && (
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-500">Otros gastos</span>
+                    <span className="font-medium text-gray-800">{fmt(summary.costo_otros)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-xs pt-1 border-t border-gray-100">
+                  <span className="font-semibold text-gray-700">Total costos</span>
+                  <span className="font-bold text-gray-900">{fmt(summary.total_costos)}</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

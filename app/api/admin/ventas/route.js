@@ -18,8 +18,13 @@ export async function GET(req) {
 
 export async function POST(req) {
   if (!isAdmin(req)) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
-  const { client_id, fecha, descripcion, cantidad, total_venta, costo_total, fuente, notas } = await req.json()
+  const { client_id, fecha, descripcion, cantidad, total_venta, costo_productos, costo_envio, costo_empaque, costo_otros, fuente, notas } = await req.json()
   if (!total_venta) return NextResponse.json({ error: 'Total de venta requerido' }, { status: 400 })
+  const cp = costo_productos || 0
+  const ce = costo_envio || 0
+  const cem = costo_empaque || 0
+  const co = costo_otros || 0
+  const costo_total = cp + ce + cem + co
   const supabase = getSupabase()
   const { data, error } = await supabase
     .from('ventas')
@@ -29,7 +34,11 @@ export async function POST(req) {
       descripcion,
       cantidad: cantidad || 0,
       total_venta,
-      costo_total: costo_total || 0,
+      costo_total,
+      costo_productos: cp,
+      costo_envio: ce,
+      costo_empaque: cem,
+      costo_otros: co,
       fuente: fuente || 'stock_propio',
       notas,
     })
