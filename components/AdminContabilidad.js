@@ -931,8 +931,8 @@ export default function AdminContabilidad({ adminPassword }) {
           { key: 'clientes', label: `Clientes${clients.length ? ` (${clients.length})` : ''}` },
           { key: 'ventas', label: `Ventas${ventas.length ? ` (${ventas.length})` : ''}` },
           { key: 'pagos', label: 'Pagos' },
-          { key: 'cobros', label: `Me deben${deudasCliente.filter(d => d.estado !== 'pagado').length ? ` (${deudasCliente.filter(d => d.estado !== 'pagado').length})` : ''}` },
-          { key: 'proveedores', label: 'Debo' },
+          { key: 'cobros', label: `Deuda a Christian${deudasCliente.filter(d => d.estado !== 'pagado').length ? ` (${deudasCliente.filter(d => d.estado !== 'pagado').length})` : ''}` },
+          { key: 'proveedores', label: 'Deuda de Christian' },
         ].map(({ key, label }) => (
           <button
             key={key}
