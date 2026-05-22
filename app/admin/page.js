@@ -8,6 +8,7 @@ import AdminLululemonPricing from '@/components/AdminLululemonPricing'
 import AdminClients from '@/components/AdminClients'
 import AdminStock from '@/components/AdminStock'
 import AdminCosts from '@/components/AdminCosts'
+import AdminContabilidad from '@/components/AdminContabilidad'
 
 const STATUS_ORDER = ['pending', 'confirmed', 'paid', 'shipped', 'completed']
 const STATUS_LABELS = {
@@ -172,7 +173,8 @@ export default function AdminPage() {
   const isClientsTab = activeTab === 'clients'
   const isStockTab = activeTab === 'stock'
   const isCostsTab = activeTab === 'costs'
-  const isSpecialTab = isProductTab || isReportsTab || isCapitalTab || isPricingTab || isClientsTab || isStockTab || isCostsTab
+  const isContabilidadTab = activeTab === 'contabilidad'
+  const isSpecialTab = isProductTab || isReportsTab || isCapitalTab || isPricingTab || isClientsTab || isStockTab || isCostsTab || isContabilidadTab
   const pendingCount = orders.filter(o => o.status === 'pending').length
 
   function orderTotal(order) {
@@ -406,6 +408,16 @@ export default function AdminPage() {
         >
           Clientes
         </button>
+        <button
+          onClick={() => setActiveTab('contabilidad')}
+          className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === 'contabilidad'
+              ? 'border-black text-black'
+              : 'border-transparent text-gray-400 hover:text-gray-700'
+          }`}
+        >
+          Cuentas
+        </button>
         <a
           href="/admin/catalogo"
           className="shrink-0 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-amber-500 hover:text-amber-700 transition-colors"
@@ -524,6 +536,13 @@ export default function AdminPage() {
       {isClientsTab && (
         <div className="max-w-2xl mx-auto px-4 py-5">
           <AdminClients orders={orders} />
+        </div>
+      )}
+
+      {/* Cuentas tab */}
+      {isContabilidadTab && (
+        <div className="max-w-2xl mx-auto px-4 py-5">
+          <AdminContabilidad adminPassword={adminPassword} />
         </div>
       )}
 
