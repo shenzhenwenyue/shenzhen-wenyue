@@ -648,6 +648,189 @@ function ProveedoresSection({ deudas, headers, onRefresh }) {
   )
 }
 
+// ── Cobros (me deben) ────────────────────────────────────────
+function CobrosSection({ deudasCliente, clients, headers, onRefresh }) {
+  const [addOpen, setAddOpen] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [editId, setEditId] = useState(null)
+  const [editPagado, setEditPagado] = useState('')
+  const [form, setForm] = useState({
+    client_id: '', concepto: '', monto_total: '', monto_pagado: '',
+    fecha: today(), notas: '',
+  })
+
+  async function handleAdd(e) {
+    e.preventDefault()
+    setSaving(true)
+    try {
+      const res = await fetch('/api/admin/deudas-cliente', {
+        method: 'POST',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          monto_total: Number(form.monto_total),
+          monto_pagado: Number(form.monto_pagado) || 0,
+          client_id: form.client_id || null,
+        }),
+      })
+      if (!res.ok) throw new Error((await res.json()).error)
+      setForm({ client_id: '', concepto: '', monto_total: '', monto_pagado: '', fecha: today(), notas: '' })
+      setAddOpen(false)
+      onRefresh()
+    } catch (err) {
+      alert('Error: ' + err.message)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  async function handlePago(deuda) {
+    const nuevo = Number(editPagado)
+    if (isNaN(nuevo) || nuevo < 0) return
+    await fetch('/api/admin/deudas-cliente', {
+      method: 'PUT',
+      headers: { ...headers, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: deuda.id, monto_total: deuda.monto_total, monto_pagado: nuevo }),
+    })
+    setEditId(null)
+    onRefresh()
+  }
+
+  async function handleDelete(id) {
+    if (!confirm('¿Eliminar este cobro?')) return
+    await fetch(`/api/admin/deudas-cliente?id=${id}`, { method: 'DELETE', headers })
+    onRefresh()
+  }
+
+  const ESTADO_COLORS = {
+    pendiente: 'bg-red-100 text-red-700',
+    parcial: 'bg-amber-100 text-amber-700',
+    pagado: 'bg-green-100 text-green-700',
+  }
+
+  const totalPendiente = deudasCliente.reduce(
+    (s, d) => s + Math.max(0, (d.monto_total || 0) - (d.monto_pagado || 0)), 0
+  )
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        {totalPendiente > 0 && (
+          <div className="bg-red-50 border border-red-100 rounded-xl px-3 py-1.5">
+            <p className="text-xs text-red-600 font-medium">Pendiente por cobrar</p>
+            <p className="text-base font-bold text-red-700">{fmt(totalPendiente)}</p>
+          </div>
+        )}
+        <button
+          onClick={() => setAddOpen(o => !o)}
+          className="ml-auto px-4 py-2 bg-black text-white text-sm font-semibold rounded-xl hover:bg-gray-800"
+        >
+          + Registrar cobro
+        </button>
+      </div>
+
+      {addOpen && (
+        <form onSubmit={handleAdd} className="bg-gray-50 border border-gray-200 rounded-2xl p-4 space-y-3">
+          <p className="text-sm font-bold text-gray-900">Me deben — nuevo registro</p>
+          <div className="grid grid-cols-2 gap-3">
+            <Select label="Cliente" value={form.client_id} onChange={e => setForm(f => ({ ...f, client_id: e.target.value }))}>
+              <option value="">Sin asignar</option>
+              {clients.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
+            </Select>
+            <Input label="Fecha" type="date" value={form.fecha} onChange={e => setForm(f => ({ ...f, fecha: e.target.value }))} />
+            <div className="col-span-2">
+              <Input label="Concepto" value={form.concepto} onChange={e => setForm(f => ({ ...f, concepto: e.target.value }))} placeholder="Ej: Mercancía fiada, préstamo, saldo pendiente…" />
+            </div>
+            <Input label="Me deben ($) *" type="number" min="0.01" step="0.01" value={form.monto_total} onChange={e => setForm(f => ({ ...f, monto_total: e.target.value }))} placeholder="0.00" required />
+            <Input label="Ya me pagaron ($)" type="number" min="0" step="0.01" value={form.monto_pagado} onChange={e => setForm(f => ({ ...f, monto_pagado: e.target.value }))} placeholder="0.00" />
+            <div className="col-span-2">
+              <Input label="Notas" value={form.notas} onChange={e => setForm(f => ({ ...f, notas: e.target.value }))} placeholder="Observaciones…" />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <button type="submit" disabled={saving} className="flex-1 py-2 bg-black text-white text-sm font-semibold rounded-xl hover:bg-gray-800 disabled:opacity-50">
+              {saving ? 'Guardando…' : 'Guardar'}
+            </button>
+            <button type="button" onClick={() => setAddOpen(false)} className="px-4 py-2 text-sm text-gray-500 border border-gray-200 rounded-xl">
+              Cancelar
+            </button>
+          </div>
+        </form>
+      )}
+
+      <div className="space-y-2">
+        {deudasCliente.map(d => {
+          const pendiente = Math.max(0, (d.monto_total || 0) - (d.monto_pagado || 0))
+          const isEditing = editId === d.id
+
+          return (
+            <div key={d.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 space-y-2">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="font-bold text-sm text-gray-900">{d.clients?.nombre || 'Sin cliente'}</p>
+                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${ESTADO_COLORS[d.estado] || 'bg-gray-100 text-gray-600'}`}>
+                      {d.estado}
+                    </span>
+                  </div>
+                  {d.concepto && <p className="text-xs text-gray-600">{d.concepto}</p>}
+                  <p className="text-xs text-gray-400">{fmtDate(d.fecha)}</p>
+                </div>
+                <div className="text-right shrink-0">
+                  <p className="text-sm font-bold text-gray-900">{fmt(d.monto_total)}</p>
+                  <p className="text-xs text-green-600">Pagado: {fmt(d.monto_pagado)}</p>
+                  {pendiente > 0 && <p className="text-xs font-bold text-red-600">Pendiente: {fmt(pendiente)}</p>}
+                </div>
+              </div>
+
+              {isEditing ? (
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="number" min="0" step="0.01"
+                    value={editPagado}
+                    onChange={e => setEditPagado(e.target.value)}
+                    placeholder="Total pagado hasta ahora"
+                    className="flex-1 px-3 py-1.5 text-sm border border-gray-200 rounded-xl focus:outline-none"
+                  />
+                  <button onClick={() => handlePago(d)} className="px-3 py-1.5 bg-black text-white text-xs font-semibold rounded-xl">OK</button>
+                  <button onClick={() => setEditId(null)} className="px-3 py-1.5 text-xs text-gray-500 border border-gray-200 rounded-xl">✕</button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  {d.estado !== 'pagado' && (
+                    <button
+                      onClick={() => { setEditId(d.id); setEditPagado(String(d.monto_pagado || '')) }}
+                      className="flex-1 py-1.5 text-xs font-semibold border border-gray-200 rounded-xl hover:bg-gray-50"
+                    >
+                      Registrar pago
+                    </button>
+                  )}
+                  {d.clients?.whatsapp && (
+                    <a
+                      href={`https://wa.me/${d.clients.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${d.clients.nombre}, te recuerdo que tienes un saldo pendiente de ${fmt(Math.max(0, d.monto_total - d.monto_pagado))}.`)}`}
+                      target="_blank" rel="noreferrer"
+                      className="px-3 py-1.5 bg-green-500 text-white text-xs font-semibold rounded-xl hover:bg-green-600"
+                    >
+                      WA
+                    </a>
+                  )}
+                  <button onClick={() => handleDelete(d.id)} className="px-3 py-1.5 text-xs text-red-400 hover:text-red-600 border border-red-100 rounded-xl hover:bg-red-50">
+                    Eliminar
+                  </button>
+                </div>
+              )}
+            </div>
+          )
+        })}
+
+        {deudasCliente.length === 0 && (
+          <p className="text-center py-10 text-sm text-gray-400">No hay cobros pendientes registrados</p>
+        )}
+      </div>
+    </div>
+  )
+}
+
 // ── Main ────────────────────────────────────────────────────
 export default function AdminContabilidad({ adminPassword }) {
   const [section, setSection] = useState('clientes')
@@ -655,6 +838,7 @@ export default function AdminContabilidad({ adminPassword }) {
   const [ventas, setVentas] = useState([])
   const [pagos, setPagos] = useState([])
   const [deudas, setDeudas] = useState([])
+  const [deudasCliente, setDeudasCliente] = useState([])
   const [summary, setSummary] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -663,17 +847,19 @@ export default function AdminContabilidad({ adminPassword }) {
   async function fetchAll() {
     setLoading(true)
     try {
-      const [c, v, p, d, s] = await Promise.all([
+      const [c, v, p, d, dc, s] = await Promise.all([
         fetch('/api/admin/clients', { headers }).then(r => r.json()),
         fetch('/api/admin/ventas', { headers }).then(r => r.json()),
         fetch('/api/admin/pagos', { headers }).then(r => r.json()),
         fetch('/api/admin/deudas-proveedor', { headers }).then(r => r.json()),
+        fetch('/api/admin/deudas-cliente', { headers }).then(r => r.json()),
         fetch('/api/admin/contabilidad', { headers }).then(r => r.json()),
       ])
       if (Array.isArray(c)) setClients(c)
       if (Array.isArray(v)) setVentas(v)
       if (Array.isArray(p)) setPagos(p)
       if (Array.isArray(d)) setDeudas(d)
+      if (Array.isArray(dc)) setDeudasCliente(dc)
       if (s && !s.error) setSummary(s)
     } finally {
       setLoading(false)
@@ -745,7 +931,8 @@ export default function AdminContabilidad({ adminPassword }) {
           { key: 'clientes', label: `Clientes${clients.length ? ` (${clients.length})` : ''}` },
           { key: 'ventas', label: `Ventas${ventas.length ? ` (${ventas.length})` : ''}` },
           { key: 'pagos', label: 'Pagos' },
-          { key: 'proveedores', label: 'Proveedores' },
+          { key: 'cobros', label: `Me deben${deudasCliente.filter(d => d.estado !== 'pagado').length ? ` (${deudasCliente.filter(d => d.estado !== 'pagado').length})` : ''}` },
+          { key: 'proveedores', label: 'Debo' },
         ].map(({ key, label }) => (
           <button
             key={key}
@@ -775,6 +962,12 @@ export default function AdminContabilidad({ adminPassword }) {
       {section === 'pagos' && (
         <PagosSection
           pagos={pagos} ventas={ventas} clients={clients}
+          headers={headers} onRefresh={fetchAll}
+        />
+      )}
+      {section === 'cobros' && (
+        <CobrosSection
+          deudasCliente={deudasCliente} clients={clients}
           headers={headers} onRefresh={fetchAll}
         />
       )}
