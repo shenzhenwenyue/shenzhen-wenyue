@@ -930,9 +930,9 @@ export default function AdminContabilidad({ adminPassword }) {
               <p className="text-xs text-green-600 font-medium">Cobrado</p>
               <p className="text-xl font-bold text-green-700">{fmt(summary.total_cobrado)}</p>
             </div>
-            <div className="bg-amber-50 border border-amber-100 rounded-2xl p-3">
-              <p className="text-xs text-amber-600 font-medium">Por cobrar</p>
-              <p className="text-xl font-bold text-amber-700">{fmt(summary.por_cobrar)}</p>
+            <div className={`border rounded-2xl p-3 ${summary.deuda_a_christian > 0 ? 'bg-amber-50 border-amber-100' : 'bg-gray-50 border-gray-100'}`}>
+              <p className={`text-xs font-medium ${summary.deuda_a_christian > 0 ? 'text-amber-600' : 'text-gray-500'}`}>Deuda a Christian</p>
+              <p className={`text-xl font-bold ${summary.deuda_a_christian > 0 ? 'text-amber-700' : 'text-gray-400'}`}>{fmt(summary.deuda_a_christian)}</p>
             </div>
             <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3">
               <p className="text-xs text-blue-600 font-medium">Ganancia bruta</p>
