@@ -797,6 +797,12 @@ function CobrosSection({ deudasCliente, clients, headers, onRefresh }) {
                 </div>
               </div>
 
+              {d.notas && (
+                <div className="pt-1 border-t border-gray-100">
+                  <p className="text-xs text-gray-500 whitespace-pre-line">{d.notas}</p>
+                </div>
+              )}
+
               {isEditing ? (
                 <div className="flex gap-2 items-center">
                   <input
