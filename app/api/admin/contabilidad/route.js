@@ -12,7 +12,7 @@ export async function GET(req) {
     supabase.from('ventas').select('total_venta, costo_total, costo_productos, costo_envio, costo_empaque, costo_otros'),
     supabase.from('pagos').select('monto'),
     supabase.from('deudas_proveedor').select('monto_total, monto_pagado'),
-    supabase.from('deudas_cliente').select('monto_total, monto_pagado'),
+    supabase.from('deudas_cliente').select('monto_total, monto_pagado').not('client_id', 'is', null),
   ])
   const vs = ventasRes.data || []
   const total_ventas     = vs.reduce((s, v) => s + (v.total_venta || 0), 0)
