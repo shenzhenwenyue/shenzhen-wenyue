@@ -103,8 +103,8 @@ export default function DropshippingPage() {
       <header className="bg-[#FF6A00] text-white sticky top-0 z-40 shadow-lg">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
           <div className="min-w-0 shrink-0">
-            <h1 className="font-bold tracking-tight leading-none text-base sm:text-lg truncate">Shenzhen Wenyue LTD. Co.</h1>
-            <p className="text-xs text-orange-100 mt-0.5">Reseller Catalog · Build your order</p>
+            <h1 className="font-bold tracking-tight leading-none text-base sm:text-lg truncate">Wholesale Catalog</h1>
+            <p className="text-xs text-orange-100 mt-0.5">Build your order</p>
           </div>
           <div className="hidden sm:flex flex-1 min-w-0">
             <input
