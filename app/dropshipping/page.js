@@ -76,7 +76,7 @@ export default function DropshippingPage() {
       if (existing) return prev.map(i => i.id === cartId ? { ...i, qty: i.qty + 1 } : i)
       return [...prev, {
         id: cartId, productId: product.id, size, qty: 1,
-        nombre, imagen_url: product.imagen_url || null,
+        nombre, sku: product.sku || '', imagen_url: product.imagen_url || null,
         categoria: product.categoria || '', subcategoria: product.subcategoria || '',
       }]
     })
@@ -240,7 +240,7 @@ function DropCart({ cart, onAdd, onRemove, onSetQty, onClose, onClearAll, onChec
               <div className="flex items-center gap-1.5 shrink-0">
                 <button onClick={() => onRemove(item.id)} className="w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-gray-700">−</button>
                 <span className="w-6 text-center text-sm font-semibold">{item.qty}</span>
-                <button onClick={() => onAdd({ id: item.productId, nombre: item.nombre, imagen_url: item.imagen_url, categoria: item.categoria, subcategoria: item.subcategoria }, item.size)} className="w-8 h-8 rounded-lg bg-[#FF6A00] hover:bg-[#E55A00] flex items-center justify-center font-bold text-white">+</button>
+                <button onClick={() => onAdd({ id: item.productId, nombre: item.nombre, sku: item.sku, imagen_url: item.imagen_url, categoria: item.categoria, subcategoria: item.subcategoria }, item.size)} className="w-8 h-8 rounded-lg bg-[#FF6A00] hover:bg-[#E55A00] flex items-center justify-center font-bold text-white">+</button>
               </div>
             </div>
           ))}
@@ -275,7 +275,7 @@ function DropOrderModal({ cart, onClose }) {
   async function handleDownload() {
     setDownloading(true)
     try {
-      const items = cart.map(i => ({ nombre: i.nombre, size: i.size, qty: i.qty, imagen_url: i.imagen_url }))
+      const items = cart.map(i => ({ nombre: i.nombre, sku: i.sku, size: i.size, qty: i.qty, imagen_url: i.imagen_url }))
       const doc = await generarPedidoDropshippingPDF(items, { resellerName: resellerName.trim(), note: note.trim() })
       const stamp = new Date().toISOString().slice(0, 10)
       doc.save(`order-${stamp}.pdf`)
