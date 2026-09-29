@@ -2,8 +2,8 @@
 // Sobrescribe SOLO el título/descripción del <head> para esta página,
 // sin tocar el layout global ni el resto del sitio.
 export const metadata = {
-  title: 'Wholesale Catalog — Build your order',
-  description: 'Select the models you want and download your order list.',
+  title: 'Catalog — Build your order',
+  description: 'Browse products and download your order.',
 }
 
 export default function DropshippingLayout({ children }) {
