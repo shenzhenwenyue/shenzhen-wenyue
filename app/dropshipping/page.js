@@ -205,7 +205,7 @@ export default function DropshippingPage() {
       )}
 
       {orderOpen && (
-        <DropOrderModal cart={cart} onClose={() => setOrderOpen(false)} />
+        <DropOrderModal cart={cart} products={products} onClose={() => setOrderOpen(false)} />
       )}
     </main>
   )
@@ -264,7 +264,7 @@ function DropCart({ cart, onAdd, onRemove, onSetQty, onClose, onClearAll, onChec
 }
 
 // ── Modal final: datos opcionales + descarga PDF ───────────────
-function DropOrderModal({ cart, onClose }) {
+function DropOrderModal({ cart, products = [], onClose }) {
   const [resellerName, setResellerName] = useState('')
   const [note, setNote] = useState('')
   const [downloading, setDownloading] = useState(false)
@@ -275,7 +275,11 @@ function DropOrderModal({ cart, onClose }) {
   async function handleDownload() {
     setDownloading(true)
     try {
-      const items = cart.map(i => ({ nombre: i.nombre, sku: i.sku, size: i.size, qty: i.qty, imagen_url: i.imagen_url }))
+      // Rellenar SKU desde el catálogo en vivo por si el ítem del carrito es viejo (sin sku)
+      const items = cart.map(i => {
+        const sku = i.sku || products.find(p => String(p.id) === String(i.productId))?.sku || ''
+        return { nombre: i.nombre, sku, size: i.size, qty: i.qty, imagen_url: i.imagen_url }
+      })
       const doc = await generarPedidoDropshippingPDF(items, { resellerName: resellerName.trim(), note: note.trim() })
       const stamp = new Date().toISOString().slice(0, 10)
       doc.save(`order-${stamp}.pdf`)
